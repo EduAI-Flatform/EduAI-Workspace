@@ -64,5 +64,6 @@
 | SPR21-028 | Implement Final Demo Course Seed | DONE |  |
 | SPR21-029 | Validate Integrated Demo Dataset | DONE |  |
 | SPR21-030 | Run Final Integrated Regression and UAT | DONE |  |
+| SPR22-001 | Audit and Refine Production UI/UX | DONE |  |
 
 Generated projection; canonical lifecycle state is stored in `project.state.taskStatuses`.

@@ -14,7 +14,8 @@
       "Sprint 18 Career Hub profiles, jobs, applications, and explainable skill matching.",
       "Sprint 19 mentor profiles, booking, Jitsi sessions, notes, goals, and reviews.",
       "Sprint 20 security, observability, performance/accessibility, UAT, and production release verification.",
-      "Sprint 21 priority product experience track: P0 mobile UX/navigation/price/regression, P1 voucher/scholarship/TMI rewards, P2 PWA installability, then P3 final demo dataset and integrated regression/UAT; minimal test fixtures are support-only."
+      "Sprint 21 priority product experience track: P0 mobile UX/navigation/price/regression, P1 voucher/scholarship/TMI rewards, P2 PWA installability, then P3 final demo dataset and integrated regression/UAT; minimal test fixtures are support-only.",
+      "Sprint 22 production UI/UX refinement: comprehensive route audit, design-system consolidation, compact course discovery, mobile-first interaction polish, accessibility, and responsive production verification."
     ],
     "outOfScope": [
       "Rebuilding home, course, student dashboard, or instructor dashboard flows already verified to use live APIs.",
@@ -32,7 +33,8 @@
     "SPRINT:18",
     "SPRINT:19",
     "SPRINT:20",
-    "SPRINT:21"
+    "SPRINT:21",
+    "SPRINT:22"
   ],
   "releaseCriteria": [
     "All applicable task acceptance criteria have structured passing evidence and no task is marked DONE from code presence alone.",

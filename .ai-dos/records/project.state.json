@@ -69,13 +69,14 @@
     "SPR21-027": "DONE",
     "SPR21-028": "DONE",
     "SPR21-029": "DONE",
-    "SPR21-030": "DONE"
+    "SPR21-030": "DONE",
+    "SPR22-001": "DONE"
   },
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR20-004:V2-RELEASE-UAT",
-  "updatedAt": "2026-08-21T10:34:35.5715767+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR22-001:UI-UX-REFINEMENT",
+  "updatedAt": "2026-08-21T12:14:18.8109496+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -912,6 +913,25 @@
         "MANUAL:SPR20_003_NGINX_COMPRESSION"
       ],
       "nonblockingManualActionIds": ["MANUAL:SPR20_003_NGINX_COMPRESSION"]
+    },
+    "sprint22UiUxRefinement": {
+      "status": "DONE",
+      "frontendCommit": "21af7fd32db85a3207688152d976cf1d655f4e02",
+      "frontendRegression": "PASS: 69_FILES_181_TESTS",
+      "frontendBuild": "PASS",
+      "bundleBudget": "PASS: INITIAL_JS_382527_RAW_103347_GZIP_INITIAL_CSS_28454_RAW_6292_GZIP",
+      "responsiveMatrix": "PASS: 14_REQUIRED_CATALOG_VIEWPORTS",
+      "visualRegression": "PASS: 4_HOME_CATALOG_AND_2_ADMIN_BASELINES",
+      "frontendCiRun": 32448158454,
+      "frontendDeployRun": 32448158552,
+      "productionUat": "PASS: 48_OF_48_SANITIZED_ROLE_AND_DOMAIN_CHECKS",
+      "productionBrowser": "PASS: UPDATED_HASHED_ASSET_4_COLUMN_CATALOG_ZERO_PUBLIC_CONSOLE_ERRORS_ZERO_HORIZONTAL_OVERFLOW",
+      "auditReport": "EduAI_Docs/Fix/SPR22-001_UI_UX_AUDIT_REPORT.md",
+      "productionUatVerifiedAt": "2026-08-21T12:14:18.8109496+07:00",
+      "credentialMaterialRecorded": false,
+      "storageStateContentsInspected": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
       "status": "AUTHORIZED",

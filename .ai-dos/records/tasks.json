@@ -931,5 +931,49 @@
     "verification": ["Run the focused and integrated frontend/backend suites.", "Run final authorized browser/UAT journeys across supported roles and viewports.", "Review release, rollback, security, and AI-DOS evidence before any final status transition."],
     "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
       "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "FINAL_INTEGRATED_REGRESSION", "fixtureClassification": "B_FINAL_DEMO_COURSE_DATASET", "productPriority": "P3", "phaseGate": "FINAL_RELEASE_GATE", "userValue": "Provides the final confidence gate before the new product track is considered complete.", "scope": "Cross-feature regression, UAT, release, and rollback evidence.", "outOfScope": "New feature implementation, payment settlement, and unapproved production writes.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "integrated regression", "backend": "integrated regression", "database": "authorized UAT only"}, "testStrategy": "Full focused regression, browser UAT, security, accessibility, and installability checks.", "uatRequirement": "Required final release/UAT gate.", "deploymentRequirement": "Required only for an approved release candidate.", "securityConsiderations": "Sanitized evidence and explicit production authorization.", "dataMigration": "No new migration; verify all prior migrations.", "rollback": "Use documented feature disable/release rollback and preserve audit history.", "evidenceExpected": "Final regression, UAT, release, and rollback evidence.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR22-001",
+    "title": "Audit and Refine Production UI/UX",
+    "category": "Frontend / Product Design / QA",
+    "priority": "HIGH",
+    "objective": "Audit and refine EduAI's production UI across public, student, instructor, and administrator route families with a unified design system, compact course cards, restrained visual hierarchy, mobile-first layouts, accessible controls, and browser-verified responsive behavior.",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "Major route families are inventoried and audited against production at representative mobile, tablet, and desktop viewports.",
+      "Design tokens, typography, buttons, inputs, cards, containers, spacing, focus, motion, loading, empty, error, modal, and notification patterns are coherent and reusable.",
+      "Homepage and course discovery share a compact, balanced CourseCard system that handles long Vietnamese content without overflow.",
+      "Course detail, learning, dashboards, forms, tables, navigation, and notification surfaces remain usable and readable on mobile without desktop regressions.",
+      "Mobile fixed navigation and notifications respect safe areas and do not cover primary content or actions.",
+      "Frontend tests, build, browser console, responsive visual review, basic accessibility checks, deployment, and production UAT pass with sanitized evidence."
+    ],
+    "verification": [
+      "Run focused component/unit tests, the full frontend test suite, production build, and bundle budget.",
+      "Run browser QA at the document's mobile, tablet, and desktop viewport matrix for all accessible major routes and representative authenticated role surfaces.",
+      "Capture before/after screenshots for homepage, courses, course detail, learning, dashboards, navigation, and notification behavior where accessible.",
+      "Verify console errors, horizontal overflow, keyboard focus, semantic headings, touch targets, long Vietnamese content, fixed/sticky collisions, and reduced-motion behavior.",
+      "Deploy through the existing frontend workflow and repeat bounded production UAT before marking DONE."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "REQUIRED",
+      "productionVerification": "REQUIRED"
+    },
+    "extensions": {
+      "sprintId": "SPRINT:22",
+      "source": "EduAI_Docs/Fix/Fix_UX_UI.md",
+      "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Workspace"],
+      "scope": "Design-system foundation, shared components, major page groups, responsive/browser QA, and canonical evidence.",
+      "outOfScope": "Business-logic changes, API-contract changes, authorization changes, production data mutation, and unrelated feature work.",
+      "testStrategy": "Focused component tests, complete frontend regression, build/bundle checks, visual responsive browser matrix, accessibility and console inspection.",
+      "uatRequirement": "Required read-only production UAT plus existing authorized role sessions where available.",
+      "deploymentRequirement": "Required through the existing frontend workflow.",
+      "securityConsiderations": "Preserve authentication/authorization boundaries and never record credentials, storage state, tokens, response bodies, or user identifiers.",
+      "rollback": "Revert the focused frontend commits and redeploy the previous known-good static revision.",
+      "evidenceExpected": "Audit report, screenshots, tests, build, browser QA, deployment, production UAT, commit and CI references.",
+      "agentProfileId": "frontend-engineer"
+    }
   }
 ]

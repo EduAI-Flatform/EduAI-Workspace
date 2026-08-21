@@ -157,5 +157,27 @@
       "priorityTrack": "P0_MOBILE_NAV_PRICE_REGRESSION_THEN_P1_FEATURE_DOMAINS_THEN_P2_PWA_THEN_P3_FINAL_DEMO_AND_INTEGRATED_UAT",
       "schedulingPolicy": "Prioritize runnable Sprint 21 by canonical CRITICAL/HIGH/MEDIUM/LOW values and explicit dependencies; final demo tasks are release-gated after Voucher, Scholarship, TMI, and PWA."
     }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:22",
+    "name": "Production UI/UX Refinement",
+    "goal": "Raise EduAI's existing production interface to a cohesive, premium, accessible, mobile-first product experience without changing business logic or API contracts.",
+    "entryCriteria": [
+      "EduAI 2.0 release and Sprint 21 integrated regression are complete.",
+      "The production baseline, repository routes, design guidance, and existing worktrees are audited before implementation."
+    ],
+    "taskIds": ["SPR22-001"],
+    "dependencies": ["SPRINT:21"],
+    "exitCriteria": [
+      "Shared UI foundations and major public/authenticated route families use a coherent responsive design language.",
+      "Course discovery, mobile navigation and notifications, core learning/dashboard surfaces, accessibility, builds, tests, browser QA, deployment, and production verification have structured evidence."
+    ],
+    "status": "COMPLETED",
+    "extensions": {
+      "source": "EduAI_Docs/Fix/Fix_UX_UI.md",
+      "track": "POST_RELEASE_PRODUCT_POLISH"
+    }
   }
 ]

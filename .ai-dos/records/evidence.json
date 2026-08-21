@@ -6103,5 +6103,58 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR22-001:UI-UX-REFINEMENT",
+    "taskId": "SPR22-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Frontend regression, build, bundle, and responsive visual matrix",
+        "command": "npm.cmd test; npm.cmd run build; npm.cmd run test:performance; Playwright focused visual and 14-viewport catalog regression",
+        "reference": "The frontend passed 69 files and 181 tests, TypeScript/Vite production build, the initial JavaScript and CSS bundle budgets, 14 required catalog viewport checks, homepage/catalog snapshots, and 320/1440 administrator responsive snapshots. The report and committed visual evidence are in EduAI_Docs/Fix/SPR22-001_UI_UX_AUDIT_REPORT.md and the frontend Playwright screenshot directories.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Frontend CI and production deployment",
+        "reference": "Frontend revision 21af7fd32db85a3207688152d976cf1d655f4e02 passed Frontend CI run 32448158454 and Deploy Frontend Production run 32448158552 before final production browser and role UAT.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Browser inspection and sanitized cross-role production UAT",
+        "reference": "Cache-busted browser inspection loaded the updated hashed asset with shared compact CourseCards. The 1440 catalog rendered four 300 by 378 pixel cards per row with 168 pixel media, zero horizontal overflow, and no public console errors. The existing sanitized production suite passed all 48 checks across Student, Instructor, Administrator, authorization, notification center/SSE, and contained certificate flows at mobile and desktop widths.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "UI/UX audit, accessibility, and scope review",
+        "reference": "The audit documents route inventory, root causes, design-system changes, mobile and desktop refinements, notification rationale, screenshots, remaining bounded issues, and rollback. No API contract, business flow, role, authorization, or unrelated subsystem was changed.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-21T12:14:18.8109496+07:00",
+    "commit": "21af7fd32db85a3207688152d976cf1d655f4e02",
+    "notes": "SPR22-001 is complete. EduAI now uses a unified compact CourseCard, a one-row safe-area mobile navigation, a safe-area notification bottom sheet, restrained typography, semantic surfaces and controls, mobile-prioritized enrollment, and browser-verified responsive layouts without changing product contracts.",
+    "extensions": {
+      "frontendCiRunId": 32448158454,
+      "frontendDeployRunId": 32448158552,
+      "frontendTestFileCount": 69,
+      "frontendTestCount": 181,
+      "responsiveViewportCount": 14,
+      "visualSnapshotCount": 6,
+      "productionUatCheckCount": 48,
+      "productionUatFailureCount": 0,
+      "productionConsoleErrorCount": 0,
+      "productionHorizontalOverflowPixels": 0,
+      "credentialMaterialRecorded": false,
+      "authStatePersisted": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]

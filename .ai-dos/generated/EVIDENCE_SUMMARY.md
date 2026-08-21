@@ -492,5 +492,9 @@
 | EVIDENCE:SPR21-030:FINAL-INTEGRATED-REGRESSION-UAT | SPR21-030 | PRODUCTION | Production health, PWA, and API documentation | PASS | — |
 | EVIDENCE:SPR21-030:FINAL-INTEGRATED-REGRESSION-UAT | SPR21-030 | OTHER | Known harness limitation and bounded replacement | PASS | — |
 | EVIDENCE:SPR21-030:FINAL-INTEGRATED-REGRESSION-UAT | SPR21-030 | OTHER | Unsupported/native install surfaces | NOT_APPLICABLE | — |
+| EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | TEST | Frontend regression, build, bundle, and responsive visual matrix | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance; Playwright focused visual and 14-viewport catalog regression |
+| EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | DEPLOY | Frontend CI and production deployment | PASS | — |
+| EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | PRODUCTION | Browser inspection and sanitized cross-role production UAT | PASS | — |
+| EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | OTHER | UI/UX audit, accessibility, and scope review | PASS | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
