@@ -1,0 +1,91 @@
+{
+  "kind": "project.profile",
+  "schemaVersion": "1.0",
+  "id": "EDUAI:PLATFORM",
+  "name": "EduAI",
+  "repositoryType": "MULTI_REPO",
+  "primaryBranch": "main",
+  "targetVersion": "2.0.0",
+  "executionProfile": "production_required",
+  "capabilities": {
+    "deployment": "REQUIRED",
+    "productionVerification": "REQUIRED"
+  },
+  "extensions": {
+    "workspace": {
+      "root": ".",
+      "repositories": [
+        {
+          "id": "backend",
+          "name": "Backend",
+          "path": "../EduAI-Back-End",
+          "remote": "https://github.com/EduAI-Flatform/EduAI-Back-End.git",
+          "primaryBranch": "main"
+        },
+        {
+          "id": "frontend-web",
+          "name": "Frontend",
+          "path": "../EduAI-Front-End-Web",
+          "remote": "https://github.com/EduAI-Flatform/EduAI-Front-End-Web.git",
+          "primaryBranch": "main"
+        }
+      ],
+      "documentation": {
+        "path": "EduAI_Docs",
+        "roadmapSource": "EduAI_Docs/docs/tasks_2.0/20-v2-development-roadmap.md",
+        "taskDefinitionsRoot": "EduAI_Docs/docs/tasks_2.0"
+      },
+      "repository": {
+        "path": ".",
+        "remote": "https://github.com/EduAI-Flatform/EduAI-Workspace.git",
+        "primaryBranch": "main",
+        "owns": [
+          ".ai-dos",
+          "core",
+          "EduAI_Docs",
+          "00-project",
+          "05-operations",
+          "06-roadmap",
+          "07-tasks",
+          "10-state"
+        ]
+      }
+    },
+    "production": {
+      "baseUrl": "https://eduai.giaoducso.org.vn",
+      "verificationRequired": true,
+      "standingWriteUatAuthorization": {
+        "status": "AUTHORIZED",
+        "grantedAt": "2026-08-12",
+        "scope": "BOUNDED_DEDICATED_UAT_ONLY",
+        "revocable": true,
+        "sanitizedEvidenceOnly": true,
+        "safetyCriticalActionsRequireSeparateAuthorization": true
+      }
+    },
+    "uiDesign": {
+      "provider": "Google Stitch",
+      "projectUrl": "https://stitch.withgoogle.com/projects/18220294492285025802",
+      "workflowRules": [
+        "Inspect the current UI and preserve its design system before proposing changes.",
+        "Check whether the required Stitch screen already exists and reuse it as the reference when it does.",
+        "Create a design prompt only for a missing screen; never create duplicate screens unnecessarily.",
+        "Preserve existing APIs, business logic, authorization, and data flows."
+      ]
+    },
+    "taskApplicabilityPolicy": {
+      "planningStageValue": "OPTIONAL",
+      "rationale": "AI-DOS 1.2 conformance requires passing evidence immediately for every REQUIRED applicability, including TODO and PARTIAL tasks. Planning records remain OPTIONAL so conformance does not demand fabricated future evidence.",
+      "defaultCompletionRequirements": {
+        "tests": "REQUIRED",
+        "deployment": "REQUIRED",
+        "productionVerification": "REQUIRED"
+      },
+      "exceptions": {
+        "SPR13-001": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" },
+        "SPR13-003": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" }
+      },
+      "transitionRule": "Before a task can be marked DONE, set its applicability to the declared completion requirements and attach passing structured evidence for every REQUIRED kind. Never create PASS evidence from source-code presence alone."
+    }
+  }
+}

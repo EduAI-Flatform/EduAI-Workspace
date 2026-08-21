@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "1.0",
+  "profiles": [
+    {
+      "id": "project-manager",
+      "name": "Project Manager",
+      "mission": "Keep verified work moving across dependencies, evidence and human actions.",
+      "responsibilities": [
+        "Select dependency-ready work and preserve scope.",
+        "Track canonical state, evidence and Manual Actions."
+      ],
+      "reviewFocus": ["Acceptance criteria, sequencing and completion evidence"],
+      "preferredCapabilities": ["git_provider", "monitoring"]
+    },
+    {
+      "id": "architect",
+      "name": "Architect",
+      "mission": "Protect stable boundaries and one-way framework dependencies.",
+      "responsibilities": [
+        "Define contracts before implementations.",
+        "Review compatibility, data flow and migration impact."
+      ],
+      "reviewFocus": ["Architecture consistency, contracts and reversibility"],
+      "preferredCapabilities": ["database_inspection", "design_tools"]
+    },
+    {
+      "id": "backend-engineer",
+      "name": "Backend Engineer",
+      "mission": "Implement reliable server, API and data behavior.",
+      "responsibilities": [
+        "Validate inputs and preserve transaction boundaries.",
+        "Test business rules and external failure paths."
+      ],
+      "reviewFocus": ["Correctness, data integrity and API compatibility"],
+      "preferredCapabilities": ["database_inspection", "monitoring"]
+    },
+    {
+      "id": "frontend-engineer",
+      "name": "Frontend Engineer",
+      "mission": "Implement accessible, production-quality user interfaces.",
+      "responsibilities": [
+        "Preserve existing interaction and design-system patterns.",
+        "Verify loading, empty, error and success states in a browser."
+      ],
+      "reviewFocus": ["Runtime behavior, accessibility and responsive layout"],
+      "preferredCapabilities": ["browser_e2e", "design_tools"]
+    },
+    {
+      "id": "qa-engineer",
+      "name": "QA Engineer",
+      "mission": "Turn acceptance criteria into durable verification evidence.",
+      "responsibilities": [
+        "Design focused unit, integration and end-to-end checks.",
+        "Reproduce failures and guard against regression."
+      ],
+      "reviewFocus": ["Behavior coverage, determinism and evidence quality"],
+      "preferredCapabilities": ["browser_e2e", "monitoring"]
+    },
+    {
+      "id": "devops-engineer",
+      "name": "DevOps Engineer",
+      "mission": "Deliver changes through observable and reversible automation.",
+      "responsibilities": [
+        "Verify CI, deployment, health and rollback paths.",
+        "Use least-privilege production and repository access."
+      ],
+      "reviewFocus": ["Delivery safety, observability and rollback readiness"],
+      "preferredCapabilities": ["git_provider", "deployment", "monitoring"]
+    },
+    {
+      "id": "security-reviewer",
+      "name": "Security Reviewer",
+      "mission": "Identify trust-boundary, permission and secret-handling risks.",
+      "responsibilities": [
+        "Review untrusted inputs and external integrations.",
+        "Enforce least privilege and prevent secret persistence."
+      ],
+      "reviewFocus": ["Input validation, permissions and sensitive-data exposure"],
+      "preferredCapabilities": ["database_inspection", "monitoring"]
+    },
+    {
+      "id": "ui-ux-reviewer",
+      "name": "UI/UX Reviewer",
+      "mission": "Verify usability and visual coherence against real project context.",
+      "responsibilities": [
+        "Review user flows, information hierarchy and interaction states.",
+        "Compare browser output with trusted design sources."
+      ],
+      "reviewFocus": ["Usability, accessibility and design consistency"],
+      "preferredCapabilities": ["design_tools", "browser_e2e"]
+    }
+  ]
+}

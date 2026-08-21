@@ -1,0 +1,142 @@
+{
+  "kind": "read_order.manifest",
+  "schemaVersion": "1.0",
+  "id": "MANIFEST:EDUAI_PLATFORM",
+  "outputDirectory": ".ai-dos/generated",
+  "entries": [
+    {
+      "id": "project-profile",
+      "path": ".ai-dos/records/project.profile.json",
+      "role": "canonical_record",
+      "recordKind": "project.profile",
+      "required": true,
+      "rationale": "Canonical project.profile source."
+    },
+    {
+      "id": "roadmap",
+      "path": ".ai-dos/records/roadmap.json",
+      "role": "canonical_record",
+      "recordKind": "roadmap",
+      "required": true,
+      "rationale": "Canonical roadmap source."
+    },
+    {
+      "id": "sprint",
+      "path": ".ai-dos/records/sprint.json",
+      "role": "canonical_record",
+      "recordKind": "sprint",
+      "required": true,
+      "rationale": "Canonical sprint source."
+    },
+    {
+      "id": "tasks",
+      "path": ".ai-dos/records/tasks.json",
+      "role": "canonical_record",
+      "recordKind": "task",
+      "required": true,
+      "rationale": "Canonical task source."
+    },
+    {
+      "id": "manual-actions",
+      "path": ".ai-dos/records/manual-actions.json",
+      "role": "canonical_record",
+      "recordKind": "manual_action",
+      "required": true,
+      "rationale": "Canonical manual_action source."
+    },
+    {
+      "id": "evidence",
+      "path": ".ai-dos/records/evidence.json",
+      "role": "canonical_record",
+      "recordKind": "evidence",
+      "required": true,
+      "rationale": "Canonical structured task evidence source."
+    },
+    {
+      "id": "project-state",
+      "path": ".ai-dos/records/project.state.json",
+      "role": "canonical_record",
+      "recordKind": "project.state",
+      "required": true,
+      "rationale": "Canonical project.state source."
+    },
+    {
+      "id": "capability-inventory",
+      "path": ".ai-dos/runtime/capabilities.json",
+      "role": "canonical_record",
+      "recordKind": "capability.inventory",
+      "required": true,
+      "rationale": "Canonical capability.inventory source."
+    },
+    {
+      "id": "eduai-docs-root",
+      "path": "EduAI_Docs/docs",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Human-authored EduAI documentation root."
+    },
+    {
+      "id": "v2-roadmap-source",
+      "path": "EduAI_Docs/docs/tasks_2.0/20-v2-development-roadmap.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Human-authored EduAI 2.0 roadmap source material."
+    },
+    {
+      "id": "v2-task-definitions",
+      "path": "EduAI_Docs/docs/tasks_2.0",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Human-authored Sprint 13 through Sprint 20 task definitions."
+    },
+    {
+      "id": "backend-repository",
+      "path": "repositories/backend.repository.json",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Workspace-safe pointer to the independent Backend sibling repository."
+    },
+    {
+      "id": "frontend-repository",
+      "path": "repositories/frontend-web.repository.json",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Workspace-safe pointer to the independent Frontend sibling repository."
+    },
+    {
+      "id": "project-info-overlay",
+      "path": "00-project/PROJECT_INFO.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Project-owned numbered Markdown compatibility overlay."
+    },
+    {
+      "id": "manual-action-overlay",
+      "path": "05-operations/MANUAL_ACTION_QUEUE.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Project-owned numbered Markdown compatibility overlay."
+    },
+    {
+      "id": "roadmap-overlay",
+      "path": "06-roadmap/ROADMAP.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Project-owned numbered Markdown compatibility overlay."
+    },
+    {
+      "id": "task-catalog-overlay",
+      "path": "07-tasks/README.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Project-owned EduAI 2.0 task catalog compatibility overlay."
+    },
+    {
+      "id": "task-status-overlay",
+      "path": "10-state/TASK_STATUS.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Project-owned numbered Markdown compatibility overlay."
+    }
+  ]
+}

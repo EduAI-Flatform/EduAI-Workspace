@@ -1,0 +1,10 @@
+{
+  "kind": "workspace.repository_handoff",
+  "id": "REPOSITORY:EDUAI_FRONTEND_WEB",
+  "name": "EduAI Frontend Web",
+  "path": "../EduAI-Front-End-Web",
+  "remote": "https://github.com/EduAI-Flatform/EduAI-Front-End-Web.git",
+  "primaryBranch": "main",
+  "ownership": "INDEPENDENT_SIBLING_REPOSITORY",
+  "workspaceTracksContents": false
+}

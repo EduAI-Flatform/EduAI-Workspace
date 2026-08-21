@@ -1,0 +1,117 @@
+{
+  "kind": "capability.inventory",
+  "schemaVersion": "1.0",
+  "id": "CAPABILITY:EDUAI:PLATFORM",
+  "projectId": "EDUAI:PLATFORM",
+  "discoveredAt": "2026-08-12T02:27:20.126Z",
+  "entries": [
+    {
+      "id": "tool:docker",
+      "type": "TOOL",
+      "name": "docker",
+      "status": "MISSING",
+      "source": "PATH",
+      "capabilities": [
+        "deployment"
+      ],
+      "trust": "UNVERIFIED",
+      "permissions": [
+        {
+          "scope": "runtime",
+          "access": "EXECUTE",
+          "required": true,
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "tool:git",
+      "type": "TOOL",
+      "name": "git",
+      "status": "AVAILABLE",
+      "version": "git version 2.55.0.windows.3",
+      "source": "PATH",
+      "capabilities": [
+        "git_provider"
+      ],
+      "trust": "UNVERIFIED",
+      "permissions": [
+        {
+          "scope": "repository",
+          "access": "READ",
+          "required": true,
+          "approved": false
+        },
+        {
+          "scope": "repository",
+          "access": "WRITE",
+          "required": false,
+          "approved": false
+        },
+        {
+          "scope": "network",
+          "access": "NETWORK",
+          "required": false,
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "tool:playwright",
+      "type": "TOOL",
+      "name": "playwright",
+      "status": "MISSING",
+      "source": "PATH",
+      "capabilities": [
+        "browser_e2e"
+      ],
+      "trust": "UNVERIFIED",
+      "permissions": [
+        {
+          "scope": "browser",
+          "access": "EXECUTE",
+          "required": true,
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "tool:psql",
+      "type": "TOOL",
+      "name": "psql",
+      "status": "MISSING",
+      "source": "PATH",
+      "capabilities": [
+        "database_inspection"
+      ],
+      "trust": "UNVERIFIED",
+      "permissions": [
+        {
+          "scope": "database",
+          "access": "READ",
+          "required": true,
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "tool:sentry-cli",
+      "type": "TOOL",
+      "name": "sentry-cli",
+      "status": "MISSING",
+      "source": "PATH",
+      "capabilities": [
+        "monitoring"
+      ],
+      "trust": "UNVERIFIED",
+      "permissions": [
+        {
+          "scope": "monitoring",
+          "access": "READ",
+          "required": true,
+          "approved": false
+        }
+      ]
+    }
+  ]
+}

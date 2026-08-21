@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1.0",
+  "policies": [
+    {
+      "capability": "git_provider",
+      "operations": {
+        "status": [
+          { "scope": "repository", "access": "READ" }
+        ],
+        "commit": [
+          { "scope": "repository", "access": "WRITE" }
+        ],
+        "push": [
+          { "scope": "repository", "access": "WRITE" },
+          { "scope": "network", "access": "NETWORK" }
+        ]
+      }
+    },
+    {
+      "capability": "browser_e2e",
+      "operations": {
+        "inspect": [
+          { "scope": "browser", "access": "READ" }
+        ],
+        "run_e2e": [
+          { "scope": "browser", "access": "EXECUTE" }
+        ],
+        "verify_production": [
+          { "scope": "browser", "access": "EXECUTE" },
+          { "scope": "network", "access": "NETWORK" }
+        ]
+      }
+    },
+    {
+      "capability": "deployment",
+      "operations": {
+        "detect": [
+          { "scope": "deployment", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "deploy": [
+          { "scope": "deployment", "access": "WRITE" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "monitor": [
+          { "scope": "deployment", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "rollback": [
+          { "scope": "deployment", "access": "WRITE" },
+          { "scope": "network", "access": "NETWORK" }
+        ]
+      }
+    },
+    {
+      "capability": "database_inspection",
+      "operations": {
+        "inspect_schema": [
+          { "scope": "database", "access": "READ" }
+        ],
+        "query_readonly": [
+          { "scope": "database", "access": "READ" }
+        ]
+      }
+    },
+    {
+      "capability": "design_tools",
+      "operations": {
+        "inspect_design": [
+          { "scope": "design", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "export_asset": [
+          { "scope": "design", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "compare_ui": [
+          { "scope": "design", "access": "READ" },
+          { "scope": "browser", "access": "READ" }
+        ]
+      }
+    },
+    {
+      "capability": "monitoring",
+      "operations": {
+        "inspect_logs": [
+          { "scope": "monitoring", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ],
+        "inspect_metrics": [
+          { "scope": "monitoring", "access": "READ" },
+          { "scope": "network", "access": "NETWORK" }
+        ]
+      }
+    }
+  ]
+}

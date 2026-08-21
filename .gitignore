@@ -1,0 +1,41 @@
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+**/*firebase-adminsdk*.json
+**/*firebase-service-account*.json
+**/service-account*.json
+
+# Authentication and browser state
+**/auth-state/
+**/.auth/
+**/*storage-state*.json
+**/playwright/.auth/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+
+# Dependencies, builds, caches, and temporary output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+tmp/
+temp/
+*.log
+
+# Application repositories remain independent siblings
+/EduAI-Back-End/
+/EduAI-Front-End-Web/
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

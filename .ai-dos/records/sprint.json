@@ -1,0 +1,161 @@
+[
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:13",
+    "name": "Stabilization and Gap Audit",
+    "goal": "Establish a factual V1 baseline, close misleading navigation gaps, and make core regression coverage repeatable before v2 feature work.",
+    "entryCriteria": [
+      "EduAI 2.0 canonical roadmap and task migration passes AI-DOS conformance.",
+      "Backend and frontend main branches are available for audit."
+    ],
+    "taskIds": ["SPR13-001", "SPR13-002", "SPR13-003"],
+    "dependencies": [],
+    "exitCriteria": [
+      "The page/API/authorization coverage matrix and prioritized gap list are current.",
+      "Visible navigation no longer silently falls back to unrelated pages.",
+      "Deterministic core V1 regression evidence is recorded for both repositories."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-13" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:14",
+    "name": "Platform Administration",
+    "goal": "Deliver a dedicated, secure administration domain with operational dashboards, user management, moderation, and audit history.",
+    "entryCriteria": ["Sprint 13 exit criteria are verified."],
+    "taskIds": ["SPR14-001", "SPR14-002", "SPR14-003", "SPR14-004", "SPR14-005"],
+    "dependencies": ["SPRINT:13"],
+    "exitCriteria": [
+      "Platform administrators have dedicated role-protected APIs and UI.",
+      "Sensitive administration and moderation mutations are safeguarded and audited."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-14" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:15",
+    "name": "Learning Completion and Assessment V2",
+    "goal": "Make completion, quiz, assignment, and certificate state authoritative, policy-driven, idempotent, and auditable.",
+    "entryCriteria": ["Sprint 14 exit criteria are verified."],
+    "taskIds": ["SPR15-001", "SPR15-002", "SPR15-003", "SPR15-004"],
+    "dependencies": ["SPRINT:14"],
+    "exitCriteria": [
+      "Course completion is derived transactionally from required learning and assessment records.",
+      "Quiz, assignment, and certificate policies preserve history and enforce server-side integrity."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-15" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:16",
+    "name": "Notifications",
+    "goal": "Provide scoped, idempotent in-app, realtime, and preference-controlled email notifications.",
+    "entryCriteria": ["Sprint 15 exit criteria are verified."],
+    "taskIds": ["SPR16-001", "SPR16-002", "SPR16-003", "SPR16-004"],
+    "dependencies": ["SPRINT:15"],
+    "exitCriteria": [
+      "Notification creation, reads, deduplication, and preferences are authoritative and user-scoped.",
+      "Realtime and email delivery failures do not block core transactions."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-16" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:17",
+    "name": "AI Learning Path",
+    "goal": "Turn learner goals and authorized EduAI data into validated, versioned learning paths and a course-grounded tutor experience.",
+    "entryCriteria": ["Sprint 16 exit criteria are verified."],
+    "taskIds": ["SPR17-001", "SPR17-002", "SPR17-003", "SPR17-004"],
+    "dependencies": ["SPRINT:16"],
+    "exitCriteria": [
+      "Learner goals and generated paths are private, validated, versioned, and persisted.",
+      "AI tutor retrieval and citations respect course and library authorization boundaries."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-17" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:18",
+    "name": "Career Hub",
+    "goal": "Connect verified learner profiles and skills to published job opportunities, private applications, and explainable matching.",
+    "entryCriteria": ["Sprint 17 exit criteria are verified."],
+    "taskIds": ["SPR18-001", "SPR18-002", "SPR18-003", "SPR18-004"],
+    "dependencies": ["SPRINT:17"],
+    "exitCriteria": [
+      "Career profiles reuse authoritative learning/profile data with explicit privacy controls.",
+      "Job publication, application, status history, and matching rules are enforced server-side."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-18" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:19",
+    "name": "Mentor System",
+    "goal": "Add approved mentor profiles, timezone-safe availability, transactional booking, secure Jitsi sessions, and privacy-aware outcomes.",
+    "entryCriteria": ["Sprint 18 exit criteria are verified."],
+    "taskIds": ["SPR19-001", "SPR19-002", "SPR19-003", "SPR19-004"],
+    "dependencies": ["SPRINT:18"],
+    "exitCriteria": [
+      "Mentor discovery and booking transitions are authorized, conflict-safe, and notification-aware.",
+      "Session access, attendance, private notes, shared goals, and reviews enforce their privacy policies."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-19" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:20",
+    "name": "Production Readiness V2",
+    "goal": "Harden, observe, optimize, accept, deploy, and verify EduAI 2.0 in production.",
+    "entryCriteria": ["All Sprint 13 through Sprint 19 feature exit criteria are verified."],
+    "taskIds": ["SPR20-001", "SPR20-002", "SPR20-003", "SPR20-004"],
+    "dependencies": ["SPRINT:19"],
+    "exitCriteria": [
+      "Security, ownership, abuse limits, health, observability, accessibility, and performance gates pass.",
+      "Cross-role UAT, deployment, rollback, release notes, and production verification at the configured URL pass."
+    ],
+    "status": "COMPLETED",
+    "extensions": { "source": "EduAI_Docs/docs/tasks_2.0/sprint-20" }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:21",
+    "name": "Priority Product Experience Track",
+    "goal": "Deliver Mobile UX/navigation, Voucher, Scholarship, TMI Rewards, PWA/installability, and only then the final demo course dataset and integrated regression/UAT without interrupting active work or adding payment/WordPress runtime.",
+    "entryCriteria": [
+      "The repository and AI-DOS audit is recorded in EduAI_Docs/docs/v2/04-priority-product-audit.md.",
+      "The existing SPR17-002 IN_PROGRESS state remains unchanged.",
+      "Task dependencies and acceptance metadata pass AI-DOS conformance."
+    ],
+    "taskIds": ["SPR21-001", "SPR21-002", "SPR21-003", "SPR21-004", "SPR21-005", "SPR21-006", "SPR21-007", "SPR21-008", "SPR21-009", "SPR21-010", "SPR21-011", "SPR21-012", "SPR21-013", "SPR21-014", "SPR21-015", "SPR21-016", "SPR21-017", "SPR21-018", "SPR21-019", "SPR21-020", "SPR21-021", "SPR21-022", "SPR21-023", "SPR21-024", "SPR21-025", "SPR21-026", "SPR21-027", "SPR21-028", "SPR21-029", "SPR21-030"],
+    "dependencies": [],
+    "exitCriteria": [
+      "Mobile UX and navigation are usable at supported phone and desktop viewports.",
+      "Minimal synthetic fixtures support focused feature tests without being the final demo dataset.",
+      "Voucher, scholarship, and TMI flows have server-authoritative security and UAT evidence.",
+      "The approved PWA path is installable or explicitly bounded by browser support evidence.",
+      "The final demo course dataset and integrated regression/UAT complete the track only after all feature domains and PWA work are stable."
+    ],
+    "status": "COMPLETED",
+    "extensions": {
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-21",
+      "priorityTrack": "P0_MOBILE_NAV_PRICE_REGRESSION_THEN_P1_FEATURE_DOMAINS_THEN_P2_PWA_THEN_P3_FINAL_DEMO_AND_INTEGRATED_UAT",
+      "schedulingPolicy": "Prioritize runnable Sprint 21 by canonical CRITICAL/HIGH/MEDIUM/LOW values and explicit dependencies; final demo tasks are release-gated after Voucher, Scholarship, TMI, and PWA."
+    }
+  }
+]

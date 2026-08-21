@@ -1,0 +1,935 @@
+[
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR13-001",
+    "title": "Audit Live API Integration",
+    "category": "QA / Full-stack",
+    "priority": "HIGH",
+    "objective": "Audit the current main branches and produce a factual matrix of pages, actions, APIs, authorization rules, remaining static placeholders, dead navigation items, and incomplete flows.",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "Home, course pages, student dashboard, and instructor dashboard already using live APIs are marked complete and are not rebuilt.",
+      "Every visible route and sidebar item is mapped to a working page or explicitly listed as incomplete.",
+      "Every frontend service call is mapped to an existing backend endpoint.",
+      "Build and current tests are run in both repositories.",
+      "Backend and frontend builds pass where affected.",
+      "Relevant tests pass.",
+      "No unrelated files changed."
+    ],
+    "verification": [
+      "Create and review EduAI_Docs/docs/v2/01-git-baseline-audit.md and EduAI_Docs/docs/v2/02-api-ui-coverage-matrix.md.",
+      "Run npm.cmd run build and npm.cmd test -- --runInBand in EduAI-Back-End.",
+      "Run npm.cmd run build and npm.cmd test in EduAI-Front-End-Web.",
+      "Run the applicable Playwright and backend E2E suites or document exact environment blockers.",
+      "Compare relevant public flows with https://eduai.giaoducso.org.vn without changing production data."
+    ],
+    "applicability": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:13",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-13/spr13-001-audit-live-api-integration.md",
+      "deliverables": ["EduAI_Docs/docs/v2/01-git-baseline-audit.md", "EduAI_Docs/docs/v2/02-api-ui-coverage-matrix.md", "Prioritized P0/P1/P2 gap list"],
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["Home, course pages, student dashboard, and instructor dashboard already using live APIs are marked complete and are not rebuilt."],
+        "partialOrExistingWork": ["Backend and frontend production builds pass.", "Backend unit tests pass: 57 suites and 321 tests.", "Frontend unit tests pass: 18 files and 52 tests.", "V1 Playwright smoke and responsive suites exist but were not run during migration."],
+        "remainingWork": ["Create the two audit deliverables and P0/P1/P2 gap list.", "Complete the route/sidebar and service/endpoint matrices.", "Run applicable E2E suites and record structured evidence."],
+        "evidence": ["EduAI-Front-End-Web/src/features/home/HomePage.tsx", "EduAI-Front-End-Web/src/services/dashboard.service.ts", "EduAI-Back-End/src/modules/dashboards/dashboards.controller.ts", "EduAI-Front-End-Web/playwright/smoke.spec.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR13-002",
+    "title": "Complete Incomplete Navigation Flows",
+    "category": "Frontend / Backend",
+    "priority": "HIGH",
+    "objective": "Replace dead, fallback, or misleading dashboard navigation destinations with implemented role-appropriate pages backed by existing APIs or minimal new APIs.",
+    "dependencies": ["SPR13-001"],
+    "acceptanceCriteria": [
+      "No menu item silently falls back to an unrelated dashboard page.",
+      "Instructor-only pages reject non-instructors.",
+      "All implemented pages use live APIs.",
+      "No unrelated visual redesign.",
+      "Backend and frontend builds pass where affected.",
+      "Relevant tests pass.",
+      "No unrelated files changed."
+    ],
+    "verification": [
+      "Test every student, instructor, and admin sidebar destination at desktop and mobile widths.",
+      "Run role/authorization tests for instructor-only destinations.",
+      "Run npm.cmd run build and relevant unit/E2E tests in both affected repositories.",
+      "Verify affected routes at https://eduai.giaoducso.org.vn after deployment."
+    ],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:13",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-13/spr13-002-complete-incomplete-navigation-flows.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Course, classroom, assignment, library, AI, student certificate, community, and profile destinations use live services.", "Instructor dashboard has a client-side instructor role redirect and backend endpoints use role guards."],
+        "remainingWork": ["Instructor students, certificates, and settings still fall through to InstructorDashboardHome.", "The admin dashboard route still renders StudentDashboard.", "Remove or implement any remaining misleading menu targets and add route-level tests."],
+        "evidence": ["EduAI-Front-End-Web/src/App.tsx", "EduAI-Front-End-Web/src/features/dashboard/InstructorDashboard/InstructorDashboard.tsx", "EduAI-Front-End-Web/src/features/dashboard/StudentDashboard/StudentDashboard.tsx"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR13-003",
+    "title": "Regression Test Core V1 Flows",
+    "category": "QA",
+    "priority": "HIGH",
+    "objective": "Add and run repeatable regression coverage for the existing V1 student, instructor, authentication, AI, classroom, library, community, and certificate flows.",
+    "dependencies": ["SPR13-001", "SPR13-002"],
+    "acceptanceCriteria": [
+      "Tests use deterministic demo seed data.",
+      "Critical happy paths and unauthorized paths are covered.",
+      "Builds and test suites pass or failures are documented precisely.",
+      "No feature expansion.",
+      "Backend and frontend builds pass where affected.",
+      "Relevant tests pass.",
+      "No unrelated files changed."
+    ],
+    "verification": [
+      "Run demo seed verification in EduAI-Back-End.",
+      "Run backend unit and E2E role/ownership suites.",
+      "Run frontend unit and Playwright student/instructor journeys against deterministic demo data.",
+      "Record a regression checklist, artifacts, exact failures, and known limitations."
+    ],
+    "applicability": { "tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:13",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-13/spr13-003-regression-core-v1-flows.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Deterministic demo seed and verification scripts exist.", "Playwright smoke journeys cover public, student, instructor, learning, quiz, assignment, and classroom routes.", "Backend controller/service tests cover many role and ownership boundaries.", "Current unit builds and suites pass in both repositories."],
+        "remainingWork": ["Run the full demo-backed E2E suites.", "Close unauthorized-path coverage gaps across all named V1 domains.", "Publish the regression checklist with evidence and limitations."],
+        "evidence": ["EduAI-Back-End/prisma/demo-seed.ts", "EduAI-Back-End/prisma/verify-demo.ts", "EduAI-Front-End-Web/playwright/smoke.spec.ts", "EduAI-Back-End/test"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR14-001",
+    "title": "Create Admin Domain and Dashboard API",
+    "category": "Backend / Database",
+    "priority": "HIGH",
+    "objective": "Create the platform administration backend foundation and aggregate dashboard endpoints for platform administrators.",
+    "dependencies": ["SPR13-003"],
+    "acceptanceCriteria": [
+      "Only platform_admin can access admin endpoints.",
+      "Metrics are calculated from database data.",
+      "Queries are bounded and indexed where necessary.",
+      "Tests cover forbidden access.",
+      "Backend and frontend builds pass where affected.",
+      "Relevant tests pass.",
+      "No unrelated files changed."
+    ],
+    "verification": ["Run admin controller/service unit and integration tests, including forbidden roles.", "Profile aggregate queries and validate indexes/bounds.", "Run Backend build and relevant tests.", "Verify admin APIs in production after deployment."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:14",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-14/spr14-001-create-admin-domain-and-dashboard-api.md",
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["platform_admin role, JWT/Roles guards, database-backed instructor/student dashboards, and pagination patterns are reusable foundations."],
+        "remainingWork": ["No AdminModule, admin controller, or platform aggregate dashboard endpoint is registered."],
+        "evidence": ["EduAI-Back-End/src/app.module.ts", "EduAI-Back-End/src/modules/dashboards/dashboards.controller.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR14-002",
+    "title": "Build Dedicated Admin Dashboard",
+    "category": "Frontend",
+    "priority": "HIGH",
+    "objective": "Replace the current admin route reuse of StudentDashboard with a dedicated platform administrator dashboard.",
+    "dependencies": ["SPR14-001"],
+    "acceptanceCriteria": ["The /admin/dashboard route no longer renders StudentDashboard.", "Non-admin users are redirected safely.", "No static business metrics.", "Mobile and desktop layouts work.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Verify role-protected admin routes with admin and non-admin sessions.", "Validate live admin API metrics and loading/empty/error/retry states.", "Run Frontend build, unit tests, and Playwright at mobile and desktop widths.", "Verify the deployed admin dashboard at the production URL."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:14",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-14/spr14-002-build-dedicated-admin-dashboard.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Current dashboard design components and responsive CSS are reusable references."],
+        "remainingWork": ["/admin/dashboard/* explicitly renders StudentDashboard; no admin layout, sidebar, or API service exists."],
+        "evidence": ["EduAI-Front-End-Web/src/App.tsx", "EduAI-Front-End-Web/src/features/dashboard/DashboardPage.tsx"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR14-003",
+    "title": "Admin User Management",
+    "category": "Full-stack / Security",
+    "priority": "HIGH",
+    "objective": "Implement searchable and paginated user administration with safe account status and role management.",
+    "dependencies": ["SPR14-001", "SPR14-005"],
+    "acceptanceCriteria": ["Admin cannot remove the last platform administrator.", "A user cannot bypass status restrictions with an existing session.", "Sensitive fields are never returned.", "Mutations require explicit confirmation.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run last-admin, suspended-session, response-sanitization, role, and ownership integration tests.", "Run confirmation and error-state frontend tests.", "Run both affected builds and relevant suites.", "Verify safe user administration in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:14",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-14/spr14-003-admin-user-management.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["User status, roles, sanitization patterns, and authentication guards already exist."],
+        "remainingWork": ["No admin user list/detail, status mutation, role mutation, last-admin safeguard, or management UI exists."],
+        "evidence": ["EduAI-Back-End/prisma/schema/10-user.prisma", "EduAI-Back-End/src/modules/auth"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR14-004",
+    "title": "Admin Course and Content Moderation",
+    "category": "Full-stack",
+    "priority": "HIGH",
+    "objective": "Implement administrative review and moderation for courses, community content, and library resources.",
+    "dependencies": ["SPR14-001", "SPR14-005"],
+    "acceptanceCriteria": ["All moderation actions preserve evidence and reason.", "Public queries exclude moderated content.", "Owners receive a consistent status response.", "Ownership and admin authorization tests pass.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run moderation lifecycle, public-query exclusion, ownership, and admin authorization tests.", "Validate migrations and moderation query indexes.", "Run both affected builds and relevant suites.", "Verify queues and public visibility in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:14",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-14/spr14-004-admin-course-content-moderation.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Course publication/archive and soft-delete patterns exist, but they are not an evidence-preserving moderation domain."],
+        "remainingWork": ["No moderation status/reason schema, queues, actions, owner status contract, or audit history exists."],
+        "evidence": ["EduAI-Back-End/prisma/schema/30-course.prisma", "EduAI-Back-End/prisma/schema/70-library.prisma", "EduAI-Back-End/prisma/schema/80-community.prisma"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR14-005",
+    "title": "Platform Audit Log",
+    "category": "Backend / Database / Frontend",
+    "priority": "HIGH",
+    "objective": "Create an immutable audit trail for sensitive platform actions and an admin-only viewer.",
+    "dependencies": ["SPR14-001"],
+    "acceptanceCriteria": ["Audit records are append-only through application code.", "Actor, action, target, timestamp, and metadata are captured.", "Secrets and raw tokens are excluded.", "Only platform_admin can read audit logs.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate the AuditLog migration and append-only service behavior.", "Run coverage for all listed sensitive action producers, secret redaction, and admin-only reads.", "Run both affected builds and relevant suites.", "Verify audit creation and admin-only viewing in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:14",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-14/spr14-005-platform-audit-log.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Structured operational logs redact sensitive metadata, but they are mutable process logs rather than a platform audit record."],
+        "remainingWork": ["No AuditLog schema, reusable audit writer, sensitive-event integration, search API, or admin viewer exists."],
+        "evidence": ["EduAI-Back-End/src/common/logging/app-logger.service.ts", "EduAI-Back-End/src/app.module.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR15-001",
+    "title": "Harden Course Completion Rules",
+    "category": "Backend / Database",
+    "priority": "HIGH",
+    "objective": "Define and implement authoritative course completion rules across lessons, quizzes, and assignments.",
+    "dependencies": ["SPR14-002", "SPR14-003", "SPR14-004", "SPR14-005"],
+    "acceptanceCriteria": ["Frontend cannot directly mark a course completed.", "Completion is derived from server-side records.", "Concurrent updates remain consistent.", "Existing lesson progress behavior is preserved.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run completion policy migration validation and transactional concurrency tests.", "Run lesson, quiz, assignment, enrollment, and idempotency regression suites.", "Run both affected builds and relevant tests.", "Verify authoritative completion behavior in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:15",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-15/spr15-001-harden-course-completion-rules.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["Frontend cannot directly mark a course completed.", "Completion is derived from server-side lesson progress records."],
+        "partialOrExistingWork": ["Lesson progress is earned server-side and enrollment completion is updated inside a transaction after all course lessons complete."],
+        "remainingWork": ["Define required versus optional lessons, quizzes, and assignments.", "Include quiz and assignment outcomes in completion evaluation.", "Add concurrency/idempotency evidence across all completion inputs."],
+        "evidence": ["EduAI-Back-End/src/modules/courses/courses.service.ts", "EduAI-Back-End/src/modules/courses/learning-path.service.ts", "EduAI-Back-End/prisma/schema/41-learning-progress.prisma"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR15-002",
+    "title": "Quiz Attempt Policy and History",
+    "category": "Full-stack",
+    "priority": "HIGH",
+    "objective": "Add configurable attempt limits, question/option randomization, attempt history, and post-submission review rules.",
+    "dependencies": ["SPR15-001"],
+    "acceptanceCriteria": ["Correct answers are not exposed before submission.", "Attempt limits are enforced server-side.", "Randomization does not change scoring integrity.", "Existing quizzes receive safe defaults.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate quiz policy migration and safe defaults for existing quizzes.", "Run answer-key privacy, attempt-limit, randomization, scoring, history, and review-policy tests.", "Run both affected builds and relevant tests.", "Verify instructor policy and student history/review flows in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:15",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-15/spr15-002-quiz-attempt-policy-and-history.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["Correct answers are not exposed before submission."],
+        "partialOrExistingWork": ["Quiz attempts are scored and stored server-side, and a current-user attempt history endpoint exists."],
+        "remainingWork": ["Add configurable attempt limits, question/option randomization, review policy, safe migration defaults, instructor configuration UI, and student history/review UI."],
+        "evidence": ["EduAI-Back-End/prisma/schema/50-quiz.prisma", "EduAI-Back-End/src/modules/quizzes/quizzes.service.ts", "EduAI-Back-End/src/modules/quizzes/quizzes.controller.ts", "EduAI-Front-End-Web/src/features/quizzes/QuizAttemptPage/QuizAttemptPage.tsx"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR15-003",
+    "title": "Assignment Resubmission and Rubrics",
+    "category": "Full-stack / Database",
+    "priority": "HIGH",
+    "objective": "Extend assignments with controlled resubmissions, late status, submission history, and rubric-based grading.",
+    "dependencies": ["SPR15-001"],
+    "acceptanceCriteria": ["Previous submissions remain immutable.", "Late status uses server time.", "Final score follows the configured grading policy.", "File permissions remain private.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate submission-version and rubric migrations.", "Run resubmission immutability, server-time late status, grading policy, ownership, and private-file tests.", "Run both affected builds and relevant tests.", "Verify student resubmission and instructor rubric grading in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:15",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-15/spr15-003-assignment-resubmission-rubrics.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Assignment submission, file validation/storage, instructor grading, feedback, and a free-text rubric field exist."],
+        "remainingWork": ["The unique assignment/user constraint rejects resubmission and preserves no version history.", "Add structured rubric criteria, late status, configurable final-score policy, and corresponding UI/tests."],
+        "evidence": ["EduAI-Back-End/prisma/schema/51-assignment.prisma", "EduAI-Back-End/src/modules/assignments/assignments.service.ts", "EduAI-Front-End-Web/src/features/assignments/AssignmentSubmissionPage/AssignmentSubmissionPage.tsx"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR15-004",
+    "title": "Automatic Certificate Issuance",
+    "category": "Backend / Frontend",
+    "priority": "HIGH",
+    "objective": "Issue a certificate automatically and idempotently when the authoritative completion policy is satisfied.",
+    "dependencies": ["SPR14-005", "SPR15-001", "SPR15-002", "SPR15-003"],
+    "acceptanceCriteria": ["A learner receives at most one active certificate per course policy.", "Certificate verification never exposes private data.", "Revoked certificates remain traceable.", "Existing verification codes continue working.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run completion-event, idempotency, duplicate-race, revocation, privacy, and legacy-code tests.", "Run both affected builds and relevant tests.", "Verify automatic issuance and public verification in production without exposing private fields."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:15",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-15/spr15-004-automatic-certificate-issuance.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["A learner receives at most one certificate per course in the current schema and issuance path."],
+        "partialOrExistingWork": ["Current student-triggered issuance checks completed enrollment, returns an existing certificate on retries/races, and supports public verification/QR codes."],
+        "remainingWork": ["Trigger issuance automatically from authoritative completion.", "Add active/revoked status and revocation reason/history.", "Reassess verification privacy and preserve legacy verification codes through migration."],
+        "evidence": ["EduAI-Back-End/prisma/schema/81-certificate.prisma", "EduAI-Back-End/src/modules/certificates/certificates.service.ts", "EduAI-Front-End-Web/src/features/certificates"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR16-001",
+    "title": "Notification Schema and Service",
+    "category": "Backend / Database",
+    "priority": "HIGH",
+    "objective": "Create the notification domain, delivery preferences, and idempotent event-to-notification service.",
+    "dependencies": ["SPR15-004"],
+    "acceptanceCriteria": ["Notifications are scoped to the current user.", "Duplicate domain events do not create duplicate notifications.", "Pagination is supported.", "Preferences have safe defaults.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate notification/preference/delivery migrations and indexes.", "Run ownership, deduplication, pagination, mark-read, unread-count, and safe-default tests.", "Run Backend build and relevant tests.", "Verify notification APIs in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:16",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-16/spr16-001-notification-schema-and-service.md",
+      "baselineAssessment": {
+        "classification": "NOT_IMPLEMENTED",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Existing domains expose events/actions that can later produce notifications, but no shared notification service exists."],
+        "remainingWork": ["No notification, preference, or delivery models, service, APIs, event keys, deduplication rules, Swagger, or tests exist."],
+        "evidence": ["EduAI-Back-End/src/app.module.ts", "EduAI-Back-End/prisma/schema"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR16-002",
+    "title": "In-App Notification Center",
+    "category": "Frontend",
+    "priority": "HIGH",
+    "objective": "Build a shared notification bell and notification center for student, instructor, and admin layouts.",
+    "dependencies": ["SPR16-001"],
+    "acceptanceCriteria": ["All data comes from notification APIs.", "Missing destinations fail safely.", "Keyboard and mobile interaction work.", "Optimistic updates reconcile on failure.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run notification API integration and optimistic rollback component tests.", "Run keyboard, focus, deep-link, missing-destination, and mobile Playwright tests.", "Run Frontend build and relevant tests.", "Verify notification center flows in production for supported roles."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:16",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-16/spr16-002-in-app-notification-center.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Student and instructor layouts provide reusable integration points."], "remainingWork": ["No notification service client, bell, unread badge, center, actions, or deep links exist."], "evidence": ["EduAI-Front-End-Web/src/components/layout/header.tsx", "EduAI-Front-End-Web/src/features/dashboard"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR16-003",
+    "title": "SSE Realtime Notifications",
+    "category": "Full-stack",
+    "priority": "MEDIUM",
+    "objective": "Deliver authenticated in-app notification updates through Server-Sent Events.",
+    "dependencies": ["SPR16-001", "SPR16-002"],
+    "acceptanceCriteria": ["Users receive only their events.", "Reconnect does not duplicate visible notifications.", "Connections are cleaned up.", "SSE failure does not block normal API use.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run authenticated SSE ownership, reconnect/last-event, deduplication, cleanup, and fallback-polling tests.", "Run both affected builds and relevant tests.", "Verify reconnect and fallback behavior in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:16",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-16/spr16-003-sse-realtime-notifications.md",
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["The API response interceptor already recognizes stream responses, but no notification stream exists."], "remainingWork": ["No SSE notification endpoint, stream lifecycle, frontend client, last-event handling, or polling fallback exists."], "evidence": ["EduAI-Back-End/test/api-response-wrapper.e2e-spec.ts", "EduAI-Back-End/src/app.module.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR16-004",
+    "title": "Email Notification Preferences",
+    "category": "Backend / Frontend",
+    "priority": "MEDIUM",
+    "objective": "Add opt-in email delivery for assignment deadlines, grades, classroom reminders, and certificates.",
+    "dependencies": ["SPR16-001"],
+    "acceptanceCriteria": ["Transactional and optional emails are distinguished.", "Users can disable optional categories.", "Failures are logged without blocking core transactions.", "No provider secret is committed.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run preference/default, category, retry/idempotency, provider-failure, secret-scan, and template-preview tests.", "Run both affected builds and relevant tests.", "Verify opt-in delivery with approved production provider configuration."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:16",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-16/spr16-004-email-notification-preferences.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Structured logging/redaction and environment validation patterns are reusable."], "remainingWork": ["No email provider abstraction, preference UI, retry-safe delivery records, templates, or preview exists."], "evidence": ["EduAI-Back-End/src/common/logging/app-logger.service.ts", "EduAI-Back-End/src/config/env.validation.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR17-001",
+    "title": "Learning Goals and Skill Profile",
+    "category": "Full-stack / Database",
+    "priority": "HIGH",
+    "objective": "Capture learner goals, target skills, current level, and weekly availability using the existing profile domain where appropriate.",
+    "dependencies": ["SPR16-002", "SPR16-003", "SPR16-004"],
+    "acceptanceCriteria": ["Only the learner and authorized platform processes can modify goals.", "Existing profile APIs remain compatible.", "Inputs are bounded and normalized.", "Empty onboarding is supported.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate learning-goal/skill-gap migration and profile API compatibility.", "Run ownership, authorization, normalization, bounds, and empty-onboarding tests.", "Run both affected builds and relevant tests.", "Verify setup/edit flows in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:17",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-17/spr17-001-learning-goals-and-skill-profile.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Current-user profile, skill, and portfolio schemas/APIs enforce ownership and validated DTOs."],
+        "remainingWork": ["Add learner goals, target skills/gaps, current level, weekly availability, empty onboarding, and dedicated UI without breaking profile contracts."],
+        "evidence": ["EduAI-Back-End/prisma/schema/20-user-profile.prisma", "EduAI-Back-End/prisma/schema/21-user-skill.prisma", "EduAI-Back-End/src/modules/profile", "EduAI-Front-End-Web/src/features/dashboard/StudentDashboard/StudentProfilePage"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR17-002",
+    "title": "Generate AI Learning Path",
+    "category": "AI / Backend",
+    "priority": "HIGH",
+    "objective": "Generate a structured learning path from learner goals and real EduAI course, progress, quiz, and assignment data.",
+    "dependencies": ["SPR17-001"],
+    "acceptanceCriteria": ["Only accessible courses are included.", "AI output is validated before persistence.", "Regeneration preserves history.", "No private course content leaks into unauthorized prompts.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate versioned learning-path schema and migration.", "Run accessible-course, structured-output, persistence-history, prompt-privacy, quota, timeout, and provider-failure tests.", "Run Backend build and relevant tests.", "Verify generation and regeneration in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:17",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-17/spr17-002-generate-ai-learning-path.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["OpenAI, Gemini, and mock provider abstractions, structured generation validation patterns, AI rate limits, source authorization, and failure handling exist.", "The existing courses/learning-path endpoint is a deterministic within-course sequence, not the requested AI learner roadmap."],
+        "remainingWork": ["Add versioned learner learning-path persistence, generation from goals and real learner data, accessible-course filtering, regeneration history, and task-specific provider/quota tests."],
+        "evidence": ["EduAI-Back-End/src/modules/ai", "EduAI-Back-End/src/modules/courses/learning-path.service.ts", "EduAI-Back-End/prisma/schema/90-ai.prisma"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR17-003",
+    "title": "Learning Path Dashboard",
+    "category": "Frontend",
+    "priority": "HIGH",
+    "objective": "Build a visual roadmap where learners can follow, complete, and review AI-recommended milestones.",
+    "dependencies": ["SPR17-002"],
+    "acceptanceCriteria": ["State is persisted through APIs.", "Unavailable recommendations are clearly marked.", "Responsive and accessible UI.", "Loading/error/empty states included.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run API persistence and unavailable-recommendation component tests.", "Run keyboard, accessibility, loading/error/empty, and responsive Playwright tests.", "Run Frontend build and relevant tests.", "Verify learner roadmap actions in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:17",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-17/spr17-003-learning-path-dashboard.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["The current LearningPage renders a server-backed within-course step sequence and provides reusable progress/roadmap interaction patterns."], "remainingWork": ["No AI learning-path dashboard, milestone persistence, unavailable recommendation state, regenerate action, or goal editing flow exists."], "evidence": ["EduAI-Front-End-Web/src/features/learning/LearningPage", "EduAI-Front-End-Web/src/services/learning.service.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR17-004",
+    "title": "Course-Grounded AI Tutor",
+    "category": "AI / Security / Full-stack",
+    "priority": "HIGH",
+    "objective": "Strengthen the existing AI tutor so each answer can be grounded in authorized course and library sources with citations.",
+    "dependencies": ["SPR17-001"],
+    "acceptanceCriteria": ["Unauthorized chunks never enter prompts.", "Answers distinguish sourced content from general model knowledge.", "Citation links resolve to accessible resources.", "Regression tests cover private course boundaries.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run private-course/library authorization and prompt-content regression tests.", "Run citation/link access, source/general distinction, conversation ownership, and usage-control tests.", "Run both affected builds and relevant tests.", "Verify grounded answers and accessible citations in production."],
+    "applicability": { "tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED" },
+    "extensions": {
+      "sprintId": "SPRINT:17",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-17/spr17-004-course-grounded-ai-tutor.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["Unauthorized lesson and library chunks are filtered before prompt construction."],
+        "partialOrExistingWork": ["Tutor chat uses authenticated retrieval, source-number prompt citations, conversation ownership, rate limits, and returns sources rendered in the UI.", "Private-boundary unit tests exist for retrieval/source services."],
+        "remainingWork": ["Add a course context selector.", "Distinguish sourced versus general model knowledge according to the task policy.", "Return and render accessible citation links rather than non-clickable source cards.", "Add end-to-end private-course regression evidence."],
+        "evidence": ["EduAI-Back-End/src/modules/ai/ai-retrieval.service.ts", "EduAI-Back-End/src/modules/ai/ai-prompt-builder.ts", "EduAI-Back-End/src/modules/ai/ai-conversation.service.ts", "EduAI-Front-End-Web/src/features/ai/AiChatPage.tsx"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR18-001",
+    "title": "Career Profile",
+    "category": "Full-stack / Database",
+    "priority": "MEDIUM",
+    "objective": "Create an employability profile derived from user profile, skills, portfolio, completed courses, and certificates.",
+    "dependencies": ["SPR17-003", "SPR17-004"],
+    "acceptanceCriteria": ["Existing skills and portfolio are reused rather than duplicated.", "Private fields are excluded from public views.", "Completion and certificate data are read-only projections.", "Ownership tests pass.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate career preference/visibility migration without duplicating profile data.", "Run ownership, public/private projection, completion/certificate read-only, and compatibility tests.", "Run both affected builds and relevant tests.", "Verify private and public career profiles in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:18",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-18/spr18-001-career-profile.md",
+      "designRequired": true,
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Authoritative user profile, skills, portfolio, completion/enrollment, and certificate data already exist and must be reused."],
+        "remainingWork": ["Add career preferences/availability and visibility controls, career profile APIs/UI, public privacy projection, and ownership tests."],
+        "evidence": ["EduAI-Back-End/prisma/schema/20-user-profile.prisma", "EduAI-Back-End/prisma/schema/21-user-skill.prisma", "EduAI-Back-End/prisma/schema/22-portfolio.prisma", "EduAI-Back-End/prisma/schema/81-certificate.prisma"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR18-002",
+    "title": "Job Opportunity Management",
+    "category": "Full-stack / Admin",
+    "priority": "MEDIUM",
+    "objective": "Implement admin-managed job opportunities with searchable public listings.",
+    "dependencies": ["SPR14-005", "SPR17-003", "SPR17-004"],
+    "acceptanceCriteria": ["Only published active jobs are visible to students.", "Closed jobs reject new applications.", "Search is paginated.", "Admin mutations are audited.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate job/skill/status migration and indexes.", "Run lifecycle, visibility, closed-job, pagination, admin authorization, and audit tests.", "Run both affected builds and relevant tests.", "Verify admin management and student listings in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:18",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-18/spr18-002-job-opportunity-management.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Admin authorization, pagination DTO, audit, and searchable-list patterns from earlier tasks are dependencies."], "remainingWork": ["No job schema, required skills, publication lifecycle, admin CRUD, or student job listing/detail UI exists."], "evidence": ["EduAI-Back-End/src/app.module.ts", "EduAI-Front-End-Web/src/App.tsx"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR18-003",
+    "title": "Job Applications",
+    "category": "Full-stack",
+    "priority": "MEDIUM",
+    "objective": "Allow learners to save jobs, apply once, and track application status.",
+    "dependencies": ["SPR16-001", "SPR18-001", "SPR18-002"],
+    "acceptanceCriteria": ["Duplicate active applications are prevented.", "Status history is preserved.", "Application data is private.", "Deadline and job status are enforced server-side.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate saved-job/application/status-history migration and constraints.", "Run duplicate, transition, privacy, deadline, closed-job, ownership, and notification tests.", "Run both affected builds and relevant tests.", "Verify student and admin application flows in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:18",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-18/spr18-003-job-applications.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Existing unique-constraint, ownership, private-file, and status-history patterns can be reused after the job domain exists."], "remainingWork": ["No saved-job, application, application history, apply/withdraw API, student dashboard, or admin status management exists."], "evidence": ["EduAI-Back-End/prisma/schema", "EduAI-Front-End-Web/src/features"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR18-004",
+    "title": "AI Job Skill Matching",
+    "category": "AI / Full-stack",
+    "priority": "MEDIUM",
+    "objective": "Calculate explainable job-fit recommendations and course suggestions from structured skill data.",
+    "dependencies": ["SPR17-002", "SPR18-001", "SPR18-002"],
+    "acceptanceCriteria": ["Fit score is reproducible from stored inputs.", "AI cannot alter application status.", "Missing skills are explained.", "Only accessible published courses are recommended.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run deterministic score, missing-skill explanation, accessible-course, application-boundary, and optional AI-layer tests.", "Run both affected builds and relevant tests.", "Verify matching explanations and course recommendations in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:18",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-18/spr18-004-ai-job-skill-matching.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Structured user skills, published course catalog, AI providers, and authorization-filtered source patterns exist as foundations."], "remainingWork": ["No deterministic job-fit service, missing-skill explanation, course recommendation pipeline, AI explanation layer, or skill-gap UI exists."], "evidence": ["EduAI-Back-End/prisma/schema/21-user-skill.prisma", "EduAI-Back-End/src/modules/ai", "EduAI-Back-End/src/modules/courses"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR19-001",
+    "title": "Mentor Profiles and Availability",
+    "category": "Full-stack / Database",
+    "priority": "MEDIUM",
+    "objective": "Add mentor profiles and recurring availability for approved instructors.",
+    "dependencies": ["SPR18-003", "SPR18-004"],
+    "acceptanceCriteria": ["Only approved instructors can activate mentor mode.", "Availability is stored in a timezone-safe form.", "Private contact data is hidden.", "Search and filtering are paginated.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate mentor/expertise/availability migration and timezone representation.", "Run approval, privacy, ownership, pagination, filter, and timezone tests.", "Run both affected builds and relevant tests.", "Verify mentor settings and directory in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:19",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-19/spr19-001-mentor-profiles-and-availability.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Instructor roles and general profile/skill data exist, but no mentor approval or availability domain exists."], "remainingWork": ["Add mentor profile, expertise, approval, timezone-safe recurring availability, settings UI, and paginated directory."], "evidence": ["EduAI-Back-End/prisma/schema/12-user-role.prisma", "EduAI-Back-End/prisma/schema/20-user-profile.prisma", "EduAI-Back-End/src/app.module.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR19-002",
+    "title": "Mentor Booking Workflow",
+    "category": "Full-stack",
+    "priority": "MEDIUM",
+    "objective": "Implement request, acceptance, rejection, cancellation, and rescheduling for mentoring appointments.",
+    "dependencies": ["SPR16-001", "SPR19-001"],
+    "acceptanceCriteria": ["Overlapping accepted bookings are prevented transactionally.", "Status transitions are validated.", "Both parties can see the current canonical time.", "Cancellation reasons are recorded.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate booking/status-history migration, constraints, and indexes.", "Run concurrency conflict, transition, timezone, cancellation, ownership, and notification tests.", "Run both affected builds and relevant tests.", "Verify student and mentor booking flows in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:19",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-19/spr19-002-mentor-booking-workflow.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Classroom scheduling and notification foundations can be reused after the mentor domain exists."], "remainingWork": ["No mentor booking schema/history, conflict transaction, transition service, booking UI, cancellation reasons, or events exist."], "evidence": ["EduAI-Back-End/prisma/schema/60-classroom.prisma", "EduAI-Back-End/src/app.module.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR19-003",
+    "title": "Mentor Jitsi Session",
+    "category": "Backend / Frontend",
+    "priority": "MEDIUM",
+    "objective": "Reuse the classroom Jitsi integration for secure mentoring sessions.",
+    "dependencies": ["SPR19-002"],
+    "acceptanceCriteria": ["Only booking participants and admins can join.", "Room details are not public.", "Join/leave events are idempotent.", "Classroom behavior is not broken.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run booking-participant/admin join authorization and room-privacy tests.", "Run idempotent attendance and classroom regression suites.", "Run both affected builds and relevant tests.", "Verify mentoring room joins in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:19",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-19/spr19-003-mentor-jitsi-session.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Classroom Jitsi room generation, enrolled-participant authorization, ephemeral meeting URLs, server-side join/leave timestamps, idempotent attendance upserts, UI join flow, and regression tests exist."],
+        "remainingWork": ["Connect Jitsi rooms to accepted mentor bookings.", "Authorize only booking participants/admins and expose links in mentor booking views.", "Prove classroom behavior remains unchanged after reuse."],
+        "evidence": ["EduAI-Back-End/src/modules/classrooms/jitsi-room.service.ts", "EduAI-Back-End/src/modules/classrooms/classrooms.service.ts", "EduAI-Back-End/src/modules/classrooms/classrooms.service.spec.ts", "EduAI-Front-End-Web/src/features/classroom"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR19-004",
+    "title": "Mentor Notes, Goals, and Reviews",
+    "category": "Full-stack",
+    "priority": "MEDIUM",
+    "objective": "Add private mentor notes, shared next-step goals, and post-session learner reviews.",
+    "dependencies": ["SPR19-002", "SPR19-003"],
+    "acceptanceCriteria": ["Private mentor notes are never returned to learners.", "Reviews require a completed session.", "Review edits follow an explicit policy.", "Abuse reporting is supported or deferred explicitly.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Validate note/goal/review migration and privacy boundaries.", "Run private-note response, completed-session, one-review, edit-policy, aggregation, ownership, and abuse-report tests/deferment evidence.", "Run both affected builds and relevant tests.", "Verify notes, goals, and reviews in production."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:19",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-19/spr19-004-mentor-notes-goals-reviews.md",
+      "designRequired": true,
+      "baselineAssessment": { "classification": "NOT_IMPLEMENTED", "verifiedSatisfiedAcceptanceCriteria": [], "partialOrExistingWork": ["Course review uniqueness/aggregation and profile privacy patterns may be reused, but are not mentor-session reviews."], "remainingWork": ["No mentor private/shared notes, action goals, completed-booking review, rating aggregation, edit policy, or abuse-report decision exists."], "evidence": ["EduAI-Back-End/prisma/schema/30-course.prisma", "EduAI-Back-End/src/app.module.ts"] }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR20-001",
+    "title": "Security, Ownership, and Rate-Limit Review",
+    "category": "Security / Backend",
+    "priority": "CRITICAL",
+    "objective": "Review every V1 and V2 endpoint for authentication, RBAC, ownership, validation, file safety, and abuse limits.",
+    "dependencies": ["SPR19-004"],
+    "acceptanceCriteria": ["Every endpoint has an explicit public/protected decision.", "Ownership is enforced server-side.", "Production errors do not expose stack traces.", "No secret is committed.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Create and review the endpoint security matrix.", "Run auth, RBAC, ownership, validation, upload safety, error-shape, secret-scan, and rate-limit regression tests.", "Run both builds and relevant suites.", "Verify production errors and abuse limits without destructive traffic."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:20",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-20/spr20-001-security-ownership-rate-limit-review.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": ["Production-mode unhandled errors do not expose stack traces in the standard API response."],
+        "partialOrExistingWork": ["JWT/Roles guards, server-side ownership checks, validation pipes/DTOs, file limits/type checks, AI rate limiting, structured secret redaction, and many security unit tests exist."],
+        "remainingWork": ["Produce the complete endpoint security matrix.", "Audit every V1/v2 endpoint and close gaps.", "Add abuse limits for auth, uploads, and public certificate verification in addition to AI.", "Run a tracked-secret scan; do not include the workspace-root Firebase credential file in any future repository."],
+        "evidence": ["EduAI-Back-End/src/modules/auth/guards", "EduAI-Back-End/src/common/filters/global-exception.filter.ts", "EduAI-Back-End/src/modules/ai/ai-rate-limit.service.ts", "EduAI-Back-End/src/modules/assignments/assignment-storage.service.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR20-002",
+    "title": "Observability and Dependency Health",
+    "category": "DevOps / Full-stack",
+    "priority": "HIGH",
+    "objective": "Add production-grade tracing context, structured error reporting, and dependency health checks.",
+    "dependencies": ["SPR19-004"],
+    "acceptanceCriteria": ["Health endpoints expose no secrets.", "External dependency failures are distinguishable.", "User-facing errors have correlation IDs where appropriate.", "Monitoring is environment configurable.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run correlation propagation, structured logging, secret-redaction, frontend/backend reporting, and environment-config tests.", "Run safe health checks for database, Redis, R2, Firebase, and AI providers with simulated failures.", "Run both builds and relevant suites.", "Verify monitoring and dependency health in production with approved access."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:20",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-20/spr20-002-observability-and-health.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Backend emits JSON structured request/error logs with recursive sensitive-key redaction.", "A public health endpoint reports Redis health and has E2E coverage.", "Production error responses are sanitized."],
+        "remainingWork": ["Add request correlation IDs and user-facing propagation.", "Add database, R2, Firebase, and OpenAI/Gemini health with distinguishable safe failures.", "Add frontend/backend error reporting integration and environment-configurable monitoring."],
+        "evidence": ["EduAI-Back-End/src/common/logging", "EduAI-Back-End/src/modules/health/health.controller.ts", "EduAI-Back-End/test/health.e2e-spec.ts", "EduAI-Back-End/src/common/filters/global-exception.filter.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR20-003",
+    "title": "Performance, Accessibility, and Lighthouse Pass",
+    "category": "Frontend / Backend / QA",
+    "priority": "HIGH",
+    "objective": "Optimize critical user flows for mobile performance, accessibility, and bounded API behavior.",
+    "dependencies": ["SPR20-001", "SPR20-002"],
+    "acceptanceCriteria": ["No critical image is unintentionally lazy-loaded.", "List APIs are bounded.", "Core pages are keyboard navigable.", "Performance changes preserve behavior.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Produce Lighthouse/accessibility reports for agreed core pages and viewports.", "Audit critical image loading, route splitting, API pagination/bounds, query plans, keyboard flows, and regression behavior.", "Run both builds, relevant suites, and responsive Playwright coverage.", "Verify production performance/accessibility targets."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:20",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-20/spr20-003-performance-accessibility-lighthouse.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Responsive visual Playwright coverage exists at 320/768/1024/1440 widths for selected pages.", "Several APIs use bounded take/pagination and the UI uses semantic labels/focus patterns in many components.", "Current frontend build passes but warns that the main JavaScript chunk is 681.07 kB and recommends code splitting."],
+        "remainingWork": ["Run a critical-image/lazy-loading audit.", "Implement route-level code splitting and reduce the oversized main bundle.", "Audit all list APIs/query plans and core keyboard flows.", "Produce Lighthouse and accessibility evidence."],
+        "evidence": ["EduAI-Front-End-Web/playwright/responsive-visual.spec.ts", "EduAI-Front-End-Web/src/App.tsx", "EduAI-Back-End/src/modules/dashboards/dashboards.service.ts"]
+      }
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR20-004",
+    "title": "End-to-End UAT and V2 Release Package",
+    "category": "QA / DevOps / Documentation",
+    "priority": "CRITICAL",
+    "objective": "Prepare a repeatable V2 acceptance package and release checklist across all supported roles.",
+    "dependencies": ["SPR20-001", "SPR20-002", "SPR20-003"],
+    "acceptanceCriteria": ["All P0 defects are closed.", "P1 defects are fixed or explicitly accepted.", "Production build and migrations are verified.", "Rollback instructions are tested or dry-run documented.", "Backend and frontend builds pass where affected.", "Relevant tests pass.", "No unrelated files changed."],
+    "verification": ["Run seeded student, instructor, admin, career, mentor, AI, notification, and certificate UAT journeys.", "Verify production builds, migration deploy, rollback dry run, known limitations, and release notes.", "Run complete relevant regression suites.", "Verify the released revision at https://eduai.giaoducso.org.vn and record structured production evidence."],
+    "applicability": { "tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL" },
+    "extensions": {
+      "sprintId": "SPRINT:20",
+      "source": "EduAI_Docs/docs/tasks_2.0/sprint-20/spr20-004-end-to-end-uat-and-release.md",
+      "baselineAssessment": {
+        "classification": "PARTIAL",
+        "verifiedSatisfiedAcceptanceCriteria": [],
+        "partialOrExistingWork": ["Deterministic demo seed/verification scripts, V1 Playwright smoke journeys, production deployment workflows/config, and clean current unit build baselines exist."],
+        "remainingWork": ["All v2 feature tasks and P0/P1 triage must finish first.", "Add admin/career/mentor/notification v2 UAT journeys.", "Verify production migrations and builds, document/test rollback, publish known limitations/release notes, and record production evidence."],
+        "evidence": ["EduAI-Back-End/prisma/demo-seed.ts", "EduAI-Front-End-Web/playwright/smoke.spec.ts", "EduAI-Back-End/.github/workflows", "EduAI-Front-End-Web/.github/workflows", "EduAI-Back-End/render.yaml", "EduAI-Front-End-Web/vercel.json"]
+      }
+    }
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-001", "title": "Audit Priority Product Track and AI-DOS Gaps", "category": "Planning / Full-stack", "priority": "CRITICAL",
+    "objective": "Audit EduAI, AI-DOS, the supplied UX references, and the Couponis archive, then record the smallest dependency-ordered product gaps.", "dependencies": [],
+    "acceptanceCriteria": ["The repository audit records existing navigation, price formatting, demo seed, commerce absence, and PWA absence with concrete paths.", "The Couponis note separates adaptable product flows from WordPress/runtime/copyrighted material that must not be reused.", "The canonical AI-DOS task group is dependency-valid, leaves SPR17-002 IN_PROGRESS unchanged, and identifies the first runnable task."],
+    "verification": ["Run node core/conformance.js --manifest .ai-dos/manifest.json from the canonical Workspace root.", "Run node core/runtime.js plan --manifest .ai-dos/manifest.json from the canonical Workspace root and inspect priority ordering.", "Review EduAI_Docs/docs/v2/04-priority-product-audit.md and the Sprint 21 task catalog."],
+    "applicability": {"tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P0", "userValue": "Creates a safe ordered delivery path for the requested product experience.", "scope": "Repository and AI-DOS audit, task decomposition, scheduling, and reference findings.", "outOfScope": "Feature implementation, production deployment, WordPress runtime, and source-code copying.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "audit", "backend": "audit", "database": "no change"}, "testStrategy": "AI-DOS conformance and runtime plan plus evidence review.", "uatRequirement": "None; audit artifacts only.", "deploymentRequirement": "None.", "securityConsiderations": "Do not execute archive code or record credentials, tokens, or private production data.", "dataMigration": "None.", "rollback": "Remove only the new task group and audit artifacts; preserve existing task state.", "evidenceExpected": "Audit artifact, conformance PASS, runtime plan, and unchanged active-task state.", "agentProfileId": "project-manager"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-002", "title": "Establish Mobile UX Tokens and Typography", "category": "UI/UX / Frontend", "priority": "CRITICAL", "objective": "Create a compact EduAI mobile token layer for type, spacing, icons, cards, controls, and safe-area layout without copying supplied reference branding.", "dependencies": ["SPR21-001"],
+    "acceptanceCriteria": ["Mobile typography, icon sizes, spacing, card density, and control touch targets use documented EduAI tokens.", "The layout remains readable at 320px and preserves the existing desktop design language.", "Bottom-bar and page content reserve safe-area space without obscuring actionable content."], "verification": ["Run frontend unit tests and build.", "Run the 320px and desktop responsive suite.", "Review rendered mobile and desktop screenshots for overflow and touch-target regressions."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P0", "userValue": "Makes the web experience comfortable and legible on phones.", "scope": "Frontend design tokens and shared mobile layout primitives.", "outOfScope": "CreativeHub branding, a second design system, and business-logic changes.", "affectedRepositories": ["EduAI-Front-End-Web"], "impact": {"frontend": "CSS/components", "backend": "none", "database": "none"}, "testStrategy": "Vitest plus Playwright responsive checks.", "uatRequirement": "Mobile and desktop visual review.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Preserve accessible focus and contrast states.", "dataMigration": "None.", "rollback": "Revert token/component CSS changes.", "evidenceExpected": "Unit, build, responsive, and screenshot evidence.", "agentProfileId": "ui-ux-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-003", "title": "Implement Mobile Bottom Navigation Contract", "category": "UI/UX / Frontend", "priority": "CRITICAL", "objective": "Audit and implement mobile product navigation for real EduAI destinations with correct active, accessible, and responsive behavior.", "dependencies": ["SPR21-002"],
+    "acceptanceCriteria": ["Every visible item maps to one existing route or action; there are no duplicate or decorative destinations.", "Nested routes keep the correct parent item active and protected destinations preserve authorization behavior.", "Items expose accessible labels, at least 44px touch targets, keyboard focus, and no content overlap at mobile widths."], "verification": ["Run navigation unit tests for public and authenticated roles.", "Run Playwright navigation checks at 320px, 390px, and desktop.", "Verify community and feature links resolve without placeholder pages."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P0", "userValue": "Provides predictable one-handed discovery of core EduAI areas.", "scope": "Existing Header/mobile-nav route and accessibility behavior.", "outOfScope": "New community/feature products and route duplication.", "affectedRepositories": ["EduAI-Front-End-Web"], "impact": {"frontend": "header, routes, tests", "backend": "none", "database": "none"}, "testStrategy": "Component and browser route matrix.", "uatRequirement": "Public and authenticated mobile smoke checks.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Do not bypass ProtectedRoute or role guards.", "dataMigration": "None.", "rollback": "Restore prior navigation contract.", "evidenceExpected": "Route, accessibility, and responsive test evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-004", "title": "Unify Course Price and Promotion Display", "category": "Frontend / API Design", "priority": "CRITICAL", "objective": "Define a shared price presentation contract for free, original, discounted, and final course prices while keeping final calculations authoritative on the backend.", "dependencies": ["SPR21-002"],
+    "acceptanceCriteria": ["All course surfaces use one locale/currency formatter and distinguish free, unpublished, original, discount, and final price states.", "The API contract never accepts a client-provided final price as authoritative.", "Invalid minor-unit/currency combinations and negative values are rejected and covered by tests."], "verification": ["Run formatter and API contract unit tests.", "Run course listing/detail/learning display checks at mobile and desktop.", "Review compatibility with voucher/scholarship without introducing payment assumptions."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P0", "userValue": "Prevents confusing or unsafe course price presentation.", "scope": "Course price DTO/display contract and shared formatting.", "outOfScope": "Payment gateway, order capture, and client-side pricing authority.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "formatter and course views", "backend": "DTO/validation", "database": "no destructive change"}, "testStrategy": "Unit, API contract, and responsive display tests.", "uatRequirement": "Free/paid/discount display matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Server-authoritative values and validated currency pairs.", "dataMigration": "Only if an additive promotion projection is approved.", "rollback": "Revert display contract while preserving stored minor-unit prices.", "evidenceExpected": "Unit, build, API, and UAT evidence.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-005", "title": "Add Mobile and Responsive Navigation Regression Coverage", "category": "QA / Frontend", "priority": "CRITICAL", "objective": "Make mobile navigation, price presentation, and responsive core journeys repeatably testable.", "dependencies": ["SPR21-003", "SPR21-004"], "acceptanceCriteria": ["Critical public and authenticated routes are covered at mobile and desktop viewports.", "Navigation, overflow, focus, and price states have deterministic assertions.", "Failures identify route, role, viewport, and affected surface."], "verification": ["Run focused Vitest suites.", "Run focused Playwright responsive suite.", "Run frontend build and record pre-existing non-blocking warnings."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P0", "userValue": "Prevents mobile regressions from returning after visual changes.", "scope": "Frontend unit and Playwright coverage.", "outOfScope": "Unrelated end-to-end product features.", "affectedRepositories": ["EduAI-Front-End-Web"], "impact": {"frontend": "tests", "backend": "none", "database": "none"}, "testStrategy": "Focused unit plus responsive browser tests.", "uatRequirement": "Evidence from 320px and desktop checks.", "deploymentRequirement": "None beyond build verification.", "securityConsiderations": "Include authenticated role boundaries.", "dataMigration": "None.", "rollback": "Remove only new tests if contract is superseded.", "evidenceExpected": "Test and build reports.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-006", "title": "Design Minimal Course Test Fixtures", "category": "QA / Backend", "priority": "HIGH", "objective": "Define the smallest deterministic course fixtures required by automated feature tests, without creating the final Product Owner demo dataset.", "dependencies": ["SPR21-005"], "acceptanceCriteria": ["Fixture design covers only the course states needed by feature tests: category, level, free/paid/promotion-ready price, thumbnail, lesson/resource, instructor, enrollment, progress, and review where required.", "Fixtures are synthetic, deterministic, isolated from production, and safe to rerun.", "The design explicitly excludes final demo-catalog completeness and identifies any additive schema/migration needed for feature tests."], "verification": ["Review the existing Prisma schema and demo contract.", "Run fixture contract tests in design/contract form.", "Confirm no copyrighted or scraped course content is introduced."], "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "MINIMAL_TEST_FIXTURE", "fixtureClassification": "A_MINIMAL_TEST_FIXTURE", "productPriority": "TEST_SUPPORT", "userValue": "Gives feature tests safe, focused data without prematurely freezing the final demo catalog.", "scope": "Minimal feature-test fixture contract and schema gap analysis.", "outOfScope": "Final demo dataset, production content, scraping, and payment data.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "fixture assumptions", "backend": "Prisma/fixture design", "database": "possible additive schema"}, "testStrategy": "Fixture contract and Prisma validation.", "uatRequirement": "Document only the minimal scenarios needed by feature tests.", "deploymentRequirement": "None.", "securityConsiderations": "Never enable test fixtures in production.", "dataMigration": "Explicitly identify additive migration or none.", "rollback": "Drop only dedicated development test fixtures/schema.", "evidenceExpected": "Fixture design and contract evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-007", "title": "Implement Minimal Course Test Fixtures", "category": "Backend / QA", "priority": "HIGH", "objective": "Implement only the approved minimal feature-test fixtures through the existing guarded development seed framework; do not finalize the Product Owner demo catalog here.", "dependencies": ["SPR21-006"], "acceptanceCriteria": ["Dedicated test fixtures create the required category, free/paid/promotion-ready, lesson/resource, enrollment, progress, and review states idempotently.", "Fixtures support feature contract, authorization, and responsive tests without replacing or deleting the existing db:seed:demo framework.", "Production mode rejects the fixture path and no secrets or third-party copyrighted content are added."], "verification": ["Run npm.cmd run prisma:validate and npm.cmd run test:demo-data.", "Run the guarded development fixture command and verify cleanup/idempotence in an authorized test database.", "Run affected backend and frontend contract tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "MINIMAL_TEST_FIXTURE", "fixtureClassification": "A_MINIMAL_TEST_FIXTURE", "productPriority": "TEST_SUPPORT", "userValue": "Unblocks focused feature tests without making demo data a prerequisite for product work.", "scope": "Guarded minimal test fixtures and required contracts.", "outOfScope": "Final demo dataset, production data mutation, and external content scraping.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "test contracts", "backend": "fixture seed", "database": "development/test data only"}, "testStrategy": "Prisma validation, fixture contract, seed verification, and focused course regression.", "uatRequirement": "Dedicated test fixture reset and scenario verification only.", "deploymentRequirement": "Development/test only.", "securityConsiderations": "Guarded environment and no production exposure.", "dataMigration": "Reviewed additive test-only migration only if task 006 requires it.", "rollback": "Remove only dedicated test fixtures and revert test-only migration if safe.", "evidenceExpected": "Fixture seed, verification, and contract evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-008", "title": "Validate Minimal Course Test Fixtures", "category": "QA / Data", "priority": "HIGH", "objective": "Validate that minimal synthetic fixtures cover feature contract tests without being treated as the final Product Owner demo dataset.", "dependencies": ["SPR21-007"], "acceptanceCriteria": ["Only the minimal listing/detail/search/filter, enrollment, learning, price, voucher-contract, scholarship-contract, and reward-contract states required by feature tests are verified.", "Development test fixtures and any existing demo seed remain clearly separated from production content.", "Reset/cleanup and rollback behavior are documented."], "verification": ["Run fixture contract and focused API tests.", "Run authorized fixture-backed browser checks only where a feature requires them.", "Review database target classification and cleanup evidence."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "MINIMAL_TEST_FIXTURE", "fixtureClassification": "A_MINIMAL_TEST_FIXTURE", "productPriority": "TEST_SUPPORT", "userValue": "Provides stable, focused test inputs while leaving final demo curation until the feature track is stable.", "scope": "Minimal fixture validation, reset, and cleanup evidence.", "outOfScope": "Final demo/UAT catalog and production write UAT without explicit authorization.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "feature test journeys", "backend": "fixture verification", "database": "authorized test target only"}, "testStrategy": "Contract, integration, and focused browser checks.", "uatRequirement": "Minimal fixture matrix only.", "deploymentRequirement": "Optional development/test environment.", "securityConsiderations": "No credentials or private records in evidence.", "dataMigration": "None beyond task 007.", "rollback": "Cleanup dedicated test fixtures and retain evidence.", "evidenceExpected": "Fixture scenario, test, and cleanup evidence.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-009", "title": "Design Voucher Domain and Eligibility Rules", "category": "Architecture / Backend", "priority": "HIGH", "objective": "Design an EduAI-native voucher model and validation flow compatible with current course/enrollment architecture without assuming payment exists.", "dependencies": ["SPR21-004", "SPR21-008"], "acceptanceCriteria": ["Design covers promo code, percentage/fixed discount, validity, minimum value, maximum discount, usage limits, per-user limits, course/category scope, eligibility, and expired/disabled states.", "Voucher semantics remain distinct from scholarships and final server-side eligibility/discount validation is specified.", "Concurrency, replay, ownership, partial failure, audit, and rollback behavior are documented."], "verification": ["Review current course/enrollment schema and API boundaries.", "Write domain/API contract tests or executable validation examples before implementation.", "Record an architecture decision if the approved model is expensive to reverse."], "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Defines safe discount behavior before UI or persistence is built.", "scope": "Voucher domain, eligibility, and contract design.", "outOfScope": "WordPress/Couponis code and payment/order engine.", "affectedRepositories": ["EduAI-Back-End", "EduAI_Docs"], "impact": {"frontend": "future contract", "backend": "domain/API design", "database": "proposed schema"}, "testStrategy": "Contract tests and adversarial rule cases.", "uatRequirement": "Define voucher scenario matrix.", "deploymentRequirement": "None.", "securityConsiderations": "Server authority, replay/double-use prevention, authorization, and auditability.", "dataMigration": "No migration until design approval.", "rollback": "Design-only; no runtime rollback needed.", "evidenceExpected": "Domain decision, contract tests, and threat cases.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-010", "title": "Implement Voucher Backend Validation and Redemption", "category": "Backend / Security", "priority": "HIGH", "objective": "Implement the approved voucher lifecycle and server-side eligibility/redemption behavior without introducing payment capture.", "dependencies": ["SPR21-009"], "acceptanceCriteria": ["Admin-managed vouchers support lifecycle, validity, scope, limits, and redemption history.", "Validation rejects expired, disabled, ineligible, over-limit, replayed, and invalid-ownership uses.", "Redemption is transactional/idempotent and never trusts client-calculated price or discount."], "verification": ["Run backend unit and integration tests for valid and invalid voucher cases.", "Run Prisma validation/migration checks if schema changes are required.", "Run authorization tests for learner, instructor, and platform administrator roles."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Makes vouchers usable while preserving price and usage integrity.", "scope": "Voucher persistence, services, controllers, and audit history.", "outOfScope": "Payment settlement and Couponis runtime.", "affectedRepositories": ["EduAI-Back-End"], "impact": {"frontend": "API contract consumer", "backend": "domain/API", "database": "additive schema/migration"}, "testStrategy": "Unit, integration, authorization, and concurrency tests.", "uatRequirement": "Voucher lifecycle and redemption matrix.", "deploymentRequirement": "Required only for a deployed feature environment.", "securityConsiderations": "Prevent double redeem, replay, negative discount, privilege escalation, and client price manipulation.", "dataMigration": "Additive migration with rollback plan if approved.", "rollback": "Disable new voucher routes and preserve auditable records; reverse migration only when safe.", "evidenceExpected": "Tests, migration, and API contract evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-011", "title": "Build Voucher Admin Management", "category": "Frontend / Admin", "priority": "HIGH", "objective": "Provide a role-protected admin workflow for creating, editing, disabling, and auditing vouchers.", "dependencies": ["SPR21-010"], "acceptanceCriteria": ["Platform administrators can manage code, type, value, dates, scope, limits, and status through validated forms.", "Admin UI displays redemption history and server-returned validation errors.", "Non-admin users cannot access or mutate voucher management routes."], "verification": ["Run component/service tests for form validation and API errors.", "Run role-protected Playwright checks at 320px and desktop.", "Run frontend build and backend authorization regression tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Lets authorized staff operate voucher policy safely.", "scope": "Admin route, forms, list, status, and history views.", "outOfScope": "Learner checkout/payment UI.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Back-End"], "impact": {"frontend": "admin feature", "backend": "existing voucher API", "database": "none"}, "testStrategy": "Component, service, role, and responsive browser tests.", "uatRequirement": "Platform-admin and lower-role matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Role guards and no secret exposure.", "dataMigration": "None.", "rollback": "Hide route and revert UI while retaining backend audit data.", "evidenceExpected": "UI, authorization, build, and responsive evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-012", "title": "Build Voucher Learner Experience", "category": "Frontend / Course", "priority": "HIGH", "objective": "Expose applicable vouchers and clear discount states in the learner course experience without inventing a checkout engine.", "dependencies": ["SPR21-010"], "acceptanceCriteria": ["Learners can view applicable voucher details and submit a code through the approved API flow.", "Expired, disabled, ineligible, already-used, and successful states are clear and accessible.", "Displayed final values come from the server and do not imply payment completion when none exists."], "verification": ["Run learner component and service tests.", "Run mobile/desktop Playwright checks for valid and invalid states.", "Review course price, free, voucher, and enrollment boundaries."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Makes discount eligibility understandable to learners.", "scope": "Learner voucher list/code/feedback and course price states.", "outOfScope": "Payment processing and a coupon marketplace.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Back-End"], "impact": {"frontend": "course UX", "backend": "voucher API", "database": "none"}, "testStrategy": "Component, API, accessibility, and responsive tests.", "uatRequirement": "Learner voucher state matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Never expose private eligibility or trust client totals.", "dataMigration": "None.", "rollback": "Disable learner entry point while preserving server history.", "evidenceExpected": "UI and API behavior evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-013", "title": "Verify Voucher Security and UAT", "category": "Security / QA", "priority": "HIGH", "objective": "Prove voucher authorization, limits, lifecycle, and transaction behavior under adversarial and user-facing scenarios.", "dependencies": ["SPR21-011", "SPR21-012"], "acceptanceCriteria": ["Double redemption, replay, expiry, reuse limits, invalid ownership, partial failure, and price manipulation tests pass.", "Unauthorized create/update/disable/inspect operations are rejected by role.", "UAT evidence covers free, paid, scoped, disabled, expired, and successful voucher flows."], "verification": ["Run focused backend security/concurrency suites.", "Run learner/admin Playwright UAT at mobile and desktop.", "Review sanitized evidence and confirm no production payment claim is made."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Reduces financial-like integrity and abuse risk before wider use.", "scope": "Voucher threat model, automated tests, and UAT.", "outOfScope": "Real-money settlement.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "UAT", "backend": "security tests", "database": "test data only"}, "testStrategy": "Unit, integration, authorization, concurrency, and Playwright.", "uatRequirement": "Required sanitized UAT evidence.", "deploymentRequirement": "Optional test deployment.", "securityConsiderations": "Authoritative backend and atomic usage enforcement.", "dataMigration": "None.", "rollback": "Disable voucher redemption if a critical integrity failure appears.", "evidenceExpected": "Security and UAT PASS evidence.", "agentProfileId": "security-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-014", "title": "Design Scholarship Domain and Eligibility", "category": "Architecture / Backend", "priority": "HIGH", "objective": "Define scholarship campaigns as a distinct semantic domain with eligibility, application, benefit, and course applicability rules.", "dependencies": ["SPR21-004", "SPR21-008"], "acceptanceCriteria": ["Design covers campaign title/description, eligibility, dates, quota, status, course scope, benefit, and application or automatic eligibility.", "Scholarships remain distinct from vouchers while allowing a shared discount calculation where appropriate.", "Admin, learner, history, audit, concurrency, and rollback behavior are explicit."], "verification": ["Review existing user/course/enrollment boundaries.", "Write contract tests for eligibility and quota edge cases.", "Record an ADR when the approved persistence/benefit model is difficult to reverse."], "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Creates a fair, auditable path for scholarship benefits.", "scope": "Scholarship domain and eligibility design.", "outOfScope": "Merging scholarships into vouchers or adding payments.", "affectedRepositories": ["EduAI-Back-End", "EduAI_Docs"], "impact": {"frontend": "future contract", "backend": "domain/API design", "database": "proposed additive schema"}, "testStrategy": "Contract and adversarial eligibility tests.", "uatRequirement": "Define campaign/application matrix.", "deploymentRequirement": "None.", "securityConsiderations": "Eligibility privacy, quota race safety, and role separation.", "dataMigration": "No migration before design approval.", "rollback": "Design-only.", "evidenceExpected": "Domain design and contract evidence.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-015", "title": "Implement Scholarship Backend", "category": "Backend / Security", "priority": "HIGH", "objective": "Implement the approved scholarship campaign, eligibility, application, benefit, quota, and history APIs.", "dependencies": ["SPR21-014"], "acceptanceCriteria": ["Campaign lifecycle and course applicability are enforced server-side.", "Application or automatic eligibility is idempotent, quota-safe, and auditable.", "Benefit issuance never grants unauthorized ownership or trusts client eligibility."], "verification": ["Run backend unit/integration and authorization tests.", "Run Prisma validation/migration checks.", "Run quota/concurrency and duplicate-application tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Turns approved scholarship policy into an enforceable product capability.", "scope": "Scholarship persistence, services, controllers, and audit.", "outOfScope": "Payment settlement and voucher semantic collapse.", "affectedRepositories": ["EduAI-Back-End"], "impact": {"frontend": "API consumer", "backend": "domain/API", "database": "additive schema/migration"}, "testStrategy": "Unit, integration, authorization, and concurrency.", "uatRequirement": "Campaign/eligibility/apply/history matrix.", "deploymentRequirement": "Optional feature environment.", "securityConsiderations": "Role-protected admin mutations and privacy-safe responses.", "dataMigration": "Reviewed additive migration only.", "rollback": "Disable new campaign routes and preserve history.", "evidenceExpected": "API, migration, security, and concurrency evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-016", "title": "Build Scholarship Learner and Admin UI", "category": "Frontend / Admin", "priority": "HIGH", "objective": "Expose scholarship discovery/application/history for learners and campaign management for administrators.", "dependencies": ["SPR21-015"], "acceptanceCriteria": ["Learners see only applicable campaigns and clear status/benefit/history states.", "Platform administrators can manage campaigns, dates, quota, status, and course scope.", "Role protection, responsive layout, accessible forms, and server validation errors work."], "verification": ["Run component/service tests.", "Run role and responsive Playwright checks.", "Run frontend build and backend authorization regression tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Makes scholarship support discoverable and operable.", "scope": "Learner and admin scholarship screens.", "outOfScope": "New marketing design system and payment screens.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Back-End"], "impact": {"frontend": "new feature UI", "backend": "API integration", "database": "none"}, "testStrategy": "Component, service, role, accessibility, and responsive tests.", "uatRequirement": "Learner/admin campaign matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Do not leak ineligible-user reasons beyond policy.", "dataMigration": "None.", "rollback": "Hide routes and preserve applications/history.", "evidenceExpected": "UI, role, and build evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-017", "title": "Verify Scholarship Rules and UAT", "category": "Security / QA", "priority": "HIGH", "objective": "Prove scholarship eligibility, quota, benefits, privacy, and learner/admin workflows.", "dependencies": ["SPR21-016"], "acceptanceCriteria": ["Eligibility, dates, disabled/expired, course scope, quota, duplicate application, and benefit cases pass.", "Unauthorized campaign or application operations are rejected.", "UAT evidence is sanitized and distinguishes scholarship from voucher behavior."], "verification": ["Run focused backend tests including concurrency.", "Run learner/admin Playwright UAT at mobile and desktop.", "Review AI-DOS evidence and rollback/disable procedure."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Demonstrates scholarships are fair, private, and reliable.", "scope": "Scholarship security and UAT matrix.", "outOfScope": "Real-money reimbursement.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "UAT", "backend": "tests", "database": "test data only"}, "testStrategy": "Unit, integration, authorization, concurrency, and browser tests.", "uatRequirement": "Required sanitized UAT.", "deploymentRequirement": "Optional test deployment.", "securityConsiderations": "Privacy and authoritative eligibility.", "dataMigration": "None.", "rollback": "Disable campaign issuance on failure.", "evidenceExpected": "Security, UAT, and rollback evidence.", "agentProfileId": "security-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-018", "title": "Design TMI Wallet and Immutable Ledger", "category": "Architecture / Backend", "priority": "HIGH", "objective": "Design the TMI wallet, append-only ledger, reward identity, and authoritative transaction boundaries.", "dependencies": ["SPR21-004", "SPR21-008"], "acceptanceCriteria": ["Wallet exposes current, earned, spent, and expiry totals derived from ledger transactions.", "Ledger records earn, redeem, refund, adjustment, optional expiry, source, actor, and timestamp with audit semantics.", "Design defines atomic redemption, idempotency, authorization, negative-balance prevention, and non-money-equivalent constraints."], "verification": ["Review existing user, enrollment, certificate, and audit boundaries.", "Write ledger/redeem contract tests and failure cases.", "Record an ADR for the ledger and transaction model before implementation."], "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Creates trustworthy TMI accounting instead of an unauditable balance integer.", "scope": "Wallet/ledger/reward/redemption architecture.", "outOfScope": "Money-equivalent points and unapproved payment logic.", "affectedRepositories": ["EduAI-Back-End", "EduAI_Docs"], "impact": {"frontend": "future wallet UI", "backend": "domain design", "database": "proposed ledger schema"}, "testStrategy": "Contract, invariants, and adversarial transaction tests.", "uatRequirement": "Define reward and ledger audit matrix.", "deploymentRequirement": "None.", "securityConsiderations": "Backend authority, immutable history, least-privilege adjustments.", "dataMigration": "No migration before approval.", "rollback": "Design-only.", "evidenceExpected": "ADR, invariants, and contract evidence.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-019", "title": "Implement TMI Reward Catalog", "category": "Backend / Admin", "priority": "HIGH", "objective": "Implement a catalog of TMI rewards such as course entitlements, vouchers, and approved gifts with lifecycle and quota controls.", "dependencies": ["SPR21-018"], "acceptanceCriteria": ["Rewards support type, TMI cost, availability, quota, validity, enable/disable, and physical inventory metadata where applicable.", "Admin mutations are role-protected and auditable.", "Catalog data does not imply money value or payment settlement."], "verification": ["Run backend unit/integration and authorization tests.", "Run schema validation/migration checks.", "Run quota, validity, and disabled-state tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Gives learners a controlled set of redeemable TMI benefits.", "scope": "Reward catalog and admin domain.", "outOfScope": "Payment, cash conversion, and unapproved physical fulfillment integration.", "affectedRepositories": ["EduAI-Back-End"], "impact": {"frontend": "future catalog UI", "backend": "catalog API", "database": "additive schema"}, "testStrategy": "Unit, integration, authorization, and quota tests.", "uatRequirement": "Catalog lifecycle matrix.", "deploymentRequirement": "Optional feature environment.", "securityConsiderations": "Admin-only catalog changes and no client cost authority.", "dataMigration": "Reviewed additive migration.", "rollback": "Disable catalog entries without deleting ledger history.", "evidenceExpected": "API, schema, and authorization evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-020", "title": "Implement Atomic TMI Redemption", "category": "Backend / Security", "priority": "HIGH", "objective": "Implement authoritative TMI redemption that atomically validates balance, quota, eligibility, entitlement, and ledger history.", "dependencies": ["SPR21-019"], "acceptanceCriteria": ["Successful redemption creates the approved entitlement/benefit and ledger entry in one atomic transaction.", "Insufficient balance, expired/disabled reward, quota exhaustion, invalid ownership, replay, and duplicate requests fail safely.", "Refund/adjustment paths are explicit, authorized, and never produce negative balance."], "verification": ["Run unit and integration transaction tests.", "Run concurrent redemption and idempotency tests.", "Run authorization and audit-history tests for learner/admin roles."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Makes TMI redemption reliable and resistant to double-spend behavior.", "scope": "Wallet, ledger, reward, entitlement, and redemption transaction.", "outOfScope": "Money-equivalent behavior and payment gateway.", "affectedRepositories": ["EduAI-Back-End"], "impact": {"frontend": "API consumer", "backend": "transactional domain", "database": "ledger/constraints/migration"}, "testStrategy": "Unit, integration, concurrency, authorization, and invariant tests.", "uatRequirement": "Redeem/history/refund scenario matrix.", "deploymentRequirement": "Optional feature environment.", "securityConsiderations": "Atomicity, idempotency, replay protection, and backend authority.", "dataMigration": "Reviewed additive migration only.", "rollback": "Disable redemption while preserving append-only ledger; no destructive balance rewrite.", "evidenceExpected": "Transaction, security, and audit evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-021", "title": "Build Learner TMI Rewards UI", "category": "Frontend / Learner", "priority": "HIGH", "objective": "Expose TMI balance, ledger history, reward catalog, redemption confirmation, and result states to learners.", "dependencies": ["SPR21-020"], "acceptanceCriteria": ["Learners can view current/earned/spent balances, reward details, required TMI, and redemption history.", "UI confirms before redeeming and renders server-authoritative success/failure states.", "Loading, empty, error, disabled, accessibility, and responsive states are covered."], "verification": ["Run component/service tests.", "Run mobile/desktop learner Playwright checks.", "Run build and verify no client-side balance or price calculation is authoritative."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Lets learners understand and use TMI rewards confidently.", "scope": "Learner wallet, catalog, redemption, and history UI.", "outOfScope": "Admin management and money conversion.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Back-End"], "impact": {"frontend": "new feature UI", "backend": "API integration", "database": "none"}, "testStrategy": "Component, service, role, accessibility, and responsive browser tests.", "uatRequirement": "Learner redemption matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Treat balance/cost as server data and avoid sensitive ledger leakage.", "dataMigration": "None.", "rollback": "Hide redemption entry point without mutating ledger.", "evidenceExpected": "UI, API, accessibility, and build evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-022", "title": "Build Admin TMI Rewards UI", "category": "Frontend / Admin", "priority": "HIGH", "objective": "Provide role-protected administration for reward catalog, TMI cost, quota, validity, status, inventory, and authorized adjustments.", "dependencies": ["SPR21-020"], "acceptanceCriteria": ["Platform administrators can manage approved reward metadata and view sanitized redemption/ledger history.", "Adjustments require explicit reason, actor, and audit trail; lower roles are rejected.", "UI distinguishes configuration from ledger mutation and never exposes secret data."], "verification": ["Run component/service and authorization tests.", "Run responsive Playwright admin checks.", "Run frontend build and backend audit/role regression tests."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Gives staff controlled operational visibility without weakening the ledger.", "scope": "Admin reward catalog and authorized adjustment UI.", "outOfScope": "Unreviewed bulk balance editing and cash value.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI-Back-End"], "impact": {"frontend": "admin UI", "backend": "API integration", "database": "none"}, "testStrategy": "Component, role, audit, and responsive tests.", "uatRequirement": "Platform-admin/lower-role matrix.", "deploymentRequirement": "Optional staging preview.", "securityConsiderations": "Least privilege, reason-required adjustments, sanitized history.", "dataMigration": "None.", "rollback": "Disable adjustment controls and preserve ledger.", "evidenceExpected": "UI, authorization, audit, and build evidence.", "agentProfileId": "frontend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-023", "title": "Verify TMI Concurrency and Security Invariants", "category": "Security / QA", "priority": "HIGH", "objective": "Adversarially verify TMI wallet, ledger, catalog, redemption, entitlement, and admin boundaries.", "dependencies": ["SPR21-020", "SPR21-021", "SPR21-022"], "acceptanceCriteria": ["Concurrent redemptions cannot double-spend or exceed quota and failed transactions leave no partial entitlement/ledger state.", "Negative balance, replay, unauthorized adjustment, privilege escalation, invalid ownership, and client-cost manipulation tests pass.", "Ledger invariants and sanitized audit evidence are reviewed before UAT."], "verification": ["Run focused backend concurrency/security suites.", "Run role-protected learner/admin browser checks.", "Review transaction and database invariant evidence with no credential/private-data retention."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Protects TMI integrity before real users depend on rewards.", "scope": "Security, concurrency, invariants, and role matrix.", "outOfScope": "Production money/payment testing.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "UAT", "backend": "security/concurrency", "database": "transaction verification"}, "testStrategy": "Unit, integration, concurrency, authorization, and browser tests.", "uatRequirement": "Required sanitized UAT.", "deploymentRequirement": "Optional test deployment.", "securityConsiderations": "Atomic backend authority and append-only audit.", "dataMigration": "None.", "rollback": "Disable redemption on critical failure.", "evidenceExpected": "Security, concurrency, invariant, and UAT evidence.", "agentProfileId": "security-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-024", "title": "Validate TMI Rewards in UAT and Deployment", "category": "QA / Release", "priority": "HIGH", "objective": "Validate the complete TMI reward journey in the approved test/deployment environment and prepare safe rollout evidence.", "dependencies": ["SPR21-023"], "acceptanceCriteria": ["Wallet, catalog, redeem, entitlement, history, admin operations, and disabled/expired/quota states pass end to end.", "Deployment/migration, monitoring, rollback, and feature-disable instructions are complete.", "No money-equivalent or payment claim is present in UAT or release notes."], "verification": ["Run backend/frontend builds and focused tests.", "Run authorized learner/admin UAT with dedicated fixtures.", "Record deployment, rollback, and sanitized AI-DOS evidence."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P1", "userValue": "Confirms TMI is usable and operationally recoverable.", "scope": "End-to-end UAT and deployment readiness.", "outOfScope": "Unapproved production financial operations.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "release/UAT", "backend": "release/UAT", "database": "migration deployment"}, "testStrategy": "Full focused suites and browser UAT.", "uatRequirement": "Required dedicated-fixture UAT.", "deploymentRequirement": "Required for feature release.", "securityConsiderations": "Production write scope must be explicit and sanitized.", "dataMigration": "Apply only reviewed additive migration.", "rollback": "Disable feature, rollback app revision, preserve ledger history.", "evidenceExpected": "Test, deployment, UAT, and rollback evidence.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-025", "title": "Audit EduAI PWA and Installability Requirements", "category": "Architecture / Frontend", "priority": "MEDIUM", "objective": "Determine whether EduAI should ship as an installable PWA and document manifest, service worker, icon, scope, and browser requirements after TMI work is stable.", "dependencies": ["SPR21-024"], "acceptanceCriteria": ["Current Vite/public/runtime behavior is audited for manifest, service worker, install prompt, standalone mode, start URL, and scope.", "Desktop Windows and Android/mobile installation requirements are mapped without proposing Electron by default.", "Caching, authentication, update, offline, and rollback risks are documented."], "verification": ["Run frontend build and inspect generated asset/runtime behavior.", "Review browser installability requirements and existing app routes.", "Produce a small implementation decision and test matrix."], "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P2", "userValue": "Chooses the smallest safe path to an EduAI desktop/mobile shortcut after the feature domains are stable.", "scope": "PWA technical audit and implementation decision.", "outOfScope": "Electron/native app unless separately approved.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "runtime audit", "backend": "none", "database": "none"}, "testStrategy": "Build and installability checklist.", "uatRequirement": "Define browser/device matrix.", "deploymentRequirement": "None.", "securityConsiderations": "Do not cache private/authenticated data unsafely.", "dataMigration": "None.", "rollback": "Audit-only.", "evidenceExpected": "Decision note, build, and installability matrix.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR21-026", "title": "Implement PWA Manifest Icons and Installability QA", "category": "Frontend / QA", "priority": "MEDIUM", "objective": "Implement the approved PWA path with manifest/icons/service-worker behavior and verify installability across supported desktop and mobile browsers.", "dependencies": ["SPR21-025"], "acceptanceCriteria": ["Manifest name, short name, icons including maskable variants, theme/background, display, start URL, and scope are valid.", "Service-worker caching does not expose stale/private data and update/rollback behavior is documented.", "Supported desktop and mobile install flows work or are explicitly marked unsupported with evidence."], "verification": ["Run frontend unit/build checks and manifest validation.", "Run browser installability/runtime checks on the approved device matrix.", "Run regression checks for authenticated navigation and cache/update behavior."], "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"}, "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "PRIORITY_PRODUCT_TRACK", "productPriority": "P2", "userValue": "Lets users install EduAI as a safe web app shortcut where supported.", "scope": "Manifest, icons, service worker if approved, and installability QA.", "outOfScope": "Native executable packaging.", "affectedRepositories": ["EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "public/runtime assets", "backend": "none", "database": "none"}, "testStrategy": "Build, browser runtime, manifest, and authenticated cache regression.", "uatRequirement": "Required desktop/mobile installability QA.", "deploymentRequirement": "Required for release of installability feature.", "securityConsiderations": "Private route and token/cache isolation.", "dataMigration": "None.", "rollback": "Remove manifest/service worker and redeploy prior static assets.", "evidenceExpected": "Build, browser, install, and rollback evidence.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR21-027",
+    "title": "Design Final Demo Course Dataset",
+    "category": "Product / Data",
+    "priority": "LOW",
+    "objective": "Define the complete Product Owner-approved EduAI demo course dataset only after Mobile, Voucher, Scholarship, TMI, PWA, and course-contract work is stable.",
+    "dependencies": ["SPR21-004", "SPR21-008", "SPR21-013", "SPR21-017", "SPR21-024", "SPR21-026"],
+    "acceptanceCriteria": [
+      "The final matrix covers categories, levels, free/paid/promotion-ready states, thumbnails, lessons/resources, instructors, enrollment/progress/reviews, voucher, scholarship, and TMI reward scenarios.",
+      "The dataset extends the existing guarded db:seed:demo framework instead of replacing it, and every record is synthetic, deterministic, rerunnable, and development/UAT scoped.",
+      "The design documents schema assumptions, reset/cleanup, no-payment semantics, and scenario ownership for final integrated regression/UAT."
+    ],
+    "verification": ["Review all stable feature contracts and the existing seed framework.", "Review the final dataset matrix with Product Owner intent.", "Confirm no copied Couponis/CreativeHub/third-party content or production identifiers are included."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "NOT_APPLICABLE", "productionVerification": "NOT_APPLICABLE"},
+      "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "FINAL_DEMO_DATASET", "fixtureClassification": "B_FINAL_DEMO_COURSE_DATASET", "productPriority": "P3", "phaseGate": "FINAL_AFTER_MOBILE_FEATURE_DOMAINS_AND_PWA", "userValue": "Provides one trustworthy, coherent demo/UAT catalog after all requested domains are stable.", "scope": "Final dataset matrix and release-gated seed design.", "outOfScope": "Early feature fixtures, production data, payment processing, scraping, and WordPress runtime.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "final demo scenarios", "backend": "seed contract", "database": "development/UAT data only"}, "testStrategy": "Cross-domain contract and scenario-matrix review.", "uatRequirement": "Final Product Owner-approved demo/UAT matrix.", "deploymentRequirement": "No deployment before final dataset approval.", "securityConsiderations": "Synthetic data only; no credentials or private identifiers.", "dataMigration": "Use additive schema only if already approved by stable feature tasks.", "rollback": "Retain existing seed and remove only dedicated final-demo records.", "evidenceExpected": "Approved matrix, schema assumptions, and rollback/cleanup evidence.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR21-028",
+    "title": "Implement Final Demo Course Seed",
+    "category": "Backend / Data",
+    "priority": "LOW",
+    "objective": "Extend the existing guarded demo seed with the approved final course dataset after all feature domains and PWA work are complete.",
+    "dependencies": ["SPR21-027"],
+    "acceptanceCriteria": ["The final seed is idempotent, deterministic, resettable, and preserves the existing db:seed:demo development workflow.", "Final records exercise stable course, voucher, scholarship, TMI, learning, and installable-app regression scenarios without implying payment or money-equivalent TMI.", "Production mode rejects the final demo seed and no production records are changed."],
+    "verification": ["Run Prisma validation and demo-data tests.", "Run the documented guarded final seed and verify it in an authorized development/UAT database.", "Run affected backend/frontend contract tests and inspect sanitized seed evidence."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "FINAL_DEMO_DATASET", "fixtureClassification": "B_FINAL_DEMO_COURSE_DATASET", "productPriority": "P3", "phaseGate": "FINAL_AFTER_MOBILE_FEATURE_DOMAINS_AND_PWA", "userValue": "Makes the approved final demo/UAT journeys reproducible.", "scope": "Final guarded seed extension and dedicated records.", "outOfScope": "Deleting existing seed framework, production mutation, scraping, payment, and WordPress code.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "impact": {"frontend": "demo contracts/assets", "backend": "seed implementation", "database": "development/UAT data only"}, "testStrategy": "Prisma validation, demo contract, seed verification, and regression tests.", "uatRequirement": "Final dataset reset and scenario verification.", "deploymentRequirement": "Development/UAT only unless separately approved.", "securityConsiderations": "Guarded command, no secrets, no production path.", "dataMigration": "Only stable, approved additive schema changes.", "rollback": "Disable final dataset path and remove only dedicated final-demo records.", "evidenceExpected": "Seed, verification, regression, and cleanup evidence.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR21-029",
+    "title": "Validate Integrated Demo Dataset",
+    "category": "QA / Data",
+    "priority": "LOW",
+    "objective": "Validate the final integrated demo/UAT dataset across all stable feature domains without contaminating production.",
+    "dependencies": ["SPR21-028"],
+    "acceptanceCriteria": ["Final course discovery, price, voucher, scholarship, TMI reward, learning, responsive, and PWA/installability scenarios are mapped to deterministic records.", "Database target classification, reset/cleanup, evidence sanitization, and rollback are verified.", "Any missing scenario blocks final regression rather than being silently patched with ad hoc data."],
+    "verification": ["Run demo contract, focused API, and frontend tests.", "Run authorized learner/admin/instructor UAT journeys at mobile and desktop widths.", "Review final dataset coverage and cleanup evidence."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "FINAL_DEMO_DATASET", "fixtureClassification": "B_FINAL_DEMO_COURSE_DATASET", "productPriority": "P3", "phaseGate": "FINAL_AFTER_MOBILE_FEATURE_DOMAINS_AND_PWA", "userValue": "Confirms the final demo catalog represents real integrated product journeys.", "scope": "Integrated dataset validation, UAT matrix, and cleanup evidence.", "outOfScope": "Production write UAT without explicit authorization and new feature implementation.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "integrated journeys", "backend": "API/seed verification", "database": "authorized test target only"}, "testStrategy": "Contract, integration, responsive, installability, and role-based UAT.", "uatRequirement": "Required final integrated matrix.", "deploymentRequirement": "Optional final UAT environment.", "securityConsiderations": "No credentials, private records, or production identifiers in evidence.", "dataMigration": "None beyond task 028.", "rollback": "Cleanup dedicated records and retain evidence.", "evidenceExpected": "Scenario matrix, test, UAT, and cleanup evidence.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "SPR21-030",
+    "title": "Run Final Integrated Regression and UAT",
+    "category": "QA / Release",
+    "priority": "LOW",
+    "objective": "Complete the final cross-feature regression/UAT gate using the approved final demo dataset.",
+    "dependencies": ["SPR21-029"],
+    "acceptanceCriteria": ["Mobile UX/navigation, price presentation, voucher, scholarship, TMI rewards, PWA/installability, course learning, and role boundaries pass the final matrix.", "Known blockers, deployment/rollback instructions, and unsupported browser/device cases are explicit.", "The final report contains sanitized evidence and does not mark incomplete browser or production checks as PASS."],
+    "verification": ["Run the focused and integrated frontend/backend suites.", "Run final authorized browser/UAT journeys across supported roles and viewports.", "Review release, rollback, security, and AI-DOS evidence before any final status transition."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+      "extensions": {"sprintId": "SPRINT:21", "source": "EduAI_Docs/docs/tasks_2.0/sprint-21/README.md", "group": "FINAL_INTEGRATED_REGRESSION", "fixtureClassification": "B_FINAL_DEMO_COURSE_DATASET", "productPriority": "P3", "phaseGate": "FINAL_RELEASE_GATE", "userValue": "Provides the final confidence gate before the new product track is considered complete.", "scope": "Cross-feature regression, UAT, release, and rollback evidence.", "outOfScope": "New feature implementation, payment settlement, and unapproved production writes.", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI_Docs"], "impact": {"frontend": "integrated regression", "backend": "integrated regression", "database": "authorized UAT only"}, "testStrategy": "Full focused regression, browser UAT, security, accessibility, and installability checks.", "uatRequirement": "Required final release/UAT gate.", "deploymentRequirement": "Required only for an approved release candidate.", "securityConsiderations": "Sanitized evidence and explicit production authorization.", "dataMigration": "No new migration; verify all prior migrations.", "rollback": "Use documented feature disable/release rollback and preserve audit history.", "evidenceExpected": "Final regression, UAT, release, and rollback evidence.", "agentProfileId": "qa-engineer"}
+  }
+]

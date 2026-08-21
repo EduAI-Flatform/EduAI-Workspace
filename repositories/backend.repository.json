@@ -1,0 +1,10 @@
+{
+  "kind": "workspace.repository_handoff",
+  "id": "REPOSITORY:EDUAI_BACKEND",
+  "name": "EduAI Backend",
+  "path": "../EduAI-Back-End",
+  "remote": "https://github.com/EduAI-Flatform/EduAI-Back-End.git",
+  "primaryBranch": "main",
+  "ownership": "INDEPENDENT_SIBLING_REPOSITORY",
+  "workspaceTracksContents": false
+}
