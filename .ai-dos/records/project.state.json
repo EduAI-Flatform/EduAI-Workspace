@@ -75,7 +75,7 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
   "lastEvidenceId": "EVIDENCE:SPR20-004:V2-RELEASE-UAT",
-  "updatedAt": "2026-08-21T10:21:22.7783858+07:00",
+  "updatedAt": "2026-08-21T10:34:35.5715767+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -893,7 +893,7 @@
       "nextRunnableTask": null
     },
     "completionAudit": {
-      "auditedAt": "2026-08-21T10:21:22.7783858+07:00",
+      "auditedAt": "2026-08-21T10:34:35.5715767+07:00",
       "applicationTasksComplete": true,
       "requiredRootConformanceCommand": "PASS: 205_RECORDS_62_TASKS_0_ACTIVE_0_BLOCKED_0_MISSING_EVIDENCE_0_DIAGNOSTICS",
       "requiredRootProjectionCommand": "PASS: 3_SAFE_GENERATED_VIEWS_0_DIAGNOSTICS",
@@ -903,10 +903,12 @@
       "workspaceGitOwner": "D:/Work/Edu-AI/EduAI-Workspace",
       "workspaceGitRemote": "https://github.com/EduAI-Flatform/EduAI-Workspace.git",
       "workspaceGitBranch": "main",
-      "workspaceRecordsCommitted": false,
-      "workspaceRecordsPushed": false,
+      "workspaceRecordsCommitted": true,
+      "workspaceRecordsPushed": true,
+      "workspaceInitialCommit": "39a346339b43acbd6218cfab4028e78761b85d25",
+      "workspaceInitialPushVerifiedAt": "2026-08-21T10:34:35.5715767+07:00",
+      "localHeadMatchedOriginMainAfterInitialPush": true,
       "remainingManualActionIds": [
-        "MANUAL:AI_DOS_GIT_REMOTE",
         "MANUAL:SPR20_003_NGINX_COMPRESSION"
       ],
       "nonblockingManualActionIds": ["MANUAL:SPR20_003_NGINX_COMPRESSION"]

@@ -41,13 +41,13 @@ Project-owned compatibility overlay. Canonical source: `.ai-dos/records/manual-a
 
 ## MANUAL:AI_DOS_GIT_REMOTE — Provide a Git repository for workspace-level AI-DOS records
 
-- Status: `RETEST_REQUIRED`
+- Status: `VERIFIED`
 - Priority: `HIGH`
 - Repository: `https://github.com/EduAI-Flatform/EduAI-Workspace.git` on `main`.
 - Local owner: `D:\Work\Edu-AI\EduAI-Workspace`.
-- Verified: the repository is initialized on `main` with the exact `origin` remote; Backend and Frontend remain independent clean sibling repositories.
-- Required action: create and push the reviewed workspace commit, then verify local `HEAD` equals `origin/main`.
-- Blocks: workspace publication verification only.
+- Verified: the repository is initialized on `main` with the exact `origin` remote. Migration commit `39a346339b43acbd6218cfab4028e78761b85d25` was pushed without force, and local `HEAD` matched `origin/main` immediately after publication. Backend and Frontend remained independent clean sibling repositories.
+- Required action: none.
+- Blocks: none.
 - Does not block: application completion, AI-DOS conformance, or other workspace checks.
 - Expected result: the migration is pushed as a separate commit without modifying Backend or Frontend history.
 
