@@ -1,18 +1,16 @@
-# EduAI 2.0 Task Catalog
+# EduAI Task Catalog
 
-Project-owned compatibility overlay. Canonical task definitions are stored in `.ai-dos/records/tasks.json`; lifecycle is owned only by `.ai-dos/records/project.state.json`. Human-authored source material remains in `EduAI_Docs/docs/tasks_2.0`.
+Project-owned compatibility overlay. Canonical task definitions are stored in `.ai-dos/records/tasks.json`; lifecycle is owned only by `.ai-dos/records/project.state.json`.
 
-| Sprint | Task count | Done |
-| --- | ---: | ---: |
-| Sprint 13 | 3 | 3 |
-| Sprint 14 | 5 | 5 |
-| Sprint 15 | 4 | 4 |
-| Sprint 16 | 4 | 4 |
-| Sprint 17 | 4 | 4 |
-| Sprint 18 | 4 | 4 |
-| Sprint 19 | 4 | 4 |
-| Sprint 20 | 4 | 4 |
-| Sprint 21 | 30 | 30 |
-| **Total** | **62** | **62** |
+| Sprint group | Task count | Done | Planned |
+| --- | ---: | ---: | ---: |
+| Sprint 13–22 baseline | 63 | 63 | 0 |
+| Sprint 23 — Commerce Foundation | 5 | 0 | 5 |
+| Sprint 24 — Membership and Entitlements | 7 | 0 | 7 |
+| Sprint 25 — PayOS Payment and Fulfillment | 7 | 0 | 7 |
+| Sprint 26 — Advanced Analytics | 5 | 0 | 5 |
+| Sprint 27 — Affiliate | 6 | 0 | 6 |
+| Sprint 28 — Phase 3 Release | 4 | 0 | 4 |
+| **Total** | **97** | **63** | **34** |
 
-The generated full task view is `.ai-dos/generated/TASK_STATUS.md`. Generated Markdown is a projection; do not edit it as a second source of truth.
+Human-authored Phase 3 task material is in `EduAI_Docs/docs/tasks_3.0`. Generated Markdown is a projection; do not edit it as a second source of truth.

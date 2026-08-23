@@ -2,21 +2,19 @@
 
 Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.json`.
 
-- Version: 2.0.0
-- Objective: deliver EduAI 2.0 without rebuilding verified V1 live-API flows.
+- Target version: 3.0.0
+- Objective: deliver Phase 3 Marketplace, configurable memberships, PayOS settlement, advanced analytics, affiliate operations, and production release gates.
 - Production target: https://eduai.giaoducso.org.vn
-- Lifecycle: `COMPLETED`
+- Lifecycle: `DRAFT`
+- Baseline: EduAI 2.0 and Sprint 22 are complete.
 
-## Sprints
+## Phase 3 sprints
 
-1. `SPRINT:13` — Stabilization and Gap Audit
-2. `SPRINT:14` — Platform Administration
-3. `SPRINT:15` — Learning Completion and Assessment V2
-4. `SPRINT:16` — Notifications
-5. `SPRINT:17` — AI Learning Path
-6. `SPRINT:18` — Career Hub
-7. `SPRINT:19` — Mentor System
-8. `SPRINT:20` — Production Readiness V2
-9. `SPRINT:21` — Priority Product Experience Track
+1. `SPRINT:23` — Commerce Foundation
+2. `SPRINT:24` — Membership and Entitlements
+3. `SPRINT:25` — PayOS Payment and Fulfillment
+4. `SPRINT:26` — Advanced Analytics
+5. `SPRINT:27` — Affiliate
+6. `SPRINT:28` — Phase 3 Release
 
-All nine sprints are complete. Release evidence includes passing builds/tests/migrations, security and ownership gates, observability, performance/accessibility, cross-role UAT, deployment/rollback verification, and production verification. Human-authored roadmap source remains at `EduAI_Docs/docs/tasks_2.0/20-v2-development-roadmap.md`.
+The first dependency-ready task is `SPR23-001`. Human-authored details are at `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

@@ -90,6 +90,20 @@
       "rationale": "Human-authored Sprint 13 through Sprint 20 task definitions."
     },
     {
+      "id": "phase3-roadmap-source",
+      "path": "EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Human-authored EduAI Phase 3 commerce, analytics, affiliate, and release roadmap."
+    },
+    {
+      "id": "phase3-task-definitions",
+      "path": "EduAI_Docs/docs/tasks_3.0",
+      "role": "handoff",
+      "required": true,
+      "rationale": "Human-authored Sprint 23 through Sprint 28 task definitions."
+    },
+    {
       "id": "backend-repository",
       "path": "repositories/backend.repository.json",
       "role": "handoff",

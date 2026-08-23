@@ -179,5 +179,83 @@
       "source": "EduAI_Docs/Fix/Fix_UX_UI.md",
       "track": "POST_RELEASE_PRODUCT_POLISH"
     }
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:23",
+    "name": "Commerce Foundation",
+    "goal": "Establish stable commerce contracts, persistence, cart pricing, pending orders, and administrator operations before external settlement.",
+    "entryCriteria": ["Sprint 22 is complete.", "Phase 3 product decisions and exclusions are documented."],
+    "taskIds": ["SPR23-001", "SPR23-002", "SPR23-003", "SPR23-004", "SPR23-005"],
+    "dependencies": ["SPRINT:22"],
+    "exitCriteria": ["Course carts and pending orders use server-authoritative pricing snapshots.", "Commerce authorization, concurrency, audit, builds, and focused regression pass."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-23", "phase": "PHASE_3", "track": "COMMERCE_FOUNDATION"}
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:24",
+    "name": "Membership and Entitlements",
+    "goal": "Deliver versioned administrator-configurable memberships and centralized course and service entitlements.",
+    "entryCriteria": ["Sprint 23 commerce persistence and contracts are stable."],
+    "taskIds": ["SPR24-001", "SPR24-002", "SPR24-003", "SPR24-004", "SPR24-005", "SPR24-006", "SPR24-007"],
+    "dependencies": ["SPRINT:23"],
+    "exitCriteria": ["Plans, durations, prices, discounts, services, quotas, and included courses are configurable and versioned.", "Membership access, renewal, plan changes, removed-course grace, tests, and UAT pass."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-24", "phase": "PHASE_3", "track": "MEMBERSHIP_ENTITLEMENTS"}
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:25",
+    "name": "PayOS Payment and Fulfillment",
+    "goal": "Accept VietQR payments through PayOS, verify settlement server-side, fulfill orders atomically, and reconcile failures safely.",
+    "entryCriteria": ["Commerce order contracts and membership fulfillment targets are available.", "PayOS merchant credentials can be configured outside source control."],
+    "taskIds": ["SPR25-001", "SPR25-002", "SPR25-003", "SPR25-004", "SPR25-005", "SPR25-006", "SPR25-007"],
+    "dependencies": ["SPRINT:23", "SPRINT:24"],
+    "exitCriteria": ["Signed idempotent webhooks are the authoritative payment transition.", "Course and membership fulfillment, reconciliation, refunds, security, deployment, and production UAT pass."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-25", "phase": "PHASE_3", "track": "PAYOS_SETTLEMENT"}
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:26",
+    "name": "Advanced Analytics",
+    "goal": "Provide trusted revenue, membership, product, funnel, voucher, and entitlement-usage analytics from authoritative commerce records.",
+    "entryCriteria": ["Sprint 25 settlement and fulfillment records are authoritative and production verified."],
+    "taskIds": ["SPR26-001", "SPR26-002", "SPR26-003", "SPR26-004", "SPR26-005"],
+    "dependencies": ["SPRINT:25"],
+    "exitCriteria": ["Metric definitions reconcile with orders and payments.", "Admin analytics, exports, privacy, performance, and UAT pass."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-26", "phase": "PHASE_3", "track": "ADVANCED_ANALYTICS"}
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:27",
+    "name": "Affiliate",
+    "goal": "Attribute eligible orders, calculate auditable commissions, and support administrator-reviewed withdrawal requests without automatic payouts.",
+    "entryCriteria": ["Payment settlement is stable.", "Analytics metric and privacy contracts are defined."],
+    "taskIds": ["SPR27-001", "SPR27-002", "SPR27-003", "SPR27-004", "SPR27-005", "SPR27-006"],
+    "dependencies": ["SPRINT:25", "SPRINT:26"],
+    "exitCriteria": ["Attribution and commission ledgers reconcile with eligible paid and refunded orders.", "Affiliate/admin workflows, abuse controls, security, and UAT pass."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-27", "phase": "PHASE_3", "track": "AFFILIATE"}
+  },
+  {
+    "kind": "sprint",
+    "schemaVersion": "1.0",
+    "id": "SPRINT:28",
+    "name": "Phase 3 Release",
+    "goal": "Release Phase 3 only after financial, access, analytics, affiliate, security, observability, performance, rollback, and production gates pass.",
+    "entryCriteria": ["Sprints 23 through 27 are complete with structured evidence."],
+    "taskIds": ["SPR28-001", "SPR28-002", "SPR28-003", "SPR28-004"],
+    "dependencies": ["SPRINT:26", "SPRINT:27"],
+    "exitCriteria": ["Cross-role production UAT and financial reconciliation pass.", "Deployment, rollback, security, observability, accessibility, and performance evidence support release closure."],
+    "status": "PLANNED",
+    "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-28", "phase": "PHASE_3", "track": "RELEASE"}
   }
 ]

@@ -65,5 +65,39 @@
 | SPR21-029 | Validate Integrated Demo Dataset | DONE |  |
 | SPR21-030 | Run Final Integrated Regression and UAT | DONE |  |
 | SPR22-001 | Audit and Refine Production UI/UX | DONE |  |
+| SPR23-001 | Define Commerce, Membership, Payment, and Access Contracts | TODO |  |
+| SPR23-002 | Add Product, Cart, Order, and Payment Persistence | TODO |  |
+| SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | TODO |  |
+| SPR23-004 | Deliver Administrator Commerce Catalog and Order Operations | TODO |  |
+| SPR23-005 | Verify Commerce Boundaries, Concurrency, and Regression | TODO |  |
+| SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | TODO |  |
+| SPR24-002 | Add Configurable Service Entitlements and Usage Quotas | TODO |  |
+| SPR24-003 | Add Included-Course Mappings and Centralized Access Grants | TODO |  |
+| SPR24-004 | Deliver Membership Administration | TODO |  |
+| SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | TODO |  |
+| SPR24-006 | Preserve Removed-Course Learning Continuity | TODO |  |
+| SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | TODO |  |
+| SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | TODO |  |
+| SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | TODO |  |
+| SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | TODO |  |
+| SPR25-004 | Fulfill Course and Membership Orders Atomically | TODO |  |
+| SPR25-005 | Reconcile Pending Payments and Expose Payment Review | TODO |  |
+| SPR25-006 | Handle Payment Expiry, Cancellation, and Audited Manual Refunds | TODO |  |
+| SPR25-007 | Verify PayOS Security, Failure Recovery, and Production UAT | TODO |  |
+| SPR26-001 | Define Authoritative Commerce Analytics Metrics and Privacy Rules | TODO |  |
+| SPR26-002 | Deliver Revenue, Order, Payment, and Refund Analytics | TODO |  |
+| SPR26-003 | Deliver Membership MRR, Renewal, Expiry, and Churn Analytics | TODO |  |
+| SPR26-004 | Deliver Product, Voucher, Checkout, and Entitlement Usage Analytics | TODO |  |
+| SPR26-005 | Add Exports and Verify Analytics Accuracy, Access, and Performance | TODO |  |
+| SPR27-001 | Define Affiliate Policy, Identities, and Immutable Financial Records | TODO |  |
+| SPR27-002 | Attribute Eligible Orders to Referral Links and Codes | TODO |  |
+| SPR27-003 | Calculate Pending, Approved, Reversed, and Payable Commissions | TODO |  |
+| SPR27-004 | Deliver Administrator Affiliate and Commission Operations | TODO |  |
+| SPR27-005 | Deliver Affiliate Dashboard and Manual Withdrawal Requests | TODO |  |
+| SPR27-006 | Verify Affiliate Abuse Controls, Financial Invariants, and UAT | TODO |  |
+| SPR28-001 | Audit Migrations, Settlement, Access, and Accounting Invariants | TODO |  |
+| SPR28-002 | Run Cross-Role Commerce and Membership End-to-End UAT | TODO |  |
+| SPR28-003 | Verify Security, Observability, Accessibility, and Performance | TODO |  |
+| SPR28-004 | Deploy, Verify, and Close the Phase 3 Release | TODO |  |
 
 Generated projection; canonical lifecycle state is stored in `project.state.taskStatuses`.

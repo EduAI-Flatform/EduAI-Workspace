@@ -975,5 +975,515 @@
       "evidenceExpected": "Audit report, screenshots, tests, build, browser QA, deployment, production UAT, commit and CI references.",
       "agentProfileId": "frontend-engineer"
     }
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR23-001",
+    "title": "Define Commerce, Membership, Payment, and Access Contracts",
+    "category": "Architecture / Commerce", "priority": "CRITICAL",
+    "objective": "Define the Phase 3 domain boundaries, state machines, money representation, snapshots, ownership rules, and provider interfaces before persistence or UI work.",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "An accepted ADR defines cart, order, payment, refund, membership, entitlement, course-access, analytics, and affiliate boundaries.",
+      "Order/payment state transitions, immutable snapshots, minor-unit VND handling, idempotency keys, and audit ownership are explicit.",
+      "Stored-value wallets, recurring billing, automatic payouts, proration, and browser-authoritative payment success are explicitly excluded."
+    ],
+    "verification": ["Review contracts against existing course, enrollment, voucher, scholarship, TMI, audit, notification, and authorization behavior.", "Run AI-DOS validation and obtain human approval of the ADR before schema work."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "testStrategy": "Contract and dependency review.", "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR23-002",
+    "title": "Add Product, Cart, Order, and Payment Persistence",
+    "category": "Backend / Database", "priority": "CRITICAL",
+    "objective": "Add production-safe persistence for sellable products, carts, immutable order lines, payments, refunds, and lifecycle history.",
+    "dependencies": ["SPR23-001"],
+    "acceptanceCriteria": [
+      "Schema and migration preserve course price compatibility and model monetary values in integer minor units with currency.",
+      "Order lines snapshot product identity, display name, unit price, discount, quantity, and final amount independently of later catalog edits.",
+      "Unique provider references, append-only lifecycle history, ownership indexes, and non-destructive archival constraints exist."
+    ],
+    "verification": ["Validate Prisma schema and migration SQL, including rollback/recovery impact.", "Run persistence tests for constraints, ownership, duplicate references, totals, and archival."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End"], "testStrategy": "Schema, migration, constraint, and transaction tests.", "securityConsiderations": "Financial history is append-only and user scoped.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR23-003",
+    "title": "Deliver Learner Cart, Pricing, and Order Creation",
+    "category": "Full-stack / Commerce", "priority": "CRITICAL",
+    "objective": "Allow learners to manage a course cart and create one pending order using server-authoritative prices and existing voucher rules.",
+    "dependencies": ["SPR23-002"],
+    "acceptanceCriteria": [
+      "Cart endpoints and UI add, remove, list, and clear eligible course items without accepting client-calculated totals.",
+      "Checkout revalidates publication, moderation, ownership, currency, voucher eligibility, and price before creating one immutable pending order.",
+      "Already-owned courses are rejected and courses available through membership show a clear perpetual-purchase warning rather than being silently blocked."
+    ],
+    "verification": ["Run pricing, voucher, stale-cart, duplicate-item, ownership, concurrent-checkout, and authorization tests.", "Run affected builds and browser-check cart totals, errors, empty state, and mobile checkout."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "testStrategy": "Unit, API, component, and browser checkout tests.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR23-004",
+    "title": "Deliver Administrator Commerce Catalog and Order Operations",
+    "category": "Full-stack / Administration", "priority": "HIGH",
+    "objective": "Give platform administrators controlled visibility and configuration for sellable courses, orders, payments, and lifecycle history.",
+    "dependencies": ["SPR23-003"],
+    "acceptanceCriteria": [
+      "Admin can manage sellability and prices without mutating historical order snapshots.",
+      "Paginated order detail and history expose safe financial metadata, owner, totals, payment status, and fulfillment status.",
+      "All mutations are administrator-only, validated, audited, and cannot rewrite paid transaction history."
+    ],
+    "verification": ["Run role-matrix, pagination, filter, immutable-history, audit, and concurrent-update tests.", "Verify responsive admin catalog/order flows and no sensitive provider credentials in responses."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "securityConsiderations": "Platform administrator only; sanitize payment metadata.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR23-005",
+    "title": "Verify Commerce Boundaries, Concurrency, and Regression",
+    "category": "QA / Security", "priority": "HIGH",
+    "objective": "Close the commerce-foundation gate before memberships or PayOS depend on it.",
+    "dependencies": ["SPR23-004"],
+    "acceptanceCriteria": [
+      "Pricing, totals, snapshots, ownership, duplicate checkout, state transitions, and audit invariants pass under concurrent requests.",
+      "Existing course enrollment, voucher, scholarship, TMI, certificate, notification, and role flows remain compatible.",
+      "Migration, builds, focused suites, deployment, and bounded production read/write UAT have sanitized evidence."
+    ],
+    "verification": ["Run backend/frontend focused and regression suites plus migration validation.", "Run authorized cross-role production UAT and reconcile dedicated test orders without retaining sensitive data."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-001",
+    "title": "Add Versioned Membership Plans and Dynamic Durations",
+    "category": "Backend / Database / Membership", "priority": "CRITICAL",
+    "objective": "Model publishable plan versions and administrator-defined duration/price options without hard-coded tier names, durations, or discount caps.",
+    "dependencies": ["SPR23-002"],
+    "acceptanceCriteria": [
+      "Admin can define plan names such as Silver, Gold, and Diamond while the domain supports additional plans without code changes.",
+      "Each version supports administrator-created positive whole-month durations, price or discount configuration, display order, activation windows, and archival.",
+      "Published versions and duration prices referenced by orders are immutable; new edits create new versions and discounts may range from zero through 100 percent."
+    ],
+    "verification": ["Run versioning, dynamic-duration, calendar-month expiry, discount, zero-price, archive, and immutable-reference tests.", "Validate migration, currency/minor-unit constraints, indexes, and compatibility with order snapshots."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-002",
+    "title": "Add Configurable Service Entitlements and Usage Quotas",
+    "category": "Backend / Entitlements", "priority": "CRITICAL",
+    "objective": "Represent membership service benefits as stable entitlement codes with boolean, metered, or unlimited values.",
+    "dependencies": ["SPR24-001"],
+    "acceptanceCriteria": [
+      "Entitlement definitions have stable codes, typed value semantics, reset periods, and safe display metadata.",
+      "Plan versions configure services and quotas without branching business logic on Silver, Gold, or Diamond names.",
+      "Usage consumption is atomic, idempotent, user scoped, observable, and rejects exhausted or expired entitlement access."
+    ],
+    "verification": ["Run boolean, quota, unlimited, reset-boundary, concurrent-consumption, expiry, and authorization tests.", "Verify existing AI, mentor, resource, and certificate services can adopt the resolver incrementally."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End"], "securityConsiderations": "Quota consumption must be atomic and self scoped.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-003",
+    "title": "Add Included-Course Mappings and Centralized Access Grants",
+    "category": "Backend / Authorization", "priority": "CRITICAL",
+    "objective": "Separate learning enrollment from authorization and centralize free, purchase, membership, grace, scholarship, and administrator course access.",
+    "dependencies": ["SPR24-001"],
+    "acceptanceCriteria": [
+      "Plan versions map explicitly to included courses and course inclusion changes do not mutate prior paid versions.",
+      "CourseAccessService resolves free, perpetual purchase, active membership, grace, scholarship, and admin grants consistently.",
+      "Lessons, quizzes, assignments, classrooms, certificates, progress, and course-grounded AI use the centralized decision without deleting progress on expiry."
+    ],
+    "verification": ["Run source precedence, expiry, concurrent grants, ownership, moderation, and cross-module access tests.", "Run regression for enrollment, progress, completion, certificate issuance, and private AI/course content."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End"], "securityConsiderations": "One centralized deny-by-default access resolver.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-004",
+    "title": "Deliver Membership Administration",
+    "category": "Full-stack / Administration", "priority": "HIGH",
+    "objective": "Allow platform administrators to draft, preview, publish, archive, and version plans, duration prices, services, quotas, included courses, and grace policy.",
+    "dependencies": ["SPR24-002", "SPR24-003"],
+    "acceptanceCriteria": [
+      "Admin can configure arbitrary plans and whole-month durations, prices, discounts, services, quotas, courses, activation windows, and display order.",
+      "Publishing creates an immutable version with a clear diff and high-discount warning that does not impose an artificial cap.",
+      "Existing subscribers and historical orders show their referenced version and cannot be silently rewritten."
+    ],
+    "verification": ["Run admin role, validation, publish concurrency, immutable-version, audit, pagination, and search tests.", "Browser-check plan editor, comparison, long Vietnamese content, mobile layout, warnings, and destructive confirmations."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-005",
+    "title": "Deliver Learner Membership Catalog, Renewal, and Plan Change",
+    "category": "Full-stack / Membership", "priority": "CRITICAL",
+    "objective": "Let learners compare current plan benefits, select an administrator-defined duration, create membership orders, renew, upgrade, or schedule downgrade.",
+    "dependencies": ["SPR24-004"],
+    "acceptanceCriteria": [
+      "Catalog compares published versions, services, quotas, included courses, dynamic durations, base price, discount, and final price from live APIs.",
+      "Same-plan renewal extends from current expiry when active and from payment time when expired; there is no automatic recurring charge.",
+      "MVP upgrades activate after payment without proration, downgrades schedule for expiry, and checkout requires explicit confirmation of changed benefits."
+    ],
+    "verification": ["Run renewal boundary, leap/calendar month, expired, upgrade, downgrade, concurrency, ownership, and snapshot tests.", "Run responsive browser journeys for compare, checkout, current plan, pending change, expiry, and errors."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-006",
+    "title": "Preserve Removed-Course Learning Continuity",
+    "category": "Backend / Membership Policy", "priority": "HIGH",
+    "objective": "Apply explicit removal modes and bounded grace access when a learner renews into a plan version that no longer includes an in-progress course.",
+    "dependencies": ["SPR24-003", "SPR24-005"],
+    "acceptanceCriteria": [
+      "Normal removal preserves access through the paid term and optionally creates a configurable bounded MEMBERSHIP_GRACE grant only for courses started before removal.",
+      "Renewal clearly adopts the latest plan version and discloses removed courses and grace expiry before purchase.",
+      "Immediate legal/security revocation is separately authorized and audited; all modes preserve progress and earned certificates."
+    ],
+    "verification": ["Run started/not-started, continuous/lapsed renewal, zero/custom grace, completion during grace, purchase override, and emergency revocation tests.", "Verify learner notices before renewal and near grace expiry plus administrator audit history."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR24-007",
+    "title": "Verify Membership Lifecycle, Authorization, and Production UX",
+    "category": "QA / Security / Release", "priority": "HIGH",
+    "objective": "Close the membership gate with financial snapshots, entitlement, course-access, versioning, and cross-role evidence.",
+    "dependencies": ["SPR24-006"],
+    "acceptanceCriteria": [
+      "Plan version, duration, pricing, renewal, plan change, quotas, course access, grace, expiry, and progress-preservation matrices pass.",
+      "Admin, learner, instructor, anonymous, and suspended-user boundaries are verified across all affected modules.",
+      "Migrations, builds, regression, deployment, notification behavior, responsive UX, and production UAT pass with sanitized evidence."
+    ],
+    "verification": ["Run backend/frontend focused suites, full affected regression, schema validation, and browser role matrix.", "Deploy and execute authorized production membership UAT using dedicated records and verified cleanup."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:24", "source": "EduAI_Docs/docs/tasks_3.0/sprint-24/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-001",
+    "title": "Add Payment-Provider Boundary and Secure PayOS Configuration",
+    "category": "Backend / Payments", "priority": "CRITICAL",
+    "objective": "Introduce a provider-neutral payment contract with PayOS as the only initial implementation and secrets outside source control.",
+    "dependencies": ["SPR23-002"],
+    "acceptanceCriteria": [
+      "PaymentProvider exposes create, retrieve, cancel, verify-webhook, and reconcile operations without leaking PayOS types into commerce services.",
+      "Client ID, API key, checksum key, URLs, timeout, and environment mode are validated at startup and never returned or logged.",
+      "Provider responses are schema validated as untrusted external input with explicit timeout and failure mapping."
+    ],
+    "verification": ["Run configuration, missing-secret, malformed-response, timeout, error-mapping, and log-sanitization tests.", "Review environment examples, deployment secret requirements, API boundaries, and rollback configuration."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Workspace"], "securityConsiderations": "Treat provider data as untrusted and keep all credentials secret.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-002",
+    "title": "Create PayOS Payment Requests and Learner QR Checkout",
+    "category": "Full-stack / Payments", "priority": "CRITICAL",
+    "objective": "Create expiring PayOS payment requests for course and membership orders and present a safe QR checkout experience.",
+    "dependencies": ["SPR23-003", "SPR24-005", "SPR25-001"],
+    "acceptanceCriteria": [
+      "Backend creates one active PayOS request per payable order using unique orderCode, authoritative amount, bounded description, return URL, cancel URL, and expiry.",
+      "Learner sees QR, amount, order reference, expiry, pending status, retry guidance, and polling/SSE updates without frontend-generated payment facts.",
+      "Free orders bypass PayOS through an explicit audited zero-payment fulfillment path."
+    ],
+    "verification": ["Run duplicate-request, stale-order, amount, expiry, provider failure, authorization, and zero-order tests.", "Browser-check QR checkout at mobile/desktop sizes and confirm return/cancel URLs never mark payment paid."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-003",
+    "title": "Verify and Ingest Idempotent PayOS Webhooks",
+    "category": "Backend / Payments / Security", "priority": "CRITICAL",
+    "objective": "Make verified PayOS webhook data the authoritative external settlement signal and handle retries safely.",
+    "dependencies": ["SPR25-002"],
+    "acceptanceCriteria": [
+      "Webhook verifies the PayOS signature over the raw contract before any lookup or state mutation and rejects malformed or unsigned payloads.",
+      "Provider reference, orderCode, amount, currency, account/channel, and eligible state match before recording payment.",
+      "Duplicate, reordered, concurrent, and manually replayed deliveries produce at most one financial transition and return stable responses."
+    ],
+    "verification": ["Run official sample, invalid-signature, altered-field, unknown-order, amount-mismatch, duplicate, concurrent, late, and replay tests.", "Verify sanitized structured logs, audit events, rate limits, and provider retry-compatible HTTP responses."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End"], "securityConsiderations": "Signature verification and idempotency precede all financial mutation.", "agentProfileId": "security-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-004",
+    "title": "Fulfill Course and Membership Orders Atomically",
+    "category": "Backend / Payments / Entitlements", "priority": "CRITICAL",
+    "objective": "Translate one authoritative paid order into perpetual course grants or time-bounded membership rights exactly once.",
+    "dependencies": ["SPR24-003", "SPR25-003"],
+    "acceptanceCriteria": [
+      "Payment record, PAID transition, course grants or subscription activation, fulfillment record, history, audit, and outbox notification commit atomically.",
+      "Course purchases create perpetual PURCHASE grants; memberships reference the purchased plan version and calendar-month duration snapshot.",
+      "Webhook retries, partial failures, existing grants, renewal, upgrade, and free-order paths cannot duplicate access or subscription time."
+    ],
+    "verification": ["Run transaction rollback, retry, concurrency, mixed-cart, grant precedence, renewal, plan change, and outbox tests.", "Verify paid-but-not-fulfilled recovery without fabricating a second payment."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End"], "securityConsiderations": "Atomic exactly-once financial effects over at-least-once webhooks.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-005",
+    "title": "Reconcile Pending Payments and Expose Payment Review",
+    "category": "Backend / Administration / Operations", "priority": "HIGH",
+    "objective": "Recover missed callbacks and provide auditable administrator review for unmatched or inconsistent payment events.",
+    "dependencies": ["SPR25-004"],
+    "acceptanceCriteria": [
+      "Bounded reconciliation queries eligible pending/review orders through PaymentProvider with rate limits, checkpoints, and idempotent updates.",
+      "Unknown code, mismatched amount, late payment, duplicate payment, provider outage, and paid-not-fulfilled cases enter explicit review reasons.",
+      "Admin can inspect and resolve review cases through authorized audited actions without rewriting provider transactions."
+    ],
+    "verification": ["Run missed-webhook, rate-limit, timeout, pagination, restart, duplicate, mismatch, late, and recovery tests.", "Verify admin role matrix, sanitized details, resolution audit, alerts, and operational runbook."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-006",
+    "title": "Handle Payment Expiry, Cancellation, and Audited Manual Refunds",
+    "category": "Full-stack / Payments / Operations", "priority": "HIGH",
+    "objective": "Complete non-success payment lifecycles without automatic outgoing-money execution.",
+    "dependencies": ["SPR25-005"],
+    "acceptanceCriteria": [
+      "Pending payment requests expire or cancel idempotently and late settlement moves to review instead of being discarded.",
+      "Admin records a manual refund reference, amount, reason, approver, timestamp, and access consequence without deleting original payment history.",
+      "Refund policy revokes or shortens applicable unconsumed rights explicitly while preserving learning history, certificates, disputes, and audit."
+    ],
+    "verification": ["Run expiry race, cancellation race, late payment, partial/full refund record, duplicate refund, access consequence, and audit tests.", "Browser-check learner statuses and administrator confirmation/review flows."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "securityConsiderations": "No automatic payout; refund records require authorized review.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR25-007",
+    "title": "Verify PayOS Security, Failure Recovery, and Production UAT",
+    "category": "QA / Security / Release", "priority": "CRITICAL",
+    "objective": "Close the settlement gate with sandbox, failure-injection, deployment, reconciliation, and bounded production evidence.",
+    "dependencies": ["SPR25-006"],
+    "acceptanceCriteria": [
+      "Signature, amount, identity, replay, concurrency, secret handling, rate limit, timeout, and authorization matrices pass.",
+      "Course and membership QR payments, webhook fulfillment, missed-webhook reconciliation, cancellation, expiry, and review flows pass in supported environments.",
+      "Builds, migrations, regression, deployment, rollback, monitoring, and authorized production UAT have sanitized structured evidence."
+    ],
+    "verification": ["Run PayOS test-mode end-to-end scenarios and targeted security/failure tests before live work.", "Perform separately authorized bounded live payment UAT, reconcile the exact transaction, and record no credentials or raw sensitive payloads."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:25", "source": "EduAI_Docs/docs/tasks_3.0/sprint-25/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "securityConsiderations": "Live monetary UAT requires separate explicit authorization.", "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR26-001",
+    "title": "Define Authoritative Commerce Analytics Metrics and Privacy Rules",
+    "category": "Analytics / Architecture", "priority": "HIGH",
+    "objective": "Define metric formulas, time boundaries, currencies, dimensions, attribution, exclusions, and privacy before building dashboards.",
+    "dependencies": ["SPR25-007"],
+    "acceptanceCriteria": [
+      "Definitions cover gross/net revenue, paid/refunded orders, average order value, MRR, renewal, expiry, churn, conversion, voucher impact, and entitlement usage.",
+      "Each metric names its authoritative tables, timestamp, timezone, filters, refund treatment, and reconciliation tolerance.",
+      "Role, aggregation, retention, export, and personally identifiable information boundaries are documented and approved."
+    ],
+    "verification": ["Reconcile example calculations against known order/payment/subscription fixtures.", "Review definitions with commerce, membership, security, and product contracts and run AI-DOS validation."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:26", "source": "EduAI_Docs/docs/tasks_3.0/sprint-26/README.md", "affectedRepositories": ["EduAI-Workspace", "EduAI-Back-End"], "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR26-002",
+    "title": "Deliver Revenue, Order, Payment, and Refund Analytics",
+    "category": "Full-stack / Analytics", "priority": "HIGH",
+    "objective": "Provide administrator revenue and settlement reporting that reconciles with authoritative financial records.",
+    "dependencies": ["SPR26-001"],
+    "acceptanceCriteria": [
+      "Dashboard reports gross/net revenue, order/payment/refund counts, average order value, status breakdown, and trends over validated date ranges.",
+      "Filters support product type, course, membership plan/version, duration, payment status, and currency without unbounded queries.",
+      "Totals reconcile to fixture and production aggregate checks and expose freshness/timezone metadata."
+    ],
+    "verification": ["Run formula, timezone, refund, empty-data, pagination, filter, authorization, and query-bound tests.", "Browser-check charts/tables at mobile and desktop sizes plus sanitized production aggregates."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:26", "source": "EduAI_Docs/docs/tasks_3.0/sprint-26/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR26-003",
+    "title": "Deliver Membership MRR, Renewal, Expiry, and Churn Analytics",
+    "category": "Full-stack / Analytics", "priority": "HIGH",
+    "objective": "Measure membership revenue and lifecycle behavior across plans, versions, and administrator-defined durations.",
+    "dependencies": ["SPR26-002"],
+    "acceptanceCriteria": [
+      "Dashboard reports active subscriptions, normalized MRR, new, renewed, upgraded, downgraded, expired, and churned cohorts using documented formulas.",
+      "Metrics distinguish paid term value from cash collection and handle free, 100-percent-discount, refund, grace, and scheduled-change cases.",
+      "Plan/version/duration filters and cohort comparisons remain bounded and privacy safe."
+    ],
+    "verification": ["Run cohort, calendar-month, renewal, lapse, upgrade, downgrade, refund, free-plan, and timezone fixture tests.", "Reconcile dashboard aggregates with authoritative subscription and payment records."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:26", "source": "EduAI_Docs/docs/tasks_3.0/sprint-26/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR26-004",
+    "title": "Deliver Product, Voucher, Checkout, and Entitlement Usage Analytics",
+    "category": "Full-stack / Analytics", "priority": "MEDIUM",
+    "objective": "Explain product performance, checkout completion, promotion impact, and whether membership services are actually used.",
+    "dependencies": ["SPR26-002"],
+    "acceptanceCriteria": [
+      "Reports cover product/course sales, cart-to-order and order-to-paid conversion, abandonment, voucher discount/revenue impact, and plan-duration mix.",
+      "Entitlement usage reports aggregate quota consumption, saturation, and unused benefits without exposing private learner activity.",
+      "Event deduplication, bot/internal traffic exclusion, and attribution windows are documented and enforced."
+    ],
+    "verification": ["Run funnel, duplicate-event, voucher, mixed-product, entitlement-reset, privacy-threshold, and filter tests.", "Verify aggregates against deterministic fixtures and responsive admin visualizations."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:26", "source": "EduAI_Docs/docs/tasks_3.0/sprint-26/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR26-005",
+    "title": "Add Exports and Verify Analytics Accuracy, Access, and Performance",
+    "category": "Analytics / QA / Security", "priority": "HIGH",
+    "objective": "Close the analytics gate with safe exports, reconciliation, query budgets, access controls, and production verification.",
+    "dependencies": ["SPR26-003", "SPR26-004"],
+    "acceptanceCriteria": [
+      "Authorized administrators can export bounded CSV reports using the same filters/formulas as dashboards with injection-safe cells and audit events.",
+      "Metric fixtures and sampled production aggregates reconcile within documented tolerance and discrepancies are observable.",
+      "Role boundaries, privacy thresholds, query budgets, caching/freshness, builds, deployment, and UAT pass."
+    ],
+    "verification": ["Run export injection, authorization, reconciliation, load/query-plan, cache, timezone, and large-range tests.", "Run responsive production dashboard UAT and retain aggregate evidence only."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:26", "source": "EduAI_Docs/docs/tasks_3.0/sprint-26/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-001",
+    "title": "Define Affiliate Policy, Identities, and Immutable Financial Records",
+    "category": "Architecture / Database / Affiliate", "priority": "CRITICAL",
+    "objective": "Define eligible products, attribution windows, commission bases, statuses, reversals, approval, withdrawal, ownership, and immutable ledger boundaries.",
+    "dependencies": ["SPR25-007", "SPR26-001"],
+    "acceptanceCriteria": [
+      "Policy defines first/last-touch choice, cookie/code precedence, self-referral, existing-user behavior, attribution window, eligible products, and refund reversal.",
+      "Schema models affiliates, referral identities, attributed orders, commission ledger entries, balances, and withdrawal requests without storing a cash wallet.",
+      "Commission rates and policies are versioned and order attribution snapshots remain immutable."
+    ],
+    "verification": ["Review policy against order, payment, refund, privacy, audit, and analytics contracts.", "Validate schema/migration, uniqueness, financial conservation, ownership, and rollback tests."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Workspace"], "agentProfileId": "architect"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-002",
+    "title": "Attribute Eligible Orders to Referral Links and Codes",
+    "category": "Full-stack / Affiliate", "priority": "HIGH",
+    "objective": "Capture consent-aware referral identity and attach one eligible attribution snapshot to an order before payment.",
+    "dependencies": ["SPR27-001"],
+    "acceptanceCriteria": [
+      "Affiliate links/codes resolve only active affiliates and apply the documented attribution window and precedence.",
+      "Self-referral, tampered code, duplicate attribution, internal/admin traffic, and ineligible products are rejected or excluded explicitly.",
+      "Attribution is finalized on order creation, cannot move after payment, and does not expose private buyer information to affiliates."
+    ],
+    "verification": ["Run window, precedence, self-referral, invalid code, duplicate, device/session, ownership, privacy, and concurrent-order tests.", "Browser-check link landing, attribution disclosure, checkout continuity, and consent behavior."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-003",
+    "title": "Calculate Pending, Approved, Reversed, and Payable Commissions",
+    "category": "Backend / Affiliate / Finance", "priority": "CRITICAL",
+    "objective": "Create exactly-once commission ledger effects from authoritative fulfillment and refund events.",
+    "dependencies": ["SPR27-002"],
+    "acceptanceCriteria": [
+      "Eligible fulfilled orders create one pending commission from the versioned policy and snapshotted commission base.",
+      "Approval delay, refund/cancellation reversal, manual adjustment, payable balance, and withdrawal reservation preserve ledger conservation.",
+      "Duplicate events, partial refunds, concurrent approval/withdrawal, and negative-balance cases are deterministic and audited."
+    ],
+    "verification": ["Run exactly-once, rounding, approval, refund, partial refund, reversal, adjustment, concurrency, and conservation tests.", "Reconcile commission totals to eligible paid-order fixtures and analytics definitions."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End"], "securityConsiderations": "Append-only financial ledger with exactly-once event processing.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-004",
+    "title": "Deliver Administrator Affiliate and Commission Operations",
+    "category": "Full-stack / Administration / Affiliate", "priority": "HIGH",
+    "objective": "Allow administrators to approve affiliates, version commission policies, inspect attribution/ledger history, and resolve exceptions.",
+    "dependencies": ["SPR27-003"],
+    "acceptanceCriteria": [
+      "Admin can approve, suspend, archive, and inspect affiliates without deleting financial history.",
+      "Commission policy changes are versioned and affect only newly attributed eligible orders.",
+      "Paginated attribution, commission, adjustment, and withdrawal views are authorized, audited, searchable, and privacy safe."
+    ],
+    "verification": ["Run role, approval, suspension, versioning, adjustment, pagination, privacy, audit, and concurrent-update tests.", "Browser-check administrator tables, filters, detail history, warnings, and mobile behavior."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-005",
+    "title": "Deliver Affiliate Dashboard and Manual Withdrawal Requests",
+    "category": "Full-stack / Affiliate", "priority": "HIGH",
+    "objective": "Give approved affiliates privacy-safe performance reporting and an audited request workflow for manually paid withdrawals.",
+    "dependencies": ["SPR27-004"],
+    "acceptanceCriteria": [
+      "Affiliate sees own clicks/attributions, pending/approved/reversed/payable commissions, withdrawal history, policy, and freshness metadata without buyer identity.",
+      "Withdrawal requests validate minimum, available balance, payout profile, duplicate/concurrent requests, and reserve payable commission atomically.",
+      "Admin records external payout reference and decision manually; EduAI does not initiate automated money transfer."
+    ],
+    "verification": ["Run ownership, privacy, balance reservation, minimum, duplicate, concurrent, approve/reject/paid, and reversal tests.", "Browser-check affiliate and admin workflows, empty/error states, responsive layout, and notifications."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"], "securityConsiderations": "No automated payout; reserve balances atomically and hide buyer identity.", "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR27-006",
+    "title": "Verify Affiliate Abuse Controls, Financial Invariants, and UAT",
+    "category": "QA / Security / Finance", "priority": "CRITICAL",
+    "objective": "Close the affiliate gate with fraud-resistance, ledger reconciliation, privacy, role, deployment, and production evidence.",
+    "dependencies": ["SPR27-005"],
+    "acceptanceCriteria": [
+      "Self-referral, code stuffing, duplicate attribution, replay, refund abuse, concurrent withdrawal, suspension, and privilege matrices pass.",
+      "Order attribution, commission ledger, payable balance, reservations, withdrawals, refunds, and analytics reconcile exactly.",
+      "Builds, migrations, regression, deployment, privacy review, monitoring, and bounded production UAT pass with sanitized evidence."
+    ],
+    "verification": ["Run security, concurrency, property/invariant, reconciliation, privacy, and cross-role browser suites.", "Deploy and perform read-only plus separately authorized dedicated production UAT without automated payout."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:27", "source": "EduAI_Docs/docs/tasks_3.0/sprint-27/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR28-001",
+    "title": "Audit Migrations, Settlement, Access, and Accounting Invariants",
+    "category": "Release / Database / Finance", "priority": "CRITICAL",
+    "objective": "Establish a reconciled Phase 3 release candidate before cross-role production journeys.",
+    "dependencies": ["SPR26-005", "SPR27-006"],
+    "acceptanceCriteria": [
+      "All Phase 3 migrations apply from the production baseline and have explicit recovery/rollback classification with no failed migration state.",
+      "Orders equal payment/refund/fulfillment effects and affiliate commission/withdrawal effects within documented invariants.",
+      "Course purchase, membership, grace, scholarship, admin grants, progress, certificates, and service quota access matrices reconcile."
+    ],
+    "verification": ["Run clean/staged migration rehearsals, database constraints, financial reconciliation, and access invariant suites.", "Review indexes, query plans, retention, backup/recovery, audit history, and sanitized release evidence."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:28", "source": "EduAI_Docs/docs/tasks_3.0/sprint-28/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Workspace"], "agentProfileId": "backend-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR28-002",
+    "title": "Run Cross-Role Commerce and Membership End-to-End UAT",
+    "category": "QA / Product / Release", "priority": "CRITICAL",
+    "objective": "Verify complete learner, administrator, instructor, and affiliate journeys against the release candidate.",
+    "dependencies": ["SPR28-001"],
+    "acceptanceCriteria": [
+      "Learner course cart/purchase, membership purchase/renewal/plan change, access, grace, expiry, notifications, and history journeys pass.",
+      "Admin catalog, plan version, entitlement, order/payment review, refund record, analytics, affiliate, and withdrawal review journeys pass.",
+      "Instructor content ownership and anonymous/suspended/lower-role denial remain correct with no cross-user data disclosure."
+    ],
+    "verification": ["Run deterministic local/staging E2E across supported roles and mobile/desktop viewports.", "Run bounded production UAT with dedicated records, explicit monetary authorization where needed, cleanup, and sanitized evidence."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:28", "source": "EduAI_Docs/docs/tasks_3.0/sprint-28/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR28-003",
+    "title": "Verify Security, Observability, Accessibility, and Performance",
+    "category": "Security / SRE / QA", "priority": "CRITICAL",
+    "objective": "Prove Phase 3 is operable and safe under payment, financial, authorization, failure, and user-interface load.",
+    "dependencies": ["SPR28-002"],
+    "acceptanceCriteria": [
+      "Threat review covers PayOS signatures/secrets, replay, IDOR, price tampering, webhook abuse, refunds, affiliate fraud, exports, and sensitive logs.",
+      "Health, correlation, alerts, payment/reconciliation/fulfillment lag, mismatch, failure, and financial discrepancy metrics support operations without sensitive payloads.",
+      "Checkout/admin/analytics/affiliate accessibility, query/API budgets, bundle budgets, and representative production performance pass or have accepted remediation."
+    ],
+    "verification": ["Run endpoint audit, dependency/security checks, load/failure tests, accessibility browser checks, and performance measurements.", "Trigger sanitized synthetic failure alerts and verify runbooks, dashboards, rollback signals, and no secret leakage."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:28", "source": "EduAI_Docs/docs/tasks_3.0/sprint-28/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "security-reviewer"}
+  },
+  {
+    "kind": "task", "schemaVersion": "1.0", "id": "SPR28-004",
+    "title": "Deploy, Verify, and Close the Phase 3 Release",
+    "category": "Release / Production", "priority": "CRITICAL",
+    "objective": "Deploy the approved Phase 3 release through normal workflows, verify rollback and production behavior, and close only with complete evidence.",
+    "dependencies": ["SPR28-003"],
+    "acceptanceCriteria": [
+      "Release checklist, migration order, PayOS production configuration, feature flags, monitoring, support, reconciliation, backup, and rollback steps are approved.",
+      "Backend/frontend deployment, migration, smoke, cross-role UAT, payment settlement, fulfillment, analytics, affiliate, observability, and rollback verification pass.",
+      "Canonical AI-DOS state, roadmap, evidence, manual actions, handoff, known limitations, and production revision references are complete and sanitized."
+    ],
+    "verification": ["Execute the approved staged deployment and rollback rehearsal through repository workflows.", "Repeat production health, payment, access, analytics, affiliate, responsive, and support-readiness checks before marking Phase 3 complete."],
+    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "extensions": {"sprintId": "SPRINT:28", "source": "EduAI_Docs/docs/tasks_3.0/sprint-28/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "securityConsiderations": "Live monetary verification and rollback follow separate approved operational steps.", "agentProfileId": "devops-engineer"}
   }
 ]
