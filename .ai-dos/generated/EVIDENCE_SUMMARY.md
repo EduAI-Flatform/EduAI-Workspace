@@ -496,5 +496,9 @@
 | EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | DEPLOY | Frontend CI and production deployment | PASS | — |
 | EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | PRODUCTION | Browser inspection and sanitized cross-role production UAT | PASS | — |
 | EVIDENCE:SPR22-001:UI-UX-REFINEMENT | SPR22-001 | OTHER | UI/UX audit, accessibility, and scope review | PASS | — |
+| EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | OTHER | Live contract and boundary review | PASS | — |
+| EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | OTHER | Adversarial architecture and security review | PASS | — |
+| EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | TEST | AI-DOS validation and conformance | PASS | node core/validate.js .ai-dos/manifest.json; npm.cmd test; node core/conformance.js --manifest .ai-dos/manifest.json |
+| EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED | SPR23-001 | MANUAL | Human ADR acceptance | BLOCKED | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

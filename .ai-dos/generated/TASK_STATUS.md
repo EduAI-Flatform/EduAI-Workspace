@@ -65,7 +65,7 @@
 | SPR21-029 | Validate Integrated Demo Dataset | DONE |  |
 | SPR21-030 | Run Final Integrated Regression and UAT | DONE |  |
 | SPR22-001 | Audit and Refine Production UI/UX | DONE |  |
-| SPR23-001 | Define Commerce, Membership, Payment, and Access Contracts | TODO |  |
+| SPR23-001 | Define Commerce, Membership, Payment, and Access Contracts | WAITING_MANUAL | YES |
 | SPR23-002 | Add Product, Cart, Order, and Payment Persistence | TODO |  |
 | SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | TODO |  |
 | SPR23-004 | Deliver Administrator Commerce Catalog and Order Operations | TODO |  |

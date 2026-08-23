@@ -6156,5 +6156,70 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-001:ADR-PROPOSAL",
+    "taskId": "SPR23-001",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Live contract and boundary review",
+        "artifact": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
+        "reference": "The proposal was checked against the live Backend and Frontend trees, including course price/enrollment behavior, distributed learning access checks, voucher reservations and redemption counters, scholarship awards, TMI entitlements and refunds, append-only audit shape, notification delivery, API projections, CORS, and frontend money types. Both sibling repositories remained clean and no schema or runtime code changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Adversarial architecture and security review",
+        "reference": "Two fresh-context adversarial cycles found 29 substantive boundary issues. The proposal was revised to resolve free paid-course enrollment, refund/access effects, settlement and reservation races, late and zero-value settlement, stable money DTOs, access precedence and migration, quota concurrency, official PayOS signature verification, audit actors, safe idempotency evidence, notification outbox, and financial reconciliation. A third cycle was attempted but unavailable because the reviewer reached its usage limit; the required three-cycle stop condition was met and a final local contract audit passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "AI-DOS validation and conformance",
+        "command": "node core/validate.js .ai-dos/manifest.json; npm.cmd test; node core/conformance.js --manifest .ai-dos/manifest.json",
+        "reference": "Manifest validation, the available AI-DOS test command, and initial conformance completed without project diagnostics. Final conformance and safe projection are rerun after canonical state/evidence changes.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T00:04:57.4885753+07:00",
+    "notes": "ADR-005 is a review-ready proposal covering all SPR23-001 contract acceptance dimensions. Human acceptance is tracked separately because it remains required before DONE or SPR23-002 schema work.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR23_001_ADR_APPROVAL",
+      "adversarialReviewCyclesCompleted": 2,
+      "adversarialFindingsResolved": 29,
+      "thirdReviewCycleUnavailable": true,
+      "payosOfficialDocumentationVerified": true,
+      "schemaOrRuntimeChangesMade": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED",
+    "taskId": "SPR23-001",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Human ADR acceptance",
+        "reference": "MANUAL:SPR23_001_ADR_APPROVAL",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-08-24T00:04:57.4885753+07:00",
+    "notes": "SPR23-001 remains WAITING_MANUAL because ADR-005 requires explicit human acceptance. No SPR23-002 schema work is authorized while this action is pending.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR23_001_ADR_APPROVAL",
+      "proposalEvidenceId": "EVIDENCE:SPR23-001:ADR-PROPOSAL",
+      "schemaWorkAuthorized": false,
+      "credentialMaterialRecorded": false
+    }
   }
 ]
