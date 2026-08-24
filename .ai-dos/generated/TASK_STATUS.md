@@ -66,8 +66,8 @@
 | SPR21-030 | Run Final Integrated Regression and UAT | DONE |  |
 | SPR22-001 | Audit and Refine Production UI/UX | DONE |  |
 | SPR23-001 | Define Commerce, Membership, Payment, and Access Contracts | DONE |  |
-| SPR23-002 | Add Product, Cart, Order, and Payment Persistence | WAITING_MANUAL | YES |
-| SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | TODO |  |
+| SPR23-002 | Add Product, Cart, Order, and Payment Persistence | DONE |  |
+| SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | IN_PROGRESS | YES |
 | SPR23-004 | Deliver Administrator Commerce Catalog and Order Operations | TODO |  |
 | SPR23-005 | Verify Commerce Boundaries, Concurrency, and Regression | TODO |  |
 | SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | TODO |  |

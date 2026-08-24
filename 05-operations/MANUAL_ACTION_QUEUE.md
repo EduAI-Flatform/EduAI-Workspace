@@ -1,24 +1,38 @@
 # Manual Action Queue
 
-## MANUAL:SPR23_002_DEPLOYMENT — Deploy Phase 3 commerce persistence
+## MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE — Verify least-privilege runtime DB role
 
 - Status: `WAITING_USER`
 - Priority: `CRITICAL`
+- Related tasks: `SPR23-003`, `SPR25-002`, `SPR25-007`.
+- Required action: before checkout activation, verify the exact production PM2
+  runtime connection uses a role that is not superuser, does not own Commerce
+  tables, cannot bypass row-level policy, and cannot disable Commerce triggers.
+  Keep `prisma migrate deploy` on a separately controlled migration role.
+- Evidence: the configured verifier role is not superuser but owns the new
+  Commerce tables and has `BYPASSRLS`; sanitized evidence cannot establish
+  whether it is the PM2 runtime role or a separate migration/admin connection.
+- Blocks: `SPR25-002` checkout activation. It does not block the feature-flagged
+  `SPR23-003` implementation or the completed schema-only `SPR23-002` release.
+- Security: record only boolean privilege assertions and readiness status; do
+  not record role names, hosts, connection strings, credentials, row contents,
+  response bodies, or entity identifiers.
+
+## MANUAL:SPR23_002_DEPLOYMENT — Deploy Phase 3 commerce persistence
+
+- Status: `VERIFIED`
+- Priority: `CRITICAL`
 - Related task: `SPR23-002`
-- Local implementation: Backend commit `84162aa`; migration
-  `20260824013000_add_commerce_persistence`.
-- Required action: explicitly authorize pushing the commit through the normal
-  `main` CI/deployment workflow, then verify the additive migration, application
-  readiness, and expected commerce tables/indexes/checks/triggers using only
-  sanitized metadata.
-- Local evidence: `EVIDENCE:SPR23-002:LOCAL-PERSISTENCE` records 14 focused
-  persistence tests, the complete 45-migration chain on ephemeral PostgreSQL,
-  104/563 backend regression, Prisma validation/generation, build, rollback
-  review, and three adversarial review cycles.
-- Blocks: `SPR23-002` completion and its dependent task chains. No independent
-  canonical task is currently runnable.
-- Security: do not record database credentials, row contents, provider data,
-  signatures, payment/QR payloads, response bodies, or user identifiers.
+- Verified: Backend commit `84162aa` passed CI run `32683873089` and production
+  deployment run `32683873087`. Migration
+  `20260824013000_add_commerce_persistence` is applied and not rolled back;
+  metadata-only verification found 15 tables, 76 indexes, 57 triggers, and 83
+  named constraints. Public readiness returned HTTP `200`.
+- Evidence: `EVIDENCE:SPR23-002:LOCAL-PERSISTENCE` and
+  `EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT`.
+- Blocks: none; `SPR23-002` is `DONE` and `SPR23-003` is active.
+- Security: no database credentials, role names, row contents, response bodies,
+  provider data, signatures, payment/QR payloads, or identifiers were retained.
 
 ## MANUAL:SPR23_001_ADR_APPROVAL — Review and approve Phase 3 commerce boundaries
 

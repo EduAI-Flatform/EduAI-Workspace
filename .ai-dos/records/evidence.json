@@ -6337,5 +6337,64 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT",
+    "taskId": "SPR23-002",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Local persistence acceptance evidence",
+        "command": "See EVIDENCE:SPR23-002:LOCAL-PERSISTENCE",
+        "reference": "Fourteen focused persistence tests, 104 backend suites and 563 tests, Prisma validation/generation, build, and three adversarial review cycles passed for Backend commit 84162aa.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Backend production deployment",
+        "command": "GitHub Actions Deploy Backend Production run 32683873087",
+        "reference": "Commit 84162aa is on origin/main. Backend CI run 32683873089 and production deployment run 32683873087 completed successfully. The deployment job runs Prisma validation, tests, prisma migrate deploy, build, PM2 restart, and local readiness in dependency order.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Commerce migration metadata and readiness",
+        "command": "Read-only PostgreSQL metadata transaction and public GET /api/docs",
+        "reference": "Migration 20260824013000_add_commerce_persistence is applied and not rolled back. Metadata-only queries found 15 Commerce tables, 76 Commerce indexes including all four final provider-scoped unique indexes, 57 non-internal Commerce triggers, and 83 named Commerce constraints. The public readiness route returned HTTP 200. No application rows or response body were read or retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Runtime database-role risk disposition",
+        "reference": "The configured verifier connection owns Commerce tables and has BYPASSRLS, but its identity relative to the PM2 runtime connection cannot be proven from sanitized local configuration. MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE blocks checkout activation at SPR25-002; SPR23-002 adds schema only and exposes no Commerce runtime endpoint.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T09:51:32.0015859+07:00",
+    "commit": "84162aa",
+    "notes": "SPR23-002 meets its tests, deployment, production verification, migration safety, immutable snapshot, provider uniqueness, append-only history, ownership-index, and archival acceptance criteria. The separate runtime-role ambiguity is explicitly gated before checkout activation and does not weaken this schema-only completion.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "84162aa7dd12b4ccb4186066ddb8d832d85ddd21",
+      "backendCiRunId": 32683873089,
+      "backendDeployRunId": 32683873087,
+      "migration": "20260824013000_add_commerce_persistence",
+      "migrationApplied": true,
+      "migrationRolledBack": false,
+      "commerceTableCount": 15,
+      "commerceIndexCount": 76,
+      "commerceTriggerCount": 57,
+      "commerceNamedConstraintCount": 83,
+      "providerScopedUniqueIndexesVerified": 4,
+      "publicReadinessStatus": 200,
+      "configuredNonLocalDatabaseMutatedByVerifier": false,
+      "runtimeRoleFollowUpActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]

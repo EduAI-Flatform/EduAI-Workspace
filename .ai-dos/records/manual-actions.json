@@ -978,14 +978,14 @@
     "schemaVersion": "1.0",
     "id": "MANUAL:SPR23_002_DEPLOYMENT",
     "title": "Authorize and deploy the Phase 3 commerce persistence migration",
-    "status": "WAITING_USER",
+    "status": "VERIFIED",
     "priority": "CRITICAL",
     "requiredAction": [
       "Explicitly authorize pushing Backend commit 84162aa through the normal main-branch CI/deployment workflow.",
       "Verify CI applies migration 20260824013000_add_commerce_persistence once on the approved deployment target and preserves all existing Course, Enrollment, Voucher, Scholarship, TMI, Audit, and learning records.",
       "Record sanitized deployment and production schema/health evidence without row contents, credentials, provider data, signatures, payment payloads, or user identifiers."
     ],
-    "reason": "SPR23-002 is locally complete and committed, but the production_required execution profile requires deployment and production verification before DONE. Repository Git policy does not authorize push or deployment from an implementation request alone, and the configured non-local database was intentionally kept read-only during development.",
+    "reason": "Backend commit 84162aa is on origin/main. Backend CI run 32683873089 and production deployment run 32683873087 completed successfully. The deployment workflow validated Prisma, built and tested the application, applied prisma migrate deploy, restarted the service, and passed readiness. Sanitized read-only production metadata confirms migration 20260824013000_add_commerce_persistence is applied and not rolled back, with all expected tables, indexes, constraints, and transition/immutability triggers present; the public API documentation readiness route returned HTTP 200.",
     "retestSteps": [
       "Confirm Backend commit 84162aa passes the normal CI workflow, including Prisma validation, focused persistence tests, unit regression, and build.",
       "Confirm prisma migrate deploy applies the additive commerce migration without drift or destructive statements.",
@@ -994,13 +994,58 @@
     ],
     "expectedResult": "The reviewed additive migration is deployed exactly once, application health remains green, required persistence guards exist, no existing history is rewritten, and SPR23-002 can satisfy its production completion gates.",
     "relatedTaskIds": ["SPR23-002"],
-    "blocks": ["SPR23-002"],
+    "blocks": [],
     "extensions": {
       "backendRepository": "EduAI-Back-End",
       "backendCommit": "84162aa",
       "migration": "20260824013000_add_commerce_persistence",
       "localEvidenceId": "EVIDENCE:SPR23-002:LOCAL-PERSISTENCE",
+      "productionEvidenceId": "EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT",
+      "backendCiRunId": 32683873089,
+      "backendDeployRunId": 32683873087,
+      "remoteMainVerified": true,
+      "migrationApplied": true,
+      "migrationRolledBack": false,
+      "commerceTableCount": 15,
+      "commerceIndexCount": 76,
+      "commerceTriggerCount": 57,
+      "commerceNamedConstraintCount": 83,
+      "publicReadinessStatus": 200,
+      "verifiedAt": "2026-08-24T09:51:32.0015859+07:00",
       "configuredNonLocalDatabaseMutated": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+    "title": "Verify a least-privilege runtime database role before checkout activation",
+    "status": "WAITING_USER",
+    "priority": "CRITICAL",
+    "requiredAction": [
+      "Identify the PostgreSQL role used by the production PM2 backend at runtime without recording its name or connection value, and distinguish it from the migration/admin connection.",
+      "Before enabling Commerce writes or payment routes, ensure the runtime role is not a superuser, does not own Commerce tables, cannot bypass row-level policy, and cannot disable Commerce triggers; retain a separate controlled migration role for prisma migrate deploy.",
+      "Re-deploy or reload the backend configuration, then record only boolean privilege assertions and readiness status. Do not record credentials, connection strings, role names, database hosts, row contents, or entity identifiers."
+    ],
+    "reason": "The configured read-only production verifier connection is not a superuser but owns the newly deployed Commerce tables and has BYPASSRLS. It may be a separate migration/admin connection, so this is not evidence that the PM2 runtime role is overprivileged. The schema-only SPR23-002 release exposes no Commerce runtime endpoint; the ambiguity must be resolved before SPR25-002 activates checkout/payment behavior rather than being silently accepted.",
+    "retestSteps": [
+      "Run a metadata-only query through the exact runtime application connection and record only superuser, BYPASSRLS, Commerce-table ownership, and trigger-disable capability booleans.",
+      "Confirm all four unsafe capabilities are false for the runtime role while prisma migrate deploy remains available only to the controlled migration role.",
+      "Run backend readiness and Phase 3 authorization/regression checks after the configuration change."
+    ],
+    "expectedResult": "The production backend runs with a distinct least-privilege database role that cannot alter or bypass the Commerce persistence guards, while migrations remain deployable through a separately controlled role.",
+    "relatedTaskIds": ["SPR23-003", "SPR25-002", "SPR25-007"],
+    "blocks": ["SPR25-002"],
+    "extensions": {
+      "discoveredDuringTaskId": "SPR23-002",
+      "configuredVerifierRoleSuperuser": false,
+      "configuredVerifierRoleBypassRls": true,
+      "configuredVerifierRoleOwnsCommerceTables": true,
+      "runtimeRoleIdentityVerified": false,
+      "commerceRuntimeEndpointsCurrentlyPresent": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false

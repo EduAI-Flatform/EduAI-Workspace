@@ -510,5 +510,9 @@
 | EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | OTHER | Architecture, data-integrity, rollback, and security review | PASS | — |
 | EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | DEPLOY | Production-required deployment gate | BLOCKED | Requires MANUAL:SPR23_002_DEPLOYMENT |
 | EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | PRODUCTION | Production migration and readiness verification | BLOCKED | Requires MANUAL:SPR23_002_DEPLOYMENT |
+| EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | TEST | Local persistence acceptance evidence | PASS | See EVIDENCE:SPR23-002:LOCAL-PERSISTENCE |
+| EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | DEPLOY | Backend production deployment | PASS | GitHub Actions Deploy Backend Production run 32683873087 |
+| EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | PRODUCTION | Commerce migration metadata and readiness | PASS | Read-only PostgreSQL metadata transaction and public GET /api/docs |
+| EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | OTHER | Runtime database-role risk disposition | PASS | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

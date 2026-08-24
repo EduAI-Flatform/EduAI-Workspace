@@ -1003,7 +1003,7 @@
       "Unique provider references, append-only lifecycle history, ownership indexes, and non-destructive archival constraints exist."
     ],
     "verification": ["Validate Prisma schema and migration SQL, including rollback/recovery impact.", "Run persistence tests for constraints, ownership, duplicate references, totals, and archival."],
-    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
+    "applicability": {"tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED"},
     "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End"], "testStrategy": "Schema, migration, constraint, and transaction tests.", "securityConsiderations": "Financial history is append-only and user scoped.", "agentProfileId": "backend-engineer"}
   },
   {
