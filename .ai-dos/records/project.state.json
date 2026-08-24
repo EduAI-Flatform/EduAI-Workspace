@@ -111,8 +111,8 @@
     "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
     "MANUAL:SPR23_005_DEPLOYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
-  "updatedAt": "2026-08-24T11:04:55.2794112+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER",
+  "updatedAt": "2026-08-24T11:47:02.5188494+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1024,13 +1024,21 @@
     },
     "sprint23CommerceQa": {
       "status": "WAITING_MANUAL",
-      "backendCommit": "08ece8f",
+      "backendCommit": "6ee7b1c",
+      "deployedBackendCommit": "08ece8f",
       "frontendCommit": "d4eb085",
       "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
       "databaseRoleSeparationEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
+      "infrastructureEvidenceId": "EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION",
+      "runtimeVerifierEvidenceId": "EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER",
       "blockingEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "backendDeploymentRunId": 32688908947,
+      "backendDeploymentRunAttempt": 3,
+      "frontendDeploymentRunId": 32688909830,
+      "roleSeparationDeploymentVerified": true,
+      "runtimePrivilegeBooleansVerified": false,
       "productionMutated": false,
       "credentialMaterialRecorded": false
     },

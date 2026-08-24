@@ -527,6 +527,10 @@
 | EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | BUILD | Prisma, build, and endpoint security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
 | EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | OTHER | Migration/runtime credential isolation review | PASS | — |
 | EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | DEPLOY | Provision isolated production roles and deploy exact revision | BLOCKED | — |
+| EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION | SPR23-005 | MANUAL | Production credential separation and migration-file protection | PASS | — |
+| EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION | SPR23-005 | DEPLOY | Exact Backend remediation deployment | PASS | Read-only GitHub Actions metadata for run 32688908947 attempt 3 |
+| EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION | SPR23-005 | DEPLOY | Exact Frontend Sprint 23 deployment | PASS | Read-only GitHub Actions metadata for run 32688909830 |
+| EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION | SPR23-005 | PRODUCTION | Public backend readiness and unauthenticated Commerce protection | PASS | Body-discarding HTTPS metadata checks against the documented public backend hostname |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | Concurrent checkout, Commerce, and Backend compatibility regression | PASS | npm.cmd test -- --runInBand |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | PostgreSQL persistence and pricing compatibility matrix | PASS | npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts voucher-contract.spec.ts scholarship-contract.spec.ts tmi-ledger-contract.spec.ts tmi-redemption.integration.spec.ts |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | BUILD | Backend and Frontend production readiness | PASS | Backend: npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints. Frontend: npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
@@ -535,5 +539,11 @@
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | PRODUCTION | Bounded cross-role and concurrent Commerce production UAT | BLOCKED | Requires MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | DEPLOY | Human-authorized deployment and production Commerce UAT | BLOCKED | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | PRODUCTION | Least-privilege runtime role before Commerce writes | BLOCKED | — |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | TEST | Runtime and migration database-role safety contracts | PASS | npm.cmd test -- --runInBand src/config/production-runtime-role.spec.ts src/config/database-role-separation.spec.ts |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | TEST | PostgreSQL catalog-query execution smoke | PASS | Isolated in-memory PostgreSQL execution of RUNTIME_ROLE_QUERY |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | TEST | Exact Backend regression | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | BUILD | Prisma, build, and endpoint security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | OTHER | Least-privilege verifier security review | PASS | — |
+| EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | DEPLOY | Exact-runtime privilege assertion | BLOCKED | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

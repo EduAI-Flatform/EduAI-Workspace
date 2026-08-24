@@ -6,10 +6,9 @@
 - Priority: `HIGH`
 - Related task: `SPR23-005`.
 - Required action:
-  - Provision the isolated runtime and migration roles described by
-    `MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE`, then explicitly authorize pushing
-    Backend `08ece8f` and Frontend `d4eb085` through their approved
-    CI/deployment workflows, initially with Commerce disabled.
+  - Authorize pushing and deploying Backend `6ee7b1c` through the approved
+    workflow with Commerce disabled. Backend `08ece8f` and Frontend `d4eb085`
+    are already deployed successfully.
   - Resolve `MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE` before enabling any
     production Commerce write route.
   - Authorize one bounded, dedicated, non-sensitive cross-role and concurrent
@@ -18,6 +17,10 @@
 - Local evidence: `EVIDENCE:SPR23-005:LOCAL-READINESS`.
 - Database-role separation evidence:
   `EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION`.
+- Infrastructure remediation evidence:
+  `EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION`.
+- Runtime privilege verifier evidence:
+  `EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER`.
 - Blocking evidence: `EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED`.
 - Blocks: only `SPR23-005`; local implementation and regression are complete.
 - Security: retain no credentials, sessions, role/database names, response
@@ -29,15 +32,17 @@
 - Status: `WAITING_USER`
 - Priority: `CRITICAL`
 - Related tasks: `SPR23-003`, `SPR23-005`, `SPR25-002`, `SPR25-007`.
-- Required action: configure the production host so `.env` contains only the
-  least-privilege runtime `DATABASE_URL`, while root-owned `.env.migration`
-  contains the separate `MIGRATION_DATABASE_URL` with mode `600`. Verify the
-  runtime role is not superuser, does not own Commerce tables, cannot bypass
-  row-level policy, and cannot disable Commerce triggers.
-- Repository evidence: Backend `08ece8f` makes production migrations fail
-  closed unless the two URLs use distinct roles for the same database and keeps
-  the migration credential outside PM2. Operations provisioning and the four
-  sanitized runtime privilege assertions remain required.
+- Completed infrastructure: the authorized operator confirmed separate runtime
+  and migration credentials plus mode `600` for `.env.migration`. Backend run
+  `32688908947`, attempt `3`, successfully deployed `08ece8f` with the isolated
+  migration preflight, current migrations, build, and PM2 readiness.
+- Remaining action: authorize and deploy Backend `6ee7b1c`. Its metadata-only,
+  read-only verifier must report Commerce tables present; superuser,
+  `BYPASSRLS`, Commerce ownership, Commerce-owner assumption, guard bypass, and
+  trigger-disable capability all false; and least-privilege readiness true.
+- Repository evidence: `6ee7b1c` emits only those booleans, uses the exact
+  runtime `DATABASE_URL`, never loads the migration credential, and fails the
+  deployment before PM2 restart if any assertion is unsafe or missing.
 - Blocks: `SPR23-005` production write UAT and `SPR25-002` checkout activation.
   It does not block the feature-flagged `SPR23-003` implementation or the
   completed schema-only `SPR23-002` release.

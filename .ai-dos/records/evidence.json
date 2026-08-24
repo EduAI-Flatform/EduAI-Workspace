@@ -6675,5 +6675,137 @@
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Production credential separation and migration-file protection",
+        "reference": "The authorized operator confirmed that production uses separate runtime and migration database credentials and that .env.migration is protected with mode 600. No connection value, role name, password, host, or other credential was requested or recorded.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact Backend remediation deployment",
+        "command": "Read-only GitHub Actions metadata for run 32688908947 attempt 3",
+        "reference": "The public GitHub API independently reports exact Backend revision 08ece8f, run 76 attempt 3, completed successfully. Validate/build, tests, Deploy to VPS, deployment cleanup, and notification jobs/steps succeeded. Operator-supplied sanitized output confirms migration preflight and role separation passed, 45 migrations were discovered with zero pending, the build passed, PM2 restarted, and eduai-backend was online.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact Frontend Sprint 23 deployment",
+        "command": "Read-only GitHub Actions metadata for run 32688909830",
+        "reference": "The public GitHub API reports exact Frontend revision d4eb085 completed its production workflow successfully.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Public backend readiness and unauthenticated Commerce protection",
+        "command": "Body-discarding HTTPS metadata checks against the documented public backend hostname",
+        "reference": "Public health and API documentation returned HTTP 200. Unauthenticated learner-cart and administrator-order routes returned HTTP 401 with JSON content types. Response bodies, headers containing credentials, cookies, sessions, and entity identifiers were not retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T11:47:02.5188494+07:00",
+    "commit": "08ece8f,d4eb085",
+    "notes": "The previous missing .env.migration blocker is resolved and both Sprint 23 application revisions are deployed. This evidence intentionally does not claim that the exact runtime role passes the effective least-privilege assertions.",
+    "extensions": {
+      "backendDeploymentRunId": 32688908947,
+      "backendDeploymentRunNumber": 76,
+      "backendDeploymentRunAttempt": 3,
+      "backendDeployedCommit": "08ece8f",
+      "backendDeploymentConclusion": "success",
+      "frontendDeploymentRunId": 32688909830,
+      "frontendDeployedCommit": "d4eb085",
+      "frontendDeploymentConclusion": "success",
+      "migrationCountDiscovered": 45,
+      "pendingMigrationCount": 0,
+      "runtimeMigrationCredentialsSeparated": true,
+      "migrationEnvironmentMode600Confirmed": true,
+      "runtimePrivilegeBooleansVerified": false,
+      "publicHealthStatus": 200,
+      "unauthenticatedLearnerCommerceStatus": 401,
+      "unauthenticatedAdminCommerceStatus": 401,
+      "productionMutatedByVerifier": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Runtime and migration database-role safety contracts",
+        "command": "npm.cmd test -- --runInBand src/config/production-runtime-role.spec.ts src/config/database-role-separation.spec.ts",
+        "reference": "Two focused suites passed 11 tests. They cover safe-role acceptance; missing Commerce tables; superuser, BYPASSRLS, direct ownership, and assumable-owner rejection; incomplete metadata; metadata-only SQL; fixed public schema scope; workflow integration; and migration/runtime credential isolation.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "PostgreSQL catalog-query execution smoke",
+        "command": "Isolated in-memory PostgreSQL execution of RUNTIME_ROLE_QUERY",
+        "reference": "The read-only catalog query executed successfully against an isolated Commerce-prefixed table and the assessment correctly rejected the owner/superuser runtime. Only two boolean smoke results were emitted.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Exact Backend regression",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "Backend commit 6ee7b1c passed 112 suites and 605 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Prisma, build, and endpoint security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "Prisma validation, the NestJS build, and classification of all 215 endpoints with zero implicit endpoints passed at Backend 6ee7b1c.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Least-privilege verifier security review",
+        "reference": "The verifier reads only PostgreSQL role and relation catalogs through the exact runtime .env DATABASE_URL in a read-only session. It emits a fixed boolean allowlist, never loads MIGRATION_DATABASE_URL, suppresses raw connection/query errors, and fails before PM2 restart when metadata is missing or any unsafe effective capability is present.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-runtime privilege assertion",
+        "reference": "Backend 6ee7b1c must be authorized, pushed, and deployed so the production workflow can execute the verifier through the exact PM2 runtime connection. Until its sanitized booleans pass, MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE remains WAITING_USER and Commerce writes remain disabled.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T11:47:02.5188494+07:00",
+    "commit": "6ee7b1c",
+    "notes": "Repository support for the remaining runtime privilege proof is complete and locally verified. No production database connection was accessed and no deployment or production mutation was performed for this commit.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "6ee7b1c",
+      "backendUnitSuitesPassed": 112,
+      "backendUnitTestsPassed": 605,
+      "focusedSuitesPassed": 2,
+      "focusedTestsPassed": 11,
+      "securedEndpointCount": 215,
+      "metadataOnly": true,
+      "readOnlySession": true,
+      "safeBooleanOutputOnly": true,
+      "runtimePrivilegeBooleansVerified": false,
+      "productionMutated": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    }
   }
 ]
