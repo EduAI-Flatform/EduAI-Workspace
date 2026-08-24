@@ -518,5 +518,9 @@
 | EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | TEST | Frontend cart, checkout, and regression | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
 | EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | OTHER | Authorization, financial authority, quota, and sensitive-data review | PASS | npm.cmd run security:audit-endpoints; npm.cmd run prisma:validate |
 | EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | OTHER | Responsive real-browser cart and pending-order verification | PASS | — |
+| EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | TEST | Administrator Commerce API, concurrency, audit, and regression | PASS | npm.cmd test -- --runInBand; npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | TEST | Administrator catalog and order workspace regression | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
+| EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Historical immutability, authorization, and sensitive-data review | PASS | — |
+| EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Responsive real-browser administrator workflow | PASS | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

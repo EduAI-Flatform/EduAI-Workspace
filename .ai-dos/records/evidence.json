@@ -6453,5 +6453,63 @@
       "rawIdempotencyKeysRecorded": false,
       "providerPayloadsRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS",
+    "taskId": "SPR23-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Administrator Commerce API, concurrency, audit, and regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "Backend commit bbef0c8 passed 110 suites and 593 tests, Prisma validation, the Nest production build, and explicit security classification for all 215 endpoints. Focused coverage proves platform-administrator role enforcement, optimistic concurrent-update rejection, archived-product non-reactivation before price mutation, pagination, BigInt string projections, and exclusion of provider payment identities.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Administrator catalog and order workspace regression",
+        "command": "npm.cmd test; npm.cmd run build; npm.cmd run test:performance",
+        "reference": "Frontend commit d4eb085 passed 73 test files and 194 tests, TypeScript/Vite production build, and the bundle budget. Service and component tests prove bounded filters, explicit mutation fields, one-way archive warning, read-only order history, and stale-response suppression.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Historical immutability, authorization, and sensitive-data review",
+        "reference": "Commerce catalog mutations update only current Course price and Commerce product lifecycle through explicit application boundaries and same-transaction audit records. No order mutation endpoint exists. Order projections expose owner, string monetary totals, payment/fulfillment status, line snapshots, settlements, and lifecycle while excluding provider identities, credentials, signatures, webhook/QR payloads, and raw idempotency keys.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Responsive real-browser administrator workflow",
+        "reference": "An isolated real-Chrome session with synthetic administrator state and network-boundary fixtures verified catalog, mutation, order detail, and immutable lifecycle flows at 320x720 and 1440x900 with no horizontal overflow. The observed PATCH body contained only priceAmountMinor, VND priceCurrency, sellable, and expectedCourseUpdatedAt. Lighthouse snapshot accessibility and best-practices scores were both 100.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T10:50:42.5255930+07:00",
+    "commit": "bbef0c8,d4eb085",
+    "notes": "SPR23-004 acceptance is satisfied. Platform administrators can manage current catalog pricing and sellability without rewriting order history, and can inspect paginated safe order/payment/fulfillment lifecycle views. Deployment and production verification are optional for this task.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "bbef0c8",
+      "frontendRepository": "EduAI-Front-End-Web",
+      "frontendCommit": "d4eb085",
+      "backendUnitSuitesPassed": 110,
+      "backendUnitTestsPassed": 593,
+      "frontendTestFilesPassed": 73,
+      "frontendTestsPassed": 194,
+      "securedEndpointCount": 215,
+      "browserViewports": ["320x720", "1440x900"],
+      "lighthouseAccessibilityScore": 100,
+      "lighthouseBestPracticesScore": 100,
+      "horizontalOverflowFindings": 0,
+      "providerSensitiveFieldsProjected": false,
+      "historicalOrderMutationEndpointAdded": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]
