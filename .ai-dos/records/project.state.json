@@ -72,7 +72,7 @@
     "SPR21-030": "DONE",
     "SPR22-001": "DONE",
     "SPR23-001": "DONE",
-    "SPR23-002": "IN_PROGRESS",
+    "SPR23-002": "WAITING_MANUAL",
     "SPR23-003": "TODO",
     "SPR23-004": "TODO",
     "SPR23-005": "TODO",
@@ -984,10 +984,17 @@
       "credentialMaterialRecorded": false
     },
     "sprint23CommercePersistence": {
-      "status": "IN_PROGRESS",
+      "status": "WAITING_MANUAL",
       "startedAt": "2026-08-24T08:20:50.5820902+07:00",
       "architectureAuthority": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
       "affectedRepository": "EduAI-Back-End",
+      "backendCommit": "84162aa",
+      "migration": "20260824013000_add_commerce_persistence",
+      "localEvidenceId": "EVIDENCE:SPR23-002:LOCAL-PERSISTENCE",
+      "manualActionId": "MANUAL:SPR23_002_DEPLOYMENT",
+      "localAcceptanceCriteriaSatisfied": true,
+      "deploymentVerified": false,
+      "productionVerificationPerformed": false,
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

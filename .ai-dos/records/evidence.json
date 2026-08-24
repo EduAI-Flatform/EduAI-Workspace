@@ -6268,5 +6268,74 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-002:LOCAL-PERSISTENCE",
+    "taskId": "SPR23-002",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Commerce persistence contracts and executable PostgreSQL migration",
+        "command": "npm.cmd run test:demo-data -- --runInBand prisma/commerce-persistence-postgres.spec.ts prisma/commerce-persistence-contract.spec.ts prisma/commerce-persistence-migration.spec.ts",
+        "reference": "Fourteen focused tests passed. The complete 45-migration chain executed on an ephemeral PostgreSQL PGlite target, then live assertions proved ownership coupling, authoritative course snapshots, totals, non-destructive history, provider-scoped identity, settlement-required confirmation, paid-attempt coupling, and operation-bound lifecycle evidence.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Backend regression",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "All 104 backend unit suites and 563 tests passed after the persistence change.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Prisma and Backend compilation",
+        "command": "npm.cmd run prisma:validate; npm.cmd run prisma:generate; npm.cmd run build; git diff --check",
+        "reference": "The merged 33-file Prisma schema validated, Prisma Client generated, the Nest production build passed, and the diff contained no whitespace errors.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Architecture, data-integrity, rollback, and security review",
+        "reference": "Three adversarial review cycles were reconciled. The final schema keeps Course as current price/title authority, uses VND BigInt snapshots, binds promotions to voucher/scholarship sources, separates settlement/reconciliation/refund state, requires fresh lifecycle operation identities, prevents financial deletion or mutation, and documents forward-only recovery. The dependency audit reported the same nine accepted high transitive production advisories already dispositioned by EVIDENCE:SPR20-004:V2-RELEASE-UAT; this commit adds only an explicit dev-time PGlite dependency already present transitively and introduces no runtime endpoint.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Production-required deployment gate",
+        "command": "Requires MANUAL:SPR23_002_DEPLOYMENT",
+        "reference": "Blocked pending explicit push/deployment authorization and sanitized metadata-only production verification. The configured non-local database was read only and received no migration or test writes.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Production migration and readiness verification",
+        "command": "Requires MANUAL:SPR23_002_DEPLOYMENT",
+        "reference": "Blocked until commit 84162aa is deployed through the approved workflow. No production row contents, credentials, signatures, payment payloads, or identifiers were inspected or retained.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T09:25:57.3829743+07:00",
+    "commit": "84162aa",
+    "notes": "SPR23-002 satisfies its local acceptance criteria and is committed. The production-required profile prevents DONE until MANUAL:SPR23_002_DEPLOYMENT supplies passing deployment and production evidence; all dependent work remains blocked by that single gate.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "84162aa",
+      "migration": "20260824013000_add_commerce_persistence",
+      "adversarialReviewCyclesCompleted": 3,
+      "finalBlockingFindingsResolved": 2,
+      "focusedPersistenceTestsPassed": 14,
+      "backendUnitSuitesPassed": 104,
+      "backendUnitTestsPassed": 563,
+      "postgresMigrationChainCount": 45,
+      "configuredNonLocalDatabaseMutated": false,
+      "manualActionId": "MANUAL:SPR23_002_DEPLOYMENT",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]

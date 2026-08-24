@@ -1,5 +1,25 @@
 # Manual Action Queue
 
+## MANUAL:SPR23_002_DEPLOYMENT — Deploy Phase 3 commerce persistence
+
+- Status: `WAITING_USER`
+- Priority: `CRITICAL`
+- Related task: `SPR23-002`
+- Local implementation: Backend commit `84162aa`; migration
+  `20260824013000_add_commerce_persistence`.
+- Required action: explicitly authorize pushing the commit through the normal
+  `main` CI/deployment workflow, then verify the additive migration, application
+  readiness, and expected commerce tables/indexes/checks/triggers using only
+  sanitized metadata.
+- Local evidence: `EVIDENCE:SPR23-002:LOCAL-PERSISTENCE` records 14 focused
+  persistence tests, the complete 45-migration chain on ephemeral PostgreSQL,
+  104/563 backend regression, Prisma validation/generation, build, rollback
+  review, and three adversarial review cycles.
+- Blocks: `SPR23-002` completion and its dependent task chains. No independent
+  canonical task is currently runnable.
+- Security: do not record database credentials, row contents, provider data,
+  signatures, payment/QR payloads, response bodies, or user identifiers.
+
 ## MANUAL:SPR23_001_ADR_APPROVAL — Review and approve Phase 3 commerce boundaries
 
 - Status: `VERIFIED`

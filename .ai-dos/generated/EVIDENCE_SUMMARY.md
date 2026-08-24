@@ -504,5 +504,11 @@
 | EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | TEST | AI-DOS conformance after approval transition | PASS | node core/conformance.js --manifest .ai-dos/manifest.json |
 | EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | DEPLOY | Application deployment | NOT_APPLICABLE | — |
 | EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED | SPR23-001 | MANUAL | Human ADR acceptance | BLOCKED | — |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | TEST | Commerce persistence contracts and executable PostgreSQL migration | PASS | npm.cmd run test:demo-data -- --runInBand prisma/commerce-persistence-postgres.spec.ts prisma/commerce-persistence-contract.spec.ts prisma/commerce-persistence-migration.spec.ts |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | TEST | Backend regression | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | BUILD | Prisma and Backend compilation | PASS | npm.cmd run prisma:validate; npm.cmd run prisma:generate; npm.cmd run build; git diff --check |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | OTHER | Architecture, data-integrity, rollback, and security review | PASS | — |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | DEPLOY | Production-required deployment gate | BLOCKED | Requires MANUAL:SPR23_002_DEPLOYMENT |
+| EVIDENCE:SPR23-002:LOCAL-PERSISTENCE | SPR23-002 | PRODUCTION | Production migration and readiness verification | BLOCKED | Requires MANUAL:SPR23_002_DEPLOYMENT |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
