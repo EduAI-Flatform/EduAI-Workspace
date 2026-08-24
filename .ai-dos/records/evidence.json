@@ -6615,5 +6615,65 @@
       "productionMutated": false,
       "credentialMaterialRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Production database-role separation contract",
+        "command": "npm.cmd test -- --runInBand src/config/database-role-separation.spec.ts; node --check scripts/run-production-migrations.cjs",
+        "reference": "Three focused tests and the Node syntax check passed. The contract rejects a missing migration URL, shared PostgreSQL role, or different target database without exposing role names, secrets, hosts, or connection values.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Backend regression after deployment-boundary change",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "Backend commit 08ece8f passed 111 suites and 597 tests, including Commerce concurrency and the production database-role separation contract.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Prisma, build, and endpoint security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged Prisma schema is valid, the NestJS production build passed, and all 215 endpoints remain explicitly classified with zero implicit endpoints.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Migration/runtime credential isolation review",
+        "reference": "Production deployment now reads MIGRATION_DATABASE_URL only from fixed root-only .env.migration, enforces Linux mode 600, verifies a distinct role for the same database, and supplies the migration URL only to the Prisma child process. PM2 and PrismaService continue to use DATABASE_URL only. No credential or connection value was recorded.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Provision isolated production roles and deploy exact revision",
+        "reference": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T11:04:55.2794112+07:00",
+    "commit": "08ece8f",
+    "notes": "The repository-level same-credential deployment defect is resolved without enabling Commerce or touching production. SPR23-005 remains WAITING_MANUAL only for production role provisioning, authorized deployment, sanitized privilege verification, and bounded UAT.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "08ece8f",
+      "backendUnitSuitesPassed": 111,
+      "backendUnitTestsPassed": 597,
+      "securedEndpointCount": 215,
+      "repositoryRoleSeparationImplemented": true,
+      "productionRoleProvisioned": false,
+      "productionMutated": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    }
   }
 ]

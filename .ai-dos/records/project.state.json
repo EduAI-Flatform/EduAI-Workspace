@@ -111,8 +111,8 @@
     "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
     "MANUAL:SPR23_005_DEPLOYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
-  "updatedAt": "2026-08-24T10:54:09.9518657+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
+  "updatedAt": "2026-08-24T11:04:55.2794112+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1004,12 +1004,34 @@
       "credentialMaterialRecorded": false
     },
     "sprint23LearnerCartPricing": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-24T09:51:32.0015859+07:00",
       "architectureAuthority": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
       "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web"],
       "dependencyTaskId": "SPR23-002",
+      "backendCommit": "4d3d49a",
+      "frontendCommit": "4027fc4",
+      "evidenceId": "EVIDENCE:SPR23-003:COMMERCE-CART-ORDER",
       "runtimeRoleFollowUpActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "credentialMaterialRecorded": false
+    },
+    "sprint23AdminCommerce": {
+      "status": "DONE",
+      "backendCommit": "bbef0c8",
+      "frontendCommit": "d4eb085",
+      "evidenceId": "EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS",
+      "credentialMaterialRecorded": false
+    },
+    "sprint23CommerceQa": {
+      "status": "WAITING_MANUAL",
+      "backendCommit": "08ece8f",
+      "frontendCommit": "d4eb085",
+      "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
+      "databaseRoleSeparationEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
+      "blockingEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "productionMutated": false,
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

@@ -522,6 +522,11 @@
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | TEST | Administrator catalog and order workspace regression | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Historical immutability, authorization, and sensitive-data review | PASS | — |
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Responsive real-browser administrator workflow | PASS | — |
+| EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | TEST | Production database-role separation contract | PASS | npm.cmd test -- --runInBand src/config/database-role-separation.spec.ts; node --check scripts/run-production-migrations.cjs |
+| EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | TEST | Backend regression after deployment-boundary change | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | BUILD | Prisma, build, and endpoint security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | OTHER | Migration/runtime credential isolation review | PASS | — |
+| EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION | SPR23-005 | DEPLOY | Provision isolated production roles and deploy exact revision | BLOCKED | — |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | Concurrent checkout, Commerce, and Backend compatibility regression | PASS | npm.cmd test -- --runInBand |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | PostgreSQL persistence and pricing compatibility matrix | PASS | npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts voucher-contract.spec.ts scholarship-contract.spec.ts tmi-ledger-contract.spec.ts tmi-redemption.integration.spec.ts |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | BUILD | Backend and Frontend production readiness | PASS | Backend: npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints. Frontend: npm.cmd test; npm.cmd run build; npm.cmd run test:performance |

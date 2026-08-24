@@ -1026,14 +1026,15 @@
     "status": "WAITING_USER",
     "priority": "CRITICAL",
     "requiredAction": [
-      "Identify the PostgreSQL role used by the production PM2 backend at runtime without recording its name or connection value, and distinguish it from the migration/admin connection.",
-      "Before enabling Commerce writes or payment routes, ensure the runtime role is not a superuser, does not own Commerce tables, cannot bypass row-level policy, and cannot disable Commerce triggers; retain a separate controlled migration role for prisma migrate deploy.",
-      "Re-deploy or reload the backend configuration, then record only boolean privilege assertions and readiness status. Do not record credentials, connection strings, role names, database hosts, row contents, or entity identifiers."
+      "Provision or select distinct production PostgreSQL roles for application runtime and migrations. Put only the least-privilege runtime connection in backend .env as DATABASE_URL, and put only the controlled migration connection in root-owned .env.migration as MIGRATION_DATABASE_URL with mode 600.",
+      "Before enabling Commerce writes or payment routes, ensure the runtime role is not a superuser, does not own Commerce tables, cannot bypass row-level policy, and cannot disable Commerce triggers. Backend commit 08ece8f makes the production workflow fail closed unless runtime and migration URLs use distinct roles for the same database.",
+      "Deploy or reload the backend configuration, then record only boolean privilege assertions and readiness status. Do not record credentials, connection strings, role names, database hosts, row contents, or entity identifiers."
     ],
-    "reason": "The configured read-only production verifier connection is not a superuser but owns the newly deployed Commerce tables and has BYPASSRLS. It may be a separate migration/admin connection, so this is not evidence that the PM2 runtime role is overprivileged. The schema-only SPR23-002 release exposes no Commerce runtime endpoint; the ambiguity must be resolved before SPR25-002 activates checkout/payment behavior rather than being silently accepted.",
+    "reason": "Repository inspection proved the prior production workflow used DATABASE_URL for both prisma migrate deploy and PM2 runtime, so it could not enforce ADR-005 role separation. Backend commit 08ece8f now isolates production migrations through a root-only .env.migration file, rejects a shared role or different target database, and keeps migration credentials out of the PM2 runtime path. Operations must still provision the roles, configure the deployment host, and prove the runtime privilege booleans before Commerce writes are enabled.",
     "retestSteps": [
-      "Run a metadata-only query through the exact runtime application connection and record only superuser, BYPASSRLS, Commerce-table ownership, and trigger-disable capability booleans.",
-      "Confirm all four unsafe capabilities are false for the runtime role while prisma migrate deploy remains available only to the controlled migration role.",
+      "Confirm .env contains only the runtime DATABASE_URL and root-owned .env.migration contains only MIGRATION_DATABASE_URL with mode 600; do not retain either value.",
+      "Deploy Backend 08ece8f and confirm its production migration preflight reports configured=true and separated=true without exposing connection material.",
+      "Run a metadata-only query through the exact runtime application connection and record only superuser, BYPASSRLS, Commerce-table ownership, and trigger-disable capability booleans; confirm all four are false.",
       "Run backend readiness and Phase 3 authorization/regression checks after the configuration change."
     ],
     "expectedResult": "The production backend runs with a distinct least-privilege database role that cannot alter or bypass the Commerce persistence guards, while migrations remain deployable through a separately controlled role.",
@@ -1045,6 +1046,8 @@
       "configuredVerifierRoleBypassRls": true,
       "configuredVerifierRoleOwnsCommerceTables": true,
       "runtimeRoleIdentityVerified": false,
+      "repositoryRoleSeparationImplemented": true,
+      "backendCommit": "08ece8f",
       "commerceRuntimeEndpointsCurrentlyPresent": true,
       "productionCommerceRuntimeEndpointsDeployed": false,
       "credentialMaterialRecorded": false,
@@ -1060,14 +1063,14 @@
     "status": "WAITING_USER",
     "priority": "HIGH",
     "requiredAction": [
-      "Explicitly authorize pushing the focused Backend and Frontend revisions through the repositories' approved CI/deployment workflows; deploy with Commerce disabled first and confirm migrations, builds, health, and route protection pass.",
+      "Explicitly authorize pushing Backend 08ece8f and Frontend d4eb085 through the repositories' approved CI/deployment workflows; first configure the isolated production database roles and deploy with Commerce disabled, then confirm migration preflight, migrations, builds, health, and route protection pass.",
       "Resolve MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE before enabling any Commerce write route in production.",
       "After the runtime role is verified, authorize a bounded Commerce UAT using dedicated non-sensitive test data: prove unauthenticated, student, instructor, and platform-administrator role boundaries; current-price and immutable-snapshot behavior; one concurrent duplicate checkout converging on one order and one audit event; safe administrator order history; and no provider call or browser-confirmed settlement.",
       "Reconcile the dedicated UAT cart/order and restore COMMERCE_ENABLED to false after evidence collection. Retain only revisions, workflow/run status, HTTP status matrix, aggregate assertions, and boolean safety results."
     ],
-    "reason": "SPR23-005 explicitly requires deployment and bounded production read/write UAT. The new runtime revisions are committed locally but are not authorized for push/deployment, Commerce is disabled by default, and enabling a write route before the exact PM2 runtime role is proven least-privilege would violate ADR-005.",
+    "reason": "SPR23-005 explicitly requires deployment and bounded production read/write UAT. Repository-side role separation and runtime revisions are committed locally but are not authorized for push/deployment; the deployment host still needs distinct database roles and safe environment files. Commerce is disabled by default, and enabling a write route before the exact PM2 runtime role is proven least-privilege would violate ADR-005.",
     "retestSteps": [
-      "Verify Backend f963f37 and Frontend d4eb085 are the exact deployed revisions and that their CI/deployment workflows pass.",
+      "Verify Backend 08ece8f and Frontend d4eb085 are the exact deployed revisions and that their CI/deployment workflows pass.",
       "Confirm the exact runtime role passes the four boolean least-privilege assertions recorded by MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE.",
       "Run the bounded cross-role and concurrent-checkout UAT against one dedicated target, confirm immutable sanitized administrator history, reconcile the resulting records, disable Commerce, and rerun AI-DOS conformance."
     ],
@@ -1077,7 +1080,7 @@
     "extensions": {
       "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
       "blockingEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
-      "backendCommit": "f963f37",
+      "backendCommit": "08ece8f",
       "frontendCommit": "d4eb085",
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "commerceEnabledByDefault": false,
