@@ -1132,5 +1132,42 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+    "title": "Restore isolated migration authority for the existing Commerce enum",
+    "status": "WAITING_USER",
+    "priority": "CRITICAL",
+    "requiredAction": [
+      "Using the approved production migration-operator path, confirm the failed migration did not add the membership enum value, then mark 20260824160000_add_membership_product_type rolled back with Prisma migrate resolve.",
+      "Grant or restore only the isolated migration credential's authority to alter the existing Commerce product enum; do not change the runtime credential, runtime ownership, runtime memberships, or any verified least-privilege assertion.",
+      "Rerun the normal Backend deployment and retain only the sanitized migration status, exact revision/run identifiers, runtime least-privilege booleans, restart result, and readiness status."
+    ],
+    "reason": "Backend CI passed, but production deployment runs 32708939079 and 32709524724 failed before restart. Sanitized run 32709934269 classified the existing failed migration as MIGRATION_ROLE_PERMISSION_DENIED for 20260824160000_add_membership_product_type. Production remains on the prior healthy revision with no membership routes deployed.",
+    "retestSteps": [
+      "Confirm the failed migration record is resolved only after verifying its single ALTER TYPE statement did not take effect.",
+      "Rerun deployment and confirm both membership migrations apply with the isolated migration credential.",
+      "Confirm the runtime-role verifier still reports every unsafe Commerce capability false and least-privilege readiness true.",
+      "Confirm PM2 restart, public API docs membership route count, and production readiness pass."
+    ],
+    "expectedResult": "The migration credential can apply reviewed additive membership migrations while the runtime credential remains unable to own, assume, bypass, or disable protected Commerce schema controls.",
+    "relatedTaskIds": ["SPR24-001", "SPR24-007"],
+    "blocks": ["SPRINT:24 production deployment and release verification"],
+    "extensions": {
+      "backendFeatureCommit": "f3087e5",
+      "diagnosticCommit": "a31d101",
+      "backendCiRunId": 32708939182,
+      "failedDeploymentRunIds": [32708939079, 32709524724, 32709934269],
+      "failedMigrationName": "20260824160000_add_membership_product_type",
+      "migrationFailureClass": "MIGRATION_ROLE_PERMISSION_DENIED",
+      "applicationRestartReached": false,
+      "productionMembershipRoutesPresent": false,
+      "runtimePrivilegeChangeAuthorized": false,
+      "credentialMaterialRecorded": false,
+      "roleIdentityRecorded": false,
+      "databaseIdentityRecorded": false
+    }
   }
 ]

@@ -70,8 +70,8 @@
 | SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | DONE |  |
 | SPR23-004 | Deliver Administrator Commerce Catalog and Order Operations | DONE |  |
 | SPR23-005 | Verify Commerce Boundaries, Concurrency, and Regression | DONE |  |
-| SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | IN_PROGRESS | YES |
-| SPR24-002 | Add Configurable Service Entitlements and Usage Quotas | TODO |  |
+| SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | DONE |  |
+| SPR24-002 | Add Configurable Service Entitlements and Usage Quotas | IN_PROGRESS | YES |
 | SPR24-003 | Add Included-Course Mappings and Centralized Access Grants | TODO |  |
 | SPR24-004 | Deliver Membership Administration | TODO |  |
 | SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | TODO |  |

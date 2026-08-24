@@ -1,5 +1,30 @@
 # Manual Action Queue
 
+## MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY — Restore isolated migration authority
+
+- Status: `WAITING_USER`
+- Priority: `CRITICAL`
+- Related tasks: `SPR24-001`, `SPR24-007`.
+- Evidence: Backend `f3087e5` passed CI run `32708939182`. Deployment runs
+  `32708939079` and `32709524724` stopped before restart; sanitized diagnostic
+  run `32709934269` identified `MIGRATION_ROLE_PERMISSION_DENIED` for
+  `20260824160000_add_membership_product_type`.
+- Required action:
+  - Through the approved migration-operator path, verify the failed migration's
+    single enum-alter statement did not take effect, then mark that migration
+    rolled back with Prisma migrate resolve.
+  - Restore only the isolated migration credential's authority to alter the
+    existing Commerce product enum. Do not change the runtime credential,
+    runtime ownership, role membership, or any verified least-privilege
+    assertion.
+  - Rerun the normal Backend deployment and confirm both additive membership
+    migrations, runtime-role assertions, build, PM2 restart, public membership
+    routes, and readiness pass.
+- Blocks: Sprint 24 production deployment/release verification only. Local
+  `SPR24-001` acceptance is complete and `SPR24-002` remains runnable.
+- Security: retain no credentials, connection values, host/database/role names,
+  row data, raw migration log, response bodies, or entity identifiers.
+
 ## MANUAL:SPR23_005_DEPLOYMENT_UAT — Deploy and verify Sprint 23 Commerce
 
 - Status: `VERIFIED`
@@ -33,8 +58,7 @@
   `EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION`.
 - Production evidence:
   `EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT`.
-- Blocks: none; `SPR23-005` and Sprint 23 are complete, and `SPR24-001` is the
-  next active task.
+- Blocks: none; `SPR23-005` and Sprint 23 are complete.
 - Security: retain no credentials, sessions, role/database names, response
   bodies, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, or signatures.

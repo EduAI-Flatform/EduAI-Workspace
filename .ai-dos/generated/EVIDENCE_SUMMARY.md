@@ -567,5 +567,10 @@
 | EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | OTHER | Verifier root-cause and privacy review | PASS | — |
 | EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | DEPLOY | Exact Backend production deployment | PASS | Read-only GitHub Actions metadata and signed-in job-log inspection for run 32692761650 |
 | EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | PRODUCTION | Exact-runtime least-privilege assertions | PASS | — |
+| EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | TEST | Versioned plan and pricing rules | PASS | npm.cmd test -- --runInBand src/modules/memberships |
+| EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | TEST | Additive migration and PostgreSQL invariants | PASS | npm.cmd run test:demo-data -- --runInBand membership-plan-migration.spec.ts membership-plan-postgres.spec.ts commerce-persistence-postgres.spec.ts |
+| EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | TEST | Full Backend regression and HTTP contracts | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand |
+| EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | OTHER | Dependency and architecture review | PASS | npm.cmd audit --omit=dev --audit-level=high; staged diff and secret scan |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

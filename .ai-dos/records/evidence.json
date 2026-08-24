@@ -7111,5 +7111,64 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS",
+    "taskId": "SPR24-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Versioned plan and pricing rules",
+        "command": "npm.cmd test -- --runInBand src/modules/memberships",
+        "reference": "Three focused suites and nine tests pass for arbitrary stable plan codes/names, new-version creation, administrator-only routing, integer VND price strings, 64-bit bounds, zero/fixed/discount pricing, 0-100 percent discounts, and calendar-month expiry clamping.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Additive migration and PostgreSQL invariants",
+        "command": "npm.cmd run test:demo-data -- --runInBand membership-plan-migration.spec.ts membership-plan-postgres.spec.ts commerce-persistence-postgres.spec.ts",
+        "reference": "Three focused Prisma/PostgreSQL suites and ten tests pass. They prove draft-only creation, positive whole-month durations, exclusive fixed-price/discount modes, sales-window and VND constraints, stable identity, immutable published terms/provenance/durations, archive ordering, active-plan publication, and Commerce source compatibility.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Full Backend regression and HTTP contracts",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand",
+        "reference": "All 116 Backend unit suites and 625 tests plus all six HTTP suites and 46 tests pass.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 34-file Prisma schema validates, the production build passes, and all 221 endpoints are explicitly classified with zero implicit endpoints; all six membership administration routes are protected.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Dependency and architecture review",
+        "command": "npm.cmd audit --omit=dev --audit-level=high; staged diff and secret scan",
+        "reference": "No dependency changed. The audit retains the accepted baseline of nine high and 18 moderate transitive findings. Review found no provider activation, credential material, runtime-role weakening, mutable published terms, floating-point money, or unrelated source changes.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T16:17:21.1069232+07:00",
+    "commit": "f3087e59695b05949f66f01b0947c09ac3df5e7b",
+    "notes": "SPR24-001 satisfies its canonical local acceptance and optional-deployment profile. Backend CI run 32708939182 passed. Production deployment remains independently waiting on isolated migration-role remediation recorded in MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY; no membership production route or restart is claimed.",
+    "extensions": {
+      "backendCommit": "f3087e5",
+      "backendCiRunId": 32708939182,
+      "manualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "productionMembershipRoutesPresent": false,
+      "providerActivationChanged": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]
