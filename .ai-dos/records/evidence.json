@@ -7230,5 +7230,66 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS",
+    "taskId": "SPR24-003",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Central access and source lifecycle behavior",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "All 121 Backend unit suites and 660 tests pass. Focused coverage proves deny-first deletion and moderation precedence, administrator and owner management, public previews, private and archived grants, bounded grace, expiry, exact-source revocation, compatibility Enrollment non-authority, free enrollment, Commerce ownership, scholarship awards, TMI redemption/refund, dashboards, and course-grounded AI.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Additive migration, backfill, and PostgreSQL immutability",
+        "command": "npm.cmd run test:demo-data -- --runInBand",
+        "reference": "Fourteen Prisma/PostgreSQL suites and 76 tests pass with two credential-gated integration tests intentionally skipped. The focused access suites prove immutable included-course mappings, qualifying legacy backfill, reconciliation of malformed enrollment status, scholarship and TMI grant backfill, compatible Enrollment/progress creation, concurrent independent grants, append-only history, and exact-source revocation.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "HTTP and cross-module regression",
+        "command": "npm.cmd run test:e2e -- --runInBand",
+        "reference": "All six HTTP suites and 46 tests pass. Lessons, quizzes, assignments, classrooms, certificates, progress, dashboards, private course access, and AI contracts retain authenticated, role, ownership, moderation, and safe not-found behavior.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 35-file Prisma schema validates, the production build passes, and all 226 endpoints are explicitly classified with zero implicit endpoints. The included-course administration route is protected and provider/payment activation is unchanged.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, privacy, and dependency review",
+        "command": "npm.cmd audit --json; staged diff and secret scan",
+        "reference": "No dependency or lockfile changed. The registry audit reproduces the current baseline of 13 high, 23 moderate, and three low findings, with breaking framework upgrades among proposed fixes. Review found no credential material, response body, entity identifier, raw idempotency key, provider activation, runtime-role weakening, learning-history deletion, or direct Enrollment authorization fallback.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T17:18:45.5615534+07:00",
+    "commit": "0dce521054b66f94c6e31c7ce8d1df360afd16a1",
+    "notes": "SPR24-003 satisfies every canonical acceptance criterion under its optional deployment profile. Backend revision 0dce521 is pushed to origin/main. Production deployment remains independently waiting on MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY; no production migration, route, or UAT is claimed.",
+    "extensions": {
+      "backendCommit": "0dce521",
+      "manualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "ciRunVerified": false,
+      "providerActivationChanged": false,
+      "dependencyFilesChanged": false,
+      "learningHistoryDeleted": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

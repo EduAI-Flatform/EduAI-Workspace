@@ -577,5 +577,10 @@
 | EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | TEST | Full Backend regression and HTTP contracts | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand |
 | EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
 | EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --audit-level=high; staged diff and artifact scan |
+| EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | TEST | Central access and source lifecycle behavior | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | TEST | Additive migration, backfill, and PostgreSQL immutability | PASS | npm.cmd run test:demo-data -- --runInBand |
+| EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | TEST | HTTP and cross-module regression | PASS | npm.cmd run test:e2e -- --runInBand |
+| EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --json; staged diff and secret scan |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

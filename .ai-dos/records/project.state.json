@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:24",
-  "currentTaskId": "SPR24-003",
+  "currentTaskId": "SPR24-004",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -78,8 +78,8 @@
     "SPR23-005": "DONE",
     "SPR24-001": "DONE",
     "SPR24-002": "DONE",
-    "SPR24-003": "IN_PROGRESS",
-    "SPR24-004": "TODO",
+    "SPR24-003": "DONE",
+    "SPR24-004": "IN_PROGRESS",
     "SPR24-005": "TODO",
     "SPR24-006": "TODO",
     "SPR24-007": "TODO",
@@ -110,8 +110,8 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS",
-  "updatedAt": "2026-08-24T16:17:21.1069232+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS",
+  "updatedAt": "2026-08-24T17:18:45.5615534+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1096,10 +1096,23 @@
       "credentialMaterialRecorded": false
     },
     "sprint24CourseAccessGrants": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-24T16:40:48.3938569+07:00",
       "selectionReason": "SPR24-002 completed its local acceptance and optional-deployment profile; SPR24-003 is the highest-priority runnable Sprint 24 task and depends only on completed SPR24-001.",
       "taskId": "SPR24-003",
+      "backendCommit": "0dce521",
+      "evidenceId": "EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "migrationManualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "completedAt": "2026-08-24T17:18:45.5615534+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint24MembershipAdministration": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-24T17:18:45.5615534+07:00",
+      "selectionReason": "SPR24-003 completed every local acceptance criterion; SPR24-004 is now the highest-priority runnable Sprint 24 task with SPR24-002 and SPR24-003 complete.",
+      "taskId": "SPR24-004",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
