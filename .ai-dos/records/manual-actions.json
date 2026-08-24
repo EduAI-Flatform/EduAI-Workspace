@@ -948,13 +948,13 @@
     "schemaVersion": "1.0",
     "id": "MANUAL:SPR23_001_ADR_APPROVAL",
     "title": "Review and approve the Phase 3 commerce boundary ADR",
-    "status": "WAITING_USER",
+    "status": "VERIFIED",
     "priority": "CRITICAL",
     "requiredAction": [
       "Review EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md.",
       "Explicitly approve the proposal or identify required changes before any SPR23-002 schema work begins."
     ],
-    "reason": "SPR23-001 acceptance requires an accepted ADR and its verification explicitly requires human approval. The proposal is complete and reviewed against the live course, enrollment, voucher, scholarship, TMI, audit, notification, authorization, and frontend price contracts, but an AI agent cannot grant the required human acceptance.",
+    "reason": "The human owner explicitly approved ADR-005 as proposed on 2026-08-24, authorized implementation under its constraints, and requested canonical task execution to resume. The accepted status and passing approval evidence were verified before schema work began.",
     "retestSteps": [
       "Confirm the ADR status has changed from Proposed to Accepted only after explicit human approval.",
       "Run node core/conformance.js --manifest .ai-dos/manifest.json and confirm zero diagnostics and zero missing required evidence.",
@@ -962,12 +962,14 @@
     ],
     "expectedResult": "ADR-005 is explicitly accepted, SPR23-001 has passing completion evidence, and SPR23-002 becomes dependency-ready without weakening the documented financial, access, or provider boundaries.",
     "relatedTaskIds": ["SPR23-001", "SPR23-002"],
-    "blocks": ["SPR23-001"],
+    "blocks": [],
     "extensions": {
       "artifact": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
       "evidenceId": "EVIDENCE:SPR23-001:ADR-PROPOSAL",
       "blockingEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED",
-      "schemaWorkAuthorized": false,
+      "approvalEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
+      "approvedAt": "2026-08-24T08:18:06.7299109+07:00",
+      "schemaWorkAuthorized": true,
       "credentialMaterialRecorded": false
     }
   }

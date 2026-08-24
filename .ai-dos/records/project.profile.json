@@ -83,7 +83,8 @@
       },
       "exceptions": {
         "SPR13-001": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" },
-        "SPR13-003": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" }
+        "SPR13-003": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" },
+        "SPR23-001": { "tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL" }
       },
       "transitionRule": "Before a task can be marked DONE, set its applicability to the declared completion requirements and attach passing structured evidence for every REQUIRED kind. Never create PASS evidence from source-code presence alone."
     }

@@ -499,6 +499,10 @@
 | EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | OTHER | Live contract and boundary review | PASS | — |
 | EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | OTHER | Adversarial architecture and security review | PASS | — |
 | EVIDENCE:SPR23-001:ADR-PROPOSAL | SPR23-001 | TEST | AI-DOS validation and conformance | PASS | node core/validate.js .ai-dos/manifest.json; npm.cmd test; node core/conformance.js --manifest .ai-dos/manifest.json |
+| EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | MANUAL | Human ADR acceptance | PASS | — |
+| EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | OTHER | SPR23-001 acceptance criteria review | PASS | — |
+| EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | TEST | AI-DOS conformance after approval transition | PASS | node core/conformance.js --manifest .ai-dos/manifest.json |
+| EVIDENCE:SPR23-001:HUMAN-APPROVAL | SPR23-001 | DEPLOY | Application deployment | NOT_APPLICABLE | — |
 | EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED | SPR23-001 | MANUAL | Human ADR acceptance | BLOCKED | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

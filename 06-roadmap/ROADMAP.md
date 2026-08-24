@@ -17,6 +17,6 @@ Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.
 5. `SPRINT:27` — Affiliate
 6. `SPRINT:28` — Phase 3 Release
 
-`SPR23-001` has a review-ready ADR and is `WAITING_MANUAL` for explicit human
-acceptance. No downstream Phase 3 task is dependency-ready. Human-authored
-details are at `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.
+ADR-005 is accepted and `SPR23-001` is complete. `SPR23-002` is the next
+dependency-ready Phase 3 task. Human-authored details are at
+`EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

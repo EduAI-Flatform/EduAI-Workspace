@@ -2,20 +2,17 @@
 
 ## MANUAL:SPR23_001_ADR_APPROVAL — Review and approve Phase 3 commerce boundaries
 
-- Status: `WAITING_USER`
+- Status: `VERIFIED`
 - Priority: `CRITICAL`
 - Related tasks: `SPR23-001`, `SPR23-002`
 - Artifact: `EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md`
-- Required action:
-  - Review the proposed ownership, pricing, order/payment/refund, membership,
-    access, analytics, affiliate, audit, and PayOS boundaries.
-  - Explicitly approve the ADR or identify required changes.
+- Required action: none; the human owner approved ADR-005 as proposed on
+  2026-08-24.
 - Verified: live Backend and Frontend contracts were inspected; two completed
   adversarial review cycles produced 29 substantive findings, all resolved.
-  AI-DOS conformance passes with the approval represented as the only blocked
-  Phase 3 task.
-- Blocks: `SPR23-001` only. `SPR23-002` remains dependency-incomplete and no
-  schema or runtime work is authorized before approval.
+  Human acceptance is recorded in `EVIDENCE:SPR23-001:HUMAN-APPROVAL`, and
+  `SPR23-001` is complete.
+- Blocks: none. `SPR23-002` is authorized to proceed under ADR-005.
 - Security: do not provide or record PayOS credentials, signatures, webhook
   payloads, payment links, QR data, tokens, sessions, or personal payment data.
 

@@ -6221,5 +6221,52 @@
       "schemaWorkAuthorized": false,
       "credentialMaterialRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
+    "taskId": "SPR23-001",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Human ADR acceptance",
+        "artifact": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
+        "reference": "The human owner explicitly approved ADR-005 as currently proposed on 2026-08-24, required no revision, and authorized Phase 3 implementation under the accepted constraints.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "SPR23-001 acceptance criteria review",
+        "artifact": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
+        "reference": "The accepted ADR defines every required commerce, payment, refund, membership, entitlement, access, analytics, affiliate, money, snapshot, idempotency, audit, and exclusion boundary. The earlier live-contract and adversarial review remains recorded in EVIDENCE:SPR23-001:ADR-PROPOSAL.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "AI-DOS conformance after approval transition",
+        "command": "node core/conformance.js --manifest .ai-dos/manifest.json",
+        "reference": "Final conformance and safe projection are run after the accepted status, manual action, evidence, applicability, sprint, and project state are synchronized.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Application deployment",
+        "reference": "Architecture-only task; no Backend or Frontend runtime revision is produced by SPR23-001.",
+        "status": "NOT_APPLICABLE"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T08:18:06.7299109+07:00",
+    "notes": "SPR23-001 is complete. ADR-005 is accepted, the manual approval gate is verified, and schema work may proceed only under the accepted architecture.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR23_001_ADR_APPROVAL",
+      "proposalEvidenceId": "EVIDENCE:SPR23-001:ADR-PROPOSAL",
+      "blockingEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED",
+      "schemaWorkAuthorized": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
   }
 ]

@@ -1,6 +1,7 @@
 # ADR-005: Phase 3 commerce, payment, and access boundaries
 
-- Status: Proposed — awaiting human approval
+- Status: Accepted
+- Accepted: 2026-08-24 by explicit human approval
 - Date: 2026-08-23
 - Scope: Sprint 23 / `SPR23-001`
 

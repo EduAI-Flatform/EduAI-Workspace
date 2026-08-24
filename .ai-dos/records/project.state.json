@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:23",
-  "currentTaskId": "SPR23-001",
+  "currentTaskId": null,
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -71,7 +71,7 @@
     "SPR21-029": "DONE",
     "SPR21-030": "DONE",
     "SPR22-001": "DONE",
-    "SPR23-001": "WAITING_MANUAL",
+    "SPR23-001": "DONE",
     "SPR23-002": "TODO",
     "SPR23-003": "TODO",
     "SPR23-004": "TODO",
@@ -107,11 +107,10 @@
     "SPR28-004": "TODO"
   },
   "waitingManualActionIds": [
-    "MANUAL:SPR20_003_NGINX_COMPRESSION",
-    "MANUAL:SPR23_001_ADR_APPROVAL"
+    "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED",
-  "updatedAt": "2026-08-24T00:04:57.4885753+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
+  "updatedAt": "2026-08-24T08:18:06.7299109+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -969,17 +968,19 @@
       "entityIdentifiersRecorded": false
     },
     "sprint23CommerceContracts": {
-      "status": "WAITING_MANUAL",
+      "status": "DONE",
       "artifact": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
       "evidenceId": "EVIDENCE:SPR23-001:ADR-PROPOSAL",
       "blockingEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL-BLOCKED",
+      "approvalEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
       "manualActionId": "MANUAL:SPR23_001_ADR_APPROVAL",
+      "acceptedAt": "2026-08-24T08:18:06.7299109+07:00",
       "liveRepositoriesInspected": ["EduAI-Back-End", "EduAI-Front-End-Web"],
       "adversarialReviewCyclesCompleted": 2,
       "adversarialFindingsResolved": 29,
       "thirdReviewCycle": "UNAVAILABLE: REVIEWER_USAGE_LIMIT",
       "payosOfficialSignatureContractVerified": true,
-      "schemaWorkAuthorized": false,
+      "schemaWorkAuthorized": true,
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
