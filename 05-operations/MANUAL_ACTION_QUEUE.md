@@ -5,10 +5,20 @@
 - Status: `WAITING_USER`
 - Priority: `HIGH`
 - Related task: `SPR23-005`.
+- Authorization: `AUTHORIZED` on 2026-08-24 for exactly one bounded,
+  dedicated, non-sensitive Commerce production UAT.
 - Required action:
-  - Authorize one bounded, dedicated, non-sensitive cross-role and concurrent
-    checkout UAT; verify one order/audit outcome, immutable safe administrator
-    history, no provider call, reconciliation, and return Commerce to disabled.
+  - Through the approved production secret path, set `COMMERCE_ENABLED=true`
+    and configure `COMMERCE_IDEMPOTENCY_SECRET` with at least 32 characters.
+    No other Commerce-specific variable is mandatory for this Sprint 23 UAT.
+  - Run `pm2 restart eduai-backend --update-env`, then `pm2 save`.
+  - Confirm readiness and a fresh authenticated student
+    `GET /api/v1/commerce/cart` returns HTTP `200` instead of
+    `COMMERCE_DISABLED`, retaining no response body.
+  - After the bounded UAT passes or fails, reconcile its dedicated effects,
+    restore `COMMERCE_ENABLED=false`, run the same PM2 restart/save commands,
+    confirm readiness, and prove the same authenticated route returns HTTP
+    `503` with `COMMERCE_DISABLED`.
 - Completed prerequisites: Backend `6cff606` and Frontend `d4eb085` are
   deployed successfully; the exact runtime connection passes every sanitized
   least-privilege assertion.
@@ -19,6 +29,8 @@
   `EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION`.
 - Runtime privilege verifier evidence:
   `EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER`.
+- Authorization evidence:
+  `EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION`.
 - Blocking evidence: `EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED`.
 - Blocks: only `SPR23-005`; local implementation and regression are complete.
 - Security: retain no credentials, sessions, role/database names, response

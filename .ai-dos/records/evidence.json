@@ -6889,5 +6889,54 @@
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Bounded production Commerce UAT authorization",
+        "reference": "The authorized human operator approved exactly one dedicated, non-sensitive Sprint 23 Commerce production UAT, including cross-role and ownership boundaries, concurrent idempotent checkout, one authoritative order/audit outcome, immutable safe administrator history, no provider call or real payment, reconciliation, and mandatory shutdown after pass or failure.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Exact deployed revisions",
+        "command": "Read-only GitHub Actions metadata inspection",
+        "reference": "The latest successful production deployments remain Backend run 32692761650 at exact revision 6cff606 and Frontend run 32688909830 at exact revision d4eb085.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Source-derived enablement and shutdown contract",
+        "reference": "The deployed source defines COMMERCE_ENABLED and COMMERCE_IDEMPOTENCY_SECRET as the only Commerce-specific environment variables. Enabling requires the secret to contain at least 32 characters. No PayOS or other additional variable is mandatory for the Sprint 23 UAT. The approved restart is pm2 restart eduai-backend --update-env followed by pm2 save. Enablement is proven by readiness plus authenticated student cart HTTP 200; shutdown is proven by readiness plus the same route returning HTTP 503 with COMMERCE_DISABLED.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T13:18:18.6360440+07:00",
+    "commit": "6cff606",
+    "notes": "Authorization is recorded, but no production setting or data was changed during checklist preparation. SPR23-005 and its manual action remain waiting until enablement, the bounded UAT, reconciliation, disabled-state restoration, and healthy post-restart readiness are all proven.",
+    "extensions": {
+      "backendCommit": "6cff606",
+      "frontendCommit": "d4eb085",
+      "backendDeploymentRunId": 32692761650,
+      "frontendDeploymentRunId": 32688909830,
+      "productionUatAuthorized": true,
+      "authorizationScope": "ONE_BOUNDED_DEDICATED_NON_SENSITIVE_UAT",
+      "commerceEnabledVariable": "COMMERCE_ENABLED",
+      "idempotencySecretVariable": "COMMERCE_IDEMPOTENCY_SECRET",
+      "additionalCommerceVariablesRequired": false,
+      "operatorEnablementConfirmed": false,
+      "productionMutated": false,
+      "commerceRestoredDisabledVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    }
   }
 ]

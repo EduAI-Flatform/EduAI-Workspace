@@ -110,8 +110,8 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR23_005_DEPLOYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION",
-  "updatedAt": "2026-08-24T12:19:14.1698848+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
+  "updatedAt": "2026-08-24T13:18:18.6360440+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1039,6 +1039,11 @@
       "frontendDeploymentRunId": 32688909830,
       "roleSeparationDeploymentVerified": true,
       "runtimePrivilegeBooleansVerified": true,
+      "productionUatAuthorized": true,
+      "productionUatAuthorizedAt": "2026-08-24T13:18:18.6360440+07:00",
+      "authorizationEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
+      "operatorEnablementConfirmed": false,
+      "commerceRestoredDisabledVerified": false,
       "productionMutated": false,
       "credentialMaterialRecorded": false
     },

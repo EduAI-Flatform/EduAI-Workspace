@@ -1075,8 +1075,10 @@
     "status": "WAITING_USER",
     "priority": "HIGH",
     "requiredAction": [
-      "Authorize a bounded Commerce UAT using dedicated non-sensitive test data: prove unauthenticated, student, instructor, and platform-administrator role boundaries; current-price and immutable-snapshot behavior; one concurrent duplicate checkout converging on one order and one audit event; safe administrator order history; and no provider call or browser-confirmed settlement.",
-      "Reconcile the dedicated UAT cart/order and restore COMMERCE_ENABLED to false after evidence collection. Retain only revisions, workflow/run status, HTTP status matrix, aggregate assertions, and boolean safety results."
+      "Temporarily set COMMERCE_ENABLED=true and configure COMMERCE_IDEMPOTENCY_SECRET with at least 32 characters through the approved production secret path, then run pm2 restart eduai-backend --update-env followed by pm2 save. Do not disclose either the secret value or other environment contents.",
+      "Confirm backend readiness and prove enablement with a fresh authenticated student GET /api/v1/commerce/cart returning HTTP 200 instead of the stable COMMERCE_DISABLED response. Retain only the status and boolean assertion.",
+      "Run exactly one authorized bounded Commerce UAT using dedicated non-sensitive test data: prove unauthenticated, student, instructor, and platform-administrator role boundaries; ownership isolation; current-price and immutable-snapshot behavior; one concurrent duplicate checkout converging on one order and one audit event; safe administrator order history; and no provider call or browser-confirmed settlement.",
+      "After the UAT passes or fails, reconcile the dedicated effects, set COMMERCE_ENABLED=false, run pm2 restart eduai-backend --update-env followed by pm2 save, confirm readiness, and prove shutdown with a fresh authenticated student GET /api/v1/commerce/cart returning HTTP 503 with COMMERCE_DISABLED. Retain only revisions, statuses, aggregate assertions, and boolean safety results."
     ],
     "reason": "Backend 6cff606 and Frontend d4eb085 are deployed successfully. The backend is publicly ready, unauthenticated Commerce routes return 401 JSON, and the exact runtime connection passes every least-privilege assertion. Only bounded cross-role write UAT, reconciliation, and confirmation that Commerce returned to disabled remain outstanding.",
     "retestSteps": [
@@ -1103,6 +1105,11 @@
       "frontendDeploymentVerified": true,
       "productionRuntimePrivilegeVerified": true,
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "productionUatAuthorized": true,
+      "productionUatAuthorizedAt": "2026-08-24T13:18:18.6360440+07:00",
+      "authorizationEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
+      "operatorEnablementConfirmed": false,
+      "commerceRestoredDisabledVerified": false,
       "commerceEnabledByDefault": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
