@@ -110,8 +110,8 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR23_005_DEPLOYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
-  "updatedAt": "2026-08-24T13:18:18.6360440+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS",
+  "updatedAt": "2026-08-24T14:42:05.6482817+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -976,6 +976,9 @@
       "approvalEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
       "manualActionId": "MANUAL:SPR23_001_ADR_APPROVAL",
       "acceptedAt": "2026-08-24T08:18:06.7299109+07:00",
+      "amendedAt": "2026-08-24T14:32:26.6186003+07:00",
+      "amendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
+      "permanentCommerceRuntime": true,
       "liveRepositoriesInspected": ["EduAI-Back-End", "EduAI-Front-End-Web"],
       "adversarialReviewCyclesCompleted": 2,
       "adversarialFindingsResolved": 29,
@@ -1023,9 +1026,10 @@
     },
     "sprint23CommerceQa": {
       "status": "WAITING_MANUAL",
-      "backendCommit": "6cff606",
+      "backendCommit": "0827b7d",
       "deployedBackendCommit": "6cff606",
-      "frontendCommit": "d4eb085",
+      "frontendCommit": "668f430",
+      "deployedFrontendCommit": "d4eb085",
       "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
       "databaseRoleSeparationEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
       "infrastructureEvidenceId": "EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION",
@@ -1042,8 +1046,12 @@
       "productionUatAuthorized": true,
       "productionUatAuthorizedAt": "2026-08-24T13:18:18.6360440+07:00",
       "authorizationEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION",
-      "operatorEnablementConfirmed": false,
-      "commerceRestoredDisabledVerified": false,
+      "architectureAmendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
+      "permanentCommerceLocalEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS",
+      "permanentCommerceApproved": true,
+      "permanentCommerceDeploymentVerified": false,
+      "postUatReconciliationVerified": false,
+      "providerActivationUnchanged": true,
       "productionMutated": false,
       "credentialMaterialRecorded": false
     },

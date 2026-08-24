@@ -5,6 +5,11 @@
 Establish stable commerce contracts, persistence, cart pricing, order creation,
 and administrator operations before connecting external settlement.
 
+ADR-005 Amendment 1 makes Commerce a permanent runtime capability. It retains
+the production idempotency secret and all authorization, concurrency,
+reconciliation, audit, and least-privilege controls. PayOS/payment activation
+remains independent, and `SPR23-005` still requires its bounded production UAT.
+
 ## Tasks
 
 1. `SPR23-001` - Define commerce, membership, payment, and access contracts.

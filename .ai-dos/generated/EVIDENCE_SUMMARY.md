@@ -537,9 +537,17 @@
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | OTHER | Security, privacy, and accepted-boundary review | PASS | — |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | DEPLOY | Exact revision deployment | BLOCKED | Requires MANUAL:SPR23_005_DEPLOYMENT_UAT |
 | EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | PRODUCTION | Bounded cross-role and concurrent Commerce production UAT | BLOCKED | Requires MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT | SPR23-005 | MANUAL | Permanent Commerce architecture approved | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT | SPR23-005 | OTHER | Security and provider boundaries preserved | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT | SPR23-005 | OTHER | Production UAT gate retained | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | TEST | Permanent Commerce focused regression | PASS | Backend focused Jest suites; Commerce persistence Jest suite; Frontend Commerce Vitest suites |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | TEST | Full Backend and Frontend regression | PASS | npm.cmd test -- --runInBand; npm.cmd test |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | BUILD | Prisma and production builds | PASS | npm.cmd run prisma:validate; npm.cmd run build in both repositories |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | OTHER | Security and dependency review | PASS | npm.cmd run security:audit-endpoints; npm.cmd audit --omit=dev --audit-level=high |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | OTHER | Architecture and secret-safety review | PASS | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | MANUAL | Bounded production Commerce UAT authorization | PASS | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | OTHER | Exact deployed revisions | PASS | Read-only GitHub Actions metadata inspection |
-| EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | OTHER | Source-derived enablement and shutdown contract | PASS | — |
+| EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | OTHER | Superseded runtime checklist | PASS | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | DEPLOY | Human-authorized deployment and production Commerce UAT | BLOCKED | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | PRODUCTION | Least-privilege runtime role before Commerce writes | BLOCKED | — |
 | EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | TEST | Runtime and migration database-role safety contracts | PASS | npm.cmd test -- --runInBand src/config/production-runtime-role.spec.ts src/config/database-role-separation.spec.ts |

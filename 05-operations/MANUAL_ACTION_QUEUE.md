@@ -8,17 +8,20 @@
 - Authorization: `AUTHORIZED` on 2026-08-24 for exactly one bounded,
   dedicated, non-sensitive Commerce production UAT.
 - Required action:
-  - Through the approved production secret path, set `COMMERCE_ENABLED=true`
-    and configure `COMMERCE_IDEMPOTENCY_SECRET` with at least 32 characters.
-    No other Commerce-specific variable is mandatory for this Sprint 23 UAT.
-  - Run `pm2 restart eduai-backend --update-env`, then `pm2 save`.
-  - Confirm readiness and a fresh authenticated student
-    `GET /api/v1/commerce/cart` returns HTTP `200` instead of
-    `COMMERCE_DISABLED`, retaining no response body.
+  - Deploy the approved permanent-Commerce revision through the normal
+    workflow. Production must have `COMMERCE_IDEMPOTENCY_SECRET` configured
+    with at least 32 characters through the approved secret path; do not
+    disclose the value or any environment contents.
+  - Confirm readiness, unauthenticated HTTP `401`, and a fresh authenticated
+    student `GET /api/v1/commerce/cart` returning HTTP `200`, retaining no
+    response body.
+  - Run exactly one bounded UAT covering cross-role and ownership boundaries,
+    current authoritative pricing, concurrent idempotent checkout, one order
+    and audit outcome, and immutable safe administrator history.
   - After the bounded UAT passes or fails, reconcile its dedicated effects,
-    restore `COMMERCE_ENABLED=false`, run the same PM2 restart/save commands,
-    confirm readiness, and prove the same authenticated route returns HTTP
-    `503` with `COMMERCE_DISABLED`.
+    prove no payment attempt, settlement, fulfillment, or provider call
+    occurred, and confirm authorization boundaries plus readiness remain
+    healthy.
 - Completed prerequisites: Backend `6cff606` and Frontend `d4eb085` are
   deployed successfully; the exact runtime connection passes every sanitized
   least-privilege assertion.
@@ -29,10 +32,15 @@
   `EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION`.
 - Runtime privilege verifier evidence:
   `EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER`.
+- Architecture amendment evidence:
+  `EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT`.
+- Revised local readiness evidence:
+  `EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS`.
 - Authorization evidence:
   `EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION`.
 - Blocking evidence: `EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED`.
-- Blocks: only `SPR23-005`; local implementation and regression are complete.
+- Blocks: only `SPR23-005`; revised local implementation is complete, while
+  deployment, UAT, and reconciliation remain pending.
 - Security: retain no credentials, sessions, role/database names, response
   bodies, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, or signatures.

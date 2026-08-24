@@ -989,7 +989,7 @@
     ],
     "verification": ["Review contracts against existing course, enrollment, voucher, scholarship, TMI, audit, notification, and authorization behavior.", "Run AI-DOS validation and obtain human approval of the ADR before schema work."],
     "applicability": {"tests": "REQUIRED", "deployment": "NOT_APPLICABLE", "productionVerification": "OPTIONAL"},
-    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "testStrategy": "Contract and dependency review.", "agentProfileId": "architect", "acceptedAdr": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md", "acceptedAt": "2026-08-24T08:18:06.7299109+07:00"}
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "testStrategy": "Contract and dependency review.", "agentProfileId": "architect", "acceptedAdr": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md", "acceptedAt": "2026-08-24T08:18:06.7299109+07:00", "amendedAt": "2026-08-24T14:32:26.6186003+07:00", "amendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT", "permanentCommerceRuntime": true}
   },
   {
     "kind": "task", "schemaVersion": "1.0", "id": "SPR23-002",
@@ -1049,7 +1049,7 @@
     ],
     "verification": ["Run backend/frontend focused and regression suites plus migration validation.", "Run authorized cross-role production UAT and reconcile dedicated test orders without retaining sensitive data."],
     "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
-    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer"}
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer", "architectureAmendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT", "permanentCommerceRuntime": true, "providerActivationUnchanged": true}
   },
   {
     "kind": "task", "schemaVersion": "1.0", "id": "SPR24-001",

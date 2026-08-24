@@ -1,7 +1,8 @@
 # ADR-005: Phase 3 commerce, payment, and access boundaries
 
-- Status: Accepted
+- Status: Accepted — amended for permanent Commerce runtime
 - Accepted: 2026-08-24 by explicit human approval
+- Amended: 2026-08-24 by explicit human architectural decision
 - Date: 2026-08-23
 - Scope: Sprint 23 / `SPR23-001`
 
@@ -33,6 +34,30 @@ grant model. Existing voucher redemption consumes quota before an order exists,
 scholarship application immediately creates an award, and access checks are
 distributed across modules. Those behaviors cannot silently become payment or
 entitlement authority.
+
+## Amendment 1: Permanent Commerce runtime
+
+Commerce is a permanent production capability. Its cart, catalog, order, and
+administrative entry points must not depend on the former operator-controlled
+runtime feature flag or return the former disabled-state error because runtime
+configuration is absent or false.
+
+This amendment changes only Commerce activation and rollback mechanics. It
+does not weaken authentication, authorization, ownership isolation,
+idempotency, transaction and concurrency controls, immutable financial and
+audit history, reconciliation, payment safety, or least-privilege database
+requirements. `COMMERCE_IDEMPOTENCY_SECRET` remains mandatory and secret in
+production. Missing or unsafe production configuration must fail startup, and
+order creation must remain fail-closed outside production if the secret is not
+configured.
+
+Payment-provider activation remains independently controlled by the Payment
+domain's configuration and safety gates. Removing the Commerce runtime flag
+does not enable PayOS calls, payment attempts, settlement handling, webhooks,
+or fulfillment. The bounded Sprint 23 production UAT remains required, with
+post-UAT reconciliation, proof of no provider/payment effect, preserved
+immutable administrator history, authorization checks, and healthy production
+readiness replacing the former enable/disable ceremony.
 
 ## Decision
 
@@ -477,14 +502,17 @@ commit across EduAI and the provider.
 
 No schema or runtime change is authorized by this ADR alone. Later tasks use
 additive Prisma migrations, explicit constraints, deterministic backfills, and
-feature flags. Deployment enables provider calls and webhook processing only
-after configuration, migration, signature, idempotency, failure-path, and
-reconciliation checks pass.
+independent provider safety controls. Deployment enables provider calls and
+webhook processing only after configuration, migration, signature,
+idempotency, failure-path, and reconciliation checks pass.
 
-Rollback disables new checkout/provider entry points and workers, preserves
-orders, payment events, refunds, memberships, grants, audit history, learning
-history, and old enrollment behavior, then reconciles any in-flight attempts.
-Rollback never deletes or rewrites settled financial effects.
+Rollback does not disable permanent Commerce through an environment flag. A
+code rollback or approved traffic-routing containment may stop affected new
+writes, while provider entry points and workers remain independently
+controllable. Rollback preserves orders, payment events, refunds, memberships,
+grants, audit history, learning history, and old enrollment behavior, then
+reconciles any in-flight attempts. It never deletes or rewrites settled
+financial effects.
 
 ## Verification and acceptance
 

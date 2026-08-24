@@ -6434,7 +6434,7 @@
     "result": "PASS",
     "recordedAt": "2026-08-24T10:27:48.2972003+07:00",
     "commit": "b8a6537,4d3d49a,4027fc4",
-    "notes": "SPR23-003 acceptance is satisfied. Learners can add, list, remove, and clear paid-course cart items; checkout revalidates all authoritative facts before an immutable order; existing ownership is rejected; and the UI always explains that a perpetual course purchase remains independent from membership access. Commerce remains disabled by default and deployment is optional for this task.",
+    "notes": "SPR23-003 acceptance is satisfied. Learners can add, list, remove, and clear paid-course cart items; checkout revalidates all authoritative facts before an immutable order; existing ownership is rejected; and the UI always explains that a perpetual course purchase remains independent from membership access. Deployment was optional for this task; the later permanent-Commerce amendment governs runtime availability.",
     "extensions": {
       "backendRepository": "EduAI-Back-End",
       "backendCommits": ["b8a6537", "4d3d49a"],
@@ -6448,7 +6448,6 @@
       "browserViewports": ["320x720", "1440x900"],
       "lighthouseAccessibilityScore": 100,
       "browserConsoleFindings": 0,
-      "commerceEnabledByDefault": false,
       "credentialMaterialRecorded": false,
       "rawIdempotencyKeysRecorded": false,
       "providerPayloadsRecorded": false
@@ -6542,7 +6541,7 @@
       {
         "kind": "OTHER",
         "name": "Security, privacy, and accepted-boundary review",
-        "reference": "Review found no client-authoritative price, direct paid-history mutation, provider credential/payload projection, raw idempotency-key evidence, or browser settlement authority. Commerce remains disabled by default. The unresolved runtime-role ambiguity is not accepted as safe for production writes and remains explicitly gated.",
+        "reference": "Review found no client-authoritative price, direct paid-history mutation, provider credential/payload projection, raw idempotency-key evidence, or browser settlement authority. The unresolved runtime-role ambiguity was not accepted as safe for production writes and remained explicitly gated; it was later resolved independently of the permanent-Commerce amendment.",
         "status": "PASS"
       },
       {
@@ -6556,14 +6555,14 @@
         "kind": "PRODUCTION",
         "name": "Bounded cross-role and concurrent Commerce production UAT",
         "command": "Requires MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT",
-        "reference": "Blocked because Commerce is disabled and the exact PM2 runtime database role has not been proven unable to own/bypass Commerce guards. No production Commerce write, row inspection, credential access, or provider call was attempted.",
+        "reference": "Historically blocked because the exact PM2 runtime database role had not been proven unable to own or bypass Commerce guards. No production Commerce write, row inspection, credential access, or provider call was attempted. Later evidence resolved the role gate.",
         "status": "BLOCKED"
       }
     ],
     "result": "PASS",
     "recordedAt": "2026-08-24T10:54:09.9518657+07:00",
     "commit": "f963f37,d4eb085",
-    "notes": "SPR23-005 is locally complete and moves to WAITING_MANUAL only for its explicit deployment and bounded production read/write acceptance gate. The blocker is narrowly scoped; accepted Commerce constraints and the default-disabled runtime were not weakened.",
+    "notes": "At this evidence point SPR23-005 was locally complete and moved to WAITING_MANUAL for its explicit deployment and bounded production read/write acceptance gate. The later permanent-Commerce amendment supersedes the historical runtime-availability assumption without weakening any accepted Commerce constraint.",
     "extensions": {
       "backendRepository": "EduAI-Back-End",
       "backendCommit": "f963f37",
@@ -6580,7 +6579,6 @@
       "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "productionMutated": false,
-      "commerceEnabledByDefault": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
@@ -6780,7 +6778,7 @@
       {
         "kind": "DEPLOY",
         "name": "Exact-runtime privilege assertion",
-        "reference": "Backend 6ee7b1c must be authorized, pushed, and deployed so the production workflow can execute the verifier through the exact PM2 runtime connection. Until its sanitized booleans pass, MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE remains WAITING_USER and Commerce writes remain disabled.",
+        "reference": "Backend 6ee7b1c had to be authorized, pushed, and deployed so the production workflow could execute the verifier through the exact PM2 runtime connection. Until its sanitized booleans passed, MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE remained WAITING_USER and production Commerce write UAT was prohibited.",
         "status": "BLOCKED"
       }
     ],
@@ -6858,7 +6856,7 @@
     "result": "PASS",
     "recordedAt": "2026-08-24T12:19:14.1698848+07:00",
     "commit": "6cff606",
-    "notes": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE is satisfied without modifying production role privileges or weakening any assertion. Commerce remained disabled throughout deployment. MANUAL:SPR23_005_DEPLOYMENT_UAT remains independently open for bounded cross-role write UAT, reconciliation, and disabled-state restoration evidence.",
+    "notes": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE is satisfied without modifying production role privileges or weakening any assertion. No Commerce write UAT occurred during this deployment. MANUAL:SPR23_005_DEPLOYMENT_UAT remains independently open for bounded cross-role write UAT, reconciliation, zero provider/payment effects, and healthy production readiness.",
     "extensions": {
       "backendRepository": "EduAI-Back-End",
       "backendCommit": "6cff606",
@@ -6882,7 +6880,6 @@
       "runtimeRoleLeastPrivilegeReady": true,
       "runtimePrivilegeBooleansVerified": true,
       "productionMutated": false,
-      "commerceEnabledByDefault": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false,
@@ -6899,7 +6896,7 @@
       {
         "kind": "MANUAL",
         "name": "Bounded production Commerce UAT authorization",
-        "reference": "The authorized human operator approved exactly one dedicated, non-sensitive Sprint 23 Commerce production UAT, including cross-role and ownership boundaries, concurrent idempotent checkout, one authoritative order/audit outcome, immutable safe administrator history, no provider call or real payment, reconciliation, and mandatory shutdown after pass or failure.",
+        "reference": "The authorized human operator approved exactly one dedicated, non-sensitive Sprint 23 Commerce production UAT, including cross-role and ownership boundaries, concurrent idempotent checkout, one authoritative order/audit outcome, immutable safe administrator history, no provider call or real payment, and reconciliation. The later permanent-Commerce architecture amendment supersedes only the former environment-flag shutdown ceremony.",
         "status": "PASS"
       },
       {
@@ -6911,15 +6908,15 @@
       },
       {
         "kind": "OTHER",
-        "name": "Source-derived enablement and shutdown contract",
-        "reference": "The deployed source defines COMMERCE_ENABLED and COMMERCE_IDEMPOTENCY_SECRET as the only Commerce-specific environment variables. Enabling requires the secret to contain at least 32 characters. No PayOS or other additional variable is mandatory for the Sprint 23 UAT. The approved restart is pm2 restart eduai-backend --update-env followed by pm2 save. Enablement is proven by readiness plus authenticated student cart HTTP 200; shutdown is proven by readiness plus the same route returning HTTP 503 with COMMERCE_DISABLED.",
+        "name": "Superseded runtime checklist",
+        "reference": "The original checklist was derived from Backend revision 6cff606. It is superseded by EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT and must not be used for deployment or UAT. The production idempotency secret requirement and independent provider-safety boundary remain in force.",
         "status": "PASS"
       }
     ],
     "result": "PASS",
     "recordedAt": "2026-08-24T13:18:18.6360440+07:00",
     "commit": "6cff606",
-    "notes": "Authorization is recorded, but no production setting or data was changed during checklist preparation. SPR23-005 and its manual action remain waiting until enablement, the bounded UAT, reconciliation, disabled-state restoration, and healthy post-restart readiness are all proven.",
+    "notes": "Authorization is recorded, but no production setting or data was changed during checklist preparation. The enable/disable checklist is superseded. SPR23-005 remains waiting for revised deployment, the bounded UAT, reconciliation, zero provider/payment effects, and healthy production readiness.",
     "extensions": {
       "backendCommit": "6cff606",
       "frontendCommit": "d4eb085",
@@ -6927,16 +6924,119 @@
       "frontendDeploymentRunId": 32688909830,
       "productionUatAuthorized": true,
       "authorizationScope": "ONE_BOUNDED_DEDICATED_NON_SENSITIVE_UAT",
-      "commerceEnabledVariable": "COMMERCE_ENABLED",
       "idempotencySecretVariable": "COMMERCE_IDEMPOTENCY_SECRET",
       "additionalCommerceVariablesRequired": false,
-      "operatorEnablementConfirmed": false,
+      "supersededRuntimeChecklist": true,
+      "supersededByEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
       "productionMutated": false,
-      "commerceRestoredDisabledVerified": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false,
       "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Permanent Commerce architecture approved",
+        "reference": "The authorized human owner approved removal of the operator-controlled Commerce runtime feature flag and directed that Commerce remain a permanent production capability.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security and provider boundaries preserved",
+        "reference": "ADR-005 Amendment 1 preserves authentication, role and ownership isolation, idempotency, concurrency, immutable history, reconciliation, least-privilege database controls, and an independently controlled payment-provider boundary. The production idempotency secret remains mandatory and secret.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Production UAT gate retained",
+        "reference": "MANUAL:SPR23_005_DEPLOYMENT_UAT still requires the authorized bounded cross-role and concurrent checkout UAT, immutable administrator history, reconciliation, zero provider/payment effects, and healthy post-UAT readiness. Only the obsolete enable/disable ceremony was removed.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T14:32:26.6186003+07:00",
+    "commit": "0827b7d991dfa6ce23a38e1bca9e487ac9ad74dc / 668f430933713e79754d51e8c0aba88dfb5209a3",
+    "notes": "This evidence records the approved architectural decision and canonical gate revision. Implementation, deployment, and production UAT evidence remain pending and must be recorded separately before SPR23-005 completes.",
+    "extensions": {
+      "adr": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "permanentCommerceRuntime": true,
+      "idempotencySecretProductionRequired": true,
+      "providerActivationUnchanged": true,
+      "productionUatStillRequired": true,
+      "productionMutated": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Permanent Commerce focused regression",
+        "command": "Backend focused Jest suites; Commerce persistence Jest suite; Frontend Commerce Vitest suites",
+        "reference": "Backend configuration, cart, and checkout suites passed 32 tests; the forward-only persistence recovery suite passed 5 tests; and four Frontend Commerce suites passed 12 tests. The tests prove production secret validation, permanent authenticated cart availability, fail-closed checkout configuration, pricing/idempotency behavior, and retained administrator boundaries.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Full Backend and Frontend regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd test",
+        "reference": "All 112 Backend suites and 612 tests plus all 73 Frontend files and 194 tests passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Prisma and production builds",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build in both repositories",
+        "reference": "The merged 33-file Prisma schema validated and both Backend and Frontend production builds passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security and dependency review",
+        "command": "npm.cmd run security:audit-endpoints; npm.cmd audit --omit=dev --audit-level=high",
+        "reference": "All 215 Backend endpoints were explicitly classified with zero implicit endpoints; Commerce routes remain protected. Frontend had no high advisory. Backend reported the same nine accepted high transitive production advisories dispositioned by EVIDENCE:SPR20-004:V2-RELEASE-UAT. No dependency or lockfile changed and no breaking force update was mixed into this focused change.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Architecture and secret-safety review",
+        "reference": "Repository-wide source search found no remaining legacy Commerce runtime flag, disabled-state error, guard, configuration field, environment example, or current AI-DOS assumption. Authentication, role/ownership checks, idempotent transaction paths, immutable history, reconciliation, database privilege assertions, and independent provider activation remain unchanged. No secrets or runtime values were read or recorded.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T14:42:05.6482817+07:00",
+    "commit": "0827b7d991dfa6ce23a38e1bca9e487ac9ad74dc / 668f430933713e79754d51e8c0aba88dfb5209a3",
+    "notes": "The permanent-Commerce implementation is locally ready. SPR23-005 remains WAITING_MANUAL until the exact revisions deploy, the already-authorized bounded production UAT passes, disposable effects are reconciled, zero provider/payment effects are proven, and post-UAT readiness remains healthy.",
+    "extensions": {
+      "backendCommit": "0827b7d991dfa6ce23a38e1bca9e487ac9ad74dc",
+      "frontendCommit": "668f430933713e79754d51e8c0aba88dfb5209a3",
+      "architectureEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "productionDeploymentVerified": false,
+      "productionUatVerified": false,
+      "postUatReconciliationVerified": false,
+      "providerActivationUnchanged": true,
+      "providerCallsObserved": false,
+      "productionMutated": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
     }
   }
 ]
