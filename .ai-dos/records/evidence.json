@@ -7038,5 +7038,78 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Permanent Commerce implementation and regression gates",
+        "command": "Focused Commerce suites; full Backend and Frontend tests; Prisma validation; production builds; endpoint security audit; dependency audit",
+        "reference": "Focused Commerce/configuration/restart coverage passed; the final Backend boundary passed 113 suites and 616 tests, Prisma validation, build, and explicit endpoint-security classification. Frontend passed 73 files and 194 tests plus its production build. The dependency review retained only the already accepted Backend transitive advisory baseline and no high Frontend advisory.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact permanent-Commerce production revisions",
+        "reference": "Backend 922a57650156e0ce596e98114089513417c9812d passed CI run 32704996239 and deployment run 32704996076, including the secret-safe preflight and PM2 environment refresh. Frontend 668f430933713e79754d51e8c0aba88dfb5209a3 passed CI run 32702844942 and deployment run 32702844990. The production empty-cart probe returned cart 200, EMPTY_CART 400, health 200, and reconciled its session, proving the app-visible mandatory secret without exposing its value.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Authorized bounded cross-role Commerce UAT",
+        "reference": "Exactly one dedicated non-sensitive production scenario passed unauthenticated and cross-role rejection, student-scoped cart access, administrator-only catalog mutation, live authoritative repricing, concurrent same-key checkout convergence, one VND pending order with an immutable snapshot, sanitized administrator history, and exactly one COMMERCE_ORDER_CREATED audit event. The initial client-time-bounded audit lookup missed the event; a read-only target-specific diagnosis proved the one atomic event existed and no write scenario was repeated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Post-UAT reconciliation and provider isolation",
+        "reference": "The dedicated Commerce product and course were archived through supported contracts. The immutable pending order and audit record remain as required history. Payment attempts, settlements, fulfillment effects, and provider calls were all zero; provider activation was unchanged. All generated authentication sessions were revoked and production health returned HTTP 200 after cleanup.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Sanitized evidence and architecture review",
+        "reference": "No credential, secret value, database or role identity, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, signature, or authentication state was retained. Permanent Commerce did not weaken authentication, RBAC, ownership, concurrency, immutable history, reconciliation, provider isolation, or verified runtime least privilege.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T15:28:23.8572049+07:00",
+    "commit": "922a57650156e0ce596e98114089513417c9812d / 668f430933713e79754d51e8c0aba88dfb5209a3",
+    "notes": "SPR23-005 acceptance is complete. The permanent Commerce runtime, mandatory production idempotency secret, revised deployment flow, bounded production UAT, reconciliation, provider isolation, and post-UAT health are verified. Sprint 23 can close and the dependency graph can advance to Sprint 24.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "backendCommit": "922a57650156e0ce596e98114089513417c9812d",
+      "frontendCommit": "668f430933713e79754d51e8c0aba88dfb5209a3",
+      "backendCiRunId": 32704996239,
+      "backendDeploymentRunId": 32704996076,
+      "frontendCiRunId": 32702844942,
+      "frontendDeploymentRunId": 32702844990,
+      "productionIdempotencySecretReady": true,
+      "productionUatCheckCount": 25,
+      "productionUatFailureCount": 0,
+      "concurrentCheckoutConverged": true,
+      "authoritativeOrderCount": 1,
+      "orderAuditCount": 1,
+      "paymentAttemptCount": 0,
+      "settlementCount": 0,
+      "fulfillmentEffectCount": 0,
+      "providerCallCount": 0,
+      "dedicatedProductArchived": true,
+      "dedicatedCourseArchived": true,
+      "immutableOrderAndAuditPreserved": true,
+      "sessionsReconciled": true,
+      "postUatHealthStatus": 200,
+      "providerActivationUnchanged": true,
+      "productionMutated": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

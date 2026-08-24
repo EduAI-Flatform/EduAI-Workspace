@@ -5,8 +5,8 @@
   "projectId": "EDUAI:PLATFORM",
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
-  "currentSprintId": "SPRINT:23",
-  "currentTaskId": "SPR23-005",
+  "currentSprintId": "SPRINT:24",
+  "currentTaskId": "SPR24-001",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -75,8 +75,8 @@
     "SPR23-002": "DONE",
     "SPR23-003": "DONE",
     "SPR23-004": "DONE",
-    "SPR23-005": "WAITING_MANUAL",
-    "SPR24-001": "TODO",
+    "SPR23-005": "DONE",
+    "SPR24-001": "IN_PROGRESS",
     "SPR24-002": "TODO",
     "SPR24-003": "TODO",
     "SPR24-004": "TODO",
@@ -107,11 +107,10 @@
     "SPR28-004": "TODO"
   },
   "waitingManualActionIds": [
-    "MANUAL:SPR20_003_NGINX_COMPRESSION",
-    "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS",
-  "updatedAt": "2026-08-24T14:42:05.6482817+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT",
+  "updatedAt": "2026-08-24T15:28:23.8572049+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1025,11 +1024,11 @@
       "credentialMaterialRecorded": false
     },
     "sprint23CommerceQa": {
-      "status": "WAITING_MANUAL",
-      "backendCommit": "0827b7d",
-      "deployedBackendCommit": "6cff606",
+      "status": "DONE",
+      "backendCommit": "922a576",
+      "deployedBackendCommit": "922a576",
       "frontendCommit": "668f430",
-      "deployedFrontendCommit": "d4eb085",
+      "deployedFrontendCommit": "668f430",
       "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
       "databaseRoleSeparationEvidenceId": "EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION",
       "infrastructureEvidenceId": "EVIDENCE:SPR23-005:INFRASTRUCTURE-REMEDIATION",
@@ -1038,9 +1037,12 @@
       "blockingEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
-      "backendDeploymentRunId": 32692761650,
+      "completionEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT",
+      "backendCiRunId": 32704996239,
+      "backendDeploymentRunId": 32704996076,
       "backendDeploymentRunAttempt": 1,
-      "frontendDeploymentRunId": 32688909830,
+      "frontendCiRunId": 32702844942,
+      "frontendDeploymentRunId": 32702844990,
       "roleSeparationDeploymentVerified": true,
       "runtimePrivilegeBooleansVerified": true,
       "productionUatAuthorized": true,
@@ -1049,10 +1051,27 @@
       "architectureAmendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT",
       "permanentCommerceLocalEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS",
       "permanentCommerceApproved": true,
-      "permanentCommerceDeploymentVerified": false,
-      "postUatReconciliationVerified": false,
+      "permanentCommerceDeploymentVerified": true,
+      "productionIdempotencySecretReady": true,
+      "productionUatVerified": true,
+      "productionUatCheckCount": 25,
+      "concurrentCheckoutConverged": true,
+      "authoritativeOrderCount": 1,
+      "orderAuditCount": 1,
+      "paymentAttemptCount": 0,
+      "settlementCount": 0,
+      "providerCallCount": 0,
+      "postUatReconciliationVerified": true,
+      "postUatHealthStatus": 200,
       "providerActivationUnchanged": true,
-      "productionMutated": false,
+      "productionMutated": true,
+      "credentialMaterialRecorded": false
+    },
+    "sprint24MembershipPlans": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-24T15:28:23.8572049+07:00",
+      "selectionReason": "SPR23-005 completed every production-required gate; SPR24-001 is the highest-priority runnable task in canonical dependency order.",
+      "taskId": "SPR24-001",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

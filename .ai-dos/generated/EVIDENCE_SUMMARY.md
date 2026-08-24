@@ -545,6 +545,11 @@
 | EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | BUILD | Prisma and production builds | PASS | npm.cmd run prisma:validate; npm.cmd run build in both repositories |
 | EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | OTHER | Security and dependency review | PASS | npm.cmd run security:audit-endpoints; npm.cmd audit --omit=dev --audit-level=high |
 | EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS | SPR23-005 | OTHER | Architecture and secret-safety review | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT | SPR23-005 | TEST | Permanent Commerce implementation and regression gates | PASS | Focused Commerce suites; full Backend and Frontend tests; Prisma validation; production builds; endpoint security audit; dependency audit |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT | SPR23-005 | DEPLOY | Exact permanent-Commerce production revisions | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT | SPR23-005 | PRODUCTION | Authorized bounded cross-role Commerce UAT | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT | SPR23-005 | PRODUCTION | Post-UAT reconciliation and provider isolation | PASS | — |
+| EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT | SPR23-005 | OTHER | Sanitized evidence and architecture review | PASS | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | MANUAL | Bounded production Commerce UAT authorization | PASS | — |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | OTHER | Exact deployed revisions | PASS | Read-only GitHub Actions metadata inspection |
 | EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION | SPR23-005 | OTHER | Superseded runtime checklist | PASS | — |

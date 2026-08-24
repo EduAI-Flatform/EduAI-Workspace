@@ -8,7 +8,8 @@ and administrator operations before connecting external settlement.
 ADR-005 Amendment 1 makes Commerce a permanent runtime capability. It retains
 the production idempotency secret and all authorization, concurrency,
 reconciliation, audit, and least-privilege controls. PayOS/payment activation
-remains independent, and `SPR23-005` still requires its bounded production UAT.
+remains independent. The bounded production UAT passed with reconciled
+dedicated effects and zero payment/provider effects, completing Sprint 23.
 
 ## Tasks
 

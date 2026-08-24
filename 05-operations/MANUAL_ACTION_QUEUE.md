@@ -2,29 +2,22 @@
 
 ## MANUAL:SPR23_005_DEPLOYMENT_UAT — Deploy and verify Sprint 23 Commerce
 
-- Status: `WAITING_USER`
+- Status: `VERIFIED`
 - Priority: `HIGH`
 - Related task: `SPR23-005`.
 - Authorization: `AUTHORIZED` on 2026-08-24 for exactly one bounded,
   dedicated, non-sensitive Commerce production UAT.
-- Required action:
-  - Deploy the approved permanent-Commerce revision through the normal
-    workflow. Production must have `COMMERCE_IDEMPOTENCY_SECRET` configured
-    with at least 32 characters through the approved secret path; do not
-    disclose the value or any environment contents.
-  - Confirm readiness, unauthenticated HTTP `401`, and a fresh authenticated
-    student `GET /api/v1/commerce/cart` returning HTTP `200`, retaining no
-    response body.
-  - Run exactly one bounded UAT covering cross-role and ownership boundaries,
-    current authoritative pricing, concurrent idempotent checkout, one order
-    and audit outcome, and immutable safe administrator history.
-  - After the bounded UAT passes or fails, reconcile its dedicated effects,
-    prove no payment attempt, settlement, fulfillment, or provider call
-    occurred, and confirm authorization boundaries plus readiness remain
-    healthy.
-- Completed prerequisites: Backend `6cff606` and Frontend `d4eb085` are
-  deployed successfully; the exact runtime connection passes every sanitized
-  least-privilege assertion.
+- Required action: none.
+- Verified: Backend `922a576` and Frontend `668f430` are deployed. The exact
+  runtime reaches permanent Commerce with the mandatory secret configured and
+  retains every sanitized least-privilege assertion. The single authorized
+  production UAT passed cross-role and ownership boundaries, authoritative
+  repricing, concurrent same-key convergence, one immutable pending order, one
+  safe order audit event, and safe administrator history.
+- Reconciliation: the dedicated product and course are archived; the immutable
+  order/audit history is preserved; payment attempts, settlements, fulfillment
+  effects, and provider calls are zero; all generated sessions were revoked;
+  post-UAT health returned HTTP `200`.
 - Local evidence: `EVIDENCE:SPR23-005:LOCAL-READINESS`.
 - Database-role separation evidence:
   `EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION`.
@@ -38,9 +31,10 @@
   `EVIDENCE:SPR23-005:PERMANENT-COMMERCE-LOCAL-READINESS`.
 - Authorization evidence:
   `EVIDENCE:SPR23-005:PRODUCTION-UAT-AUTHORIZATION`.
-- Blocking evidence: `EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED`.
-- Blocks: only `SPR23-005`; revised local implementation is complete, while
-  deployment, UAT, and reconciliation remain pending.
+- Production evidence:
+  `EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT`.
+- Blocks: none; `SPR23-005` and Sprint 23 are complete, and `SPR24-001` is the
+  next active task.
 - Security: retain no credentials, sessions, role/database names, response
   bodies, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, or signatures.
@@ -58,8 +52,8 @@
   readiness true; superuser, `BYPASSRLS`, Commerce ownership, Commerce-owner
   assumption, guard bypass, and trigger-disable capability all false.
 - Evidence: `EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION`.
-- Blocks: none. `MANUAL:SPR23_005_DEPLOYMENT_UAT` remains independently open
-  for bounded Commerce write UAT and reconciliation.
+- Blocks: none. `MANUAL:SPR23_005_DEPLOYMENT_UAT` is independently verified
+  with bounded Commerce write UAT and reconciliation evidence.
 - Security: record only boolean privilege assertions and readiness status; do
   not record role names, hosts, connection strings, credentials, row contents,
   response bodies, or entity identifiers.

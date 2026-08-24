@@ -1048,8 +1048,8 @@
       "Migration, builds, focused suites, deployment, and bounded production read/write UAT have sanitized evidence."
     ],
     "verification": ["Run backend/frontend focused and regression suites plus migration validation.", "Run authorized cross-role production UAT and reconcile dedicated test orders without retaining sensitive data."],
-    "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
-    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer", "architectureAmendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT", "permanentCommerceRuntime": true, "providerActivationUnchanged": true}
+    "applicability": {"tests": "REQUIRED", "deployment": "REQUIRED", "productionVerification": "REQUIRED"},
+    "extensions": {"sprintId": "SPRINT:23", "source": "EduAI_Docs/docs/tasks_3.0/sprint-23/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "agentProfileId": "qa-engineer", "architectureAmendmentEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-AMENDMENT", "completionEvidenceId": "EVIDENCE:SPR23-005:PERMANENT-COMMERCE-PRODUCTION-UAT", "permanentCommerceRuntime": true, "providerActivationUnchanged": true}
   },
   {
     "kind": "task", "schemaVersion": "1.0", "id": "SPR24-001",

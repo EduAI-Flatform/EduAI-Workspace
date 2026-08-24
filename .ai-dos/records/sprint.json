@@ -190,7 +190,7 @@
     "taskIds": ["SPR23-001", "SPR23-002", "SPR23-003", "SPR23-004", "SPR23-005"],
     "dependencies": ["SPRINT:22"],
     "exitCriteria": ["Course carts and pending orders use server-authoritative pricing snapshots.", "Commerce authorization, concurrency, audit, builds, and focused regression pass."],
-    "status": "IN_PROGRESS",
+    "status": "COMPLETED",
     "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-23", "phase": "PHASE_3", "track": "COMMERCE_FOUNDATION"}
   },
   {
@@ -203,7 +203,7 @@
     "taskIds": ["SPR24-001", "SPR24-002", "SPR24-003", "SPR24-004", "SPR24-005", "SPR24-006", "SPR24-007"],
     "dependencies": ["SPRINT:23"],
     "exitCriteria": ["Plans, durations, prices, discounts, services, quotas, and included courses are configurable and versioned.", "Membership access, renewal, plan changes, removed-course grace, tests, and UAT pass."],
-    "status": "PLANNED",
+    "status": "IN_PROGRESS",
     "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-24", "phase": "PHASE_3", "track": "MEMBERSHIP_ENTITLEMENTS"}
   },
   {
