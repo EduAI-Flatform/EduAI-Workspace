@@ -6807,5 +6807,87 @@
       "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
       "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Neon pooled runtime-role verifier regression",
+        "command": "npm.cmd test -- --runInBand src/config/production-runtime-role.spec.ts",
+        "reference": "The focused suite passed 15 tests. It proves the runtime connection sends no PgBouncer-incompatible options or statement_timeout startup parameters, emits only fixed credential-safe failure classes, executes MEMBER and USAGE checks for both safe and inherited roles, and fails closed for every unsafe capability.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Backend regression after verifier repair",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "Backend 6cff606 passed 112 suites and 612 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Backend production validation",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "Prisma validation, the NestJS build, and explicit classification of all 215 endpoints with zero implicit endpoints passed. A read-only dependency audit also completed and reported pre-existing repository dependency findings; no blind or breaking dependency update was mixed into this focused verifier repair.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Verifier root-cause and privacy review",
+        "reference": "Primary Neon documentation and local node-postgres startup-packet inspection identified unsupported pooled startup parameters as the connection failure. The PostgreSQL catalog query itself passed safe and inherited-role execution tests. The repair uses an explicit read-only transaction and logs only fixed stages, fixed failure classes, and the approved boolean allowlist.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact Backend production deployment",
+        "command": "Read-only GitHub Actions metadata and signed-in job-log inspection for run 32692761650",
+        "reference": "Run 78 attempt 1 deployed exact Backend revision 6cff606 successfully. Validate/build, tests, isolated migration preflight, 45 discovered migrations with zero pending, backend build, PM2 restart, readiness, cleanup, and notification completed successfully.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Exact-runtime least-privilege assertions",
+        "reference": "Sanitized deployment output reports Commerce tables present and least-privilege readiness true. Superuser, BYPASSRLS, Commerce ownership, Commerce-owner assumption, Commerce-guard bypass, and trigger-disable capability are all false. No credential, connection value, role name, host, row content, response body, or entity identifier is retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T12:19:14.1698848+07:00",
+    "commit": "6cff606",
+    "notes": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE is satisfied without modifying production role privileges or weakening any assertion. Commerce remained disabled throughout deployment. MANUAL:SPR23_005_DEPLOYMENT_UAT remains independently open for bounded cross-role write UAT, reconciliation, and disabled-state restoration evidence.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "6cff606",
+      "backendDeploymentRunId": 32692761650,
+      "backendDeploymentRunNumber": 78,
+      "backendDeploymentRunAttempt": 1,
+      "backendDeploymentConclusion": "success",
+      "backendUnitSuitesPassed": 112,
+      "backendUnitTestsPassed": 612,
+      "focusedTestsPassed": 15,
+      "securedEndpointCount": 215,
+      "migrationCountDiscovered": 45,
+      "pendingMigrationCount": 0,
+      "commerceTablesPresent": true,
+      "runtimeRoleSuperuser": false,
+      "runtimeRoleHasBypassRlsAttribute": false,
+      "runtimeRoleOwnsCommerceTables": false,
+      "runtimeRoleCanAssumeCommerceOwner": false,
+      "runtimeRoleCanBypassCommerceGuards": false,
+      "runtimeRoleCanDisableCommerceTriggers": false,
+      "runtimeRoleLeastPrivilegeReady": true,
+      "runtimePrivilegeBooleansVerified": true,
+      "productionMutated": false,
+      "commerceEnabledByDefault": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "deploymentActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT"
+    }
   }
 ]

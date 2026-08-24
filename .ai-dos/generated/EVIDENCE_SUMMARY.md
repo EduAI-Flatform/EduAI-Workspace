@@ -545,5 +545,11 @@
 | EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | BUILD | Prisma, build, and endpoint security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
 | EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | OTHER | Least-privilege verifier security review | PASS | — |
 | EVIDENCE:SPR23-005:RUNTIME-PRIVILEGE-VERIFIER | SPR23-005 | DEPLOY | Exact-runtime privilege assertion | BLOCKED | — |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | TEST | Neon pooled runtime-role verifier regression | PASS | npm.cmd test -- --runInBand src/config/production-runtime-role.spec.ts |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | TEST | Backend regression after verifier repair | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | BUILD | Backend production validation | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | OTHER | Verifier root-cause and privacy review | PASS | — |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | DEPLOY | Exact Backend production deployment | PASS | Read-only GitHub Actions metadata and signed-in job-log inspection for run 32692761650 |
+| EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION | SPR23-005 | PRODUCTION | Exact-runtime least-privilege assertions | PASS | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

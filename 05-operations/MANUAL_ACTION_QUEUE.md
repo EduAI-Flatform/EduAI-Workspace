@@ -6,14 +6,12 @@
 - Priority: `HIGH`
 - Related task: `SPR23-005`.
 - Required action:
-  - Authorize pushing and deploying Backend `6ee7b1c` through the approved
-    workflow with Commerce disabled. Backend `08ece8f` and Frontend `d4eb085`
-    are already deployed successfully.
-  - Resolve `MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE` before enabling any
-    production Commerce write route.
   - Authorize one bounded, dedicated, non-sensitive cross-role and concurrent
     checkout UAT; verify one order/audit outcome, immutable safe administrator
     history, no provider call, reconciliation, and return Commerce to disabled.
+- Completed prerequisites: Backend `6cff606` and Frontend `d4eb085` are
+  deployed successfully; the exact runtime connection passes every sanitized
+  least-privilege assertion.
 - Local evidence: `EVIDENCE:SPR23-005:LOCAL-READINESS`.
 - Database-role separation evidence:
   `EVIDENCE:SPR23-005:DATABASE-ROLE-SEPARATION`.
@@ -29,23 +27,19 @@
 
 ## MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE — Verify least-privilege runtime DB role
 
-- Status: `WAITING_USER`
+- Status: `VERIFIED`
 - Priority: `CRITICAL`
 - Related tasks: `SPR23-003`, `SPR23-005`, `SPR25-002`, `SPR25-007`.
-- Completed infrastructure: the authorized operator confirmed separate runtime
-  and migration credentials plus mode `600` for `.env.migration`. Backend run
-  `32688908947`, attempt `3`, successfully deployed `08ece8f` with the isolated
-  migration preflight, current migrations, build, and PM2 readiness.
-- Remaining action: authorize and deploy Backend `6ee7b1c`. Its metadata-only,
-  read-only verifier must report Commerce tables present; superuser,
-  `BYPASSRLS`, Commerce ownership, Commerce-owner assumption, guard bypass, and
-  trigger-disable capability all false; and least-privilege readiness true.
-- Repository evidence: `6ee7b1c` emits only those booleans, uses the exact
-  runtime `DATABASE_URL`, never loads the migration credential, and fails the
-  deployment before PM2 restart if any assertion is unsafe or missing.
-- Blocks: `SPR23-005` production write UAT and `SPR25-002` checkout activation.
-  It does not block the feature-flagged `SPR23-003` implementation or the
-  completed schema-only `SPR23-002` release.
+- Verified: the authorized operator confirmed separate runtime and migration
+  credentials plus mode `600` for `.env.migration`. Backend run `32692761650`,
+  attempt `1`, deployed exact revision `6cff606` with isolated migration
+  preflight, 45 current migrations, build, PM2 restart, and readiness.
+- Sanitized production assertions: Commerce tables present and least-privilege
+  readiness true; superuser, `BYPASSRLS`, Commerce ownership, Commerce-owner
+  assumption, guard bypass, and trigger-disable capability all false.
+- Evidence: `EVIDENCE:SPR23-005:RUNTIME-ROLE-PRODUCTION-VERIFICATION`.
+- Blocks: none. `MANUAL:SPR23_005_DEPLOYMENT_UAT` remains independently open
+  for bounded Commerce write UAT and reconciliation.
 - Security: record only boolean privilege assertions and readiness status; do
   not record role names, hosts, connection strings, credentials, row contents,
   response bodies, or entity identifiers.
