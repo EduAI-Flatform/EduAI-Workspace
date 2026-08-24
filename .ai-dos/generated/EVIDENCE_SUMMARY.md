@@ -522,5 +522,13 @@
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | TEST | Administrator catalog and order workspace regression | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Historical immutability, authorization, and sensitive-data review | PASS | — |
 | EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS | SPR23-004 | OTHER | Responsive real-browser administrator workflow | PASS | — |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | Concurrent checkout, Commerce, and Backend compatibility regression | PASS | npm.cmd test -- --runInBand |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | TEST | PostgreSQL persistence and pricing compatibility matrix | PASS | npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts voucher-contract.spec.ts scholarship-contract.spec.ts tmi-ledger-contract.spec.ts tmi-redemption.integration.spec.ts |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | BUILD | Backend and Frontend production readiness | PASS | Backend: npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints. Frontend: npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | OTHER | Security, privacy, and accepted-boundary review | PASS | — |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | DEPLOY | Exact revision deployment | BLOCKED | Requires MANUAL:SPR23_005_DEPLOYMENT_UAT |
+| EVIDENCE:SPR23-005:LOCAL-READINESS | SPR23-005 | PRODUCTION | Bounded cross-role and concurrent Commerce production UAT | BLOCKED | Requires MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT |
+| EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | DEPLOY | Human-authorized deployment and production Commerce UAT | BLOCKED | — |
+| EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED | SPR23-005 | PRODUCTION | Least-privilege runtime role before Commerce writes | BLOCKED | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

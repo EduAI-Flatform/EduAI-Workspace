@@ -69,7 +69,7 @@
 | SPR23-002 | Add Product, Cart, Order, and Payment Persistence | DONE |  |
 | SPR23-003 | Deliver Learner Cart, Pricing, and Order Creation | DONE |  |
 | SPR23-004 | Deliver Administrator Commerce Catalog and Order Operations | DONE |  |
-| SPR23-005 | Verify Commerce Boundaries, Concurrency, and Regression | IN_PROGRESS | YES |
+| SPR23-005 | Verify Commerce Boundaries, Concurrency, and Regression | WAITING_MANUAL | YES |
 | SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | TODO |  |
 | SPR24-002 | Add Configurable Service Entitlements and Usage Quotas | TODO |  |
 | SPR24-003 | Add Included-Course Mappings and Centralized Access Grants | TODO |  |

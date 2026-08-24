@@ -75,7 +75,7 @@
     "SPR23-002": "DONE",
     "SPR23-003": "DONE",
     "SPR23-004": "DONE",
-    "SPR23-005": "IN_PROGRESS",
+    "SPR23-005": "WAITING_MANUAL",
     "SPR24-001": "TODO",
     "SPR24-002": "TODO",
     "SPR24-003": "TODO",
@@ -107,10 +107,12 @@
     "SPR28-004": "TODO"
   },
   "waitingManualActionIds": [
-    "MANUAL:SPR20_003_NGINX_COMPRESSION"
+    "MANUAL:SPR20_003_NGINX_COMPRESSION",
+    "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+    "MANUAL:SPR23_005_DEPLOYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-004:ADMIN-COMMERCE-OPERATIONS",
-  "updatedAt": "2026-08-24T10:50:42.5255930+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
+  "updatedAt": "2026-08-24T10:54:09.9518657+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",

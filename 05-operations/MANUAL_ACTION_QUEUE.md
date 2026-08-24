@@ -1,10 +1,31 @@
 # Manual Action Queue
 
+## MANUAL:SPR23_005_DEPLOYMENT_UAT — Deploy and verify Sprint 23 Commerce
+
+- Status: `WAITING_USER`
+- Priority: `HIGH`
+- Related task: `SPR23-005`.
+- Required action:
+  - Explicitly authorize pushing Backend `f963f37` and Frontend `d4eb085`
+    through their approved CI/deployment workflows, initially with Commerce
+    disabled.
+  - Resolve `MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE` before enabling any
+    production Commerce write route.
+  - Authorize one bounded, dedicated, non-sensitive cross-role and concurrent
+    checkout UAT; verify one order/audit outcome, immutable safe administrator
+    history, no provider call, reconciliation, and return Commerce to disabled.
+- Local evidence: `EVIDENCE:SPR23-005:LOCAL-READINESS`.
+- Blocking evidence: `EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED`.
+- Blocks: only `SPR23-005`; local implementation and regression are complete.
+- Security: retain no credentials, sessions, role/database names, response
+  bodies, entity identifiers, raw idempotency keys, provider payloads, payment
+  links, QR data, or signatures.
+
 ## MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE — Verify least-privilege runtime DB role
 
 - Status: `WAITING_USER`
 - Priority: `CRITICAL`
-- Related tasks: `SPR23-003`, `SPR25-002`, `SPR25-007`.
+- Related tasks: `SPR23-003`, `SPR23-005`, `SPR25-002`, `SPR25-007`.
 - Required action: before checkout activation, verify the exact production PM2
   runtime connection uses a role that is not superuser, does not own Commerce
   tables, cannot bypass row-level policy, and cannot disable Commerce triggers.
@@ -12,8 +33,9 @@
 - Evidence: the configured verifier role is not superuser but owns the new
   Commerce tables and has `BYPASSRLS`; sanitized evidence cannot establish
   whether it is the PM2 runtime role or a separate migration/admin connection.
-- Blocks: `SPR25-002` checkout activation. It does not block the feature-flagged
-  `SPR23-003` implementation or the completed schema-only `SPR23-002` release.
+- Blocks: `SPR23-005` production write UAT and `SPR25-002` checkout activation.
+  It does not block the feature-flagged `SPR23-003` implementation or the
+  completed schema-only `SPR23-002` release.
 - Security: record only boolean privilege assertions and readiness status; do
   not record role names, hosts, connection strings, credentials, row contents,
   response bodies, or entity identifiers.

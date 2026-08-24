@@ -6511,5 +6511,109 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:LOCAL-READINESS",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Concurrent checkout, Commerce, and Backend compatibility regression",
+        "command": "npm.cmd test -- --runInBand",
+        "reference": "Backend through commit f963f37 passed 110 suites and 594 tests. The added simultaneous duplicate-checkout regression proves both calls converge on one order with one audit event. Existing suites cover live repricing, totals, snapshots, stale ownership, voucher reservations, serializable retry, zero-payable settlement, administrator concurrency, Course enrollment, Scholarship, TMI, Certificate, Notification, and role behavior.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "PostgreSQL persistence and pricing compatibility matrix",
+        "command": "npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts voucher-contract.spec.ts scholarship-contract.spec.ts tmi-ledger-contract.spec.ts tmi-redemption.integration.spec.ts",
+        "reference": "Six executed suites passed 40 tests covering the complete migration chain, immutable snapshots and totals, provider uniqueness, settlement-required transitions, voucher pricing, scholarship policy, and TMI non-money semantics. The environment-gated TMI database integration suite remained skipped because no authorized writable integration DATABASE_URL was supplied; its covered service and contract regressions passed in the full suite.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Backend and Frontend production readiness",
+        "command": "Backend: npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints. Frontend: npm.cmd test; npm.cmd run build; npm.cmd run test:performance",
+        "reference": "Prisma validation, Backend build, and explicit classification of all 215 endpoints passed. Frontend commit d4eb085 passed 73 test files and 194 tests, TypeScript/Vite build, and bundle budget. Real Chrome checks at 320x720 and 1440x900 found no horizontal overflow; Lighthouse accessibility and best practices scored 100.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, privacy, and accepted-boundary review",
+        "reference": "Review found no client-authoritative price, direct paid-history mutation, provider credential/payload projection, raw idempotency-key evidence, or browser settlement authority. Commerce remains disabled by default. The unresolved runtime-role ambiguity is not accepted as safe for production writes and remains explicitly gated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact revision deployment",
+        "command": "Requires MANUAL:SPR23_005_DEPLOYMENT_UAT",
+        "reference": "Blocked pending explicit push/deployment authorization. No repository was pushed and no production configuration was changed.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Bounded cross-role and concurrent Commerce production UAT",
+        "command": "Requires MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE and MANUAL:SPR23_005_DEPLOYMENT_UAT",
+        "reference": "Blocked because Commerce is disabled and the exact PM2 runtime database role has not been proven unable to own/bypass Commerce guards. No production Commerce write, row inspection, credential access, or provider call was attempted.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T10:54:09.9518657+07:00",
+    "commit": "f963f37,d4eb085",
+    "notes": "SPR23-005 is locally complete and moves to WAITING_MANUAL only for its explicit deployment and bounded production read/write acceptance gate. The blocker is narrowly scoped; accepted Commerce constraints and the default-disabled runtime were not weakened.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommit": "f963f37",
+      "frontendRepository": "EduAI-Front-End-Web",
+      "frontendCommit": "d4eb085",
+      "backendUnitSuitesPassed": 110,
+      "backendUnitTestsPassed": 594,
+      "focusedPersistenceSuitesPassed": 6,
+      "focusedPersistenceTestsPassed": 40,
+      "environmentGatedIntegrationSuitesSkipped": 1,
+      "frontendTestFilesPassed": 73,
+      "frontendTestsPassed": 194,
+      "securedEndpointCount": 215,
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "productionMutated": false,
+      "commerceEnabledByDefault": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
+    "taskId": "SPR23-005",
+    "checks": [
+      {
+        "kind": "DEPLOY",
+        "name": "Human-authorized deployment and production Commerce UAT",
+        "reference": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Least-privilege runtime role before Commerce writes",
+        "reference": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-08-24T10:54:09.9518657+07:00",
+    "notes": "SPR23-005 cannot satisfy its required production gate until deployment is authorized and the exact runtime database role is verified. Local implementation and verification are complete; no production write or unsafe activation was attempted.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
+      "productionMutated": false,
+      "credentialMaterialRecorded": false
+    }
   }
 ]

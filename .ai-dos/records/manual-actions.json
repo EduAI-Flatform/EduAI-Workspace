@@ -1037,15 +1037,50 @@
       "Run backend readiness and Phase 3 authorization/regression checks after the configuration change."
     ],
     "expectedResult": "The production backend runs with a distinct least-privilege database role that cannot alter or bypass the Commerce persistence guards, while migrations remain deployable through a separately controlled role.",
-    "relatedTaskIds": ["SPR23-003", "SPR25-002", "SPR25-007"],
-    "blocks": ["SPR25-002"],
+    "relatedTaskIds": ["SPR23-003", "SPR23-005", "SPR25-002", "SPR25-007"],
+    "blocks": ["SPR23-005", "SPR25-002"],
     "extensions": {
       "discoveredDuringTaskId": "SPR23-002",
       "configuredVerifierRoleSuperuser": false,
       "configuredVerifierRoleBypassRls": true,
       "configuredVerifierRoleOwnsCommerceTables": true,
       "runtimeRoleIdentityVerified": false,
-      "commerceRuntimeEndpointsCurrentlyPresent": false,
+      "commerceRuntimeEndpointsCurrentlyPresent": true,
+      "productionCommerceRuntimeEndpointsDeployed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:SPR23_005_DEPLOYMENT_UAT",
+    "title": "Deploy and run bounded Sprint 23 Commerce production UAT",
+    "status": "WAITING_USER",
+    "priority": "HIGH",
+    "requiredAction": [
+      "Explicitly authorize pushing the focused Backend and Frontend revisions through the repositories' approved CI/deployment workflows; deploy with Commerce disabled first and confirm migrations, builds, health, and route protection pass.",
+      "Resolve MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE before enabling any Commerce write route in production.",
+      "After the runtime role is verified, authorize a bounded Commerce UAT using dedicated non-sensitive test data: prove unauthenticated, student, instructor, and platform-administrator role boundaries; current-price and immutable-snapshot behavior; one concurrent duplicate checkout converging on one order and one audit event; safe administrator order history; and no provider call or browser-confirmed settlement.",
+      "Reconcile the dedicated UAT cart/order and restore COMMERCE_ENABLED to false after evidence collection. Retain only revisions, workflow/run status, HTTP status matrix, aggregate assertions, and boolean safety results."
+    ],
+    "reason": "SPR23-005 explicitly requires deployment and bounded production read/write UAT. The new runtime revisions are committed locally but are not authorized for push/deployment, Commerce is disabled by default, and enabling a write route before the exact PM2 runtime role is proven least-privilege would violate ADR-005.",
+    "retestSteps": [
+      "Verify Backend f963f37 and Frontend d4eb085 are the exact deployed revisions and that their CI/deployment workflows pass.",
+      "Confirm the exact runtime role passes the four boolean least-privilege assertions recorded by MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE.",
+      "Run the bounded cross-role and concurrent-checkout UAT against one dedicated target, confirm immutable sanitized administrator history, reconcile the resulting records, disable Commerce, and rerun AI-DOS conformance."
+    ],
+    "expectedResult": "The exact Sprint 23 revisions are deployed, production Commerce write behavior passes the accepted authorization/concurrency/immutability contract under a least-privilege runtime role, dedicated test effects are reconciled, Commerce returns to disabled, and SPR23-005 can be marked DONE.",
+    "relatedTaskIds": ["SPR23-005"],
+    "blocks": ["SPR23-005"],
+    "extensions": {
+      "localEvidenceId": "EVIDENCE:SPR23-005:LOCAL-READINESS",
+      "blockingEvidenceId": "EVIDENCE:SPR23-005:PRODUCTION-UAT-BLOCKED",
+      "backendCommit": "f963f37",
+      "frontendCommit": "d4eb085",
+      "runtimeRoleActionId": "MANUAL:PHASE3_COMMERCE_RUNTIME_DB_ROLE",
+      "commerceEnabledByDefault": false,
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
