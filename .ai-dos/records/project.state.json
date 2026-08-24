@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:23",
-  "currentTaskId": null,
+  "currentTaskId": "SPR23-002",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -72,7 +72,7 @@
     "SPR21-030": "DONE",
     "SPR22-001": "DONE",
     "SPR23-001": "DONE",
-    "SPR23-002": "TODO",
+    "SPR23-002": "IN_PROGRESS",
     "SPR23-003": "TODO",
     "SPR23-004": "TODO",
     "SPR23-005": "TODO",
@@ -110,7 +110,7 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
   "lastEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
-  "updatedAt": "2026-08-24T08:18:06.7299109+07:00",
+  "updatedAt": "2026-08-24T08:20:50.5820902+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -981,6 +981,13 @@
       "thirdReviewCycle": "UNAVAILABLE: REVIEWER_USAGE_LIMIT",
       "payosOfficialSignatureContractVerified": true,
       "schemaWorkAuthorized": true,
+      "credentialMaterialRecorded": false
+    },
+    "sprint23CommercePersistence": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-24T08:20:50.5820902+07:00",
+      "architectureAuthority": "EduAI_Docs/docs/decisions/ADR-005-phase-3-commerce-payment-and-access-boundaries.md",
+      "affectedRepository": "EduAI-Back-End",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
