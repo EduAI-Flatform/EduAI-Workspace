@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:23",
-  "currentTaskId": "SPR23-003",
+  "currentTaskId": "SPR23-004",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -73,8 +73,8 @@
     "SPR22-001": "DONE",
     "SPR23-001": "DONE",
     "SPR23-002": "DONE",
-    "SPR23-003": "IN_PROGRESS",
-    "SPR23-004": "TODO",
+    "SPR23-003": "DONE",
+    "SPR23-004": "IN_PROGRESS",
     "SPR23-005": "TODO",
     "SPR24-001": "TODO",
     "SPR24-002": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR23-001:HUMAN-APPROVAL",
-  "updatedAt": "2026-08-24T08:20:50.5820902+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR23-003:COMMERCE-CART-ORDER",
+  "updatedAt": "2026-08-24T10:27:48.2972003+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",

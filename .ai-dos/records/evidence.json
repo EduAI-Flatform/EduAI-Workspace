@@ -6396,5 +6396,62 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR23-003:COMMERCE-CART-ORDER",
+    "taskId": "SPR23-003",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Backend pricing, ownership, voucher, idempotency, and regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts",
+        "reference": "Backend commits b8a6537 and 4d3d49a passed 108 suites and 586 tests. Fourteen PostgreSQL persistence tests passed against the actual migration trigger chain. Coverage includes stale carts, duplicate items, already-owned courses, shared voucher reservation quota, bounded HMAC-hashed idempotency, canonical replay/conflict, serializable retry, immutable pricing snapshots, and the server-only zero-payable settlement path.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Frontend cart, checkout, and regression",
+        "command": "npm.cmd test; npm.cmd run build; npm.cmd run test:performance",
+        "reference": "Frontend commit 4027fc4 passed 71 suites and 188 tests, the TypeScript/Vite production build, and the bundle budget. Service tests prove the browser submits product/voucher identities only and never submits a price or total.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Authorization, financial authority, quota, and sensitive-data review",
+        "command": "npm.cmd run security:audit-endpoints; npm.cmd run prisma:validate",
+        "reference": "All 211 endpoints have explicit security classification and every Commerce route is protected. Checkout accepts VND only, reads live Course authority, rejects ownership and stale moderation/publication state, reserves voucher quota under the shared locked boundary, hashes client idempotency keys with a dedicated environment secret, and excludes raw idempotency keys from audit evidence. Prisma validation passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Responsive real-browser cart and pending-order verification",
+        "reference": "An isolated Chrome session with synthetic student state and a local mock API verified the cart at 320x720 and 1440x900. Keyboard checkout sent POST /api/v1/commerce/orders with a generated Idempotency-Key and only {voucherApplications:[{courseId,code}]}; the UI rendered server-returned totals and explicitly stated that a browser return cannot confirm payment. Console errors/warnings/issues were zero after the accessibility fix, and Lighthouse snapshot accessibility scored 100.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T10:27:48.2972003+07:00",
+    "commit": "b8a6537,4d3d49a,4027fc4",
+    "notes": "SPR23-003 acceptance is satisfied. Learners can add, list, remove, and clear paid-course cart items; checkout revalidates all authoritative facts before an immutable order; existing ownership is rejected; and the UI always explains that a perpetual course purchase remains independent from membership access. Commerce remains disabled by default and deployment is optional for this task.",
+    "extensions": {
+      "backendRepository": "EduAI-Back-End",
+      "backendCommits": ["b8a6537", "4d3d49a"],
+      "frontendRepository": "EduAI-Front-End-Web",
+      "frontendCommit": "4027fc4",
+      "backendUnitSuitesPassed": 108,
+      "backendUnitTestsPassed": 586,
+      "postgresPersistenceTestsPassed": 14,
+      "frontendTestFilesPassed": 71,
+      "frontendTestsPassed": 188,
+      "browserViewports": ["320x720", "1440x900"],
+      "lighthouseAccessibilityScore": 100,
+      "browserConsoleFindings": 0,
+      "commerceEnabledByDefault": false,
+      "credentialMaterialRecorded": false,
+      "rawIdempotencyKeysRecorded": false,
+      "providerPayloadsRecorded": false
+    }
   }
 ]

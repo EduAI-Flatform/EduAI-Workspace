@@ -514,5 +514,9 @@
 | EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | DEPLOY | Backend production deployment | PASS | GitHub Actions Deploy Backend Production run 32683873087 |
 | EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | PRODUCTION | Commerce migration metadata and readiness | PASS | Read-only PostgreSQL metadata transaction and public GET /api/docs |
 | EVIDENCE:SPR23-002:PRODUCTION-DEPLOYMENT | SPR23-002 | OTHER | Runtime database-role risk disposition | PASS | — |
+| EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | TEST | Backend pricing, ownership, voucher, idempotency, and regression | PASS | npm.cmd test -- --runInBand; npm.cmd run test:demo-data -- --runInBand commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts commerce-persistence-postgres.spec.ts |
+| EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | TEST | Frontend cart, checkout, and regression | PASS | npm.cmd test; npm.cmd run build; npm.cmd run test:performance |
+| EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | OTHER | Authorization, financial authority, quota, and sensitive-data review | PASS | npm.cmd run security:audit-endpoints; npm.cmd run prisma:validate |
+| EVIDENCE:SPR23-003:COMMERCE-CART-ORDER | SPR23-003 | OTHER | Responsive real-browser cart and pending-order verification | PASS | — |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
