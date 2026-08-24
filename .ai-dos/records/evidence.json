@@ -7291,5 +7291,68 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION",
+    "taskId": "SPR24-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Backend administration, validation, and protected course discovery",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand",
+        "reference": "All 121 Backend unit suites and 661 tests plus all six HTTP suites and 46 tests pass. Focused membership coverage proves arbitrary plan/version pricing, whole-month validation, typed service definitions and quotas, serializable publication, immutable published configuration, audit ownership, bounded plan search/pagination, and a platform-admin-only searchable course projection that includes valid private courses without weakening transactional attachment checks.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Frontend membership administration regression",
+        "command": "npm.cmd test",
+        "reference": "All 75 Frontend test files and 203 tests pass. Focused tests cover typed API paths, arbitrary duration construction, VND string money, a 70-percent warning without an artificial cap, version comparison, explicit publish confirmation, service-definition creation, private-course search, navigation allowlisting, and platform-administrator routing.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Responsive browser and authorization checks",
+        "command": "npx.cmd playwright test --config=playwright.sprint24.config.ts",
+        "reference": "Three credential-independent Chromium checks pass with synthetic fixtures: the plan/version editor and clear diff render without horizontal overflow at 320px and 1440px, long Vietnamese terms and high-discount warnings remain visible, and a student is redirected away from membership administration. The temporary runner configuration was removed after the check.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, builds, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build",
+        "reference": "The merged 35-file Prisma schema validates, both Backend and Frontend production builds pass, and all 227 Backend endpoints are explicitly classified with zero implicit endpoints. Every membership administration route, including available-course discovery, remains protected by the existing platform-administrator controller boundary.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, dependency, history, and artifact review",
+        "command": "npm.cmd audit --audit-level=high; staged diff, secret, and artifact review",
+        "reference": "Safe in-range lock refreshes remove the Frontend's two high-severity advisories; two moderate React Router advisories remain because their offered fix requires a breaking v7 migration. Review confirms published versions remain read-only snapshots, prior versions remain visible for subscriber/order references, no provider or payment activation changed, and no credential, session, response body, entity identifier, raw idempotency key, payment payload, signature, or generated browser artifact was retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T17:45:19.4147984+07:00",
+    "commit": "0ae68af37257ee76e0a88aceffdbfa86fe9ce4e6",
+    "notes": "SPR24-004 satisfies every canonical acceptance criterion under its optional deployment profile. Backend beafd91 and Frontend ed28093/0ae68af are pushed to origin/main. Production deployment remains independently waiting on MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY; no production membership route or UAT is claimed.",
+    "extensions": {
+      "backendCommit": "beafd91",
+      "frontendDependencyCommit": "ed28093",
+      "frontendCommit": "0ae68af",
+      "manualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "ciRunVerified": false,
+      "providerActivationChanged": false,
+      "highSeverityFrontendAdvisories": 0,
+      "moderateFrontendAdvisories": 2,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

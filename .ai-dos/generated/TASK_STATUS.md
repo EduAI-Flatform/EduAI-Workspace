@@ -73,8 +73,8 @@
 | SPR24-001 | Add Versioned Membership Plans and Dynamic Durations | DONE |  |
 | SPR24-002 | Add Configurable Service Entitlements and Usage Quotas | DONE |  |
 | SPR24-003 | Add Included-Course Mappings and Centralized Access Grants | DONE |  |
-| SPR24-004 | Deliver Membership Administration | IN_PROGRESS | YES |
-| SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | TODO |  |
+| SPR24-004 | Deliver Membership Administration | DONE |  |
+| SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | IN_PROGRESS | YES |
 | SPR24-006 | Preserve Removed-Course Learning Continuity | TODO |  |
 | SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | TODO |  |
 | SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | TODO |  |

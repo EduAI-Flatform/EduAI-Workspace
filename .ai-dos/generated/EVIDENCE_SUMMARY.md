@@ -582,5 +582,10 @@
 | EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | TEST | HTTP and cross-module regression | PASS | npm.cmd run test:e2e -- --runInBand |
 | EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
 | EVIDENCE:SPR24-003:CENTRALIZED-COURSE-ACCESS | SPR24-003 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --json; staged diff and secret scan |
+| EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | TEST | Backend administration, validation, and protected course discovery | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand |
+| EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | TEST | Frontend membership administration regression | PASS | npm.cmd test |
+| EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | TEST | Responsive browser and authorization checks | PASS | npx.cmd playwright test --config=playwright.sprint24.config.ts |
+| EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | BUILD | Schema, builds, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
+| EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | OTHER | Security, dependency, history, and artifact review | PASS | npm.cmd audit --audit-level=high; staged diff, secret, and artifact review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
