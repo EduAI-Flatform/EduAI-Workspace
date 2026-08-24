@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:24",
-  "currentTaskId": "SPR24-002",
+  "currentTaskId": "SPR24-003",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -77,8 +77,8 @@
     "SPR23-004": "DONE",
     "SPR23-005": "DONE",
     "SPR24-001": "DONE",
-    "SPR24-002": "IN_PROGRESS",
-    "SPR24-003": "TODO",
+    "SPR24-002": "DONE",
+    "SPR24-003": "IN_PROGRESS",
     "SPR24-004": "TODO",
     "SPR24-005": "TODO",
     "SPR24-006": "TODO",
@@ -1083,10 +1083,23 @@
       "credentialMaterialRecorded": false
     },
     "sprint24ServiceEntitlements": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-24T16:17:21.1069232+07:00",
       "selectionReason": "SPR24-001 satisfied its local acceptance and optional-deployment profile; SPR24-002 is now the highest-priority runnable task while production migration remediation remains an independent release action.",
       "taskId": "SPR24-002",
+      "backendCommit": "8ec8708",
+      "evidenceId": "EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "migrationManualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "completedAt": "2026-08-24T16:40:48.3938569+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint24CourseAccessGrants": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-24T16:40:48.3938569+07:00",
+      "selectionReason": "SPR24-002 completed its local acceptance and optional-deployment profile; SPR24-003 is the highest-priority runnable Sprint 24 task and depends only on completed SPR24-001.",
+      "taskId": "SPR24-003",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

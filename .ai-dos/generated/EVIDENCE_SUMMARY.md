@@ -572,5 +572,10 @@
 | EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | TEST | Full Backend regression and HTTP contracts | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand |
 | EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
 | EVIDENCE:SPR24-001:VERSIONED-MEMBERSHIP-PLANS | SPR24-001 | OTHER | Dependency and architecture review | PASS | npm.cmd audit --omit=dev --audit-level=high; staged diff and secret scan |
+| EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | TEST | Typed entitlement and quota behavior | PASS | npm.cmd test -- --runInBand src/modules/memberships |
+| EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | TEST | Additive migration and PostgreSQL authority | PASS | npm.cmd run test:demo-data -- --runInBand service-entitlement-migration.spec.ts service-entitlement-postgres.spec.ts |
+| EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | TEST | Full Backend regression and HTTP contracts | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand |
+| EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS | SPR24-002 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --audit-level=high; staged diff and artifact scan |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

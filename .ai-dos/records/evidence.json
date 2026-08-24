@@ -7170,5 +7170,65 @@
       "responseBodiesRecorded": false,
       "entityIdentifiersRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-002:SERVICE-ENTITLEMENTS",
+    "taskId": "SPR24-002",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Typed entitlement and quota behavior",
+        "command": "npm.cmd test -- --runInBand src/modules/memberships",
+        "reference": "Six focused membership suites and 24 tests pass for stable code-driven definitions, boolean, metered, and unlimited values, reset windows, exact idempotent replay, final-unit concurrency, expiry, administrator configuration, learner self scope, and incremental grant provisioning.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Additive migration and PostgreSQL authority",
+        "command": "npm.cmd run test:demo-data -- --runInBand service-entitlement-migration.spec.ts service-entitlement-postgres.spec.ts",
+        "reference": "Two focused Prisma/PostgreSQL suites and five tests pass. Database triggers enforce stable definition semantics, draft-only plan configuration, immutable published snapshots and grant facts, exact usage windows, append-only usage, and locked quota conservation under competing consumption.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Full Backend regression and HTTP contracts",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand",
+        "reference": "All 119 Backend unit suites and 641 tests plus all six HTTP suites and 46 tests pass.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 34-file Prisma schema validates, the production build passes, and all 225 endpoints are explicitly classified with zero implicit endpoints. Nine administrator membership routes and the learner self-entitlement route are protected by explicit role boundaries.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, privacy, and dependency review",
+        "command": "npm.cmd audit --audit-level=high; staged diff and artifact scan",
+        "reference": "No dependency or lockfile changed. The registry audit reports the repository's current transitive baseline of 13 high, 23 moderate, and three low findings, with breaking framework upgrades among the proposed fixes. The focused diff records no credential value, environment file, raw idempotency key, provider activation, response body, or runtime-role change; raw operation keys are HMAC-only and learner responses omit source identities.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-24T16:40:48.3938569+07:00",
+    "commit": "8ec8708d20e08dbe3065a82fc362a78dc48ffc84",
+    "notes": "SPR24-002 satisfies every canonical acceptance criterion under its optional deployment profile. The exact Backend revision is pushed to origin/main; no CI run or production deployment is claimed because workflow inspection was unavailable locally and the independent membership migration-authority action remains open.",
+    "extensions": {
+      "backendCommit": "8ec8708",
+      "manualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "ciRunVerified": false,
+      "providerActivationChanged": false,
+      "dependencyFilesChanged": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]
