@@ -587,5 +587,10 @@
 | EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | TEST | Responsive browser and authorization checks | PASS | npx.cmd playwright test --config=playwright.sprint24.config.ts |
 | EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | BUILD | Schema, builds, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
 | EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION | SPR24-004 | OTHER | Security, dependency, history, and artifact review | PASS | npm.cmd audit --audit-level=high; staged diff, secret, and artifact review |
+| EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | TEST | Membership lifecycle, ownership, snapshots, and concurrency | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand prisma/membership-checkout-migration.spec.ts prisma/membership-plan-migration.spec.ts |
+| EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | TEST | Learner membership UI regression | PASS | npm.cmd test |
+| EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | TEST | Responsive learner checkout browser journey | PASS | npx.cmd playwright test --config=playwright.sprint24-learner.config.ts |
+| EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | BUILD | Schema, builds, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
+| EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | OTHER | Security, privacy, dependency, and artifact review | PASS | staged diff, secret, generated-artifact, and five-axis review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

@@ -80,7 +80,7 @@
     "SPR24-002": "DONE",
     "SPR24-003": "DONE",
     "SPR24-004": "DONE",
-    "SPR24-005": "IN_PROGRESS",
+    "SPR24-005": "WAITING_MANUAL",
     "SPR24-006": "TODO",
     "SPR24-007": "TODO",
     "SPR25-001": "TODO",
@@ -108,10 +108,11 @@
   },
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
-    "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY"
+    "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+    "MANUAL:SPR24_005_PUSH_APPROVAL"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR24-004:MEMBERSHIP-ADMINISTRATION",
-  "updatedAt": "2026-08-24T17:45:19.4147984+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR24-005:LOCAL-READINESS",
+  "updatedAt": "2026-08-25T09:47:42.4543945+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1124,10 +1125,20 @@
       "credentialMaterialRecorded": false
     },
     "sprint24LearnerMembership": {
-      "status": "IN_PROGRESS",
+      "status": "WAITING_MANUAL",
       "startedAt": "2026-08-24T17:45:19.4147984+07:00",
       "selectionReason": "SPR24-004 completed its local acceptance and optional-deployment profile; SPR24-005 is now the highest-priority runnable Sprint 24 task and depends only on completed SPR24-004.",
       "taskId": "SPR24-005",
+      "backendCommit": "8daafa3",
+      "frontendCommit": "2007db7",
+      "evidenceId": "EVIDENCE:SPR24-005:LOCAL-READINESS",
+      "pushManualActionId": "MANUAL:SPR24_005_PUSH_APPROVAL",
+      "migrationManualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "localAcceptanceCriteriaSatisfied": true,
+      "pushVerified": false,
+      "ciRunVerified": false,
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

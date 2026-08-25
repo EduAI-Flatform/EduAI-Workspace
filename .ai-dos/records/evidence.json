@@ -7354,5 +7354,70 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-005:LOCAL-READINESS",
+    "taskId": "SPR24-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Membership lifecycle, ownership, snapshots, and concurrency",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand prisma/membership-checkout-migration.spec.ts prisma/membership-plan-migration.spec.ts",
+        "reference": "All 123 Backend unit suites and 668 tests plus all six HTTP suites and 46 tests passed. The final focused checkout suite passed five tests proving expired same-plan renewal from payment time, active renewal boundaries, upgrade and scheduled downgrade timing, authenticated learner ownership scope, immutable base/discount/final order snapshots, exact idempotent replay, and overlapping duplicate requests converging on one order and one audit event. Additive membership migration checks passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Learner membership UI regression",
+        "command": "npm.cmd test",
+        "reference": "All 76 Frontend test files and 208 tests passed. Five focused tests cover live plan, service, quota, course, duration, discount and final-price comparison; loading, empty, retry, expired, current-plan and pending-change states; explicit benefit confirmation; explicit upgrade or downgrade choice; and server-created checkout success.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Responsive learner checkout browser journey",
+        "command": "npx.cmd playwright test --config=playwright.sprint24-learner.config.ts",
+        "reference": "Two credential-independent Chromium checks passed at 320px and 1440px with live-contract fixtures. Catalog/current rendering, explicit downgrade and confirmation, idempotency header, checkout request shape, success state, horizontal overflow, runtime errors, network errors, and Stitch-data guards passed. The temporary runner configuration was removed; its Windows Vite child process was stopped after both checks reported PASS.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, builds, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build",
+        "reference": "The merged 35-file Prisma schema validates, both production builds pass, and all 230 Backend endpoints are explicitly classified with zero implicit endpoints. Learner membership catalog, current state, checkout, and entitlement routes are protected; the Frontend route additionally enforces the student role.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, privacy, dependency, and artifact review",
+        "command": "staged diff, secret, generated-artifact, and five-axis review",
+        "reference": "No dependency or lockfile changed. Registry audit was not rerun because the managed approval gate did not authorize sending private dependency metadata to npm. Review found no credential value, response body, entity identifier, raw idempotency key, payment-provider activation, runtime-role change, generated browser artifact, unsafe user input, authorization gap, unbounded query, or negative money invariant. Synthetic browser token fields are empty by construction.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-25T09:47:42.4543945+07:00",
+    "commit": "2007db776e378e327df07723c51f4ae0112e62b8",
+    "notes": "SPR24-005 implementation and local acceptance are complete in local Backend 8daafa3 and Frontend 2007db7 commits. Push to shared origin/main was rejected by the managed approval gate because the top-level request did not explicitly authorize that external mutation. CI, deployment, and production verification are not claimed. The task remains WAITING_MANUAL under MANUAL:SPR24_005_PUSH_APPROVAL; Sprint 24 production deployment also remains independently blocked by MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY.",
+    "extensions": {
+      "backendCommit": "8daafa35cf0a10e08e66303dfdd6e301cafb9e46",
+      "frontendCommit": "2007db776e378e327df07723c51f4ae0112e62b8",
+      "pushManualActionId": "MANUAL:SPR24_005_PUSH_APPROVAL",
+      "migrationManualActionId": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
+      "localAcceptanceCriteriaSatisfied": true,
+      "pushVerified": false,
+      "ciRunVerified": false,
+      "deploymentOptional": true,
+      "productionDeploymentVerified": false,
+      "productionVerificationPerformed": false,
+      "dependencyFilesChanged": false,
+      "providerActivationChanged": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

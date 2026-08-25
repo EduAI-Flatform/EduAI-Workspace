@@ -1169,5 +1169,36 @@
       "roleIdentityRecorded": false,
       "databaseIdentityRecorded": false
     }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:SPR24_005_PUSH_APPROVAL",
+    "title": "Authorize or perform the SPR24-005 shared-main pushes",
+    "status": "WAITING_USER",
+    "priority": "HIGH",
+    "requiredAction": [
+      "Explicitly authorize pushing Backend 8daafa3 and Frontend 2007db7 to their configured origin/main branches, or push those exact local commits through the approved repository workflow.",
+      "Confirm both remotes accepted the exact commits, then identify and monitor the resulting Backend and Frontend CI runs to terminal state.",
+      "Do not attempt Sprint 24 production deployment until MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY is resolved through the isolated migration-operator path."
+    ],
+    "reason": "Implementation, local tests, builds, endpoint-security audit, diff review, and 320px/1440px Chromium UAT pass. The managed approval gate rejected autonomous pushes to the shared default branches because the top-level user request did not explicitly authorize that external mutation.",
+    "retestSteps": [
+      "Verify origin/main resolves to Backend 8daafa3 and Frontend 2007db7 or descendants containing both commits.",
+      "Confirm the relevant CI workflows pass for both repositories.",
+      "Resume SPR24-005 from remote synchronization and CI monitoring; preserve the separate production migration blocker without claiming deployment or production UAT."
+    ],
+    "expectedResult": "The exact reviewed commits are present on both remotes and their CI workflows pass; SPR24-005 can then be completed under its optional deployment profile while production membership deployment remains separately blocked.",
+    "relatedTaskIds": ["SPR24-005"],
+    "blocks": ["SPR24-005 remote synchronization, CI verification, and canonical completion"],
+    "extensions": {
+      "backendCommit": "8daafa35cf0a10e08e66303dfdd6e301cafb9e46",
+      "frontendCommit": "2007db776e378e327df07723c51f4ae0112e62b8",
+      "backendBranch": "main",
+      "frontendBranch": "main",
+      "approvalFailureClass": "SHARED_DEFAULT_BRANCH_PUSH_NOT_EXPLICITLY_AUTHORIZED",
+      "localEvidenceId": "EVIDENCE:SPR24-005:LOCAL-READINESS",
+      "credentialMaterialRecorded": false
+    }
   }
 ]

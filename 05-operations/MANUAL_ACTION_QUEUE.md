@@ -1,5 +1,16 @@
 # Manual Action Queue
 
+## MANUAL:SPR24_005_PUSH_APPROVAL — Authorize or perform the SPR24-005 shared-main pushes
+
+- Status: `WAITING_USER`
+- Priority: `HIGH`
+- Related task: `SPR24-005`
+- Local readiness: Backend `8daafa3` and Frontend `2007db7` are committed; full unit/HTTP tests, schema validation, both builds, endpoint-security audit, and responsive 320px/1440px Chromium UAT pass.
+- Required action: explicitly authorize pushing those exact commits to their configured `origin/main` branches, or push them through the approved repository workflow.
+- Verification: confirm both remotes contain the exact commits and both CI workflows pass, then resume from remote synchronization/CI monitoring.
+- Separate production blocker: do not deploy membership changes until `MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY` is resolved through the isolated migration-operator path.
+- Security: no credential, token, session, response body, entity identifier, or raw idempotency key is required or recorded.
+
 ## MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY — Restore isolated migration authority
 
 - Status: `WAITING_USER`
