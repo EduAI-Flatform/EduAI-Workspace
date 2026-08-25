@@ -2,38 +2,36 @@
 
 ## MANUAL:SPR24_005_PUSH_APPROVAL — Authorize or perform the SPR24-005 shared-main pushes
 
-- Status: `WAITING_USER`
+- Status: `VERIFIED`
 - Priority: `HIGH`
 - Related task: `SPR24-005`
-- Local readiness: Backend `8daafa3` and Frontend `2007db7` are committed; full unit/HTTP tests, schema validation, both builds, endpoint-security audit, and responsive 320px/1440px Chromium UAT pass.
-- Required action: explicitly authorize pushing Backend `8daafa3`, Frontend `2007db7`, and the focused Workspace SPR24-005 evidence commits to their configured `origin/main` branches, or push them through the approved repository workflow.
-- Verification: confirm all three remotes contain the reviewed commits and both product CI workflows pass, then resume from remote synchronization/CI monitoring.
-- Separate production blocker: do not deploy membership changes until `MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY` is resolved through the isolated migration-operator path.
-- Completion gate: after that blocker is resolved, deployment and production verification are required by the canonical `production_required` project profile before SPR24-005 may be marked `DONE`.
+- Required action: none.
+- Verified: Backend `origin/main` contains learner implementation `8daafa3`
+  and production fixes through `6853f8e`; Frontend `origin/main` contains
+  `2007db7`. Exact Backend CI run `32826933366`, production run `32826933359`,
+  Frontend CI run `32803805208`, and Frontend deploy run `32803805019` passed.
+- Production verification: bounded cross-role, responsive, concurrent same-key
+  membership checkout UAT converged on one authoritative pending order and one
+  safe audit event. Payment attempts, settlements, fulfillment effects, and
+  provider calls were zero; disposable plans were archived and health returned
+  HTTP `200`.
+- Evidence: `EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION`.
+- Blocks: none; `SPR24-005` is `DONE` and `SPR24-006` is active.
 - Security: no credential, token, session, response body, entity identifier, or raw idempotency key is required or recorded.
 
 ## MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY — Restore isolated migration authority
 
-- Status: `WAITING_USER`
+- Status: `VERIFIED`
 - Priority: `CRITICAL`
-- Related tasks: `SPR24-001`, `SPR24-007`.
-- Evidence: Backend `f3087e5` passed CI run `32708939182`. Deployment runs
-  `32708939079` and `32709524724` stopped before restart; sanitized diagnostic
-  run `32709934269` identified `MIGRATION_ROLE_PERMISSION_DENIED` for
-  `20260824160000_add_membership_product_type`.
-- Required action:
-  - Through the approved migration-operator path, verify the failed migration's
-    single enum-alter statement did not take effect, then mark that migration
-    rolled back with Prisma migrate resolve.
-  - Restore only the isolated migration credential's authority to alter the
-    existing Commerce product enum. Do not change the runtime credential,
-    runtime ownership, role membership, or any verified least-privilege
-    assertion.
-  - Rerun the normal Backend deployment and confirm both additive membership
-    migrations, runtime-role assertions, build, PM2 restart, public membership
-    routes, and readiness pass.
-- Blocks: Sprint 24 production deployment/release verification only. Local
-  `SPR24-001` acceptance is complete and `SPR24-002` remains runnable.
+- Related tasks: `SPR24-001`, `SPR24-005`, `SPR24-007`.
+- Required action: none.
+- Verified: the isolated migration authority was restored without changing the
+  runtime credential, ownership, membership, or least-privilege assertions.
+  Backend production runs `32803806580`, `32805845462`, `32825659187`, and
+  `32826933359` passed migration, runtime-role, build, PM2 restart, readiness,
+  and cleanup gates. Membership routes and bounded writes are live.
+- Evidence: `EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION`.
+- Blocks: none.
 - Security: retain no credentials, connection values, host/database/role names,
   row data, raw migration log, response bodies, or entity identifiers.
 

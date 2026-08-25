@@ -592,5 +592,10 @@
 | EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | TEST | Responsive learner checkout browser journey | PASS | npx.cmd playwright test --config=playwright.sprint24-learner.config.ts |
 | EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | BUILD | Schema, builds, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
 | EVIDENCE:SPR24-005:LOCAL-READINESS | SPR24-005 | OTHER | Security, privacy, dependency, and artifact review | PASS | staged diff, secret, generated-artifact, and five-axis review |
+| EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | TEST | Membership checkout production guard regressions | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand |
+| EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | BUILD | Schema, build, and endpoint security | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | DEPLOY | Exact-revision CI and production deployment | PASS | public GitHub Actions run and job metadata verification |
+| EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | TEST | Bounded production membership UAT and reconciliation | PASS | temporary credential-independent sanitized Playwright production harness; removed after completion |
+| EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | OTHER | Security and residual-risk review | PASS | npm.cmd audit --audit-level=high; staged diff and secret review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

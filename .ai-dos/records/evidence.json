@@ -7421,5 +7421,71 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION",
+    "taskId": "SPR24-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Membership checkout production guard regressions",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand",
+        "reference": "All 124 Backend unit suites and 677 tests, six HTTP suites and 46 tests, and 15 Prisma/PostgreSQL suites and 80 tests passed. The new PGlite transaction proves guarded draft-to-active membership products, immutable checkout-intent pricing, intrinsic duration discounts, exact line/order totals, and idempotency completion while course promotion allocation checks remain unchanged.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint security",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 35-file Prisma schema validates, the Backend production build passes, and all 230 endpoints are explicitly classified with zero implicit endpoints. Membership learner/admin routes remain authenticated and role-protected.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI and production deployment",
+        "command": "public GitHub Actions run and job metadata verification",
+        "reference": "Backend 6853f8e contains learner implementation 8daafa3 plus production fixes 9d62863 and 6853f8e; CI run 32826933366 and production run 32826933359 passed. Frontend 2007db7 CI run 32803805208 and deploy run 32803805019 passed. Backend deploy steps passed schema, build, tests, isolated migration, runtime grant/verifier, PM2 restart, readiness, and cleanup.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Bounded production membership UAT and reconciliation",
+        "command": "temporary credential-independent sanitized Playwright production harness; removed after completion",
+        "reference": "Unauthenticated and cross-role boundaries passed; the student live catalog exposed the administrator-defined VND base, 10 percent discount, and final price; 320px and 1440px UI had no overflow or runtime error. Two concurrent same-key requests returned 201 and converged on exactly one pending membership order and one safe audit event. Admin history remained immutable; payment attempts, settlements, fulfillment effects, and provider calls were zero. The owning disposable plan and all failed-attempt plans were archived, production health returned 200, and transient sessions/results were removed without inspection.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security and residual-risk review",
+        "command": "npm.cmd audit --audit-level=high; staged diff and secret review",
+        "reference": "No credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, or signature was retained. Provider activation and least-privilege controls were unchanged. Registry audit reported 13 pre-existing high transitive advisories whose offered remediations include unrelated breaking framework/toolchain upgrades; none was introduced by these dependency-free commits.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-25T15:38:46.3938478+07:00",
+    "commit": "6853f8e6c9b313d2f405c69158e05f7f5c0f9e2e",
+    "notes": "SPR24-005 satisfies its local, deployment, production concurrency, audit, reconciliation, and readiness gates. The production UAT exposed two database-guard integration defects; focused additive fixes preserve existing Commerce course, promotion, provider, and least-privilege invariants. SPR24-006 is now dependency-runnable.",
+    "extensions": {
+      "backendCommit": "6853f8e6c9b313d2f405c69158e05f7f5c0f9e2e",
+      "frontendCommit": "2007db776e378e327df07723c51f4ae0112e62b8",
+      "backendCiRunId": 32826933366,
+      "backendDeploymentRunId": 32826933359,
+      "frontendCiRunId": 32803805208,
+      "frontendDeploymentRunId": 32803805019,
+      "authoritativeOrderCount": 1,
+      "matchingAuditCount": 1,
+      "paymentAttemptCount": 0,
+      "settlementCount": 0,
+      "providerCallCount": 0,
+      "testEffectsReconciled": true,
+      "postUatHealthStatus": 200,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

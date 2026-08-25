@@ -1138,14 +1138,12 @@
     "schemaVersion": "1.0",
     "id": "MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY",
     "title": "Restore isolated migration authority for the existing Commerce enum",
-    "status": "WAITING_USER",
+    "status": "VERIFIED",
     "priority": "CRITICAL",
     "requiredAction": [
-      "Using the approved production migration-operator path, confirm the failed migration did not add the membership enum value, then mark 20260824160000_add_membership_product_type rolled back with Prisma migrate resolve.",
-      "Grant or restore only the isolated migration credential's authority to alter the existing Commerce product enum; do not change the runtime credential, runtime ownership, runtime memberships, or any verified least-privilege assertion.",
-      "Rerun the normal Backend deployment and retain only the sanitized migration status, exact revision/run identifiers, runtime least-privilege booleans, restart result, and readiness status."
+      "None; the isolated migration authority and production membership deployment are verified."
     ],
-    "reason": "Backend CI passed, but production deployment runs 32708939079 and 32709524724 failed before restart. Sanitized run 32709934269 classified the existing failed migration as MIGRATION_ROLE_PERMISSION_DENIED for 20260824160000_add_membership_product_type. Production remains on the prior healthy revision with no membership routes deployed.",
+    "reason": "The isolated migration authority was restored without changing runtime-role ownership or unsafe privileges. Exact Backend deployments 32803806580, 32805845462, 32825659187, and 32826933359 succeeded through migration, runtime-role, build, restart, and readiness gates; membership routes and bounded writes are live.",
     "retestSteps": [
       "Confirm the failed migration record is resolved only after verifying its single ALTER TYPE statement did not take effect.",
       "Rerun deployment and confirm both membership migrations apply with the isolated migration credential.",
@@ -1153,8 +1151,8 @@
       "Confirm PM2 restart, public API docs membership route count, and production readiness pass."
     ],
     "expectedResult": "The migration credential can apply reviewed additive membership migrations while the runtime credential remains unable to own, assume, bypass, or disable protected Commerce schema controls.",
-    "relatedTaskIds": ["SPR24-001", "SPR24-007"],
-    "blocks": ["SPRINT:24 production deployment and release verification"],
+    "relatedTaskIds": ["SPR24-001", "SPR24-005", "SPR24-007"],
+    "blocks": [],
     "extensions": {
       "backendFeatureCommit": "f3087e5",
       "diagnosticCommit": "a31d101",
@@ -1162,8 +1160,10 @@
       "failedDeploymentRunIds": [32708939079, 32709524724, 32709934269],
       "failedMigrationName": "20260824160000_add_membership_product_type",
       "migrationFailureClass": "MIGRATION_ROLE_PERMISSION_DENIED",
-      "applicationRestartReached": false,
-      "productionMembershipRoutesPresent": false,
+      "resolvedDeploymentRunIds": [32803806580, 32805845462, 32825659187, 32826933359],
+      "applicationRestartReached": true,
+      "productionMembershipRoutesPresent": true,
+      "runtimeRoleLeastPrivilegeReady": true,
       "runtimePrivilegeChangeAuthorized": false,
       "credentialMaterialRecorded": false,
       "roleIdentityRecorded": false,
@@ -1175,22 +1175,20 @@
     "schemaVersion": "1.0",
     "id": "MANUAL:SPR24_005_PUSH_APPROVAL",
     "title": "Authorize or perform the SPR24-005 shared-main pushes",
-    "status": "WAITING_USER",
+    "status": "VERIFIED",
     "priority": "HIGH",
     "requiredAction": [
-      "Explicitly authorize pushing Backend 8daafa3, Frontend 2007db7, and the focused Workspace SPR24-005 evidence commits to their configured origin/main branches, or push them through the approved repository workflow.",
-      "Confirm all three remotes accepted the reviewed commits, then identify and monitor the resulting Backend and Frontend CI runs to terminal state.",
-      "Do not attempt Sprint 24 production deployment until MANUAL:SPR24_MEMBERSHIP_MIGRATION_AUTHORITY is resolved through the isolated migration-operator path."
+      "None; the focused Backend, Frontend, and Workspace revisions are published through the approved workflow."
     ],
-    "reason": "Implementation, local tests, builds, endpoint-security audit, diff review, and 320px/1440px Chromium UAT pass. The managed approval gate rejected autonomous pushes to the shared default branches because the top-level user request did not explicitly authorize that external mutation.",
+    "reason": "Backend origin/main contains 8daafa3 and the production fixes through 6853f8e; Frontend origin/main contains 2007db7. Exact Backend CI runs 32803806545, 32805845443, 32825659083, and 32826933366 plus Frontend CI run 32803805208 succeeded.",
     "retestSteps": [
       "Verify origin/main resolves to Backend 8daafa3 and Frontend 2007db7 or descendants containing both commits, and that Workspace origin/main contains the focused SPR24-005 evidence commits.",
       "Confirm the relevant CI workflows pass for both repositories.",
       "Resume SPR24-005 from remote synchronization and CI monitoring; preserve the separate production migration blocker without claiming deployment or production UAT."
     ],
-    "expectedResult": "The reviewed commits are present on all three remotes and the Backend and Frontend CI workflows pass. SPR24-005 must then remain incomplete until the separate migration-authority blocker is resolved and the required deployment and production verification gates pass.",
+    "expectedResult": "The reviewed commits are present on all three remotes, both product CI workflows pass, and the separately required migration, deployment, and production verification gates complete before SPR24-005 is marked DONE.",
     "relatedTaskIds": ["SPR24-005"],
-    "blocks": ["SPR24-005 remote synchronization, CI verification, and canonical completion"],
+    "blocks": [],
     "extensions": {
       "backendCommit": "8daafa35cf0a10e08e66303dfdd6e301cafb9e46",
       "frontendCommit": "2007db776e378e327df07723c51f4ae0112e62b8",
@@ -1199,6 +1197,9 @@
       "workspaceBranch": "main",
       "approvalFailureClass": "SHARED_DEFAULT_BRANCH_PUSH_NOT_EXPLICITLY_AUTHORIZED",
       "localEvidenceId": "EVIDENCE:SPR24-005:LOCAL-READINESS",
+      "productionEvidenceId": "EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION",
+      "pushVerified": true,
+      "ciVerified": true,
       "credentialMaterialRecorded": false
     }
   }
