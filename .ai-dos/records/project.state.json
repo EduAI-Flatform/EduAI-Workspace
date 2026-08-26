@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-002",
+  "currentTaskId": "SPR25-003",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -84,8 +84,8 @@
     "SPR24-006": "DONE",
     "SPR24-007": "DONE",
     "SPR25-001": "DONE",
-    "SPR25-002": "IN_PROGRESS",
-    "SPR25-003": "TODO",
+    "SPR25-002": "DONE",
+    "SPR25-003": "IN_PROGRESS",
     "SPR25-004": "TODO",
     "SPR25-005": "TODO",
     "SPR25-006": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY",
-  "updatedAt": "2026-08-26T11:44:44.2208474+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-002:PAYMENT-REQUEST-QR-CHECKOUT",
+  "updatedAt": "2026-08-26T16:37:48.9613904+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1205,10 +1205,29 @@
       "credentialMaterialRecorded": false
     },
     "sprint25PaymentRequestCheckout": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-26T11:44:44.2208474+07:00",
       "selectionReason": "SPR25-001 completed the provider boundary and secure disabled-by-default configuration; SPR25-002 is now the highest-priority dependency-runnable Sprint 25 task with SPR23-003 and SPR24-005 complete.",
       "taskId": "SPR25-002",
+      "backendCommit": "987b5ebb114f5a86e6211b913db8e91d9b1adb9b",
+      "frontendCommit": "d8d5b2d32d13c490fb97307d6df54b1d75419581",
+      "evidenceId": "EVIDENCE:SPR25-002:PAYMENT-REQUEST-QR-CHECKOUT",
+      "backendCiRunId": 32953414263,
+      "backendDeploymentRunId": 32953414268,
+      "frontendCiRunId": 32953414859,
+      "frontendDeploymentRunId": 32953414849,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-26T16:37:48.9613904+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25WebhookIngestion": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-26T16:37:48.9613904+07:00",
+      "selectionReason": "SPR25-002 completed the expiring payment-request and learner QR boundary; SPR25-003 is now the highest-priority dependency-runnable Sprint 25 task.",
+      "taskId": "SPR25-003",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

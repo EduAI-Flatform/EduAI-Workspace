@@ -78,8 +78,8 @@
 | SPR24-006 | Preserve Removed-Course Learning Continuity | DONE |  |
 | SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | DONE |  |
 | SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | DONE |  |
-| SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | IN_PROGRESS | YES |
-| SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | TODO |  |
+| SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | DONE |  |
+| SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | IN_PROGRESS | YES |
 | SPR25-004 | Fulfill Course and Membership Orders Atomically | TODO |  |
 | SPR25-005 | Reconcile Pending Payments and Expose Payment Review | TODO |  |
 | SPR25-006 | Handle Payment Expiry, Cancellation, and Audited Manual Refunds | TODO |  |

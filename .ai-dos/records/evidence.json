@@ -7702,5 +7702,77 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-002:PAYMENT-REQUEST-QR-CHECKOUT",
+    "taskId": "SPR25-002",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Payment request, migration, and frontend checkout contracts",
+        "command": "npm.cmd test -- --runInBand src/modules/payments/payment-request.service.spec.ts; npm.cmd run test:demo-data -- --runInBand prisma/payment-request-migration.spec.ts; npm.cmd test -- --run src/features/payments/PaymentCheckout.test.tsx src/features/commerce/CartPage.test.tsx src/features/memberships/MembershipPage.test.tsx",
+        "reference": "Backend payment orchestration passed 8 focused cases, the additive migration passed 2 immutable-identity cases, and the Frontend passed 13 focused cases. Coverage proves one open attempt, stable safe-integer PayOS orderCode, authoritative VND amount and bounded description/URLs/expiry, transaction commit before provider call, ownership isolation, disabled-provider fail-closed behavior, ambiguous timeout/malformed-response reconciliation, deterministic rejection, server-audited zero-payment confirmation, safe QR/HTTPS rendering, and local-only status polling.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend, Frontend, HTTP, and persistence regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand; npm.cmd test -- --run",
+        "reference": "Backend passed 127 unit suites and 701 tests plus six HTTP suites and 46 tests. Prisma/PostgreSQL passed 17 suites and 84 tests with one suite and two tests intentionally skipped by the existing harness. Frontend passed 77 files and 213 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, production builds, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 35-file Prisma schema validates, Backend and Frontend production builds pass, and all 233 Backend endpoints are explicitly classified with zero implicit endpoints. Both new payment request routes are protected.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Responsive server-authoritative QR checkout",
+        "command": "npx.cmd playwright test sprint24-membership-learner.spec.ts --project=chromium --no-deps --reporter=line",
+        "reference": "Two credential-independent Chromium cases pass at 320px and 1440px. The learner sees only server-returned order reference, VND amount, expiry, QR data image, HTTPS PayOS link, pending guidance, and the explicit statement that browser return does not settle payment; neither viewport has horizontal overflow.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, production deployment, and readiness",
+        "command": "public GitHub Actions run/job metadata and body-discarding HTTPS status checks",
+        "reference": "Backend 987b5ebb114f5a86e6211b913db8e91d9b1adb9b passed CI run 32953414263 and deployment run 32953414268 attempt 1, including the workflow's isolated migration, runtime-role verification, build, PM2 restart, and readiness sequence. Frontend d8d5b2d32d13c490fb97307d6df54b1d75419581 passed CI run 32953414859 and deployment run 32953414849 attempt 1. Public Backend health/docs and Frontend root/membership returned HTTP 200; unauthenticated GET and POST payment-request routes returned HTTP 401.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, dependency, provider activation, and diff review",
+        "command": "npm.cmd audit --omit=dev --audit-level=high; git diff --check; staged credential-material scan; multi-axis review",
+        "reference": "The new payment flow adds no package dependency and preserves the existing audit baseline: Backend dependency audit reports nine high and eighteen moderate pre-existing framework/toolchain advisories, while Frontend reports two moderate pre-existing React Router advisories; offered remediations require unrelated breaking upgrades. Authentication, student role and ownership checks, hashed idempotency keys, immutable payment facts, serializable concurrency, reconciliation, and least-privilege controls remain enforced. PayOS production activation remained disabled, provider call count was zero, and no credential, response body, entity identifier, raw idempotency key, provider payload, checkout link, QR payload, or signature was retained in canonical evidence.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-26T16:37:48.9613904+07:00",
+    "commit": "987b5ebb114f5a86e6211b913db8e91d9b1adb9b",
+    "notes": "SPR25-002 satisfies its canonical acceptance criteria and production-required execution profile. Payable course and membership orders now create one expiring provider request outside database transactions; zero-payable orders use the existing explicit internal settlement authority. The browser displays provider facts but never confirms payment. Live PayOS calls, webhook settlement, and fulfillment remain independently disabled or unimplemented until their later Sprint 25 gates.",
+    "extensions": {
+      "backendCommit": "987b5ebb114f5a86e6211b913db8e91d9b1adb9b",
+      "frontendCommit": "d8d5b2d32d13c490fb97307d6df54b1d75419581",
+      "backendCiRunId": 32953414263,
+      "backendDeploymentRunId": 32953414268,
+      "frontendCiRunId": 32953414859,
+      "frontendDeploymentRunId": 32953414849,
+      "successfulBackendDeploymentAttempt": 1,
+      "successfulFrontendDeploymentAttempt": 1,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionHealthStatus": 200,
+      "paymentRoutesUnauthenticatedStatus": 401,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]
