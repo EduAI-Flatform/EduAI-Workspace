@@ -203,7 +203,7 @@
     "taskIds": ["SPR24-001", "SPR24-002", "SPR24-003", "SPR24-004", "SPR24-005", "SPR24-006", "SPR24-007"],
     "dependencies": ["SPRINT:23"],
     "exitCriteria": ["Plans, durations, prices, discounts, services, quotas, and included courses are configurable and versioned.", "Membership access, renewal, plan changes, removed-course grace, tests, and UAT pass."],
-    "status": "IN_PROGRESS",
+    "status": "COMPLETED",
     "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-24", "phase": "PHASE_3", "track": "MEMBERSHIP_ENTITLEMENTS"}
   },
   {
@@ -216,7 +216,7 @@
     "taskIds": ["SPR25-001", "SPR25-002", "SPR25-003", "SPR25-004", "SPR25-005", "SPR25-006", "SPR25-007"],
     "dependencies": ["SPRINT:23", "SPRINT:24"],
     "exitCriteria": ["Signed idempotent webhooks are the authoritative payment transition.", "Course and membership fulfillment, reconciliation, refunds, security, deployment, and production UAT pass."],
-    "status": "PLANNED",
+    "status": "IN_PROGRESS",
     "extensions": {"source": "EduAI_Docs/docs/tasks_3.0/sprint-25", "phase": "PHASE_3", "track": "PAYOS_SETTLEMENT"}
   },
   {

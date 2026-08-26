@@ -7633,5 +7633,74 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY",
+    "taskId": "SPR25-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "PayOS configuration, normalization, failure, and privacy contracts",
+        "command": "npm.cmd test -- --runInBand src/config/env.validation.spec.ts src/modules/payments/payos-payment.provider.spec.ts",
+        "reference": "Two focused suites and 23 tests pass. They prove fail-closed disabled defaults, complete production-only secret and HTTPS URL requirements, official API-origin and timeout bounds, normalized create/retrieve/cancel/reconcile/webhook results, amount/order/currency matching, malformed external-data rejection, explicit timeout/rejection/signature mapping, disabled SDK logging and zero raw error logging.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend and persistence regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand",
+        "reference": "All 126 Backend unit suites and 693 tests, six HTTP suites and 46 tests, and 16 passing Prisma/PostgreSQL suites with 82 passing tests completed. One Prisma suite and two tests remain intentionally skipped by the existing harness.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints",
+        "reference": "The merged 35-file Prisma schema validates, the strict NestJS production build passes, and all 231 HTTP endpoints are explicitly classified with zero implicit endpoints. SPR25-001 adds no payment route, migration, settlement transition, or Commerce authorization change.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Official PayOS source and deployment-contract review",
+        "command": "official PayOS environment, API, and Node SDK review; environment-example and handoff review",
+        "reference": "Official documentation confirms PayOS exposes only its production Merchant API and no sandbox/staging API. The pinned official Node SDK is configured with logging off, automatic retries disabled, the official API origin, and a bounded timeout. PAYOS_ENVIRONMENT accepts disabled or production; disabled is the default and creates no SDK client. Production mode requires NODE_ENV=production, all three server-only secrets, and validated HTTPS return, cancel, and webhook URLs.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, deployment, and readiness",
+        "command": "public GitHub Actions run/job metadata and status-only HTTPS readiness verification",
+        "reference": "Backend 90dab4332ef4ec2d49f4d69f68c9c72a3fe038e4 passed CI run 32930723404. Deployment run 32930723402 passed validation; its first VPS attempt failed transiently at the unchanged database-migration stage with no failed-migration annotation, then bounded rerun attempt 2 passed the VPS deployment and notification jobs without a code or schema change. The canonical public API health route and API documentation returned HTTP 200 after deployment.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, dependency, provider-activation, and diff review",
+        "command": "npm.cmd audit --omit=dev --audit-level=high; npm.cmd ls @payos/node --depth=0; git diff --check; final multi-axis review",
+        "reference": "The official SDK is pinned at 2.0.5 and adds no transitive package. Production dependency audit reports nine pre-existing high transitive advisories whose offered remediations include unrelated or breaking framework/toolchain upgrades. Payment activation remained disabled by default, no payment/provider entry point or caller was added, and no PayOS request, real payment, credential, response body, provider payload, payment link, QR payload, signature, session, entity identifier, or raw idempotency key was used or retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-26T11:44:44.2208474+07:00",
+    "commit": "90dab4332ef4ec2d49f4d69f68c9c72a3fe038e4",
+    "notes": "SPR25-001 satisfies its canonical acceptance criteria and production-required execution profile. Commerce depends only on a provider-neutral PaymentProvider contract; PayOS types remain inside the Payments adapter. External results are schema-checked and mapped to sanitized stable errors. Live PayOS activation, request creation, webhook ingestion, settlement, and fulfillment remain independently gated for later Sprint 25 tasks.",
+    "extensions": {
+      "backendCommit": "90dab4332ef4ec2d49f4d69f68c9c72a3fe038e4",
+      "backendCiRunId": 32930723404,
+      "backendDeploymentRunId": 32930723402,
+      "successfulDeploymentAttempt": 2,
+      "payosSdkVersion": "2.0.5",
+      "payosEnvironmentDefault": "disabled",
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionHealthStatus": 200,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-001",
+  "currentTaskId": "SPR25-002",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -83,8 +83,8 @@
     "SPR24-005": "DONE",
     "SPR24-006": "DONE",
     "SPR24-007": "DONE",
-    "SPR25-001": "IN_PROGRESS",
-    "SPR25-002": "TODO",
+    "SPR25-001": "DONE",
+    "SPR25-002": "IN_PROGRESS",
     "SPR25-003": "TODO",
     "SPR25-004": "TODO",
     "SPR25-005": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION",
-  "updatedAt": "2026-08-26T11:14:21.3493259+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY",
+  "updatedAt": "2026-08-26T11:44:44.2208474+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1188,10 +1188,27 @@
       "credentialMaterialRecorded": false
     },
     "sprint25PaymentProviderBoundary": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-26T11:14:21.3493259+07:00",
       "selectionReason": "SPR24-007 closed the membership release gate; SPR25-001 is the highest-priority dependency-runnable Sprint 25 task and depends on completed SPR23-002.",
       "taskId": "SPR25-001",
+      "backendCommit": "90dab4332ef4ec2d49f4d69f68c9c72a3fe038e4",
+      "evidenceId": "EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY",
+      "backendCiRunId": 32930723404,
+      "backendDeploymentRunId": 32930723402,
+      "successfulDeploymentAttempt": 2,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-26T11:44:44.2208474+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25PaymentRequestCheckout": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-26T11:44:44.2208474+07:00",
+      "selectionReason": "SPR25-001 completed the provider boundary and secure disabled-by-default configuration; SPR25-002 is now the highest-priority dependency-runnable Sprint 25 task with SPR23-003 and SPR24-005 complete.",
+      "taskId": "SPR25-002",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

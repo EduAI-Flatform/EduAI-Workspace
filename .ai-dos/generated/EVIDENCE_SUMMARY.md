@@ -609,5 +609,11 @@
 | EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | DEPLOY | Exact deployed release revisions | PASS | origin/main, public workflow, production route, and readiness verification |
 | EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | TEST | Single bounded production membership UAT and reconciliation | PASS | fresh three-role normal login; one temporary sanitized Playwright scenario; read-only reconciliation; complete artifact cleanup |
 | EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --audit-level=high; git diff --check; final artifact and secret review |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | TEST | PayOS configuration, normalization, failure, and privacy contracts | PASS | npm.cmd test -- --runInBand src/config/env.validation.spec.ts src/modules/payments/payos-payment.provider.spec.ts |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | TEST | Complete Backend and persistence regression | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | BUILD | Schema, build, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | OTHER | Official PayOS source and deployment-contract review | PASS | official PayOS environment, API, and Node SDK review; environment-example and handoff review |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | DEPLOY | Exact-revision CI, deployment, and readiness | PASS | public GitHub Actions run/job metadata and status-only HTTPS readiness verification |
+| EVIDENCE:SPR25-001:PAYMENT-PROVIDER-BOUNDARY | SPR25-001 | OTHER | Security, dependency, provider-activation, and diff review | PASS | npm.cmd audit --omit=dev --audit-level=high; npm.cmd ls @payos/node --depth=0; git diff --check; final multi-axis review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
