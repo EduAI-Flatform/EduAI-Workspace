@@ -7558,5 +7558,80 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION",
+    "taskId": "SPR24-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Complete membership lifecycle and authorization regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand",
+        "reference": "All 125 Backend unit suites and 685 tests, six HTTP suites and 46 tests, and 16 passing PostgreSQL suites with 82 passing tests completed on the exact deployed Backend revision. Focused 16-suite/90-test and eight-PostgreSQL-suite/24-test matrices additionally cover plan versions, dynamic duration pricing, renewal/change timing, atomic quota consumption, centralized course access, grace/expiry, progress preservation, active-user enforcement, and notification regression.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete learner/admin UX and role regression",
+        "command": "npm.cmd test; credential-independent Sprint 24 Playwright matrix",
+        "reference": "All 76 Frontend test files and 209 tests passed. Five focused files and 25 tests plus five Chromium checks passed for live membership contracts, notification UI, anonymous/student/instructor/administrator routing, explicit checkout confirmation, renewal disclosures, and 320px/1440px layouts without overflow, runtime failures, network failures, or Stitch-data violations.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, and endpoint-security release gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build",
+        "reference": "The merged 35-file Prisma schema validates, Backend and Frontend production builds pass, and all 231 Backend endpoints have explicit security classification with zero implicit endpoints. Membership learner routes remain student-only; plan and emergency-revocation routes remain platform-administrator-only; suspended valid-token access is rejected by the live user-status guard.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact deployed release revisions",
+        "command": "origin/main, public workflow, production route, and readiness verification",
+        "reference": "Backend 4c85668337696f373954577a3fae9c2afad504d6 and Frontend 93125437013e9f5df8050df690de018d72e4149e remain clean, pushed, and deployed through successful CI and production workflows. Production membership page and API health returned 200, protected APIs returned the expected unauthenticated boundary, and the deployed OpenAPI contract contains the bearer-protected membership administration surface.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Single bounded production membership UAT and reconciliation",
+        "command": "fresh three-role normal login; one temporary sanitized Playwright scenario; read-only reconciliation; complete artifact cleanup",
+        "reference": "Anonymous, instructor, administrator, and student boundaries passed. Exactly one dedicated non-sensitive plan and published version exposed authoritative VND three-month pricing with a 10 percent discount and 324000 final minor-unit amount. Two concurrent same-key checkout requests converged on one pending order and one safe checkout audit. Immutable administrator history remained readable; payment attempts, settlements, fulfillment effects, and provider requests were zero. The plan was archived, disappeared from learner catalog, the immutable order remained readable, production health returned 200, and all transient auth states, test results, diagnostics, and UAT sources were removed without content inspection.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, privacy, and dependency review",
+        "command": "npm.cmd audit --audit-level=high; git diff --check; final artifact and secret review",
+        "reference": "No application, dependency, or lockfile change was required for the release gate. Backend retains 13 pre-existing high transitive advisories and Frontend retains two moderate React Router advisories whose offered fixes require unrelated or breaking upgrades. No PayOS call, real payment, fulfillment, emergency revocation, credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, or signature was retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-26T11:14:21.3493259+07:00",
+    "commit": "4c85668337696f373954577a3fae9c2afad504d6",
+    "notes": "SPR24-007 closes the Sprint 24 membership release gate with complete local regression, exact-revision deployment, cross-role production UAT, immutable order/audit verification, and reconciliation. The initial mutation-free harness attempt failed before plan creation because origin-scoped auth state was read from about:blank; a corrected run created the single authorized target. Its final assertion used the wrong audit DTO field names, but the cleanup archived the target; a read-only pass using canonical targetId and metadataJson fields then proved every remaining assertion without creating a second target. Payment/provider activation and safety-critical emergency revocation were not exercised.",
+    "extensions": {
+      "backendCommit": "4c85668337696f373954577a3fae9c2afad504d6",
+      "frontendCommit": "93125437013e9f5df8050df690de018d72e4149e",
+      "backendCiRunId": 32875058065,
+      "backendDeploymentRunId": 32875058067,
+      "frontendCiRunId": 32875056294,
+      "frontendDeploymentRunId": 32875056310,
+      "dedicatedPlanCount": 1,
+      "publishedVersionCount": 1,
+      "authoritativeOrderCount": 1,
+      "matchingAuditCount": 1,
+      "paymentAttemptCount": 0,
+      "settlementCount": 0,
+      "providerCallCount": 0,
+      "testEffectsReconciled": true,
+      "postUatHealthStatus": 200,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

@@ -76,8 +76,8 @@
 | SPR24-004 | Deliver Membership Administration | DONE |  |
 | SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | DONE |  |
 | SPR24-006 | Preserve Removed-Course Learning Continuity | DONE |  |
-| SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | IN_PROGRESS | YES |
-| SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | TODO |  |
+| SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | DONE |  |
+| SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | IN_PROGRESS | YES |
 | SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | TODO |  |
 | SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | TODO |  |
 | SPR25-004 | Fulfill Course and Membership Orders Atomically | TODO |  |

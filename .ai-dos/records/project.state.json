@@ -5,8 +5,8 @@
   "projectId": "EDUAI:PLATFORM",
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
-  "currentSprintId": "SPRINT:24",
-  "currentTaskId": "SPR24-007",
+  "currentSprintId": "SPRINT:25",
+  "currentTaskId": "SPR25-001",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -82,8 +82,8 @@
     "SPR24-004": "DONE",
     "SPR24-005": "DONE",
     "SPR24-006": "DONE",
-    "SPR24-007": "IN_PROGRESS",
-    "SPR25-001": "TODO",
+    "SPR24-007": "DONE",
+    "SPR25-001": "IN_PROGRESS",
     "SPR25-002": "TODO",
     "SPR25-003": "TODO",
     "SPR25-004": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION",
-  "updatedAt": "2026-08-26T10:52:21.3078369+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION",
+  "updatedAt": "2026-08-26T11:14:21.3493259+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1168,10 +1168,30 @@
       "credentialMaterialRecorded": false
     },
     "sprint24MembershipVerification": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-26T10:52:21.3078369+07:00",
       "selectionReason": "SPR24-006 completed continuity, deployment, authorization-contract, and production-readiness gates; SPR24-007 is now the only dependency-runnable Sprint 24 task.",
       "taskId": "SPR24-007",
+      "backendCommit": "4c85668337696f373954577a3fae9c2afad504d6",
+      "frontendCommit": "93125437013e9f5df8050df690de018d72e4149e",
+      "evidenceId": "EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION",
+      "productionDeploymentVerified": true,
+      "boundedUatPassed": true,
+      "dedicatedPlanCount": 1,
+      "authoritativeOrderCount": 1,
+      "matchingAuditCount": 1,
+      "paymentAttemptCount": 0,
+      "settlementCount": 0,
+      "providerCallCount": 0,
+      "testEffectsReconciled": true,
+      "completedAt": "2026-08-26T11:14:21.3493259+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25PaymentProviderBoundary": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-26T11:14:21.3493259+07:00",
+      "selectionReason": "SPR24-007 closed the membership release gate; SPR25-001 is the highest-priority dependency-runnable Sprint 25 task and depends on completed SPR23-002.",
+      "taskId": "SPR25-001",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

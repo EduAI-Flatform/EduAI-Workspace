@@ -603,5 +603,11 @@
 | EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | DEPLOY | Exact-revision CI and production deployment | PASS | public GitHub Actions run and job metadata verification |
 | EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | TEST | Read-only production readiness and authorization contract | PASS | status/content-type-only HTTPS checks and in-memory OpenAPI boolean inspection |
 | EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | OTHER | Security, provider, dependency, and residual-risk review | PASS | npm.cmd audit --audit-level=high; git diff --check; focused five-axis review |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | TEST | Complete membership lifecycle and authorization regression | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | TEST | Complete learner/admin UX and role regression | PASS | npm.cmd test; credential-independent Sprint 24 Playwright matrix |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | BUILD | Schema, build, and endpoint-security release gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | DEPLOY | Exact deployed release revisions | PASS | origin/main, public workflow, production route, and readiness verification |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | TEST | Single bounded production membership UAT and reconciliation | PASS | fresh three-role normal login; one temporary sanitized Playwright scenario; read-only reconciliation; complete artifact cleanup |
+| EVIDENCE:SPR24-007:MEMBERSHIP-RELEASE-VERIFICATION | SPR24-007 | OTHER | Security, privacy, and dependency review | PASS | npm.cmd audit --audit-level=high; git diff --check; final artifact and secret review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
