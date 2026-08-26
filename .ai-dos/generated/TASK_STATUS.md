@@ -75,8 +75,8 @@
 | SPR24-003 | Add Included-Course Mappings and Centralized Access Grants | DONE |  |
 | SPR24-004 | Deliver Membership Administration | DONE |  |
 | SPR24-005 | Deliver Learner Membership Catalog, Renewal, and Plan Change | DONE |  |
-| SPR24-006 | Preserve Removed-Course Learning Continuity | IN_PROGRESS | YES |
-| SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | TODO |  |
+| SPR24-006 | Preserve Removed-Course Learning Continuity | DONE |  |
+| SPR24-007 | Verify Membership Lifecycle, Authorization, and Production UX | IN_PROGRESS | YES |
 | SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | TODO |  |
 | SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | TODO |  |
 | SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | TODO |  |

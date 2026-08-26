@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:24",
-  "currentTaskId": "SPR24-006",
+  "currentTaskId": "SPR24-007",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -81,8 +81,8 @@
     "SPR24-003": "DONE",
     "SPR24-004": "DONE",
     "SPR24-005": "DONE",
-    "SPR24-006": "IN_PROGRESS",
-    "SPR24-007": "TODO",
+    "SPR24-006": "DONE",
+    "SPR24-007": "IN_PROGRESS",
     "SPR25-001": "TODO",
     "SPR25-002": "TODO",
     "SPR25-003": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION",
-  "updatedAt": "2026-08-25T15:38:46.3938478+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION",
+  "updatedAt": "2026-08-26T10:52:21.3078369+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1147,10 +1147,31 @@
       "credentialMaterialRecorded": false
     },
     "sprint24RemovedCourseContinuity": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-25T15:38:46.3938478+07:00",
       "selectionReason": "SPR24-005 completed local, deployment, production concurrency, audit, and reconciliation gates; SPR24-006 is now the highest-priority dependency-runnable Sprint 24 task and depends on completed SPR24-003 and SPR24-005.",
       "taskId": "SPR24-006",
+      "backendCommit": "4c85668337696f373954577a3fae9c2afad504d6",
+      "frontendCommit": "93125437013e9f5df8050df690de018d72e4149e",
+      "evidenceId": "EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION",
+      "backendCiRunId": 32875058065,
+      "backendDeploymentRunId": 32875058067,
+      "frontendCiRunId": 32875056294,
+      "frontendDeploymentRunId": 32875056310,
+      "localAcceptanceCriteriaSatisfied": true,
+      "ciRunVerified": true,
+      "productionDeploymentVerified": true,
+      "productionReadOnlyVerificationPerformed": true,
+      "emergencyProductionMutationPerformed": false,
+      "providerActivationChanged": false,
+      "completedAt": "2026-08-26T10:52:21.3078369+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint24MembershipVerification": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-26T10:52:21.3078369+07:00",
+      "selectionReason": "SPR24-006 completed continuity, deployment, authorization-contract, and production-readiness gates; SPR24-007 is now the only dependency-runnable Sprint 24 task.",
+      "taskId": "SPR24-007",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

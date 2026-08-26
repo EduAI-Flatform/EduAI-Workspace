@@ -7487,5 +7487,76 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION",
+    "taskId": "SPR24-006",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Removed-course continuity, grace, and emergency-revocation regressions",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand",
+        "reference": "All 125 Backend unit suites and 685 tests, six HTTP suites and 46 tests, and 16 passing Prisma/PostgreSQL suites with 82 passing tests completed. Focused coverage proves continuous versus lapsed terms, started versus unstarted courses, zero and bounded custom grace, immutable removal snapshots, idempotent grant activation, completion during grace, independent purchase-grant survival, near-expiry notices, and separately authorized immutable administrator revocation audit behavior.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Renewal disclosure and responsive learner UX",
+        "command": "npm.cmd test; npx.cmd playwright test --config=playwright.spr24-continuity.config.ts",
+        "reference": "All 76 Frontend test files and 209 tests passed. Two credential-independent Chromium journeys passed at 320px and 1440px, proving latest-version removed-course disclosure, exact grace-expiry or no-grace messaging, progress and certificate preservation messaging, near-expiry notice rendering, and no horizontal overflow, runtime error, network error, or Stitch-data violation. Temporary browser configuration and artifacts were removed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, builds, and endpoint-security gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build",
+        "reference": "The merged 35-file Prisma schema validates, both production builds pass, and all 231 Backend endpoints are explicitly classified with zero implicit endpoints. The emergency course-access revocation command remains under the platform-administrator JwtAuthGuard and RolesGuard boundary; learner continuity reads remain owner-scoped.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI and production deployment",
+        "command": "public GitHub Actions run and job metadata verification",
+        "reference": "Backend 4c85668337696f373954577a3fae9c2afad504d6 passed CI run 32875058065 and production deployment run 32875058067, including validation/build/test and VPS deployment jobs. Frontend 93125437013e9f5df8050df690de018d72e4149e passed CI run 32875056294 and production deployment run 32875056310. Both local heads exactly match origin/main.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Read-only production readiness and authorization contract",
+        "command": "status/content-type-only HTTPS checks and in-memory OpenAPI boolean inspection",
+        "reference": "The deployed membership page returned 200 HTML, the actual API health route returned 200 JSON, and the prefixed learner membership catalog rejected an unauthenticated request with 401 JSON. Production OpenAPI exposes the emergency-revocation POST operation with bearer security. No mutation-shaped probe, authenticated safety-critical action, response body, session, or identifier was retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Security, provider, dependency, and residual-risk review",
+        "command": "npm.cmd audit --audit-level=high; git diff --check; focused five-axis review",
+        "reference": "No dependency or lockfile changed. Backend registry audit retains 13 pre-existing high transitive advisories and Frontend retains two moderate React Router advisories whose offered remediations require unrelated breaking upgrades. Membership grace is additive and future-bounded; revocation targets only membership-derived grants and preserves independent access, progress, submissions, and certificates. Payment/provider activation, settlement authority, runtime database privileges, and existing concurrency controls were unchanged. No secret or prohibited operational data was retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-26T10:52:21.3078369+07:00",
+    "commit": "4c85668337696f373954577a3fae9c2afad504d6",
+    "notes": "SPR24-006 satisfies its canonical acceptance criteria and production-required execution profile. Regular membership access remains valid through the purchased term; renewal snapshots removed courses and creates explicit bounded grace only for started courses when policy permits. The settlement boundary intentionally does not activate access from a pending checkout; later fulfillment must call the idempotent grace activation interface inside its transaction. No live emergency revocation or payment/provider mutation was performed because safety-critical actions require separate authorization.",
+    "extensions": {
+      "backendCommit": "4c85668337696f373954577a3fae9c2afad504d6",
+      "frontendCommit": "93125437013e9f5df8050df690de018d72e4149e",
+      "backendCiRunId": 32875058065,
+      "backendDeploymentRunId": 32875058067,
+      "frontendCiRunId": 32875056294,
+      "frontendDeploymentRunId": 32875056310,
+      "productionHealthStatus": 200,
+      "unauthenticatedCatalogStatus": 401,
+      "emergencyRouteDeployed": true,
+      "emergencyProductionMutationPerformed": false,
+      "providerActivationChanged": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

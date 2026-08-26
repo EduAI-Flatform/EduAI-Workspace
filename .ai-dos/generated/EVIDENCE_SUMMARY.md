@@ -597,5 +597,11 @@
 | EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | DEPLOY | Exact-revision CI and production deployment | PASS | public GitHub Actions run and job metadata verification |
 | EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | TEST | Bounded production membership UAT and reconciliation | PASS | temporary credential-independent sanitized Playwright production harness; removed after completion |
 | EVIDENCE:SPR24-005:PRODUCTION-VERIFICATION | SPR24-005 | OTHER | Security and residual-risk review | PASS | npm.cmd audit --audit-level=high; staged diff and secret review |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | TEST | Removed-course continuity, grace, and emergency-revocation regressions | PASS | npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | TEST | Renewal disclosure and responsive learner UX | PASS | npm.cmd test; npx.cmd playwright test --config=playwright.spr24-continuity.config.ts |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | BUILD | Schema, builds, and endpoint-security gates | PASS | npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; npm.cmd run build |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | DEPLOY | Exact-revision CI and production deployment | PASS | public GitHub Actions run and job metadata verification |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | TEST | Read-only production readiness and authorization contract | PASS | status/content-type-only HTTPS checks and in-memory OpenAPI boolean inspection |
+| EVIDENCE:SPR24-006:CONTINUITY-VERIFICATION | SPR24-006 | OTHER | Security, provider, dependency, and residual-risk review | PASS | npm.cmd audit --audit-level=high; git diff --check; focused five-axis review |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.
