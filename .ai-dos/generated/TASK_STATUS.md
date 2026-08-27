@@ -80,8 +80,8 @@
 | SPR25-001 | Add Payment-Provider Boundary and Secure PayOS Configuration | DONE |  |
 | SPR25-002 | Create PayOS Payment Requests and Learner QR Checkout | DONE |  |
 | SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | DONE |  |
-| SPR25-004 | Fulfill Course and Membership Orders Atomically | IN_PROGRESS | YES |
-| SPR25-005 | Reconcile Pending Payments and Expose Payment Review | TODO |  |
+| SPR25-004 | Fulfill Course and Membership Orders Atomically | DONE |  |
+| SPR25-005 | Reconcile Pending Payments and Expose Payment Review | IN_PROGRESS | YES |
 | SPR25-006 | Handle Payment Expiry, Cancellation, and Audited Manual Refunds | TODO |  |
 | SPR25-007 | Verify PayOS Security, Failure Recovery, and Production UAT | TODO |  |
 | SPR26-001 | Define Authoritative Commerce Analytics Metrics and Privacy Rules | TODO |  |

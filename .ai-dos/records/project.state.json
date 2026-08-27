@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-004",
+  "currentTaskId": "SPR25-005",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -86,8 +86,8 @@
     "SPR25-001": "DONE",
     "SPR25-002": "DONE",
     "SPR25-003": "DONE",
-    "SPR25-004": "IN_PROGRESS",
-    "SPR25-005": "TODO",
+    "SPR25-004": "DONE",
+    "SPR25-005": "IN_PROGRESS",
     "SPR25-006": "TODO",
     "SPR25-007": "TODO",
     "SPR26-001": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-003:SIGNED-WEBHOOK-INGESTION",
-  "updatedAt": "2026-08-27T08:47:16.3557245+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-004:ATOMIC-ORDER-FULFILLMENT",
+  "updatedAt": "2026-08-27T09:37:48.9953494+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1245,10 +1245,27 @@
       "credentialMaterialRecorded": false
     },
     "sprint25AtomicFulfillment": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-27T08:47:16.3557245+07:00",
       "selectionReason": "SPR25-003 completed authoritative signed and idempotent PayOS settlement ingestion; SPR25-004 is now the highest-priority dependency-runnable Sprint 25 task with SPR24-003 complete.",
       "taskId": "SPR25-004",
+      "backendCommit": "e662d8a0ab3bb8c1bb5a470f2bcea1fa77f09f9e",
+      "backendVerificationCommit": "c3f6832b4f6e805150800f5976cc7fca4b35846c",
+      "evidenceId": "EVIDENCE:SPR25-004:ATOMIC-ORDER-FULFILLMENT",
+      "backendCiRunId": 33033605735,
+      "backendDeploymentRunId": 33033605812,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-27T09:37:48.9953494+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25PaymentReconciliation": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-27T09:37:48.9953494+07:00",
+      "selectionReason": "SPR25-004 completed atomic exactly-once course and membership fulfillment; SPR25-005 is now the highest-priority dependency-runnable Sprint 25 task.",
+      "taskId": "SPR25-005",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

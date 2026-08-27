@@ -7846,5 +7846,72 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-004:ATOMIC-ORDER-FULFILLMENT",
+    "taskId": "SPR25-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Atomic fulfillment, retry, mixed-order, membership, and access contracts",
+        "command": "node ./node_modules/jest/bin/jest.js --runInBand src/modules/payments/commerce-fulfillment.service.spec.ts src/modules/payments/payment-webhook.service.spec.ts src/modules/payments/payment-request.service.spec.ts src/modules/memberships/membership-checkout.service.spec.ts src/modules/access/course-access.service.spec.ts src/modules/access/course-access.rules.spec.ts",
+        "reference": "Six focused suites and 49 tests pass. Coverage proves perpetual course-purchase grants, immutable purchased membership version and term windows, included-course and service grants, mixed course/membership fulfillment before completion, learner-serialized pending membership changes, idempotent existing effects, transaction rollback on an access failure, retryable outbox delivery, zero-pay fulfillment without a provider request, same-event paid-but-not-fulfilled recovery without a second settlement, and centralized additive grant precedence.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend, HTTP, and persistence regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --config prisma/jest.config.cjs",
+        "reference": "Backend passed 130 unit suites and 722 tests plus six HTTP suites and 46 tests. Prisma and PostgreSQL contracts passed 20 suites and 89 tests with one existing suite and two tests intentionally skipped. The additive fulfillment migration executed in the PostgreSQL migration harness.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, migration, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:generate; npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; git diff --check",
+        "reference": "The merged 35-file Prisma schema validates and the Backend production build passes. All 234 endpoints remain explicitly classified with zero implicit endpoints. The additive migration creates immutable source-unique fulfillment effects, a source-unique purchased membership term link validated against its order snapshot, and a guarded retryable notification outbox. Runtime receives bounded SELECT/INSERT/UPDATE on the two new tables without ownership, DELETE, trigger-disable, or bypass grants.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, production deployment, and readiness",
+        "command": "public GitHub Actions run/job metadata; checked-in deployment workflow inspection; body-discarding HTTPS status checks",
+        "reference": "Backend implementation commit e662d8a0ab3bb8c1bb5a470f2bcea1fa77f09f9e passed CI run 33032629118 and deployment run 33032629120 attempt 1. Final verification head c3f6832b4f6e805150800f5976cc7fca4b35846c passed CI run 33033605735 and deployment run 33033605812. The successful Deploy to VPS job uses the checked-in isolated migration, runtime-role verification, build, PM2 restart, and readiness sequence. After the final deployment, public health and API documentation returned 200, while unauthenticated Commerce cart and current-membership reads returned 401.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Provider isolation, privacy, dependency, and final diff review",
+        "command": "status-only production webhook check; npm.cmd audit --omit=dev; staged secret-pattern review; git diff --check; final multi-axis review",
+        "reference": "Production PayOS webhook JSON returned 503, proving provider activation remains independently disabled. No provider call, real payment, production financial mutation, credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, or signature was used or retained. The dependency audit remains at nine high and eighteen moderate pre-existing framework/toolchain advisories whose offered comprehensive fixes require unrelated breaking upgrades; this task added no dependency.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T09:37:48.9953494+07:00",
+    "commit": "e662d8a0ab3bb8c1bb5a470f2bcea1fa77f09f9e",
+    "notes": "SPR25-004 satisfies its acceptance criteria and production-required execution profile. Authoritative provider settlement or an internal zero-payment settlement now commits fulfillment effects in the same serializable transaction. Course and membership access is additive and source-unique, purchased term snapshots remain immutable, retries converge without duplicating time or access, notifications dispatch only after commit, and the same verified event can recover a previously confirmed unfulfilled order without fabricating another payment.",
+    "extensions": {
+      "backendCommit": "e662d8a0ab3bb8c1bb5a470f2bcea1fa77f09f9e",
+      "backendVerificationCommit": "c3f6832b4f6e805150800f5976cc7fca4b35846c",
+      "backendCiRunId": 33033605735,
+      "backendDeploymentRunId": 33033605812,
+      "implementationDeploymentRunId": 33032629120,
+      "successfulDeploymentAttempt": 1,
+      "productionHealthStatus": 200,
+      "productionDocsStatus": 200,
+      "unauthenticatedCommerceStatus": 401,
+      "unauthenticatedMembershipStatus": 401,
+      "webhookProviderDisabledStatus": 503,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]
