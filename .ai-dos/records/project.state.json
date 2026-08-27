@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-005",
+  "currentTaskId": "SPR25-006",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -87,8 +87,8 @@
     "SPR25-002": "DONE",
     "SPR25-003": "DONE",
     "SPR25-004": "DONE",
-    "SPR25-005": "IN_PROGRESS",
-    "SPR25-006": "TODO",
+    "SPR25-005": "DONE",
+    "SPR25-006": "IN_PROGRESS",
     "SPR25-007": "TODO",
     "SPR26-001": "TODO",
     "SPR26-002": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-004:ATOMIC-ORDER-FULFILLMENT",
-  "updatedAt": "2026-08-27T09:37:48.9953494+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-005:PAYMENT-RECONCILIATION-REVIEW",
+  "updatedAt": "2026-08-27T10:11:05.3777016+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1262,10 +1262,29 @@
       "credentialMaterialRecorded": false
     },
     "sprint25PaymentReconciliation": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-27T09:37:48.9953494+07:00",
       "selectionReason": "SPR25-004 completed atomic exactly-once course and membership fulfillment; SPR25-005 is now the highest-priority dependency-runnable Sprint 25 task.",
       "taskId": "SPR25-005",
+      "backendCommit": "39c98d353866ae94e26cff8b48d21d09a5347ad8",
+      "frontendCommit": "7a58d798d49c629494af3ba7fe1a04c76518b67f",
+      "evidenceId": "EVIDENCE:SPR25-005:PAYMENT-RECONCILIATION-REVIEW",
+      "backendCiRunId": 33044362825,
+      "backendDeploymentRunId": 33044362761,
+      "frontendCiRunId": 33035281260,
+      "frontendDeploymentRunId": 33035281206,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-27T10:11:05.3777016+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25PaymentLifecycle": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-27T10:11:05.3777016+07:00",
+      "selectionReason": "SPR25-005 completed bounded reconciliation and auditable payment review; SPR25-006 is now the highest-priority dependency-runnable Sprint 25 task.",
+      "taskId": "SPR25-006",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

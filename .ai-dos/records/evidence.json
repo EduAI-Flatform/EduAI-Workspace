@@ -7913,5 +7913,72 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-005:PAYMENT-RECONCILIATION-REVIEW",
+    "taskId": "SPR25-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Missed callback, provider failure, checkpoint, and recovery contracts",
+        "command": "npx jest --runInBand src/modules/payments/payment-reconciliation.service.spec.ts src/modules/payments/payment-reconciliation.controller.spec.ts src/modules/payments/payos-payment.provider.spec.ts src/modules/payments/payment-webhook.service.spec.ts",
+        "reference": "Four focused suites and 27 tests pass. Coverage proves bounded stable-cursor scans, rate-limited administrator execution, authenticated PayOS transaction normalization, missed-webhook recovery through the existing immutable settlement path, amount and identity mismatch review, malformed/unknown status, timeout/outage, paid-not-fulfilled recovery, idempotent operational source keys, sanitized alerts, paginated projections, optimistic resolution, lifecycle evidence, and audit evidence.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend, HTTP, persistence, and Frontend regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --config prisma/jest.config.cjs; npm.cmd test -- --run",
+        "reference": "Backend passed 132 suites and 734 tests plus six HTTP suites and 46 tests. Prisma and PostgreSQL passed 21 suites and 92 tests with one existing suite and two tests intentionally skipped; the complete ordered migration chain applies and retains immutable/deferred Commerce guards. Frontend passed 77 files and 222 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, endpoint security, privacy, and dependency gates",
+        "command": "npm.cmd run prisma:generate; npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; git diff --check; npm.cmd audit --omit=dev",
+        "reference": "The merged 35-file Prisma schema validates and both production builds pass. All 238 Backend endpoints are explicitly classified with zero implicit routes, including four protected platform-administrator reconciliation endpoints. Review DTOs exclude provider payment identities, receiving accounts, raw payloads, checkout links, QR data, and signatures. Dependency audits remain at the existing Backend nine-high/eighteen-moderate and Frontend two-moderate framework/toolchain advisories whose comprehensive fixes require unrelated breaking upgrades; no dependency changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, production deployment, and route safety",
+        "command": "public GitHub Actions run/job metadata; body-discarding production route checks",
+        "reference": "Backend implementation 2ba1e7ff87a307dad6c25718c2bf4807edd8a150 passed CI run 33035279340 and production deployment run 33035279339. Final sanitized-alert revision 39c98d353866ae94e26cff8b48d21d09a5347ad8 passed CI run 33044362825 and deployment run 33044362761 attempt 1; validate/build, isolated migration plus runtime-role VPS deployment, and notification jobs succeeded. Frontend 7a58d798d49c629494af3ba7fe1a04c76518b67f passed CI run 33035281260 and deployment run 33035281206. The production Commerce administration page returned 200. Unauthenticated review list and body-free run requests returned 401, proving authorization rejects before provider polling.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Operational review, provider isolation, and final diff review",
+        "command": "runbook review; staged sensitive-pattern review; final multi-axis review",
+        "reference": "The PayOS handoff documents bounded cursor continuation, non-overlapping runs, safe outage handling, alert hygiene, and constrained resolutions. Duplicate and late collections remain settlement-backed and cannot be acknowledged away; paid-not-fulfilled closes only after idempotent fulfillment succeeds. No provider call, real payment, production financial mutation, credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, receiving account, or signature was used or retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T10:11:05.3777016+07:00",
+    "commit": "39c98d353866ae94e26cff8b48d21d09a5347ad8",
+    "notes": "SPR25-005 satisfies its acceptance criteria and production-required execution profile. Bounded provider polling occurs outside database transactions and converges valid paid facts on the existing idempotent settlement path. Inconsistent, unavailable, late, duplicate, and failed-fulfillment conditions remain explicit immutable review evidence; administrators receive sanitized paginated history and only narrowly valid audited resolution actions.",
+    "extensions": {
+      "backendImplementationCommit": "2ba1e7ff87a307dad6c25718c2bf4807edd8a150",
+      "backendCommit": "39c98d353866ae94e26cff8b48d21d09a5347ad8",
+      "frontendCommit": "7a58d798d49c629494af3ba7fe1a04c76518b67f",
+      "backendCiRunId": 33044362825,
+      "backendDeploymentRunId": 33044362761,
+      "frontendCiRunId": 33035281260,
+      "frontendDeploymentRunId": 33035281206,
+      "successfulDeploymentAttempt": 1,
+      "productionAdminCommerceStatus": 200,
+      "unauthenticatedReviewListStatus": 401,
+      "unauthenticatedReconciliationRunStatus": 401,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]
