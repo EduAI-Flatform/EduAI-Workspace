@@ -8058,5 +8058,81 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Complete deterministic PayOS security and failure-recovery matrix",
+        "command": "npm.cmd test -- --runInBand src/modules/payments src/config/env.validation.spec.ts src/config/production-commerce-config.spec.ts",
+        "reference": "Twelve focused Backend suites and 80 tests pass. Coverage includes official SDK HMAC verification, altered signatures and authoritative facts, malformed provider responses, event replay, duplicate and late collections, idempotent request identity, concurrent fulfillment, ownership and role guards, body/content-type bounds, separate rate limits, timeouts, ambiguous creation, missed-webhook recovery, cancellation, expiry, refunds, monitoring hygiene, and secret/log exclusion.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Payment persistence, migration, and immutable-history matrix",
+        "command": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --config prisma/jest.config.cjs payment-request-migration.spec.ts payment-receiving-account-migration.spec.ts payment-reconciliation-migration.spec.ts commerce-fulfillment-migration.spec.ts commerce-persistence-contract.spec.ts commerce-persistence-migration.spec.ts",
+        "reference": "Six focused Prisma suites and 20 tests pass for additive payment identity, receiving-account hashes, reconciliation review, atomic fulfillment, append-only guards, rollback preservation, and absence of raw provider secrets or payload columns.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Learner checkout and administrator operations UI matrix",
+        "command": "npm.cmd test -- --run src/features/payments/PaymentCheckout.test.tsx src/features/dashboard/AdminDashboard/AdminCommercePage.test.tsx src/services/commerce.service.test.ts src/services/admin-commerce.service.test.ts",
+        "reference": "Four focused Frontend files and 20 tests pass for learner-owned checkout/cancellation states, browser-return non-authority, immutable administrator order/reconciliation/refund history, explicit external-action confirmation, line allocations, and idempotency headers. The exact current Frontend revision also passed the complete 77-file/227-test regression and production build.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Exact-revision regression, schema, build, endpoint, dependency, and least-privilege gates",
+        "command": "exact-revision CI/deployment metadata and SPR25-006 full-gate evidence",
+        "reference": "Current Backend d62617f3e5fcbdd40c798799e547c8c97de5727a passed 135 suites/748 tests, six HTTP suites/46 tests, 21 Prisma suites/92 tests, Prisma validation, build, and 244 explicit endpoint classifications with zero implicit routes. Current Frontend 895f16be011a04ef2c219e7538ee1afb8419374d passed 77 files/227 tests and build. Known dependency advisories remain unchanged and require unrelated or breaking upgrades. The exact production runtime connection retains verified Commerce least privilege.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Production deployment, health, provider isolation, authorization, rollback, and monitoring readiness",
+        "command": "public GitHub Actions run/job metadata; body-discarding production checks; PayOS runbook review",
+        "reference": "Backend deployment run 33046972421 attempt 1 passed validation, tests, isolated migrations, runtime-role verification, build, restart, readiness, and notification for the exact revision; Frontend deployment run 33051017010 passed. Production health returned 200, the disabled PayOS webhook failed closed with 503, and unauthenticated payment creation and administrator review returned 401. The runbook preserves PAYOS_ENVIRONMENT as the independent activation/rollback boundary, bounded polling, safe monitoring, and immutable history.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Official environment constraint and remaining live-money gate",
+        "command": "official PayOS environment, API, Node SDK, and webhook documentation review",
+        "reference": "Current official PayOS documentation states that no sandbox or staging API exists and test transactions use the production merchant API. Deterministic official-SDK fixtures therefore satisfy all non-network security and failure assertions, but a true QR/webhook/settlement UAT requires a separately authorized real low-value transaction. No provider activation, call, real payment, credential, session, response body, identifier, raw key, payload, link, QR data, account data, or signature was used or retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T14:53:39.5170610+07:00",
+    "commit": "d62617f3e5fcbdd40c798799e547c8c97de5727a",
+    "notes": "SPR25-007 is locally and deployment ready. Every non-monetary acceptance assertion passes, provider activation remains independently disabled, and rollback/monitoring controls are verified. Completion is blocked only by the separately authorized bounded live PayOS transaction required because PayOS offers no sandbox.",
+    "extensions": {
+      "backendCommit": "d62617f3e5fcbdd40c798799e547c8c97de5727a",
+      "frontendCommit": "895f16be011a04ef2c219e7538ee1afb8419374d",
+      "backendCiRunId": 33046972471,
+      "backendDeploymentRunId": 33046972421,
+      "frontendCiRunId": 33051017141,
+      "frontendDeploymentRunId": 33051017010,
+      "manualActionId": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
+      "localAcceptanceAssertionsPassed": true,
+      "livePaymentUatPassed": false,
+      "payosSandboxAvailable": false,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookStatus": 503,
+      "unauthenticatedPaymentRequestStatus": 401,
+      "unauthenticatedAdminReviewStatus": 401,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

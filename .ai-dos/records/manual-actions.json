@@ -1202,5 +1202,43 @@
       "ciVerified": true,
       "credentialMaterialRecorded": false
     }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
+    "title": "Authorize and perform one bounded live PayOS settlement UAT",
+    "status": "WAITING_USER",
+    "priority": "CRITICAL",
+    "requiredAction": [
+      "Separately authorize one bounded, low-value, dedicated, non-sensitive production PayOS transaction; this is real money because PayOS provides no sandbox or staging API.",
+      "Through the approved production secret-management and deployment path, temporarily activate the already implemented PayOS provider without sharing or recording any provider credential or configuration value.",
+      "Use one dedicated mixed course-and-membership order to verify payment-request creation, VietQR presentation, server-verified webhook settlement, exactly-once course and membership fulfillment, learner ownership, administrator review history, and no browser-authoritative payment transition.",
+      "Exercise only safe failure/recovery assertions around the same transaction, reconcile the exact financial effect through an explicitly approved operator action, and retain only aggregate/status evidence.",
+      "Restore PAYOS_ENVIRONMENT=disabled through the approved restart/deployment path, then verify readiness is healthy, provider operations fail closed, the exact UAT effects are reconciled, and immutable payment, fulfillment, access, and audit history remains."
+    ],
+    "reason": "All deterministic security, replay, concurrency, timeout, authorization, migration, build, deployment, rollback, monitoring, and provider-disabled production checks pass. Official PayOS documentation confirms there is no sandbox/staging API, so the remaining end-to-end QR settlement assertion necessarily creates a real production transaction and requires separate explicit authorization.",
+    "retestSteps": [
+      "Confirm exact deployed Backend d62617f3e5fcbdd40c798799e547c8c97de5727a and Frontend 895f16be011a04ef2c219e7538ee1afb8419374d or reviewed descendants passed CI and production deployment.",
+      "Confirm the exact production runtime connection still passes every sanitized least-privilege assertion before activation.",
+      "Execute exactly one authorized low-value dedicated transaction and verify one authoritative matched settlement plus exactly-once course and membership effects.",
+      "Verify callback/reconciliation evidence, authorization isolation, immutable administrator history, and absence of secret or raw provider material from logs and retained evidence.",
+      "Reconcile the exact financial and test-entity effects, restore the provider to disabled, restart through the approved path, and confirm health 200 plus provider-disabled fail-closed behavior."
+    ],
+    "expectedResult": "One authorized real PayOS transaction proves the production QR, webhook, settlement, fulfillment, reconciliation, and rollback path without duplicate effects or sensitive-data retention; the provider finishes disabled and production remains healthy.",
+    "relatedTaskIds": ["SPR25-007"],
+    "blocks": ["SPR25-007"],
+    "extensions": {
+      "localEvidenceId": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
+      "payosSandboxAvailable": false,
+      "liveMonetaryAuthorizationRequired": true,
+      "providerCurrentlyActivated": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

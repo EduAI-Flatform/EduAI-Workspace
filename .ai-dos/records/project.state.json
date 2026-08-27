@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-007",
+  "currentTaskId": null,
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -89,7 +89,7 @@
     "SPR25-004": "DONE",
     "SPR25-005": "DONE",
     "SPR25-006": "DONE",
-    "SPR25-007": "IN_PROGRESS",
+    "SPR25-007": "WAITING_MANUAL",
     "SPR26-001": "TODO",
     "SPR26-002": "TODO",
     "SPR26-003": "TODO",
@@ -107,10 +107,11 @@
     "SPR28-004": "TODO"
   },
   "waitingManualActionIds": [
-    "MANUAL:SPR20_003_NGINX_COMPRESSION"
+    "MANUAL:SPR20_003_NGINX_COMPRESSION",
+    "MANUAL:SPR25_007_LIVE_PAYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-006:PAYMENT-LIFECYCLE-REFUNDS",
-  "updatedAt": "2026-08-27T14:48:10.3866543+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
+  "updatedAt": "2026-08-27T14:53:39.5170610+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1300,10 +1301,16 @@
       "credentialMaterialRecorded": false
     },
     "sprint25PaymentSecurityRelease": {
-      "status": "IN_PROGRESS",
+      "status": "WAITING_MANUAL",
       "startedAt": "2026-08-27T14:48:10.3866543+07:00",
       "selectionReason": "SPR25-006 completed cancellation, expiry, late-settlement review, and audited manual-refund lifecycles; SPR25-007 is now dependency-runnable and is the critical Sprint 25 release gate.",
       "taskId": "SPR25-007",
+      "localEvidenceId": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
+      "manualActionId": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
+      "localAcceptanceAssertionsPassed": true,
+      "livePaymentUatPassed": false,
+      "providerActivated": false,
+      "providerCallCount": 0,
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
