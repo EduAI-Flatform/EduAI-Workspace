@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-006",
+  "currentTaskId": "SPR25-007",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -88,8 +88,8 @@
     "SPR25-003": "DONE",
     "SPR25-004": "DONE",
     "SPR25-005": "DONE",
-    "SPR25-006": "IN_PROGRESS",
-    "SPR25-007": "TODO",
+    "SPR25-006": "DONE",
+    "SPR25-007": "IN_PROGRESS",
     "SPR26-001": "TODO",
     "SPR26-002": "TODO",
     "SPR26-003": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-005:PAYMENT-RECONCILIATION-REVIEW",
-  "updatedAt": "2026-08-27T10:11:05.3777016+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-006:PAYMENT-LIFECYCLE-REFUNDS",
+  "updatedAt": "2026-08-27T14:48:10.3866543+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1281,10 +1281,29 @@
       "credentialMaterialRecorded": false
     },
     "sprint25PaymentLifecycle": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-27T10:11:05.3777016+07:00",
       "selectionReason": "SPR25-005 completed bounded reconciliation and auditable payment review; SPR25-006 is now the highest-priority dependency-runnable Sprint 25 task.",
       "taskId": "SPR25-006",
+      "backendCommit": "d62617f3e5fcbdd40c798799e547c8c97de5727a",
+      "frontendCommit": "895f16be011a04ef2c219e7538ee1afb8419374d",
+      "evidenceId": "EVIDENCE:SPR25-006:PAYMENT-LIFECYCLE-REFUNDS",
+      "backendCiRunId": 33046972471,
+      "backendDeploymentRunId": 33046972421,
+      "frontendCiRunId": 33051017141,
+      "frontendDeploymentRunId": 33051017010,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-27T14:48:10.3866543+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25PaymentSecurityRelease": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-27T14:48:10.3866543+07:00",
+      "selectionReason": "SPR25-006 completed cancellation, expiry, late-settlement review, and audited manual-refund lifecycles; SPR25-007 is now dependency-runnable and is the critical Sprint 25 release gate.",
+      "taskId": "SPR25-007",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {

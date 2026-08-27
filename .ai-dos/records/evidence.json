@@ -7980,5 +7980,83 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-006:PAYMENT-LIFECYCLE-REFUNDS",
+    "taskId": "SPR25-006",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Cancellation, expiry, late-settlement, and concurrency contracts",
+        "command": "npx jest --runInBand src/modules/payments/payment-cancellation.service.spec.ts src/modules/payments/payment-cancellation.controller.spec.ts src/modules/payments/payment-expiry.service.spec.ts src/modules/payments/payment-expiry.controller.spec.ts",
+        "reference": "Focused Backend coverage proves learner-owned idempotent cancellation, bounded administrator expiry, provider checks and cancellation outside database transactions, reservation release or expiry only after verified terminal provider state, paid races converging on the existing settlement authority, and mismatches or outages entering explicit review rather than discarding late payment.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Audited manual refund and access-consequence contracts",
+        "command": "npx jest --runInBand src/modules/payments/payment-refund.service.spec.ts src/modules/payments/payment-refund.controller.spec.ts",
+        "reference": "Two focused suites and seven tests prove line-allocated idempotent refund requests, explicit external-action confirmation, immutable record or rejection history, cumulative amount bounds, duplicate protection, partial-access preservation, exact full course or membership effect revocation, independent-grant preservation, and no access revocation for late or duplicate non-fulfilling collections.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend, HTTP, persistence, and Frontend regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand --config prisma/jest.config.cjs; npm.cmd test -- --run",
+        "reference": "Backend passed 135 suites and 748 tests plus six HTTP suites and 46 tests. Prisma and PostgreSQL passed 21 suites and 92 tests with one existing suite and two tests intentionally skipped. Frontend passed 77 files and 227 tests; the focused lifecycle service, learner cancellation, administrator expiry, refund review, and line-allocation request matrix passed 17 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Schema, build, endpoint-security, privacy, and dependency gates",
+        "command": "npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; git diff --check; npm.cmd audit --omit=dev --audit-level=high",
+        "reference": "The Prisma schema validates and both production builds pass. All 244 Backend endpoints are explicitly classified with zero implicit routes. DTOs and projections exclude provider secrets and raw payloads. Dependency audits remain at the existing Backend nine-high/eighteen-moderate and Frontend two-moderate framework/toolchain advisories; comprehensive fixes require unrelated or breaking upgrades and no dependency changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, production deployment, and protected-route safety",
+        "command": "public GitHub Actions metadata; body-discarding production readiness and authorization checks",
+        "reference": "Backend d62617f3e5fcbdd40c798799e547c8c97de5727a passed CI run 33046972471 and production deployment run 33046972421. Frontend 895f16be011a04ef2c219e7538ee1afb8419374d passed CI run 33051017141 and production deployment run 33051017010 attempt 1. Production Frontend Commerce and Backend health returned 200; unauthenticated refund creation, expiry execution, and learner cancellation returned 401 before domain or provider work.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Final security, access, history, and provider-isolation review",
+        "command": "final diff review; sensitive-pattern review; lifecycle and access-consequence review",
+        "reference": "Cancellation and expiry preserve monotonic payment history and route late settlement to review. Refund recording never initiates an outgoing payment, preserves original settlement and learning history, and applies only exact source-owned access consequences. No real payment, provider call, production financial mutation, credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR payload, receiving account, or signature was used or retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T14:48:10.3866543+07:00",
+    "commit": "d62617f3e5fcbdd40c798799e547c8c97de5727a",
+    "notes": "SPR25-006 satisfies its acceptance criteria and production-required execution profile. Pending provider requests now cancel or expire only through verified provider facts outside database transactions; paid races converge on settlement or explicit review. Administrators can request, record, or reject immutable manual refunds with exact line allocations and access consequences, while no EduAI path initiates a payout.",
+    "extensions": {
+      "backendCancellationCommit": "e4c8be9339e75f338b3307da96b6401aeb94cedd",
+      "backendExpiryCommit": "f4cf8fcbbb683b2780c3db6c579cc2580b5abd82",
+      "backendCommit": "d62617f3e5fcbdd40c798799e547c8c97de5727a",
+      "frontendLifecycleCommit": "0e4cee135661bf2fe679a04ed48aed75ca169b5b",
+      "frontendCommit": "895f16be011a04ef2c219e7538ee1afb8419374d",
+      "backendCiRunId": 33046972471,
+      "backendDeploymentRunId": 33046972421,
+      "frontendCiRunId": 33051017141,
+      "frontendDeploymentRunId": 33051017010,
+      "successfulDeploymentAttempt": 1,
+      "productionFrontendCommerceStatus": 200,
+      "productionHealthStatus": 200,
+      "unauthenticatedRefundCreateStatus": 401,
+      "unauthenticatedExpiryRunStatus": 401,
+      "unauthenticatedCancellationStatus": 401,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

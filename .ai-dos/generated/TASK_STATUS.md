@@ -82,8 +82,8 @@
 | SPR25-003 | Verify and Ingest Idempotent PayOS Webhooks | DONE |  |
 | SPR25-004 | Fulfill Course and Membership Orders Atomically | DONE |  |
 | SPR25-005 | Reconcile Pending Payments and Expose Payment Review | DONE |  |
-| SPR25-006 | Handle Payment Expiry, Cancellation, and Audited Manual Refunds | IN_PROGRESS | YES |
-| SPR25-007 | Verify PayOS Security, Failure Recovery, and Production UAT | TODO |  |
+| SPR25-006 | Handle Payment Expiry, Cancellation, and Audited Manual Refunds | DONE |  |
+| SPR25-007 | Verify PayOS Security, Failure Recovery, and Production UAT | IN_PROGRESS | YES |
 | SPR26-001 | Define Authoritative Commerce Analytics Metrics and Privacy Rules | TODO |  |
 | SPR26-002 | Deliver Revenue, Order, Payment, and Refund Analytics | TODO |  |
 | SPR26-003 | Deliver Membership MRR, Renewal, Expiry, and Churn Analytics | TODO |  |
