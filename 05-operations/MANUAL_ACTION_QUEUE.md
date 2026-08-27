@@ -1,30 +1,38 @@
 # Manual Action Queue
 
-## MANUAL:SPR25_007_LIVE_PAYMENT_UAT — Authorize one live PayOS settlement UAT
+## MANUAL:SPR25_007_LIVE_PAYMENT_UAT — Resolve bounded live PayOS settlement UAT
 
 - Status: `WAITING_USER`
 - Priority: `CRITICAL`
 - Related task: `SPR25-007`.
 - Required action:
-  - Separately authorize one bounded, low-value, dedicated, non-sensitive live
-    PayOS transaction. PayOS has no sandbox or staging API, so this uses real
-    money.
+  - Resolve the discovered scope mismatch: either separately authorize two
+    bounded, low-value, dedicated, non-sensitive live PayOS transactions (one
+    course and one membership), or approve a narrowly scoped `SPR25-007`
+    acceptance amendment. PayOS has no sandbox, so each transaction uses real
+    money. No second transaction is authorized implicitly.
   - Activate the existing provider only through the approved secret-management
     and deployment path; do not paste or record any provider value.
-  - Verify one mixed course-and-membership order through QR creation,
-    server-verified settlement, exactly-once fulfillment, ownership isolation,
-    safe administrator history, and bounded recovery evidence.
+  - Do not run the previous mixed course-and-membership scenario: the deployed
+    product creates separate immutable course and membership orders and does
+    not support mixed checkout. After the decision, run only the explicitly
+    authorized scope through QR creation, server-verified settlement,
+    exactly-once fulfillment, ownership isolation, safe administrator history,
+    and bounded recovery evidence.
   - Reconcile the exact financial/test effects, restore
     `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
     verify health and provider-disabled fail-closed behavior.
 - Completed prerequisites: Backend
-  `d62617f3e5fcbdd40c798799e547c8c97de5727a` and Frontend
-  `895f16be011a04ef2c219e7538ee1afb8419374d` are deployed. Deterministic
+  `b08a28386ca12d63771aef2c23a80b078c7f4a77` and Frontend
+  `e78882b0baed6ecd1a76e136329e66d726e799bd` is a reviewed descendant and is
+  deployed. Deterministic
   payment security, failure recovery, persistence, UI, least-privilege,
   rollback, monitoring, and provider-disabled production gates pass.
-- Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS`.
-- Blocks: only `SPR25-007`; all remaining Sprint 25 release assertions require
-  this separately authorized real transaction.
+- Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS` and
+  `EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS`.
+- Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require
+  the explicit scope decision and resulting authorized real transaction or
+  transactions.
 - Security: retain no credentials, sessions, response bodies, database or role
   names, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, receiving-account data, or signatures.

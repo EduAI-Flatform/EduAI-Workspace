@@ -8134,5 +8134,75 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Server-authoritative provider-return regression",
+        "command": "Backend and Frontend focused payment-return suites plus full exact-revision regressions",
+        "reference": "Backend payment request and production configuration suites passed after red-first coverage; the final Backend regression passed 135 suites and 750 tests. Frontend payment return and checkout suites passed; the final Frontend regression passed 78 files and 231 tests. Prisma validation, both builds, 244 explicit endpoint classifications with zero implicit routes, and diff checks passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Redirect non-authority and provider isolation review",
+        "command": "Focused diff review, npm audit, and callback contract review",
+        "reference": "The Backend appends only the stable local order identity to configured return and cancel URLs. The student-only Frontend page validates UUID v4, ignores every provider status or cancellation query field, performs no redirect-triggered mutation, and re-reads only the authenticated learner-owned Backend state. COMMERCE_IDEMPOTENCY_SECRET remains mandatory. PAYOS_ENVIRONMENT remains the independent fail-closed activation boundary. Known dependency advisories are unchanged and require unrelated or breaking framework upgrades.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI and production deployment",
+        "command": "Public GitHub Actions run and job metadata",
+        "reference": "Backend b08a28386ca12d63771aef2c23a80b078c7f4a77 passed CI run 33052817608 and production run 33052817615, including deploy job 98452619644. The payment-return Frontend commit eddd0e7a1f019dd4cc3f90cb8ae628936cd8357c passed its exact CI and deployment, and reviewed descendant e78882b0baed6ecd1a76e136329e66d726e799bd passed CI run 33070441744 and production run 33070441724, including deploy job 98511254295.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Body-discarding production safety verification",
+        "command": "Unauthenticated status-only HTTPS checks after exact-revision deployment",
+        "reference": "Production health returned 200. Both global payment return and cancel SPA routes returned 200. The unauthenticated learner payment-status endpoint returned 401. A malformed PayOS webhook returned 503, proving provider activation remains disabled and fail closed. No provider call, payment, credential, session, response body, entity identifier, raw idempotency key, provider payload, payment link, QR data, account data, or signature was used or retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Live UAT scope contradiction isolated",
+        "command": "Live source, task, and manual-action acceptance audit",
+        "reference": "The deployed product creates separate immutable course and membership orders; mixed course-and-membership checkout is unsupported. The former instruction for one mixed real-money order is therefore not executable. The manual action now requires an explicit human decision to authorize two separate low-value transactions or approve a narrowly scoped task acceptance amendment. No additional monetary authorization is inferred.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T15:16:04.4580281+07:00",
+    "commit": "b08a28386ca12d63771aef2c23a80b078c7f4a77",
+    "notes": "The payment return release gap is fixed, deployed, and verified without provider activation. SPR25-007 remains WAITING_MANUAL only for the explicit live-money UAT scope decision and resulting authorized settlement evidence.",
+    "extensions": {
+      "backendCommit": "b08a28386ca12d63771aef2c23a80b078c7f4a77",
+      "frontendCommit": "e78882b0baed6ecd1a76e136329e66d726e799bd",
+      "backendCiRunId": 33052817608,
+      "backendDeploymentRunId": 33052817615,
+      "backendDeploymentJobId": 98452619644,
+      "frontendCiRunId": 33070441744,
+      "frontendDeploymentRunId": 33070441724,
+      "frontendDeploymentJobId": 98511254295,
+      "manualActionId": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
+      "returnFlowDeploymentVerified": true,
+      "localAcceptanceAssertionsPassed": true,
+      "livePaymentUatPassed": false,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookStatus": 503,
+      "unauthenticatedPaymentStatus": 401,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

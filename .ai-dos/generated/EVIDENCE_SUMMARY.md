@@ -648,5 +648,10 @@
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | BUILD | Exact-revision regression, schema, build, endpoint, dependency, and least-privilege gates | PASS | exact-revision CI/deployment metadata and SPR25-006 full-gate evidence |
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | DEPLOY | Production deployment, health, provider isolation, authorization, rollback, and monitoring readiness | PASS | public GitHub Actions run/job metadata; body-discarding production checks; PayOS runbook review |
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | OTHER | Official environment constraint and remaining live-money gate | PASS | official PayOS environment, API, Node SDK, and webhook documentation review |
+| EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | TEST | Server-authoritative provider-return regression | PASS | Backend and Frontend focused payment-return suites plus full exact-revision regressions |
+| EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Redirect non-authority and provider isolation review | PASS | Focused diff review, npm audit, and callback contract review |
+| EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | DEPLOY | Exact-revision CI and production deployment | PASS | Public GitHub Actions run and job metadata |
+| EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Body-discarding production safety verification | PASS | Unauthenticated status-only HTTPS checks after exact-revision deployment |
+| EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Live UAT scope contradiction isolated | PASS | Live source, task, and manual-action acceptance audit |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

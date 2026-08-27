@@ -110,8 +110,8 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR25_007_LIVE_PAYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
-  "updatedAt": "2026-08-27T14:53:39.5170610+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS",
+  "updatedAt": "2026-08-27T15:16:04.4580281+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1305,10 +1305,18 @@
       "startedAt": "2026-08-27T14:48:10.3866543+07:00",
       "selectionReason": "SPR25-006 completed cancellation, expiry, late-settlement review, and audited manual-refund lifecycles; SPR25-007 is now dependency-runnable and is the critical Sprint 25 release gate.",
       "taskId": "SPR25-007",
-      "localEvidenceId": "EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS",
+      "localEvidenceId": "EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS",
       "manualActionId": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
       "localAcceptanceAssertionsPassed": true,
+      "returnFlowDeploymentVerified": true,
+      "backendCommit": "b08a28386ca12d63771aef2c23a80b078c7f4a77",
+      "frontendCommit": "e78882b0baed6ecd1a76e136329e66d726e799bd",
+      "backendCiRunId": 33052817608,
+      "backendDeploymentRunId": 33052817615,
+      "frontendCiRunId": 33070441744,
+      "frontendDeploymentRunId": 33070441724,
       "livePaymentUatPassed": false,
+      "liveUatScopeDecisionRequired": true,
       "providerActivated": false,
       "providerCallCount": 0,
       "credentialMaterialRecorded": false
