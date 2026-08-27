@@ -7774,5 +7774,77 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-003:SIGNED-WEBHOOK-INGESTION",
+    "taskId": "SPR25-003",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Official PayOS signature and authoritative settlement contracts",
+        "command": "npm.cmd test -- --runInBand src/modules/payments/payment-webhook.service.spec.ts src/modules/payments/payment-webhook.controller.spec.ts src/modules/payments/payment-request.service.spec.ts src/modules/payments/payos-payment.provider.spec.ts src/common/audit/audit.service.spec.ts",
+        "reference": "Focused payment and audit suites pass. The final real-SDK provider/webhook rerun passed two suites and 16 tests, including the installed PayOS 2.0.5 verifier with canonical HMAC-SHA256 data ordering, altered-field rejection, signature-before-database ordering, malformed and unsigned rejection, authoritative provider identity/orderCode/amount/VND/channel/receiving-account matching, stable duplicate and replay results, concurrent uniqueness retry, duplicate-collection reconciliation, late-payment review, provider-kind audit, and safe consumption of a still-reserved benefit under the locked settlement boundary.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Complete Backend, Frontend, HTTP, and persistence regression",
+        "command": "npm.cmd test -- --runInBand; npm.cmd run test:e2e -- --runInBand; npm.cmd run test:demo-data -- --runInBand; npm.cmd test -- --run",
+        "reference": "Backend passed 129 unit suites and 715 tests plus six HTTP suites and 46 tests. Prisma/PostgreSQL passed 19 suites and 87 tests with one suite and two tests intentionally skipped by the existing harness. Frontend passed 77 files and 214 tests, including safe nullable provider/system audit actors.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Additive schema, migration, build, and endpoint-security gates",
+        "command": "npm.cmd run prisma:generate; npm.cmd run prisma:validate; npm.cmd run build; npm.cmd run security:audit-endpoints; migration contract and PostgreSQL suites",
+        "reference": "The merged 35-file Prisma schema validates, both production builds pass, and all 234 Backend endpoints are explicitly classified with zero implicit endpoints. Additive migrations safely add USER/SYSTEM/PROVIDER audit actors with nullable non-user identity and an immutable keyed receiving-account hash. Migration and affected PostgreSQL suites passed, and the public webhook is bounded to JSON, 32 KiB, IP rate limiting, and explicit safe responses.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, production deployment, migrations, and readiness",
+        "command": "authenticated GitHub Actions metadata; whitelisted job-log assertions; body-discarding HTTPS status checks",
+        "reference": "Backend feature commit 510137e59d24895f8199b100c3781ebeacd9a981 was deployed through no-code recovery head 0cfc633e35fa64b211cd236de579157c7093c722 after the resolved GitHub Actions outage. CI run 33030658377 and deployment run 33030658388 attempt 1 passed. The VPS job found 56 migrations and none pending; separate runtime/migration configuration, failed-migration absence, membership grants, Commerce and Membership table presence/use, and every least-privilege assertion passed. PM2 restart and readiness output executed, the timeout text appeared only in the uploaded script, and the job completed successfully. Frontend compatibility commit 75279e53383efefd920789047b9f4f0ad4f657e1 was included in deployed head c216eb4f83bd7f73e16d6388f760054c3eeaaf63; CI run 33030224807 and deployment run 33030224748 passed. Frontend root/audit route and API health/docs returned 200.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Provider-disable, privacy, dependency, and diff review",
+        "command": "status-only production webhook checks; npm.cmd audit --omit=dev --audit-level=high; git diff --check; staged credential-material scan; final multi-axis review",
+        "reference": "Production webhook JSON returned 503 while PayOS remained disabled, non-JSON returned 415, and GET returned 404. No PayOS/provider call, real payment, settlement mutation, credential, session, response body, entity identifier, raw idempotency key, provider payload, receiving-account value, checkout link, QR payload, or signature was retained. Backend dependency audit remains at nine high and eighteen moderate pre-existing framework/toolchain advisories; Frontend remains at two moderate pre-existing React Router advisories whose offered fixes require unrelated breaking upgrades.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-27T08:47:16.3557245+07:00",
+    "commit": "510137e59d24895f8199b100c3781ebeacd9a981",
+    "notes": "SPR25-003 satisfies its canonical acceptance criteria and production-required execution profile. Verified PayOS webhook data is now the sole external settlement authority; matching, recording, transition, reservation consumption, reconciliation, lifecycle history, and provider audit commit in one serializable boundary. Browser returns remain non-authoritative, provider network activation remains independently disabled, and atomic fulfillment remains intentionally deferred to SPR25-004.",
+    "extensions": {
+      "backendCommit": "510137e59d24895f8199b100c3781ebeacd9a981",
+      "backendDeploymentCommit": "0cfc633e35fa64b211cd236de579157c7093c722",
+      "frontendCommit": "75279e53383efefd920789047b9f4f0ad4f657e1",
+      "frontendDeploymentCommit": "c216eb4f83bd7f73e16d6388f760054c3eeaaf63",
+      "backendCiRunId": 33030658377,
+      "backendDeploymentRunId": 33030658388,
+      "frontendCiRunId": 33030224807,
+      "frontendDeploymentRunId": 33030224748,
+      "successfulBackendDeploymentAttempt": 1,
+      "successfulFrontendDeploymentAttempt": 1,
+      "productionMigrationCount": 56,
+      "pendingMigrationCount": 0,
+      "runtimeRoleLeastPrivilegeReady": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "productionHealthStatus": 200,
+      "productionDocsStatus": 200,
+      "webhookProviderDisabledStatus": 503,
+      "webhookNonJsonStatus": 415,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

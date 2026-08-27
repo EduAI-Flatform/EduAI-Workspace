@@ -6,7 +6,7 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "SPR25-003",
+  "currentTaskId": "SPR25-004",
   "taskStatuses": {
     "SPR13-001": "DONE",
     "SPR13-002": "DONE",
@@ -85,8 +85,8 @@
     "SPR24-007": "DONE",
     "SPR25-001": "DONE",
     "SPR25-002": "DONE",
-    "SPR25-003": "IN_PROGRESS",
-    "SPR25-004": "TODO",
+    "SPR25-003": "DONE",
+    "SPR25-004": "IN_PROGRESS",
     "SPR25-005": "TODO",
     "SPR25-006": "TODO",
     "SPR25-007": "TODO",
@@ -109,8 +109,8 @@
   "waitingManualActionIds": [
     "MANUAL:SPR20_003_NGINX_COMPRESSION"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-002:PAYMENT-REQUEST-QR-CHECKOUT",
-  "updatedAt": "2026-08-26T16:37:48.9613904+07:00",
+  "lastEvidenceId": "EVIDENCE:SPR25-003:SIGNED-WEBHOOK-INGESTION",
+  "updatedAt": "2026-08-27T08:47:16.3557245+07:00",
   "extensions": {
     "baselineVerification": {
       "auditedAt": "2026-08-10T04:20:00.000Z",
@@ -1224,10 +1224,31 @@
       "credentialMaterialRecorded": false
     },
     "sprint25WebhookIngestion": {
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "startedAt": "2026-08-26T16:37:48.9613904+07:00",
       "selectionReason": "SPR25-002 completed the expiring payment-request and learner QR boundary; SPR25-003 is now the highest-priority dependency-runnable Sprint 25 task.",
       "taskId": "SPR25-003",
+      "backendCommit": "510137e59d24895f8199b100c3781ebeacd9a981",
+      "backendDeploymentCommit": "0cfc633e35fa64b211cd236de579157c7093c722",
+      "frontendCommit": "75279e53383efefd920789047b9f4f0ad4f657e1",
+      "frontendDeploymentCommit": "c216eb4f83bd7f73e16d6388f760054c3eeaaf63",
+      "evidenceId": "EVIDENCE:SPR25-003:SIGNED-WEBHOOK-INGESTION",
+      "backendCiRunId": 33030658377,
+      "backendDeploymentRunId": 33030658388,
+      "frontendCiRunId": 33030224807,
+      "frontendDeploymentRunId": 33030224748,
+      "localAcceptanceCriteriaSatisfied": true,
+      "productionDeploymentVerified": true,
+      "providerActivated": false,
+      "providerCallCount": 0,
+      "completedAt": "2026-08-27T08:47:16.3557245+07:00",
+      "credentialMaterialRecorded": false
+    },
+    "sprint25AtomicFulfillment": {
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-27T08:47:16.3557245+07:00",
+      "selectionReason": "SPR25-003 completed authoritative signed and idempotent PayOS settlement ingestion; SPR25-004 is now the highest-priority dependency-runnable Sprint 25 task with SPR24-003 complete.",
+      "taskId": "SPR25-004",
       "credentialMaterialRecorded": false
     },
     "standingProductionWriteUatAuthorization": {
