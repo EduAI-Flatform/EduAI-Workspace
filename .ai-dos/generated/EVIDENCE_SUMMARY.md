@@ -653,5 +653,10 @@
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | DEPLOY | Exact-revision CI and production deployment | PASS | Public GitHub Actions run and job metadata |
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Body-discarding production safety verification | PASS | Unauthenticated status-only HTTPS checks after exact-revision deployment |
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Live UAT scope contradiction isolated | PASS | Live source, task, and manual-action acceptance audit |
+| EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | OTHER | Payment descendant security review | PASS | Review current Backend and Frontend payment descendants against ADR-005 |
+| EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | TEST | Demand-driven SDK validation | PASS | red-first isolation test; full Frontend test, build, browser, and audit gates |
+| EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | DEPLOY | Exact-revision deployment | PASS | Public GitHub Actions metadata |
+| EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | PRODUCTION | Global SDK isolation and route readiness | PASS | Sanitized shell boolean and body-discarding HTTPS checks |
+| EVIDENCE:SPR25-007:PROVIDER-ACTIVATION-BLOCKER | SPR25-007 | MANUAL | Restore provider-disabled production boundary | BLOCKED | Set PAYOS_ENVIRONMENT=disabled; run sanitized preflight; npm run process:restart:production; verify health 200 and malformed webhook 503 |
 
 Generated projection; evidence is valid only when recorded in canonical evidence records.

@@ -8204,5 +8204,89 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Payment descendant security review",
+        "command": "Review current Backend and Frontend payment descendants against ADR-005",
+        "reference": "Backend webhook identity, fact-collision, reconciliation, checkout-host, sanitized audit, and payment CI hardening pass review. Frontend embedded checkout preserves webhook authority and authenticated status refresh. Review found and fixed one defect: the payOS SDK was globally loaded without an eligible provider-created checkout.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Demand-driven SDK validation",
+        "command": "red-first isolation test; full Frontend test, build, browser, and audit gates",
+        "reference": "The regression failed before implementation. After the fix, 80 files and 241 tests, production build, and responsive course/membership browser scenarios pass. The app-shell test proves no global SDK URL. Only the tracked moderate React Router advisories remain; their automatic fix is a breaking v7 migration.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision deployment",
+        "command": "Public GitHub Actions metadata",
+        "reference": "Backend 07f6046fe7f78068830c0821e0eb3458a5762345 passed CI 33140736569 and deploy 33140736648/job 98751048088. Frontend 2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3 passed CI 33140734683, browser job 98750796942, and deploy 33140734671/job 98750963583.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Global SDK isolation and route readiness",
+        "command": "Sanitized shell boolean and body-discarding HTTPS checks",
+        "reference": "Public root 200 with globalPayosSdkPresent=false; payment return 200, cancel 200, and health 200. No provider call, payment, credential, session, response body, entity identifier, raw key, payload, link, QR data, account data, or signature was used or retained.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-08-28T11:11:04.8643902+07:00",
+    "commit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+    "notes": "Payment descendant review and demand-driven SDK isolation pass without a live payment.",
+    "extensions": {
+      "backendCommit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+      "frontendCommit": "2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3",
+      "backendCiRunId": 33140736569,
+      "backendDeploymentRunId": 33140736648,
+      "frontendCiRunId": 33140734683,
+      "frontendDeploymentRunId": 33140734671,
+      "globalPayosSdkPresent": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PROVIDER-ACTIVATION-BLOCKER",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Restore provider-disabled production boundary",
+        "command": "Set PAYOS_ENVIRONMENT=disabled; run sanitized preflight; npm run process:restart:production; verify health 200 and malformed webhook 503",
+        "reference": "After the exact Backend restart, health returned 200 but malformed PayOS webhook returned 400 twice instead of disabled-mode 503. Client availability is checked before webhook shape, so this proves a PayOS client is configured. The malformed request was rejected before signature verification and caused no provider network call or financial mutation. No live-payment authorization exists. An authorized operator must restore disabled mode and provide only boolean/status evidence.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-08-28T11:11:04.8643902+07:00",
+    "commit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+    "notes": "External provider configuration is active without a live-UAT authorization. No secret or provider value is requested or recorded.",
+    "extensions": {
+      "manualActionId": "MANUAL:SPR25_007_LIVE_PAYMENT_UAT",
+      "providerCurrentlyActivated": true,
+      "providerDisabledWebhookStatus": 400,
+      "productionHealthStatus": 200,
+      "livePaymentUatAuthorized": false,
+      "livePaymentUatPassed": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
   }
 ]

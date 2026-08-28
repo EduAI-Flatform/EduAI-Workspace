@@ -6,13 +6,21 @@
 - Priority: `CRITICAL`
 - Related task: `SPR25-007`.
 - Required action:
+  - Immediately restore `PAYOS_ENVIRONMENT=disabled` through the approved
+    secret-management path, run `npm run config:verify:production-commerce`,
+    verify only the sanitized booleans `paymentProviderActivated=false` and
+    `paymentProviderDisabled=true`, run `npm run process:restart:production`,
+    confirm health returns HTTP `200`, and confirm a bounded malformed webhook
+    request fails closed with HTTP `503`. Create no payment request, checkout,
+    QR, provider call, or financial mutation during this rollback.
   - Resolve the discovered scope mismatch: either separately authorize two
     bounded, low-value, dedicated, non-sensitive live PayOS transactions (one
     course and one membership), or approve a narrowly scoped `SPR25-007`
     acceptance amendment. PayOS has no sandbox, so each transaction uses real
     money. No second transaction is authorized implicitly.
-  - Activate the existing provider only through the approved secret-management
-    and deployment path; do not paste or record any provider value.
+  - Only after that separate scope decision, activate the existing provider
+    through the approved secret-management and deployment path; do not paste or
+    record any provider value.
   - Do not run the previous mixed course-and-membership scenario: the deployed
     product creates separate immutable course and membership orders and does
     not support mixed checkout. After the decision, run only the explicitly
@@ -23,13 +31,17 @@
     `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
     verify health and provider-disabled fail-closed behavior.
 - Completed prerequisites: Backend
-  `b08a28386ca12d63771aef2c23a80b078c7f4a77` and Frontend
-  `e78882b0baed6ecd1a76e136329e66d726e799bd` is a reviewed descendant and is
-  deployed. Deterministic
+  `07f6046fe7f78068830c0821e0eb3458a5762345` and Frontend
+  `2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3` are deployed. The PayOS browser
+  SDK is absent from the global application shell and loads only after an
+  allowlisted provider checkout is opened. Deterministic
   payment security, failure recovery, persistence, UI, least-privilege,
-  rollback, monitoring, and provider-disabled production gates pass.
+  rollback, and monitoring gates pass. A bounded malformed-webhook probe
+  returned HTTP `400`, proving the provider is currently activated; immediate
+  fail-closed rollback is required before any monetary scope decision or UAT.
 - Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS` and
-  `EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS`.
+  `EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION` and
+  `EVIDENCE:SPR25-007:PROVIDER-ACTIVATION-BLOCKER`.
 - Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require
   the explicit scope decision and resulting authorized real transaction or
   transactions.
