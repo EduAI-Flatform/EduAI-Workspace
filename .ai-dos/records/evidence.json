@@ -8288,5 +8288,410 @@
       "credentialMaterialRecorded": false,
       "responseBodiesRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PRODUCTION-UAT-TARGET-READINESS",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Identify dedicated course and membership UAT targets",
+        "command": "GET-only production catalog checks with approved UAT sessions; browser write requests blocked",
+        "reference": "The production learner course catalog returned 23 public courses, including 10 published paid courses, but the administrator commerce catalog contained no active dedicated paid UAT course; the previously named Commerce UAT products are archived. The administrator membership catalog returned 13 plans and every plan is archived; the authenticated learner membership catalog returned zero items. No order, payment request, QR, provider call, or financial mutation was initiated.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Reconfirm current provider boundary",
+        "command": "Body-discarding HTTPS checks for health and malformed PayOS webhook",
+        "reference": "Production health returned HTTP 200 and the bounded malformed PayOS webhook returned HTTP 400, confirming the provider is currently activated rather than disabled. No credentials, response bodies, provider payloads, payment identifiers, QR data, or raw idempotency keys were retained.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-04T17:59:05.8653761+07:00",
+    "commit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+    "notes": "Read-only target discovery is complete. A separate human decision is still required for two real-money transactions and for creating or approving dedicated active course and membership targets. Provider rollback to disabled remains required before that decision is acted on.",
+    "extensions": {
+      "backendCommit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+      "frontendCommit": "2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3",
+      "productionHealthStatus": 200,
+      "malformedWebhookStatus": 400,
+      "courseCatalogCount": 23,
+      "publishedPaidCourseCount": 10,
+      "activeDedicatedPaidCourseTargetCount": 0,
+      "membershipPlanCount": 13,
+      "activeMembershipPlanCount": 0,
+      "learnerMembershipCatalogCount": 0,
+      "writeRequestsBlocked": true,
+      "livePaymentUatAuthorized": false,
+      "livePaymentUatPassed": false,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PROVIDER-ROLLBACK-RECHECK",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Verify provider-disabled production boundary after operator rollback",
+        "command": "Production health GET and body-discarding malformed PayOS webhook after PAYOS_ENVIRONMENT=disabled",
+        "reference": "After the operator reported PAYOS_ENVIRONMENT=disabled, production health returned HTTP 200 but the bounded malformed PayOS webhook still returned HTTP 400. The serving process therefore remains provider-active and the disabled boundary is not verified; a production restart/update-env through the approved path is still required. No order, payment request, QR, provider call, or financial mutation was initiated.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Compare local configuration without exposing secrets",
+        "command": "npm run config:verify:production-commerce",
+        "reference": "The local Backend .env preflight reported paymentProviderActivated true, paymentProviderDisabled false, and commerceIdempotencySecretConfigured false. This is diagnostic only and is not treated as production evidence; no credential value was printed or recorded.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-04T18:13:50.1539760+07:00",
+    "commit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+    "notes": "The reported environment change has not reached the serving production process. Do not activate or exercise PayOS until disabled-mode verification passes and the separate live-money scope is explicitly authorized.",
+    "extensions": {
+      "backendCommit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookStatus": 400,
+      "providerCurrentlyActivated": true,
+      "productionFinancialMutationsPerformed": false,
+      "livePaymentUatAuthorized": false,
+      "livePaymentUatPassed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PROVIDER-DISABLED-ROLLBACK",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Production Commerce preflight after operator rollback",
+        "command": "npm run config:verify:production-commerce on /var/www/eduai/backend",
+        "reference": "The operator-provided production output reported commerceIdempotencySecretConfigured true, paymentProviderActivated false, and paymentProviderDisabled true. No secret value was shared or recorded.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Production process restart after operator rollback",
+        "command": "npm run process:restart:production on /var/www/eduai/backend",
+        "reference": "The operator-provided output reported pm2EnvironmentLoadedFromFile true, eduai-backend online after restart, and PM2 process-list save succeeded. No process identifiers or credential material were retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "External provider-disabled readiness verification",
+        "command": "Body-discarding HTTPS checks for health and malformed PayOS webhook",
+        "reference": "After the production restart, health returned HTTP 200 and the bounded malformed PayOS webhook returned HTTP 503. This verifies the provider is disabled and fails closed. No order, payment request, QR, provider call, or financial mutation was initiated.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-04T18:16:19.5256439+07:00",
+    "commit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+    "notes": "The previously active PayOS runtime has been rolled back and externally verified disabled. SPR25-007 remains WAITING_MANUAL only for dedicated target setup and explicit live-money scope authorization.",
+    "extensions": {
+      "backendCommit": "07f6046fe7f78068830c0821e0eb3458a5762345",
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookStatus": 503,
+      "providerCurrentlyActivated": false,
+      "providerDisabled": true,
+      "commerceIdempotencySecretConfigured": true,
+      "processRestartVerified": true,
+      "livePaymentUatAuthorized": false,
+      "livePaymentUatPassed": false,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-ROLLBACK-READONLY-UAT",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Production role and route read-only UAT after PayOS rollback",
+        "command": "npx playwright test --config playwright.production.config.ts playwright/production-uat.spec.ts --project=production-uat-mobile --project=production-uat-desktop --no-deps",
+        "reference": "All 14 sanitized mobile/desktop route and role-authorization checks passed using the approved existing auth states. The route audit observed no failed API responses, console errors, or unsafe business mutations; this check did not create an order, payment request, or QR.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Cleanup of the exact UAT artifact created by the certificate probe",
+        "command": "Bounded instructor UI cleanup with one exact archive action and GET-only catalog confirmation",
+        "reference": "Exactly one course matching the generated SSE certificate UAT marker was found, archived with HTTP 201, and subsequently confirmed ARCHIVED from the administrator catalog. No other mutation was allowed and no payment/provider operation was involved.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-04T18:26:28.5905985+07:00",
+    "commit": "2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3",
+    "notes": "Post-rollback route/role readiness and exact test-artifact cleanup pass. Live PayOS settlement UAT remains unauthorized and is not claimed by this evidence.",
+    "extensions": {
+      "frontendCommit": "2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3",
+      "providerCurrentlyActivated": false,
+      "providerDisabled": true,
+      "productionReadOnlyUatPassed": true,
+      "productionReadOnlyUatCheckCount": 14,
+      "cleanupMutationCount": 1,
+      "cleanupTargetArchived": true,
+      "livePaymentUatAuthorized": false,
+      "livePaymentUatPassed": false,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:UAT-TARGET-SETUP",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Dedicated course target prepared for bounded live UAT",
+        "command": "Sanitized Playwright production target setup through guarded instructor and administrator APIs",
+        "reference": "One dedicated marked course target was created or reused, given the required lesson, published as public and moderation-clear, and verified with an active Commerce product at exactly 10.000 VND. No payment request, QR, provider call, or settlement was initiated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Dedicated membership target prepared for bounded live UAT",
+        "command": "Sanitized Playwright production target setup through guarded administrator and learner APIs",
+        "reference": "One dedicated marked membership target was created or reused, its one-month published duration was verified in the learner catalog at exactly 20.000 VND, and the UAT learner had no pending membership change. No payment request, QR, provider call, or settlement was initiated.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-05T01:48:05.8281732Z",
+    "commit": "6ce0c4d35b6036a4b5f4efd0bf93da067ccbe674",
+    "notes": "Dedicated targets are ready for the separately authorized two-transaction PayOS production UAT. The setup used no real payment operation and retained no sensitive material or entity identifiers.",
+    "extensions": {
+      "courseAmountMinor": 10000,
+      "courseCurrency": "VND",
+      "membershipAmountMinor": 20000,
+      "membershipCurrency": "VND",
+      "courseTargetReady": true,
+      "membershipTargetReady": true,
+      "paymentRequestCount": 0,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PROVIDER-ACTIVATION",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Production Commerce activation preflight",
+        "command": "npm run config:verify:production-commerce on /var/www/eduai/backend",
+        "reference": "The operator-provided production output reported commerceIdempotencySecretConfigured true, paymentProviderActivated true, and paymentProviderDisabled false. No secret or provider configuration value was shared or recorded.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Production process restart after activation",
+        "command": "npm run process:restart:production on /var/www/eduai/backend",
+        "reference": "The operator-provided output reported pm2EnvironmentLoadedFromFile true, eduai-backend online after restart, and PM2 process-list save succeeded. No process identifier or credential material was retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Active provider boundary and public readiness",
+        "command": "Body-discarding HTTPS checks for health, return, cancel, and malformed PayOS webhook",
+        "reference": "After activation, health returned HTTP 200, payment return and cancel routes returned HTTP 200, and the malformed PayOS webhook returned HTTP 400. This confirms the serving process is active while malformed input remains rejected. The probe created no order, payment request, QR, provider settlement, or financial mutation.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Dedicated target and identity revalidation",
+        "command": "Sanitized Playwright production GET-only target and reconciliation preflight",
+        "reference": "The dedicated course remained published/public/moderation-clear with an active Commerce product at exactly 10.000 VND; the dedicated one-month membership remained learner-visible at exactly 20.000 VND; the UAT learner cart was empty, had no target enrollment, no current membership, and no pending membership change; no prior target order or reconciliation case was found.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-05T02:45:54.2404082Z",
+    "commit": "da8e57720e8f7981f10f207a3a29ef99d38c490d",
+    "notes": "Production PayOS activation is verified only as a pre-payment operational gate. Exactly two human-authorized real transactions remain: one course at 10.000 VND and one membership at 20.000 VND. Rollback to disabled remains mandatory after UAT.",
+    "extensions": {
+      "backendCommit": "da8e57720e8f7981f10f207a3a29ef99d38c490d",
+      "frontendCommit": "199012879fdf91f63dfcffd09ca03e606b77030e",
+      "backendDeploymentRunId": 33853133973,
+      "frontendDeploymentRunId": 33853133209,
+      "providerCurrentlyActivated": true,
+      "providerActivated": true,
+      "providerDisabled": false,
+      "activationRollbackRequired": true,
+      "productionHealthStatus": 200,
+      "providerReturnStatus": 200,
+      "providerCancelStatus": 200,
+      "activeWebhookMalformedStatus": 400,
+      "paymentRequestCount": 0,
+      "providerCallCount": 0,
+      "courseAmountMinor": 10000,
+      "courseCurrency": "VND",
+      "membershipAmountMinor": 20000,
+      "membershipCurrency": "VND",
+      "targetRevalidationPassed": true,
+      "priorTargetOrderCount": 0,
+      "reconciliationCaseCount": 0,
+      "liveMonetaryAuthorizationConfirmed": true,
+      "livePaymentUatPassed": false,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:COURSE-PAYMENT-REQUEST-FAILURE",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Bounded course UI journey reached the existing order",
+        "command": "Sanitized Playwright Course -> Cart -> Order journey on production",
+        "reference": "The learner journey created exactly one dedicated course order at the authoritative payable amount of 10.000 VND. The first UI attempt did not produce a payment attempt or QR; no second order was created.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Single course payment request failed before a payment attempt",
+        "command": "One bounded payment request on the existing owned course order",
+        "reference": "The one payment request call returned HTTP 500. Immediate administrator and learner GET-only reconciliation found the single order still PENDING_PAYMENT at 10.000 VND with payment request state NOT_CREATED, zero payment attempts, zero settlements, zero fulfillment, and zero enrollment. No retry was issued and no membership payment was attempted.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-05T03:08:27.5761481Z",
+    "commit": "da8e57720e8f7981f10f207a3a29ef99d38c490d",
+    "notes": "The course authorization is consumed pending operator diagnosis of the unexpected HTTP 500. Do not retry or create the membership payment until the existing order and provider boundary are reconciled and the production cause is resolved.",
+    "extensions": {
+      "backendCommit": "da8e57720e8f7981f10f207a3a29ef99d38c490d",
+      "frontendCommit": "199012879fdf91f63dfcffd09ca03e606b77030e",
+      "courseAmountMinor": 10000,
+      "courseCurrency": "VND",
+      "courseOrderCreatedCount": 1,
+      "coursePaymentRequestCallCount": 1,
+      "coursePaymentAttemptCount": 0,
+      "courseSettlementCount": 0,
+      "courseFulfillmentCount": 0,
+      "courseEnrollmentCount": 0,
+      "paymentRequestHttpStatus": 500,
+      "paymentRequestState": "NOT_CREATED",
+      "paymentStatusHttpStatus": 404,
+      "paymentStatusCode": "PAYMENT_REQUEST_NOT_CREATED",
+      "providerCallCount": 0,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "activationRollbackRequired": true,
+      "productionHealthStatus": 200,
+      "activeWebhookMalformedStatus": 400,
+      "membershipPaymentRequestCount": 0,
+      "livePaymentUatAuthorized": true,
+      "livePaymentUatPassed": false,
+      "productionFinancialMutationsPerformed": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Commerce idempotency contract and implementation audit",
+        "command": "Read-only audit of Prisma model, repository migration, PostgreSQL trigger/check constraints, migration history, and all application insert paths",
+        "reference": "Migration 20260824013000_add_commerce_persistence and both Prisma schema representations define commerce_idempotency_records with initial status in_progress; the BEFORE INSERT trigger rejects terminal status and the update trigger permits only in_progress to completed/failed. The production DriverAdapterError was caused by payment request, refund, and cancellation paths inserting completed rows directly; repository migration/schema and the production trigger contract are aligned. No production database object was disabled or edited.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Initial-state regression coverage",
+        "command": "Focused payment service Jest suites and PGlite migration/trigger contract suite",
+        "reference": "Five affected service suites passed 40/40 tests, including payment request, refund, cancellation, course checkout, and membership checkout. The PGlite migration suite passed 6/6 tests; direct terminal INSERT is rejected and in_progress INSERT followed by terminal UPDATE is accepted.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Backend schema, build, endpoint-security, and dependency review",
+        "command": "prisma:validate; prisma:generate; build; security:audit-endpoints; npm audit --audit-level=high",
+        "reference": "Prisma validation/generation, backend build, and endpoint authorization audit passed with endpointCount=249 and implicitCount=0. npm audit reported the pre-existing dependency baseline of 15 high and 40 total advisories; offered comprehensive fixes require unrelated breaking framework/toolchain upgrades, so no dependency change was included in this focused payment fix.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact-revision CI, migration deployment, and process restart",
+        "command": "GitHub Actions Backend CI #156 and Deploy Backend Production #114",
+        "reference": "Commit 8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb was pushed to origin/main. CI and the production deployment workflow passed; the official deployment path ran Prisma migration deployment with the isolated migration role, runtime-role verification, build, PM2 restart, and readiness check. No ad-hoc production migration was executed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Post-deploy provider-disabled boundary",
+        "command": "Body-discarding HTTPS GET /health and malformed POST /api/v1/payments/webhooks/payos",
+        "reference": "Production API health returned HTTP 200 at /health and the bounded malformed PayOS webhook returned HTTP 503. PayOS remains disabled and fail-closed. No order, payment request, provider call, or new financial mutation was initiated after the repair.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-05T12:22:23.9881075+07:00",
+    "commit": "8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb",
+    "notes": "Root cause is resolved in code and deployed: every application idempotency record is now created in_progress and finalized by an update in the same transaction. The existing course order remains the previously reconciled no-attempt state; live UAT was not resumed in this diagnostic checkpoint and the membership payment was not created.",
+    "extensions": {
+      "backendCommit": "8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb",
+      "backendCiRunId": 33946619427,
+      "backendCiConclusion": "success",
+      "backendDeploymentRunId": 33946619421,
+      "backendDeploymentConclusion": "success",
+      "deployedRevision": "8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb",
+      "migrationDeploymentPath": "official_prisma_migrate_production",
+      "productionHealthRoute": "/health",
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookRoute": "/api/v1/payments/webhooks/payos",
+      "providerDisabledWebhookStatus": 503,
+      "providerCurrentlyActivated": false,
+      "providerDisabled": true,
+      "paymentRequestNewCount": 0,
+      "livePaymentUatResumed": false,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]
