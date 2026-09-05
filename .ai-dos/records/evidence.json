@@ -8693,5 +8693,65 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "GET-only learner target revalidation",
+        "command": "Bounded Playwright production learner checks with refreshed demo auth state; all non-GET requests blocked",
+        "reference": "The learner catalog exposes a published one-month membership option at exactly 20.000 VND. The learner has no current membership, no pending membership change, an empty cart, and no enrollment for the dedicated course target. No payment request, provider call, or financial mutation was initiated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "GET-only course order identity and state revalidation",
+        "command": "Bounded Playwright production administrator order-detail check",
+        "reference": "Exactly one existing PENDING_PAYMENT course order at exactly 10.000 VND was found. The server-returned buyer identity matches the approved student demo account; the order has one COURSE line at 10.000 VND, payment status NOT_CREATED, zero payment attempts, and zero settlements. The target is not already enrolled. No mutation was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Provider-disabled boundary after target revalidation",
+        "command": "Body-discarding HTTPS checks for /health and malformed PayOS webhook",
+        "reference": "Production health returned HTTP 200 and the malformed PayOS webhook returned HTTP 503 while PAYOS_ENVIRONMENT=disabled remained effective. No provider credential, response body, identifier, or raw idempotency key was recorded.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-05T12:45:00.0000000+07:00",
+    "commit": "8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb",
+    "notes": "The diagnostic hold is cleared: the deployed idempotency-contract fix is proven against production behavior and the existing course order is reconciled without retry. Exactly two real transactions remain authorized, but live UAT is waiting for the operator to perform the official PayOS activation and process restart; PayOS remains disabled until that human-only action.",
+    "extensions": {
+      "backendCommit": "8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb",
+      "productionHealthStatus": 200,
+      "providerDisabledWebhookStatus": 503,
+      "providerCurrentlyActivated": false,
+      "providerDisabled": true,
+      "courseAmountMinor": 10000,
+      "courseCurrency": "VND",
+      "membershipAmountMinor": 20000,
+      "membershipCurrency": "VND",
+      "courseOrderCandidateCount": 1,
+      "coursePaymentAttemptCount": 0,
+      "courseSettlementCount": 0,
+      "courseTargetAlreadyEnrolled": false,
+      "courseOrderIdentityMatch": true,
+      "membershipCurrentAbsent": true,
+      "membershipPendingChangeAbsent": true,
+      "paymentRequestNewCount": 0,
+      "providerCallCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false,
+      "livePaymentUatResumptionAllowed": true,
+      "activationPendingVpsProcess": true
+    }
   }
 ]

@@ -1211,16 +1211,17 @@
     "status": "WAITING_USER",
     "priority": "CRITICAL",
     "requiredAction": [
-      "Required now: do not retry the course payment request or create the membership payment. Preserve the single existing course order until the HTTP 500 is diagnosed and the order/provider state is reconciled.",
+      "Completed: the HTTP 500 was diagnosed, the existing course order was reconciled as a single owned PENDING_PAYMENT/no-attempt order, and the deployed idempotency fix passed production target revalidation. Do not create a second course order; resume only with this existing order after provider activation.",
       "Completed: human-only authorization for exactly two bounded real PayOS transactions: one dedicated course at 10.000 VND and one dedicated membership at 20.000 VND, total maximum 30.000 VND.",
       "Completed: production PayOS activation through the approved secret-management and PM2 restart path; no provider credential or configuration value was shared or recorded.",
       "Do not execute the previous mixed course-and-membership scenario: the deployed product creates separate immutable course and membership orders and does not support mixed checkout.",
       "After the human scope decision, exercise only the authorized dedicated transaction or transactions, verify payment-request creation, VietQR presentation, server-verified settlement, exactly-once fulfillment, learner ownership, administrator review history, no browser-authoritative transition, and safe failure/recovery. Reconcile every exact financial effect through an explicitly approved operator action and retain only aggregate/status evidence.",
       "Restore PAYOS_ENVIRONMENT=disabled through the approved restart/deployment path, then verify readiness is healthy, provider operations fail closed, the exact UAT effects are reconciled, and immutable payment, fulfillment, access, and audit history remains."
     ],
-    "reason": "The single course payment request failure was traced to an application contract violation: payment request, refund, and cancellation paths inserted terminal idempotency rows while the deployed PostgreSQL trigger requires every INSERT to start in_progress. The smallest code fix was deployed at Backend 8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb and production health/fail-closed checks pass. The existing course order remains the previously reconciled PENDING_PAYMENT/no-attempt state; no membership payment was created and live UAT was not resumed in this diagnostic checkpoint.",
+    "reason": "The single course payment request failure was traced to an application contract violation: payment request, refund, and cancellation paths inserted terminal idempotency rows while the deployed PostgreSQL trigger requires every INSERT to start in_progress. The smallest code fix was deployed at Backend 8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb. Post-fix GET-only production revalidation confirms the existing course order is the single owned PENDING_PAYMENT/no-attempt 10.000 VND course order, the learner has no target enrollment or membership, and the dedicated one-month membership remains 20.000 VND. Production remains disabled and healthy; live UAT is now resumable after the operator performs the official activation step.",
     "retestSteps": [
       "Completed: PAYOS_ENVIRONMENT=disabled was verified by the production preflight, the Backend was restarted with the file environment, health returned HTTP 200, and the bounded malformed webhook returned HTTP 503 without a provider call or financial mutation.",
+      "Completed: refreshed production demo sessions and GET-only administrator/learner revalidation found exactly one existing owned course order at 10.000 VND with no payment attempt or settlement, a published one-month membership option at 20.000 VND, no current/pending membership, and no target enrollment; all non-GET requests were blocked by the verifier.",
       "Confirm exact deployed Backend 8b3d338a1ddb8b44f8efe71879c82bb51e4c4aeb and unchanged Frontend 2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3 or reviewed descendants passed CI and production deployment.",
       "Confirm the exact production runtime connection still passes every sanitized least-privilege assertion before activation.",
       "Execute only the transaction count and product scope explicitly authorized by the new human decision; never infer authorization for a second real-money transaction.",
@@ -1256,7 +1257,7 @@
       "targetRevalidationPassed": true,
       "priorTargetOrderCount": 0,
       "reconciliationCaseCount": 0,
-      "activationPendingVpsProcess": false,
+      "activationPendingVpsProcess": true,
       "paymentFailureEvidenceId": "EVIDENCE:SPR25-007:COURSE-PAYMENT-REQUEST-FAILURE",
       "courseOrderCreatedCount": 1,
       "coursePaymentRequestCallCount": 1,
@@ -1271,8 +1272,8 @@
       "operatorDiagnosisRequired": false,
       "idempotencyContractFixDeployed": true,
       "idempotencyContractEvidenceId": "EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX",
-      "existingCourseOrderRequiresReconciliation": true,
-      "livePaymentUatResumptionAllowed": false
+      "existingCourseOrderRequiresReconciliation": false,
+      "livePaymentUatResumptionAllowed": true
     }
   }
 ]

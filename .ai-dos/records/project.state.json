@@ -1328,7 +1328,7 @@
       "targetRevalidationPassed": true,
       "priorTargetOrderCount": 0,
       "reconciliationCaseCount": 0,
-      "liveActivationPendingVpsProcess": false,
+      "liveActivationPendingVpsProcess": true,
       "paymentFailureEvidenceId": "EVIDENCE:SPR25-007:COURSE-PAYMENT-REQUEST-FAILURE",
       "idempotencyContractEvidenceId": "EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX",
       "idempotencyContractFixDeployed": true,
@@ -1342,7 +1342,7 @@
       "paymentRequestState": "NOT_CREATED",
       "productionHealthStatus": 200,
       "providerDisabledWebhookStatus": 503,
-      "livePaymentUatResumptionAllowed": false,
+      "livePaymentUatResumptionAllowed": true,
       "productionFinancialMutationsPerformed": true,
       "providerCallCount": 0,
       "credentialMaterialRecorded": false

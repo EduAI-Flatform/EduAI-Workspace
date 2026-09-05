@@ -664,6 +664,9 @@
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | TEST | Demand-driven SDK validation | PASS | red-first isolation test; full Frontend test, build, browser, and audit gates |
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | DEPLOY | Exact-revision deployment | PASS | Public GitHub Actions metadata |
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | PRODUCTION | Global SDK isolation and route readiness | PASS | Sanitized shell boolean and body-discarding HTTPS checks |
+| EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only learner target revalidation | PASS | Bounded Playwright production learner checks with refreshed demo auth state; all non-GET requests blocked |
+| EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only course order identity and state revalidation | PASS | Bounded Playwright production administrator order-detail check |
+| EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | Provider-disabled boundary after target revalidation | PASS | Body-discarding HTTPS checks for /health and malformed PayOS webhook |
 | EVIDENCE:SPR25-007:POST-ROLLBACK-READONLY-UAT | SPR25-007 | PRODUCTION | Production role and route read-only UAT after PayOS rollback | PASS | npx playwright test --config playwright.production.config.ts playwright/production-uat.spec.ts --project=production-uat-mobile --project=production-uat-desktop --no-deps |
 | EVIDENCE:SPR25-007:POST-ROLLBACK-READONLY-UAT | SPR25-007 | PRODUCTION | Cleanup of the exact UAT artifact created by the certificate probe | PASS | Bounded instructor UI cleanup with one exact archive action and GET-only catalog confirmation |
 | EVIDENCE:SPR25-007:PRODUCTION-UAT-TARGET-READINESS | SPR25-007 | PRODUCTION | Identify dedicated course and membership UAT targets | BLOCKED | GET-only production catalog checks with approved UAT sessions; browser write requests blocked |
