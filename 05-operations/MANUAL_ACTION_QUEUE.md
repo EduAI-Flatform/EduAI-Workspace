@@ -16,11 +16,11 @@
   - Completed: production PayOS is active through the approved secret-management
     and PM2 restart path; no provider credential or configuration value was
     shared or recorded.
-  - Human-only next action: use the authenticated approved student session at
-    `/cart` and complete exactly the displayed existing Course checkout for
-    `10.000 VND` through PayOS. Do not create another Course order/request,
-    pay twice, or start Membership before Course reaches a reconciled terminal
-    state.
+  - No third payment is allowed. The approved student session's current
+    `10.000 VND` provider link is expired; do not pay it again or create
+    another Course order/request. Reconcile the existing user-paid `10.000 VND`
+    order only after the deployment migration gate is recovered and its
+    authenticated buyer identity is established. Do not start Membership first.
   - Do not run the previous mixed course-and-membership scenario: the deployed
     product creates separate immutable course and membership orders and does
     not support mixed checkout. After the decision, run only the explicitly
@@ -30,14 +30,13 @@
   - Reconcile the exact financial/test effects, restore
     `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
     verify health and provider-disabled fail-closed behavior.
-- Current checkpoint: Backend
-  `83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4` and Frontend
-  `2b944a3837bd7bab3f340c98f7e8c478d0590cdd` are deployed. Production
-  auth setup passed four cases; learner and administrator GET-only checks
-  returned one pending `10.000 VND` Course checkout, one `PENDING`
-  attempt, zero settlements, and no blocked mutation. Health is `200`; the
-  active malformed-webhook probe is `400`.
-- Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS`,
+- Current checkpoint: local diagnostic fix `6d42df9` passed CI, but its
+  production deployment is blocked at `database-migration` before PM2 restart.
+  Health remains `200`, but the new production revision is not verified. The
+  approved student provider link is `EXPIRED`; the user-paid `10.000 VND` row
+  remains locally `PENDING_PAYMENT` with `NOT_STARTED` fulfillment and is not
+  owned by the approved demo session. Two sanitized reconciliation cases remain.
+- Evidence: `EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC`,
   `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
   `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
 - Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require

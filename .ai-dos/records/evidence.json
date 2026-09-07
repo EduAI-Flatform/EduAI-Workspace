@@ -8831,5 +8831,37 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC",
+    "taskId": "SPR25-007",
+    "checks": [
+      {"kind":"TEST","name":"Payment regression","reference":"5 focused suites and 62 tests passed.","status":"PASS"},
+      {"kind":"TEST","name":"Migration and security gates","reference":"18 migration-contract tests, build, Prisma validation, and endpoint security audit passed.","status":"PASS"},
+      {"kind":"DEPLOY","name":"Diagnostic fix deployment","reference":"CI 34129789675 passed. Deploy 34129789692 is blocked at database-migration before PM2 restart; public health remains 200.","status":"BLOCKED"},
+      {"kind":"PRODUCTION","name":"Read-only provider/order correlation","reference":"Approved student provider link is EXPIRED. The user-paid 10.000 VND row maps to a separate local PENDING_PAYMENT order with NOT_STARTED fulfillment and two open review cases. No third payment was created.","status":"BLOCKED"}
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-07T21:02:43.9820800+07:00",
+    "commit": "6d42df99e3a23e9e1a7ed9fa8d6c7ce7690f241e",
+    "notes": "The diagnostic fix preserves payment identity, receiving-account HMAC, settlement, and fulfillment gates. Local gates passed; production deployment is blocked by database migration state, so Sprint 25 live UAT is incomplete.",
+    "extensions": {"backendCiRunId":34129789675,"backendDeploymentRunId":34129789692,"deploymentFailureStage":"database-migration","productionHealthStatus":200,"productionRevisionVerified":false,"providerActivationLastObserved":true,"approvedStudentProviderStatus":"EXPIRED","paidOrderLocalStatus":"PENDING_PAYMENT","paidOrderFulfillmentStatus":"NOT_STARTED","openReconciliationCaseCount":2,"thirdPaymentCreated":false,"membershipUatStarted":false,"livePaymentUatPassed":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER",
+    "taskId": "SPR25-007",
+    "checks": [
+      {"kind":"DEPLOY","name":"Production deployment gate","reference":"Deploy 34129789692 failed at deploymentFailureStage=database-migration before PM2 restart; public health remains 200.","status":"BLOCKED"},
+      {"kind":"PRODUCTION","name":"Paid-order correlation","reference":"Approved student provider link is EXPIRED; separate user-paid 10.000 VND order remains PENDING_PAYMENT with NOT_STARTED fulfillment and two open review cases. No third payment was created.","status":"BLOCKED"}
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-07T21:02:43.9820800+07:00",
+    "commit": "6d42df99e3a23e9e1a7ed9fa8d6c7ce7690f241e",
+    "notes": "Production revision is not verified because the official deployment stopped at the database migration gate. No ad-hoc DB recovery or third payment was attempted.",
+    "extensions": {"backendCiRunId":34129789675,"backendDeploymentRunId":34129789692,"deploymentFailureStage":"database-migration","productionHealthStatus":200,"productionRevisionVerified":false,"providerActivationLastObserved":true,"livePaymentUatPassed":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
   }
 ]

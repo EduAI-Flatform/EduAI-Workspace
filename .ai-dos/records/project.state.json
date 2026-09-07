@@ -110,7 +110,7 @@
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR25_007_LIVE_PAYMENT_UAT"
   ],
-  "lastEvidenceId": "EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY",
+  "lastEvidenceId": "EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER",
   "updatedAt": "2026-09-07T14:43:50.9185982+07:00",
   "extensions": {
     "baselineVerification": {
@@ -1344,6 +1344,7 @@
       "providerDisabledWebhookStatus": 503,
       "activeWebhookMalformedStatus": 400,
       "pendingCheckoutEvidenceId": "EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY",
+      "latestEvidenceId": "EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER",
       "currentPendingCheckoutVisible": true,
       "currentPendingPaymentListStatus": 200,
       "currentCourseAmountMinor": "10000",
