@@ -30,13 +30,15 @@
   - Reconcile the exact financial/test effects, restore
     `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
     verify health and provider-disabled fail-closed behavior.
-- Current checkpoint: local diagnostic fix `6d42df9` passed CI, but its
-  production deployment is blocked at `database-migration` before PM2 restart.
-  Health remains `200`, but the new production revision is not verified. The
-  approved student provider link is `EXPIRED`; the user-paid `10.000 VND` row
-  remains locally `PENDING_PAYMENT` with `NOT_STARTED` fulfillment and is not
-  owned by the approved demo session. Two sanitized reconciliation cases remain.
-- Evidence: `EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC`,
+- Current checkpoint: diagnostic fix `46420a4` passed CI and the official
+  production deployment `34133519787` succeeded; `/health` is `200`.
+  The approved student provider link is `EXPIRED`; the separate user-paid
+  `10.000 VND` observation remains locally `PENDING_PAYMENT` with
+  `NOT_STARTED` fulfillment. One bounded reconciliation run checked two
+  attempts, recovered zero, required review for one, and left three sanitized
+  cases open, including `PROVIDER_PAID_FACTS_INCOMPLETE` and
+  `PAYMENT_FACT_MISMATCH`. No third payment or manual fulfillment occurred.
+- Evidence: `EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION`,
   `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
   `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
 - Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require

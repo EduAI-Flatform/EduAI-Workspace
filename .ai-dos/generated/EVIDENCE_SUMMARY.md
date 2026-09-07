@@ -655,6 +655,12 @@
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | BUILD | Exact-revision regression, schema, build, endpoint, dependency, and least-privilege gates | PASS | exact-revision CI/deployment metadata and SPR25-006 full-gate evidence |
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | DEPLOY | Production deployment, health, provider isolation, authorization, rollback, and monitoring readiness | PASS | public GitHub Actions run/job metadata; body-discarding production checks; PayOS runbook review |
 | EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS | SPR25-007 | OTHER | Official environment constraint and remaining live-money gate | PASS | official PayOS environment, API, Node SDK, and webhook documentation review |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER | SPR25-007 | DEPLOY | Production deployment gate | BLOCKED | — |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER | SPR25-007 | PRODUCTION | Paid-order correlation | BLOCKED | — |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC | SPR25-007 | TEST | Payment regression | PASS | — |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC | SPR25-007 | TEST | Migration and security gates | PASS | — |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC | SPR25-007 | DEPLOY | Diagnostic fix deployment | BLOCKED | — |
+| EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DIAGNOSTIC | SPR25-007 | PRODUCTION | Read-only provider/order correlation | BLOCKED | — |
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | TEST | Server-authoritative provider-return regression | PASS | Backend and Frontend focused payment-return suites plus full exact-revision regressions |
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | OTHER | Redirect non-authority and provider isolation review | PASS | Focused diff review, npm audit, and callback contract review |
 | EVIDENCE:SPR25-007:PAYMENT-RETURN-RELEASE-READINESS | SPR25-007 | DEPLOY | Exact-revision CI and production deployment | PASS | Public GitHub Actions run and job metadata |
@@ -669,6 +675,10 @@
 | EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | PRODUCTION | Administrator payment-attempt reconciliation | PASS | Bounded Playwright production administrator GET-only order-detail probe with all non-GET requests blocked |
 | EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | PRODUCTION | PayOS activation and health preflight | PASS | Body-discarding HTTPS status checks for /health and malformed PayOS webhook |
 | EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | DEPLOY | Exact revision CI and production deployment | PASS | Public GitHub Actions run metadata, remote refs, and body-discarding HTTPS status checks |
+| EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | TEST | Sanitized migration diagnostics | PASS | — |
+| EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | DEPLOY | Production revision deployment | PASS | — |
+| EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | PRODUCTION | Bounded provider reconciliation | BLOCKED | — |
+| EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | PRODUCTION | Unresolved course settlement | BLOCKED | — |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only learner target revalidation | PASS | Bounded Playwright production learner checks with refreshed demo auth state; all non-GET requests blocked |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only course order identity and state revalidation | PASS | Bounded Playwright production administrator order-detail check |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | Provider-disabled boundary after target revalidation | PASS | Body-discarding HTTPS checks for /health and malformed PayOS webhook |

@@ -8863,5 +8863,22 @@
     "commit": "6d42df99e3a23e9e1a7ed9fa8d6c7ce7690f241e",
     "notes": "Production revision is not verified because the official deployment stopped at the database migration gate. No ad-hoc DB recovery or third payment was attempted.",
     "extensions": {"backendCiRunId":34129789675,"backendDeploymentRunId":34129789692,"deploymentFailureStage":"database-migration","productionHealthStatus":200,"productionRevisionVerified":false,"providerActivationLastObserved":true,"livePaymentUatPassed":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION",
+    "taskId": "SPR25-007",
+    "checks": [
+      {"kind":"TEST","name":"Sanitized migration diagnostics","reference":"Focused preflight regression 7/7, payment regression 5 suites and 62 tests, build, Prisma validation, and endpoint security audit passed.","status":"PASS"},
+      {"kind":"DEPLOY","name":"Production revision deployment","reference":"Backend CI 34133519749 and Deploy Backend Production 34133519787 passed for 46420a4ea48b5538571bd8ae10db228afd05fd0e; deployment steps succeeded and /health returned HTTP 200.","status":"PASS"},
+      {"kind":"PRODUCTION","name":"Bounded provider reconciliation","reference":"One authenticated administrator reconciliation run used limit 20, checked 2 attempts, recovered 0, required review for 1, and made no payment or direct fulfillment call.","status":"BLOCKED"},
+      {"kind":"PRODUCTION","name":"Unresolved course settlement","reference":"The approved student provider link is EXPIRED. The observed user-paid 10.000 VND flow remains PENDING_PAYMENT/PENDING/NOT_STARTED with no settlement; sanitized review reasons include PROVIDER_PAID_FACTS_INCOMPLETE and PAYMENT_FACT_MISMATCH. Membership was not started and no third payment was created.","status":"BLOCKED"}
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-07T21:49:42.2914500+07:00",
+    "commit": "46420a4ea48b5538571bd8ae10db228afd05fd0e",
+    "notes": "The migration diagnostic deployment succeeded and production health remained healthy. Reconciliation correctly failed closed because provider facts and payment identity are not sufficient to prove the paid order; no manual resolution, fulfillment bypass, retry, or third payment was attempted.",
+    "extensions": {"backendCiRunId":34133519749,"backendDeploymentRunId":34133519787,"productionRevisionVerified":true,"productionHealthStatus":200,"providerActivationLastObserved":true,"approvedStudentProviderStatus":"EXPIRED","reconciliationRunLimit":20,"reconciliationCheckedCount":2,"reconciliationRecoveredCount":0,"reconciliationReviewRequiredCount":1,"openReconciliationCaseCount":3,"paidOrderLocalStatus":"PENDING_PAYMENT","paidOrderPaymentAttemptStatus":"PENDING","paidOrderSettlementCount":0,"paidOrderFulfillmentStatus":"NOT_STARTED","membershipUatStarted":false,"thirdPaymentCreated":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
   }
 ]
