@@ -679,6 +679,7 @@
 | EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | DEPLOY | Production revision deployment | PASS | — |
 | EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | PRODUCTION | Bounded provider reconciliation | BLOCKED | — |
 | EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | PRODUCTION | Unresolved course settlement | BLOCKED | — |
+| EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION | SPR25-007 | PRODUCTION | Paid-course identity correlation | BLOCKED | — |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only learner target revalidation | PASS | Bounded Playwright production learner checks with refreshed demo auth state; all non-GET requests blocked |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only course order identity and state revalidation | PASS | Bounded Playwright production administrator order-detail check |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | Provider-disabled boundary after target revalidation | PASS | Body-discarding HTTPS checks for /health and malformed PayOS webhook |

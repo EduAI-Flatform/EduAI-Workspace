@@ -37,7 +37,9 @@
   `NOT_STARTED` fulfillment. One bounded reconciliation run checked two
   attempts, recovered zero, required review for one, and left three sanitized
   cases open, including `PROVIDER_PAID_FACTS_INCOMPLETE` and
-  `PAYMENT_FACT_MISMATCH`. No third payment or manual fulfillment occurred.
+  `PAYMENT_FACT_MISMATCH`. The latter is persisted by the verified-webhook
+  canonical fact gate on the newest 10.000 VND order, not an orphan case. No
+  third payment or manual fulfillment occurred.
 - Evidence: `EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION`,
   `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
   `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
