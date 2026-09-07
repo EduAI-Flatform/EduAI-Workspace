@@ -664,6 +664,11 @@
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | TEST | Demand-driven SDK validation | PASS | red-first isolation test; full Frontend test, build, browser, and audit gates |
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | DEPLOY | Exact-revision deployment | PASS | Public GitHub Actions metadata |
 | EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION | SPR25-007 | PRODUCTION | Global SDK isolation and route readiness | PASS | Sanitized shell boolean and body-discarding HTTPS checks |
+| EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | TEST | Approved production demo authentication refresh | PASS | npx.cmd playwright test --config playwright.production.config.ts --project=production-auth-setup --no-deps --reporter=line |
+| EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | PRODUCTION | Learner pending checkout recovery | PASS | Bounded Playwright production learner probe with all non-GET requests blocked |
+| EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | PRODUCTION | Administrator payment-attempt reconciliation | PASS | Bounded Playwright production administrator GET-only order-detail probe with all non-GET requests blocked |
+| EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | PRODUCTION | PayOS activation and health preflight | PASS | Body-discarding HTTPS status checks for /health and malformed PayOS webhook |
+| EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY | SPR25-007 | DEPLOY | Exact revision CI and production deployment | PASS | Public GitHub Actions run metadata, remote refs, and body-discarding HTTPS status checks |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only learner target revalidation | PASS | Bounded Playwright production learner checks with refreshed demo auth state; all non-GET requests blocked |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | GET-only course order identity and state revalidation | PASS | Bounded Playwright production administrator order-detail check |
 | EVIDENCE:SPR25-007:POST-FIX-TARGET-REVALIDATION | SPR25-007 | PRODUCTION | Provider-disabled boundary after target revalidation | PASS | Body-discarding HTTPS checks for /health and malformed PayOS webhook |

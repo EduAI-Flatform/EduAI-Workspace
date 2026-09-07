@@ -8753,5 +8753,83 @@
       "livePaymentUatResumptionAllowed": true,
       "activationPendingVpsProcess": true
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Approved production demo authentication refresh",
+        "command": "npx.cmd playwright test --config playwright.production.config.ts --project=production-auth-setup --no-deps --reporter=line",
+        "reference": "The repository-approved production auth setup passed four cases: configuration guard plus student, instructor, and administrator demo sessions. Credential values and session contents were not recorded.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Learner pending checkout recovery",
+        "command": "Bounded Playwright production learner probe with all non-GET requests blocked",
+        "reference": "The authenticated student /cart route returned 200. The cart and pending-payment APIs returned 200. Exactly one pending item was returned with amount 10.000 VND, payment status PENDING, payment required, and an allowlisted HTTPS PayOS checkout host. No non-GET request, API failure, or console error occurred.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Administrator payment-attempt reconciliation",
+        "command": "Bounded Playwright production administrator GET-only order-detail probe with all non-GET requests blocked",
+        "reference": "The existing order is PENDING_PAYMENT with NOT_STARTED fulfillment, one COURSE line at 10.000 VND, one PENDING payment attempt, and zero settlements. No non-GET request, API failure, or console error occurred.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "PayOS activation and health preflight",
+        "command": "Body-discarding HTTPS status checks for /health and malformed PayOS webhook",
+        "reference": "Production health returned HTTP 200. A malformed PayOS webhook returned HTTP 400, confirming the provider is active for the authorized live-UAT window. No valid event, provider call, financial mutation, credential, response body, identifier, or raw idempotency key was retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact revision CI and production deployment",
+        "command": "Public GitHub Actions run metadata, remote refs, and body-discarding HTTPS status checks",
+        "reference": "Backend 83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4 passed CI run 34093379093 and production deployment run 34093379032. Frontend 2b944a3837bd7bab3f340c98f7e8c478d0590cdd passed CI run 34094752998 and production deployment run 34094752822. Remote main refs match those deployed revisions; API health and frontend /cart returned HTTP 200.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-07T14:43:50.9185982+07:00",
+    "commit": "83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4",
+    "notes": "The deployed payment-recovery path exposes the existing authorized 10.000 VND course checkout to the authenticated learner without creating another order or payment request. PayOS is active and healthy; the next human-only step is completing the displayed course payment.",
+    "extensions": {
+      "backendCommit": "83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4",
+      "frontendCommit": "2b944a3837bd7bab3f340c98f7e8c478d0590cdd",
+      "backendCiRunId": 34093379093,
+      "backendDeploymentRunId": 34093379032,
+      "frontendCiRunId": 34094752998,
+      "frontendDeploymentRunId": 34094752822,
+      "productionHealthStatus": 200,
+      "frontendCartStatus": 200,
+      "pendingCheckoutCount": 1,
+      "courseAmountMinor": "10000",
+      "courseCurrency": "VND",
+      "coursePaymentStatus": "PENDING",
+      "courseCheckoutUrlPresent": true,
+      "courseCheckoutHostAllowlisted": true,
+      "coursePaymentAttemptCount": 1,
+      "courseSettlementCount": 0,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "activeWebhookMalformedStatus": 400,
+      "providerCallCount": 0,
+      "paymentRequestNewCount": 0,
+      "productionFinancialMutationsPerformed": false,
+      "livePaymentUatAuthorized": true,
+      "livePaymentUatPassed": false,
+      "activationRollbackRequired": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

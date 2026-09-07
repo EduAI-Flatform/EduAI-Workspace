@@ -6,21 +6,21 @@
 - Priority: `CRITICAL`
 - Related task: `SPR25-007`.
 - Required action:
-  - Immediately restore `PAYOS_ENVIRONMENT=disabled` through the approved
-    secret-management path, run `npm run config:verify:production-commerce`,
-    verify only the sanitized booleans `paymentProviderActivated=false` and
-    `paymentProviderDisabled=true`, run `npm run process:restart:production`,
-    confirm health returns HTTP `200`, and confirm a bounded malformed webhook
-    request fails closed with HTTP `503`. Create no payment request, checkout,
-    QR, provider call, or financial mutation during this rollback.
-  - Resolve the discovered scope mismatch: either separately authorize two
-    bounded, low-value, dedicated, non-sensitive live PayOS transactions (one
-    course and one membership), or approve a narrowly scoped `SPR25-007`
-    acceptance amendment. PayOS has no sandbox, so each transaction uses real
-    money. No second transaction is authorized implicitly.
-  - Only after that separate scope decision, activate the existing provider
-    through the approved secret-management and deployment path; do not paste or
-    record any provider value.
+  - Completed: the HTTP 500 idempotency-contract fix is deployed in Backend
+    `83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4`; the existing owned course
+    checkout is visible at exactly `10.000 VND`, with one pending attempt
+    and zero settlement.
+  - Completed: human-only authorization for exactly two bounded real PayOS
+    transactions is confirmed: one Course at `10.000 VND` and one Membership
+    at `20.000 VND`, total maximum `30.000 VND`.
+  - Completed: production PayOS is active through the approved secret-management
+    and PM2 restart path; no provider credential or configuration value was
+    shared or recorded.
+  - Human-only next action: use the authenticated approved student session at
+    `/cart` and complete exactly the displayed existing Course checkout for
+    `10.000 VND` through PayOS. Do not create another Course order/request,
+    pay twice, or start Membership before Course reaches a reconciled terminal
+    state.
   - Do not run the previous mixed course-and-membership scenario: the deployed
     product creates separate immutable course and membership orders and does
     not support mixed checkout. After the decision, run only the explicitly
@@ -30,21 +30,19 @@
   - Reconcile the exact financial/test effects, restore
     `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
     verify health and provider-disabled fail-closed behavior.
-- Completed prerequisites: Backend
-  `07f6046fe7f78068830c0821e0eb3458a5762345` and Frontend
-  `2c0de2bb1ca0b8ace53435f2a9a2ad14aafd98c3` are deployed. The PayOS browser
-  SDK is absent from the global application shell and loads only after an
-  allowlisted provider checkout is opened. Deterministic
-  payment security, failure recovery, persistence, UI, least-privilege,
-  rollback, and monitoring gates pass. A bounded malformed-webhook probe
-  returned HTTP `400`, proving the provider is currently activated; immediate
-  fail-closed rollback is required before any monetary scope decision or UAT.
-- Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS` and
-  `EVIDENCE:SPR25-007:PAYOS-SDK-ISOLATION` and
-  `EVIDENCE:SPR25-007:PROVIDER-ACTIVATION-BLOCKER`.
+- Current checkpoint: Backend
+  `83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4` and Frontend
+  `2b944a3837bd7bab3f340c98f7e8c478d0590cdd` are deployed. Production
+  auth setup passed four cases; learner and administrator GET-only checks
+  returned one pending `10.000 VND` Course checkout, one `PENDING`
+  attempt, zero settlements, and no blocked mutation. Health is `200`; the
+  active malformed-webhook probe is `400`.
+- Evidence: `EVIDENCE:SPR25-007:LOCAL-SECURITY-READINESS`,
+  `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
+  `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
 - Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require
-  the explicit scope decision and resulting authorized real transaction or
-  transactions.
+  the human completion and reconciliation of the already authorized Course and
+  Membership transactions.
 - Security: retain no credentials, sessions, response bodies, database or role
   names, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, receiving-account data, or signatures.
