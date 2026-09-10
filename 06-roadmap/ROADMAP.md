@@ -18,7 +18,7 @@ Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.
 6. `SPRINT:28` — Phase 3 Release
 
 ADR-005 is accepted and amended for permanent Commerce runtime with independent
-payment-provider activation. Sprint 23 is complete with deployed, reconciled
-production UAT evidence. Sprint 24 is active and `SPR24-001` is the next task
-selected by canonical dependency order. Human-authored details are at
+payment-provider activation. Sprints 23 and 24 are complete with deployed,
+reconciled production UAT evidence. Sprint 25 is active and `SPR25-007` remains
+the release gate pending human-only payment UAT. Human-authored details are at
 `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

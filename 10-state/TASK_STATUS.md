@@ -5,7 +5,7 @@ Compatibility view only. Canonical source: `.ai-dos/records/project.state.json`.
 - Project status: `IN_PROGRESS`
 - Current sprint: `SPRINT:25`
 - Current task: none (release gate remains `SPR25-007`)
-- Last evidence: `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`
+- Last evidence: `EVIDENCE:SPR25-007:PAYMENT-RECONCILIATION-DEPLOYMENT-BLOCKER`
 - Completed tasks: 81
 - Phase 3 tasks: 15 `TODO`, 1 `WAITING_MANUAL`, 18 `DONE`
 - Selected task: `SPR25-007` (`WAITING_MANUAL`).

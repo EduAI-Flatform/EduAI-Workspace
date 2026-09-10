@@ -1,15 +1,17 @@
-Current Sprint: 12
+Canonical current state: `.ai-dos/records/project.state.json`.
+
+Current Sprint: 25
 
 Current Task:
-SPR12-001
+SPR25-007
 
 Status:
-Ready
+WAITING_MANUAL
 
 Blocked By:
-None
+Human-only production UAT: displayed 10.000 VND Course payment.
 
-Task done:
+Task done (historical list retained below):
 Sprint 01:
 - SPR1-001 10/06/2026
 - SPR1-002 10/06/2026
