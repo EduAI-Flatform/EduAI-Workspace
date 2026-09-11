@@ -43,6 +43,9 @@
 - Evidence: `EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION`,
   `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
   `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
+- Targeted post-fix production Cart verification passed on 2026-09-11:
+  cancelled or expired payments no longer appear in the pending-payment
+  notice. Evidence: `EVIDENCE:SPR25-007:CART-CLOSED-PAYMENT-VERIFICATION`.
 - Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require
   the human completion and reconciliation of the already authorized Course and
   Membership transactions.

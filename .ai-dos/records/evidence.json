@@ -8881,5 +8881,33 @@
     "commit": "46420a4ea48b5538571bd8ae10db228afd05fd0e",
     "notes": "The migration diagnostic deployment succeeded and production health remained healthy. Reconciliation correctly failed closed because provider facts and payment identity are not sufficient to prove the paid order; no manual resolution, fulfillment bypass, retry, or third payment was attempted.",
     "extensions": {"backendCiRunId":34133519749,"backendDeploymentRunId":34133519787,"productionRevisionVerified":true,"productionHealthStatus":200,"providerActivationLastObserved":true,"approvedStudentProviderStatus":"EXPIRED","reconciliationRunLimit":20,"reconciliationCheckedCount":2,"reconciliationRecoveredCount":0,"reconciliationReviewRequiredCount":1,"openReconciliationCaseCount":3,"paidOrderLocalStatus":"PENDING_PAYMENT","paidOrderPaymentAttemptStatus":"PENDING","paidOrderSettlementCount":0,"paidOrderFulfillmentStatus":"NOT_STARTED","userPaidCourseCorrelation":"newest_10000_order","userPaidCourseOpenCaseCount":3,"verifiedWebhookMismatchCaseCheckCount":13,"membershipUatStarted":false,"thirdPaymentCreated":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:CART-CLOSED-PAYMENT-VERIFICATION",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Closed-payment Cart notice regression",
+        "command": "Operator-reported production browser verification after Front-End 7ac6cda and Back-End ae81dc3",
+        "reference": "After deployment, a previously cancelled or expired payment no longer appeared in the Cart pending-payment notice. No credential, payment identifier, raw provider payload, or financial detail was recorded.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-11T09:46:11.5399863+07:00",
+    "notes": "Targeted post-fix production Cart verification passed. This evidence covers stale closed-payment notice suppression only; it does not close the broader SPR25-007 settlement, reconciliation, and rollback gate.",
+    "extensions": {
+      "frontendCommit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "backendCommit": "ae81dc3c4baaa2f8d90ffd2223e1dccd94839fc8",
+      "operatorReported": true,
+      "cancelledOrExpiredPaymentHidden": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
   }
 ]

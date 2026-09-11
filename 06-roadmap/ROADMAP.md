@@ -20,5 +20,8 @@ Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.
 ADR-005 is accepted and amended for permanent Commerce runtime with independent
 payment-provider activation. Sprints 23 and 24 are complete with deployed,
 reconciled production UAT evidence. Sprint 25 is active and `SPR25-007` remains
-the release gate pending human-only payment UAT. Human-authored details are at
+the release gate pending the remaining structured settlement, reconciliation,
+and provider-rollback evidence. The post-fix production Cart check passed:
+cancelled or expired payments no longer appear in the pending-payment notice.
+Human-authored details are at
 `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

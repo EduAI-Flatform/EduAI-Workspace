@@ -17,9 +17,17 @@ The payment pending notice fix excludes closed payment states in the Cart UI
 and excludes expired local payment windows from the backend pending-payment
 query. Regression tests cover both expired and cancelled responses.
 
+## Post-fix production verification
+
+On 2026-09-11, the operator rechecked the production Cart after deployment.
+A previously cancelled or expired payment no longer appeared in the pending-
+payment notice. The sanitized result is recorded as
+`EVIDENCE:SPR25-007:CART-CLOSED-PAYMENT-VERIFICATION`; no credential, payment
+identifier, raw provider payload, or financial detail was recorded.
+
 ## Release-gate status
 
-`SPR25-007` remains `WAITING_MANUAL`. The operator reported that the original
-production payment UAT succeeded, but these new revisions still require
-deployment and a repeat live Cart check; this handoff does not claim that
-post-fix production verification is complete.
+`SPR25-007` remains `WAITING_MANUAL` for the broader settlement,
+reconciliation, and provider-rollback evidence. The targeted post-fix Cart
+regression check passed; it does not by itself close the full payment release
+gate.

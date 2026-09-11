@@ -9,7 +9,9 @@ Status:
 WAITING_MANUAL
 
 Blocked By:
-Human-only production UAT: displayed 10.000 VND Course payment.
+Remaining structured settlement, reconciliation, and provider-rollback
+evidence. Targeted post-fix Cart verification passed: cancelled or expired
+payments no longer appear in the pending-payment notice.
 
 Task done (historical list retained below):
 Sprint 01:
