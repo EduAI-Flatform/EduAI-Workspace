@@ -7,15 +7,19 @@ handoffs and state, not application source contents.
 
 | Repository | Branch | Revision | Worktree | Verification |
 | --- | --- | --- | --- | --- |
-| Front-End | `main` | `689cafaa0e04dd0acff517b9b562a8239cdfeca9` | clean | `npm test`: 92 files / 338 tests passed; `npm run build`: passed |
-| Back-End | `main` | `dc2e712d6193092875e00ea4463cb9fa0d249a6c` | clean | `npm.cmd test -- --runInBand`: 146 suites / 857 tests passed; `npm run build`: passed |
+| Front-End | `main` | `7ac6cda` | clean | `npm test`: 92 files / 340 tests passed; `npm run build`: passed |
+| Back-End | `main` | `ae81dc3` | clean | `npm.cmd test -- --runInBand`: 146 suites / 858 tests passed; `npm run build`: passed |
 
-Front-End revision `689cafa` was pushed to `origin/main`. Back-End revision
-`dc2e712` was already synchronized with `origin/main`; no new source commit
-was created.
+Front-End revision `7ac6cda` and Back-End revision `ae81dc3` were pushed to
+their respective `origin/main` branches.
+
+The payment pending notice fix excludes closed payment states in the Cart UI
+and excludes expired local payment windows from the backend pending-payment
+query. Regression tests cover both expired and cancelled responses.
 
 ## Release-gate status
 
-`SPR25-007` remains `WAITING_MANUAL`. This handoff records local build/test
-verification and repository synchronization only; it does not claim a new
-production deployment or completion of the human-only 10.000 VND payment UAT.
+`SPR25-007` remains `WAITING_MANUAL`. The operator reported that the original
+production payment UAT succeeded, but these new revisions still require
+deployment and a repeat live Cart check; this handoff does not claim that
+post-fix production verification is complete.
