@@ -1,6 +1,6 @@
 ﻿# VNPay Sandbox remediation and real-site UAT â€” 2026-10-09
 
-Status: WAITING_MANUAL (actual local IPN delivery only). One actual Sandbox payment, signed QueryDR reconciliation, reload persistence and exactly-once fulfillment passed locally.
+Status: PASS for the user-directed LOCAL Sandbox acceptance scope. The follow-up transaction below verifies actual IPN delivery, signed QueryDR, reload persistence and exactly-once fulfillment. Real-site VNPay payment acceptance remains intentionally excluded by the user; VPS keeps PayOS.
 
 ## Remote baseline
 
@@ -61,7 +61,7 @@ The user explicitly changed VNPay UAT to local because the VPS uses PayOS. Accep
 
 The repository .env points at shared Neon data, so the local test deliberately overrides it in memory. All 61 migrations were applied to a separate persistent loopback PGlite database on port 55432. Only existing minimal learner/instructor/course fixtures were seeded; initial orders/events/settlements/enrollments/access grants were zero. No live database writes, price changes, forged IPN, direct paid-state mutation, or manual fulfillment were used. Local helper scripts are under workspace .vnpay-local and are not committed.
 
-A callback-only HTTPS tunnel exposes GET /payments/return (redirects to local UI) and GET /api/v1/payments/webhooks/vnpay (forwards to local backend). All other paths return 404; authentication, application pages, and data APIs remain private. VNPAY_IPN_URL alone does not register the merchant callback at VNPay. No actual IPN reached the local endpoint as of this record; merchant Sandbox IPN registration is pending.
+A callback-only HTTPS tunnel exposes GET /payments/return (redirects to local UI) and GET /api/v1/payments/webhooks/vnpay (forwards to local backend). All other paths return 404; authentication, application pages, and data APIs remain private. VNPAY_IPN_URL alone does not register the merchant callback at VNPay. No actual IPN reached the local endpoint during the first transaction; this was resolved in the authorized merchant configuration and follow-up transaction below.
 
 - Order ID: 43fc8870-3500-4d6f-9445-428616cf3786.
 - Order number: EDU-MV1QNTO3-71D70381.
@@ -84,4 +84,30 @@ Frontend PR #17 merged to 98eb24582e871c8147d97ba01747ccf45cf5dc81 after all req
 
 Backend PR #9 contains only a protected enum-only configuration diagnostic already used above; fresh adversarial review found no security blockers. PR #9 merged to final Backend main 849d4ac4b89f4e0eb5a5dcdfc41ed5e562a92982 after CI passed; branch deleted locally/remotely. Deployment run 38015384977 passed, recording the exact SHA at 2026-10-10T02:02:04.298Z, financialRowsChanged=0, and successful restart/readiness at 2026-10-10T02:03:17.384Z. No merchant identifiers, passwords, signatures, session tokens, or secret-bearing environment output are retained here.
 
-Remaining external acceptance blocker: configure the merchant Sandbox IPN callback to the currently running callback-only local tunnel, then verify actual provider delivery/retry for transaction 15700786. A text clarification is pending with the user; no merchant portal account/session is available in the established setup. No second payment has been created. The tunnel URL is temporary and valid only while the local tunnel process runs. Do not report full IPN acceptance or real-site VNPay UAT as PASS.
+The initial IPN blocker was subsequently resolved by user-assisted Sandbox merchant login and the separately authorized additional transaction below. No real-site VNPay transaction was performed.
+
+## Authorized real-IPN follow-up ? 2026-10-10
+
+The user explicitly authorized Sandbox-only merchant IPN configuration, one additional new Sandbox payment, and removal of the temporary callback after UAT. User logged into the existing merchant browser session; no portal password, cookie, token, merchant code or payment signing material was exported to evidence. Exact website selection was matched internally to the backend configured TMN before editing.
+
+Merchant Sandbox IPN was originally # (no valid callback), explaining the missing initial IPN. Only IPN URL changed to the callback-only temporary HTTPS tunnel; GET and HMACSHA512 stayed unchanged. The saved URL was reopened and verified before payment. HTTPS return probe passed with 302 to the local return page immediately before checkout. No VNPay production portal or configuration was modified.
+
+The established second student fixture lan.pham@eduai.local was created only in the isolated local database because the first learner already owned the paid fixture. No financial state or access was seeded for this learner. Existing course price was unchanged.
+
+- New order: 66e060bf-b244-4f2a-88f3-494574a57ba2; order number EDU-MV1RRWQ0-7FF617C2.
+- Attempt: 97b61961-525c-4a74-b6ca-b7edce78feb0; provider vnpay; amount 1,499,000 VND.
+- Created at 2026-10-10T02:23:00.523Z; TxnRef 2999031109537956.
+- Actual create response inspected before redirect: canonical IDs, provider=vnpay, status=PENDING, HTTPS sandbox.vnpayment.vn hosted URL.
+- One additional successful payment completed through official NCB Sandbox card and OTP. Provider transaction 15700802.
+- Actual IPN received at 2026-10-10T02:25:07.991Z: signatureValid=true, merchantVerified=true, matching TxnRef 2999031109537956, transactionNo 15700802, amountMinor 1499000, currency VND, responseCode=00, transactionStatus=00, acknowledgmentCode=00. HTTP GET IPN endpoint returned 200 at 02:25:07.992Z. No simulated IPN or browser-return replay was used.
+- BEFORE any QueryDR for this order, the canonical baseline was already confirmed/paid/fulfilled by IPN. Existing bounded evidence assertions validated order ? attempt ? event ? settlement identities, amount/currency and a non-QueryDR baseline event. Event d4464014-d81b-497c-bc00-738bc79f78d5; settlement c2f9f5ec-cec9-4e77-913a-6528a9851cff; COURSE_ACCESS effect 020fa0e6-51d4-431e-9265-59ef20ce51a3.
+- Existing internal recovery mechanism then queried the real Sandbox API: HTTP 200, response signature present and verified, trusted=true, responseCode=00, queryRequestStatus=success, transactionStatus=paid, transactionStatusCode=00, amountMinor=1499000, transactionNo=15700802. The known settlement identity matched. financialRowsUnchanged=true.
+- Read-only per-order/per-learner counts at 2026-10-10T02:26:18.277Z: 1 order, 1 event, 1 settlement, 1 fulfillment effect, 1 enrollment, 1 course access grant. QueryDR did not duplicate or alter financial/access state.
+- Browser navigation history confirms actual provider return to local /payments/return for the new order with responseCode=00 and transactionNo=15700802. A fresh clean return URL with only orderId still showed backend-confirmed payment. Course reload showed enrolled and Continue Learning; total course learners became 2, one per separately paid learner.
+- Existing negative automated coverage remains green for invalid signatures/TMN/amount/reference, settlement identity mismatch, duplicate IPN, untrusted browser return, unsafe checkout host and terminal-cache handling. No application code changed during this follow-up; prior full BE/FE CI/deployment evidence remains applicable.
+
+### Post-UAT callback cleanup
+
+Sandbox merchant IPN was saved and reopened as https://api.eduai.giaoducso.org.vn/api/v1/payments/webhooks/vnpay, with GET and HMACSHA512 preserved. Canonical deployed backend HTTPS availability returned 200 at /api/docs. This changes only Sandbox routing and does not activate production VNPay or change the VPS default provider from PayOS. The temporary trycloudflare URL was removed from merchant configuration, and the task-created tunnel process was terminated after verification. Local app credentials and database remain isolated; repository .env was never modified.
+
+Completed at 2026-10-10T02:29:56.028Z. Final outcome: PASS_LOCAL_SANDBOX; real money NO; production VNPay activation NO. Two successful Sandbox transactions exist in total: the original QueryDR-settled transaction and the separately authorized real-IPN follow-up. No third payment was created. Remaining dependency risks are the separately documented advisories above; no unresolved local payment acceptance blocker remains.
