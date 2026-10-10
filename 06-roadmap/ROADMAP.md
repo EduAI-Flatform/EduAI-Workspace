@@ -1,33 +1,33 @@
 # Version Roadmap
 
-Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.json`.
+Project-owned compatibility overlay. Canonical Phase 3 commerce/payment source: `.ai-dos/records/roadmap.json`.
 
 - Target version: 3.0.0
-- Objective: deliver Phase 3 Marketplace, configurable memberships, PayOS settlement, advanced analytics, affiliate operations, and production release gates.
 - Production target: https://eduai.giaoducso.org.vn
-- Lifecycle: `DRAFT`
-- Baseline: EduAI 2.0 and Sprint 22 are complete.
+- Phase 3 lifecycle: `DRAFT`
+- Baseline: EduAI 2.0 and Sprint 22 complete.
 
-## Phase 3 sprints
+## Phase 3 commerce/payment lane
 
 1. `SPRINT:23` — Commerce Foundation
 2. `SPRINT:24` — Membership and Entitlements
-3. `SPRINT:25` — PayOS Payment and Fulfillment
+3. `SPRINT:25` — Payment and Fulfillment
 4. `SPRINT:26` — Advanced Analytics
 5. `SPRINT:27` — Affiliate
 6. `SPRINT:28` — Phase 3 Release
 
-ADR-005 is accepted and amended for permanent Commerce runtime with independent
-payment-provider activation. Sprints 23 and 24 are complete with deployed,
-reconciled production UAT evidence. Sprint 25 is active and `SPR25-007` remains
-the release gate. Backend main `d5972e5` passed exact CI and production
-deployment. The applied-state-safe runner recognized the existing migration
-exactly once from the expected checksum and hardened guard state without
-reapplying it, and revoked only marker-table DML from `eduai_runtime`. Backend
-health is `200` and stable Redis health is `ok`; the historical ambiguous case
-remains unchanged. Four OPEN reconciliation cases remain, with no financial
-mutation; supported writes, bounded live UAT, and provider rollback remain
-incomplete. The post-fix production Cart check passed: cancelled or expired
-payments no longer appear in the pending-payment notice.
-Human-authored details are at
-`EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.
+Exact payment/reconciliation state remains canonical in `.ai-dos/records/*`; do not infer current financial truth from this summary alone.
+
+## Parallel Admin UI program
+
+A separate CongDongNgonNgu-style phase orchestration track now exists for Admin UI completion. It does **not** replace the Phase 3 AI-DOS lane or authorize payment mutations.
+
+Authoritative human-readable Admin roadmap: [`../phases/ADMIN-UI-ROADMAP.md`](../phases/ADMIN-UI-ROADMAP.md).
+
+Sequence:
+
+`ADM-00 → ADM-01 → ADM-02 → ADM-03 → ADM-04 → ADM-05 → ADM-06 → ADM-07`
+
+ADM-00 is READY for owner start; creating the dossiers does not itself start implementation.
+
+Human-authored Phase 3 details remain at `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

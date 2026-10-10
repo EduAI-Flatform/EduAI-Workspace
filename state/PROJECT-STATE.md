@@ -1,0 +1,44 @@
+# EduAI Project State
+
+This file is the human-readable phase-orchestration state. Financial/payment execution state remains canonical in `.ai-dos/records/`.
+
+```text
+PROJECT=EduAI
+PROJECT_STATUS=IN_PROGRESS
+PRODUCTION_TARGET=https://eduai.giaoducso.org.vn
+
+AI_DOS_ACTIVE_SPRINT=SPRINT:25
+AI_DOS_ACTIVE_RELEASE_GATE=SPR25-007
+AI_DOS_PAYMENT_STATE_AUTHORITY=.ai-dos/records
+AI_DOS_STATE_PRESERVED=YES
+
+ADMIN_UI_PROGRAM_STATUS=PLANNED
+ADMIN_UI_CURRENT_PHASE=NONE
+ADMIN_UI_NEXT_ELIGIBLE_PHASE=ADM-00
+ADMIN_UI_PHASE_EXECUTION_AUTHORIZED=NO
+ADMIN_UI_ROADMAP=phases/ADMIN-UI-ROADMAP.md
+
+STITCH_MCP_REQUIRED_FOR_SUBSTANTIAL_UI=YES
+RESPONSIVE_WIDTHS=320|375|390|412|768|1024|1440
+MAJOR_PHASE_BOUNDARY_HUMAN_STOP=REQUIRED
+SAME_PHASE_AUTONOMOUS_EXECUTION=AUTHORIZED_AFTER_OWNER_START
+AUTO_COMMIT_PUSH_PR_CI_MERGE_CLEANUP=AUTHORIZED_AFTER_OWNER_START_AND_GATES
+PAYMENT_ACTIVATION_HUMAN_STOP=REQUIRED
+REAL_FINANCIAL_WRITE_HUMAN_STOP=REQUIRED
+PRODUCTION_DESTRUCTIVE_ACTION_HUMAN_STOP=REQUIRED
+```
+
+## Admin phase states
+
+| Phase | State | Dependency | Execution |
+|---|---|---|---|
+| ADM-00 | READY | Existing Admin baseline | Not started |
+| ADM-01 | PLANNED | ADM-00 DONE | Not started |
+| ADM-02 | PLANNED | ADM-01 DONE | Not started |
+| ADM-03 | PLANNED | ADM-02 DONE | Not started |
+| ADM-04 | PLANNED | ADM-03 DONE | Not started |
+| ADM-05 | PLANNED | ADM-04 DONE | Not started |
+| ADM-06 | PLANNED | ADM-05 DONE | Not started |
+| ADM-07 | PLANNED | ADM-06 DONE | Not started |
+
+Creating this planning dossier does not authorize `ADM-00` implementation. When the owner explicitly starts `ADM-00`, update `ADMIN_UI_CURRENT_PHASE`, authorization and phase state before implementation.
