@@ -19,6 +19,11 @@ node core/conformance.js --manifest .ai-dos/manifest.json
 node core/project.js --manifest .ai-dos/manifest.json --out .ai-dos/generated
 ```
 
+`npm run test:contracts` is the canonical contract-gate alias for the
+vendored conformance runtime. The upstream AI-DOS tests are intentionally
+excluded from this repository's vendor set, so the former
+`test/contracts.test.js` path is not a valid local gate.
+
 Generated Markdown is a projection only. Edit canonical JSON records under `.ai-dos/records/`, then regenerate the views.
 
 Runtime provenance and the update procedure are documented in [`core/AI_DOS_RUNTIME_PROVENANCE.md`](core/AI_DOS_RUNTIME_PROVENANCE.md).

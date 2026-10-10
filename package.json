@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "node --test",
-    "test:contracts": "node --test test/contracts.test.js",
+    "test:contracts": "node core/conformance.js --manifest .ai-dos/manifest.json",
     "validate": "node core/validate.js"
   }
 }
