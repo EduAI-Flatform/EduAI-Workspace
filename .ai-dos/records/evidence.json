@@ -8909,5 +8909,1606 @@
       "entityIdentifiersRecorded": false,
       "rawIdempotencyKeysRecorded": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:RECONCILIATION-AUDIT-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Backend payment and commerce regression",
+        "command": "Focused Backend payment/commerce/config Jest suites; Prisma migration contracts; production build; endpoint authorization audit",
+        "reference": "Backend payment/commerce/config regression passed 23 suites and 172 tests. Prisma migration contracts passed 6 suites and 20 tests; Prisma validation, production build, and the endpoint-security audit passed. npm audit retained the pre-existing dependency advisory baseline; no force-upgrade was attempted.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Frontend commerce regression and sanitized production UAT",
+        "command": "Focused Frontend commerce/payment tests; production build; GET-only production Playwright UAT",
+        "reference": "Frontend commerce/payment regression passed 9 files and 46 tests; the production build passed. The approved production UAT harness passed 18 sanitized checks across student, instructor, and administrator desktop/mobile routes with zero console errors and zero mutation attempts.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Exact deployed revision and CI verification",
+        "command": "Public GitHub Actions run metadata and origin/main revision checks",
+        "reference": "Backend origin/main 52b0e0ce37664cc73c2a4d28b382088b55d0ae3b passed CI run 34561241776 and Deploy Backend Production run 34561241800. Frontend origin/main 7ac6cdaf55191d9c0c56654dedcd79d98ac00e68 passed CI run 34555035798 and Deploy Frontend Production run 34555035761. No uncommitted application changes were present.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Production readiness and provider boundary",
+        "command": "Body-discarding HTTPS status checks for production web/API health, API docs, and malformed PayOS webhook",
+        "reference": "The web host returned HTTP 200, the API /health route returned HTTP 200 with healthy status, API docs returned HTTP 200, and the malformed PayOS webhook returned HTTP 400. The checks issued no valid provider event, provider call, order mutation, payment request, or fulfillment action.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "GET-only commerce and reconciliation state audit",
+        "command": "Authenticated production learner/admin GET-only Playwright probe with all non-GET methods blocked",
+        "reference": "The learner pending-payment API returned HTTP 200 with zero items and the Cart showed no stale pending notice. The administrator reconciliation view returned HTTP 200 with four open cases: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2; order states were PENDING_PAYMENT/NOT_STARTED=1 and CONFIRMED/FULFILLED=3. The four cases were OPEN with payment-attempt statuses PENDING=1 and PAID=3, settlement disposition NONE=4, and no PAID_NOT_FULFILLED case. No resolution, fulfillment, payment, or rollback mutation was issued.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T09:51:20.3346820+07:00",
+    "commit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+    "notes": "Current revisions, CI/deployment, local payment gates, and read-only production behavior are verified. This read-only checkpoint does not close SPR25-007; the separate blocker evidence records unresolved reconciliation implementation risks and the unexecuted production write gate. PayOS remains active; no new payment, provider call, fulfillment bypass, or manual resolution was performed.",
+    "extensions": {
+      "backendCommit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+      "backendRemoteCommit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+      "frontendCommit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "frontendRemoteCommit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "workspaceCommitAtAudit": "723bb0e4bd65036c2f9ef98a36c016d74080a472",
+      "backendCiRunId": 34561241776,
+      "backendDeploymentRunId": 34561241800,
+      "frontendCiRunId": 34555035798,
+      "frontendDeploymentRunId": 34555035761,
+      "productionRevisionVerified": true,
+      "productionHealthStatus": 200,
+      "productionDocsStatus": 200,
+      "frontendStatus": 200,
+      "activeWebhookMalformedStatus": 400,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "providerCallCount": 0,
+      "cartPendingApiStatus": 200,
+      "cartPendingApiItemCount": 0,
+      "cartPendingNoticeVisible": false,
+      "openReconciliationCaseCountBefore": 4,
+      "openReconciliationCaseCountAfter": 4,
+      "reconciliationRunAttempted": false,
+      "reconciliationRunBlocked": true,
+      "reconciliationImplementationReviewBlocked": true,
+      "reconciliationOpenCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "reconciliationOrderStateCounts": {"PENDING_PAYMENT_NOT_STARTED": 1, "CONFIRMED_FULFILLED": 3},
+      "reconciliationCaseStatusCounts": {"OPEN": 4},
+      "reconciliationPaymentAttemptStatusCounts": {"PENDING": 1, "PAID": 3},
+      "settlementDispositionNoneCount": 4,
+      "openPaidNotFulfilledCount": 0,
+      "confirmedFulfilledCaseCount": 3,
+      "legacyCasesResolved": 0,
+      "unresolvedCases": 4,
+      "courseSettlementStatus": "UNRESOLVED",
+      "courseFulfillmentStatus": "NOT_STARTED",
+      "membershipSettlementStatus": "NOT_STARTED",
+      "membershipFulfillmentStatus": "NOT_STARTED",
+      "newPaymentCreated": false,
+      "membershipUatStarted": false,
+      "financialMutationsPerformedInAudit": false,
+      "rollbackVerifiedInAudit": false,
+      "livePaymentUatPassed": false,
+      "humanActionRequired": true,
+      "humanPaymentRequired": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:RECONCILIATION-BLOCKERS-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Independent reconciliation implementation safety review",
+        "command": "Fresh-context read-only review of payment-reconciliation.service.ts, its migration guards, and the PayOS reconciliation handoff",
+        "reference": "The review found release-blocking risks requiring code and contract remediation before any production write: provider_fact_mismatch/provider_outage acknowledgement can close financial ambiguity without canonical proof; source facts can conflict with immutable reason guards; overlapping scans lack mutual exclusion; recoveredCount can include duplicate/review outcomes; CANCELLED/EXPIRED statuses are not handled as terminal reconciliation outcomes; retry_succeeded can describe a retry that did not run; limit/hasMore does not bound the full operation; nextCursor exposes a raw payment-attempt identifier; and replay identity/run-wide timeout protections are incomplete.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Supported production reconciliation write gate",
+        "command": "Supported POST /api/v1/admin/commerce/reconciliation/runs was not invoked",
+        "reference": "The bounded reconciliation POST can change production payment/review state. It was not executed without explicit human confirmation for this production side effect. Therefore open cases remain 4 before and 4 after, legacy cases resolved=0, unresolved cases=4, and provider rollback remains outstanding. No direct database mutation or manual fulfillment was used.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T09:51:20.3346820+07:00",
+    "commit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+    "notes": "SPR25-007 cannot be promoted to DONE. Remediate and test the reconciliation implementation before any production write, then obtain explicit human confirmation for the supported run and restore the provider to disabled.",
+    "extensions": {
+      "sourceEvidenceId": "EVIDENCE:SPR25-007:RECONCILIATION-AUDIT-20260916",
+      "openReconciliationCaseCountBefore": 4,
+      "openReconciliationCaseCountAfter": 4,
+      "legacyCasesResolved": 0,
+      "unresolvedCases": 4,
+      "reconciliationRunAttempted": false,
+      "reconciliationRunBlocked": true,
+      "reconciliationImplementationReviewBlocked": true,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "newPaymentCreated": false,
+      "financialMutationsPerformedInAudit": false,
+      "rollbackVerifiedInAudit": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+   "id": "EVIDENCE:SPR25-007:RECONCILIATION-IMPLEMENTATION-LOCAL-20260916",
+   "taskId": "SPR25-007",
+   "checks": [
+     {
+       "kind": "OTHER",
+       "name": "Local reconciliation safety regression",
+       "command": "Backend focused reconciliation and pending-payment suite",
+       "reference": "The uncommitted backend implementation changes pass 43 focused tests covering truthful webhook recovery counts, terminal provider statuses, immutable and changed-reason review identity, opaque cursor round-trip and forgery rejection, financial acknowledgement refusal, fulfilled-review retry refusal, replay identity evidence, and open-attempt pending selection.",
+       "status": "PASS"
+     },
+     {
+       "kind": "BUILD",
+       "name": "Backend regression, Prisma, build, and endpoint-security gates",
+       "command": "Payment/commerce/config suites; Prisma migration contracts; prisma validate; nest build; security:audit-endpoints",
+       "reference": "Backend payment/commerce/config regression passed 23 suites and 179 tests; focused Prisma contracts passed 6 suites and 20 tests; Prisma validation, production build, and endpoint audit passed with endpointCount=252 and implicitCount=0.",
+       "status": "PASS"
+     },
+     {
+       "kind": "DEPLOY",
+       "name": "Production revision contains the local safety patch",
+       "command": "Compare local backend worktree with deployed origin/main revision",
+       "reference": "BLOCKED: production remains on Backend origin/main 52b0e0ce37664cc73c2a4d28b382088b55d0ae3b; the reconciliation safety patch is local and uncommitted, so no deployment or production behavior claim is made.",
+       "status": "BLOCKED"
+     },
+     {
+       "kind": "MANUAL",
+       "name": "Database-level reconciliation hardening",
+       "command": "Apply reviewed source-key backfill and acknowledgement-trigger migration",
+       "reference": "BLOCKED: the production migration would mutate existing reconciliation source keys and strengthen the financial-resolution trigger. The safety gate rejected that write without explicit authorization; the migration was not created, applied, or retried.",
+       "status": "BLOCKED"
+     },
+     {
+       "kind": "OTHER",
+       "name": "Remaining implementation review items",
+       "command": "Fresh-context reconciliation review follow-up",
+       "reference": "BLOCKED: cross-process overlap protection and a run-wide provider-operation timeout remain release prerequisites. The supported production reconciliation write was not invoked; the four production cases remain open and PayOS remains active.",
+       "status": "BLOCKED"
+     }
+   ],
+    "result": "PASS",
+   "recordedAt": "2026-09-16T10:34:00+07:00",
+   "commit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+   "notes": "Local safety fixes are verified but are not deployed. SPR25-007 remains WAITING_MANUAL until the authorized database hardening and remaining scan-safety work are complete, a reviewed revision is deployed, and the supported production write is explicitly authorized.",
+   "extensions": {
+      "backendDeployedRevision": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+      "backendLocalApplicationChangesUncommitted": true,
+      "focusedRegressionTestCount": 43,
+      "broaderRegressionSuiteCount": 23,
+      "broaderRegressionTestCount": 179,
+      "prismaContractSuiteCount": 6,
+      "prismaContractTestCount": 20,
+      "endpointCount": 252,
+      "endpointImplicitCount": 0,
+      "productionWriteAttempted": false,
+      "openReconciliationCaseCount": 4,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "databaseHardeningMigrationAuthorized": false,
+      "databaseHardeningMigrationApplied": false,
+      "crossProcessOverlapProtectionVerified": false,
+      "runWideTimeoutVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:RECONCILIATION-BOUNDS-LOCAL-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Local reconciliation bounds and coordination regression",
+        "command": "Backend reconciliation and PayOS adapter focused suites",
+        "reference": "The uncommitted backend patch passes 2 suites and 45 tests covering the process-local overlap guard, Redis SET NX lease and owner-checked release contract, production fail-closed behavior without Redis, abort-signal propagation, and the 60-second run-wide deadline with resumable opaque cursor.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Post-patch backend gates",
+        "command": "Payment/commerce/config suites; Prisma migration contracts; prisma validate; nest build; security:audit-endpoints",
+        "reference": "Post-patch payment/commerce/config regression passed 23 suites and 184 tests; Prisma contracts passed 6 suites and 20 tests; Prisma validation, production build, and endpoint audit passed with endpointCount=252 and implicitCount=0.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Production release-gate closure",
+        "command": "Compare local backend worktree with deployed revision and production reconciliation state",
+        "reference": "BLOCKED: production remains on Backend origin/main 52b0e0ce37664cc73c2a4d28b382088b55d0ae3b; local changes are uncommitted, the database hardening migration remains unauthorized and unapplied, and the supported production reconciliation write was not invoked. Four production cases remain open and PayOS remains active.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T11:12:39+07:00",
+    "commit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+    "notes": "Local coordination and run-boundary safeguards are now verified. SPR25-007 remains WAITING_MANUAL until the authorized database boundary decision, reviewed revision deployment, runtime Redis verification, explicit production write authorization, and post-write rollback evidence are complete.",
+    "extensions": {
+      "backendDeployedRevision": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+      "backendLocalApplicationChangesUncommitted": true,
+      "focusedSuiteCount": 2,
+      "focusedTestCount": 45,
+      "broaderRegressionSuiteCount": 23,
+      "broaderRegressionTestCount": 184,
+      "prismaContractSuiteCount": 6,
+      "prismaContractTestCount": 20,
+      "endpointCount": 252,
+      "endpointImplicitCount": 0,
+      "productionWriteAttempted": false,
+      "openReconciliationCaseCount": 4,
+      "providerCurrentlyActivated": true,
+      "providerDisabled": false,
+      "databaseHardeningMigrationAuthorized": false,
+      "databaseHardeningMigrationApplied": false,
+      "crossProcessOverlapProtectionLocalVerified": true,
+      "runWideTimeoutLocalVerified": true,
+      "runtimeRedisVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:READONLY-REFRESH-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh production web and API readiness",
+        "command": "Bounded read-only HTTPS GET checks for web, health, and API docs",
+        "reference": "The production web host returned HTTP 200, the API /health route returned HTTP 200 with data.status=ok and data.redis.status=ok, and /api/docs returned HTTP 200. No response body or credential material was retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Read-only production mutation boundary",
+        "command": "GET-only readiness refresh; no reconciliation POST or payment action",
+        "reference": "This refresh issued only GET requests. It did not invoke the supported reconciliation write, create a payment, call PayOS, resolve a case, fulfill an order, or change provider configuration.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T11:28:46+07:00",
+    "commit": "52b0e0ce37664cc73c2a4d28b382088b55d0ae3b",
+    "notes": "Read-only production readiness is current, but this evidence does not close the SPR25-007 reconciliation, deployment, authorization, or rollback gates.",
+    "extensions": {
+      "frontendStatus": 200,
+      "healthStatus": 200,
+      "healthDataStatus": "ok",
+      "redisStatus": "ok",
+      "docsStatus": 200,
+      "readOnly": true,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:READONLY-UAT-REFRESH-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh sanitized desktop/mobile production UAT",
+        "command": "npm.cmd run test:e2e:production-uat -- --project=production-uat-desktop --project=production-uat-mobile",
+        "reference": "The existing production UAT harness passed all 18 checks across student, instructor, and administrator desktop/mobile journeys. The harness enforced read-only requests and retained no credentials, raw response bodies, or entity identifiers.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Production UAT safety boundary",
+        "command": "Sanitized Playwright production UAT request policy",
+        "reference": "The tested navigation and administrator journeys used the harness read-only policy; no reconciliation write, payment action, fulfillment action, or provider configuration change was authorized or issued by this run.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T11:34:21+07:00",
+    "commit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "The production UI/read-only UAT remains healthy. This evidence does not close the Backend deployment, reconciliation authorization, live settlement, or rollback gates.",
+    "extensions": {
+      "frontendDeployedRevision": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "productionUatCheckCount": 18,
+      "desktopProjectPassed": true,
+      "mobileProjectPassed": true,
+      "readOnlyHarness": true,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:READONLY-COMMERCE-REVIEW-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Administrator commerce reconciliation view",
+        "command": "Sanitized Playwright administrator commerce audit with GET-only production browser access",
+        "reference": "The deployed administrator commerce route returned HTTP 200; the reconciliation view returned HTTP 200 and displayed the aggregate four-case count. The probe retained no response bodies, credentials, payment identifiers, or entity identifiers.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Administrator commerce mutation boundary",
+        "command": "Playwright request policy allowing only GET, HEAD, and OPTIONS",
+        "reference": "Only the catalog and reconciliation-case GET paths were observed; zero non-read-only methods were attempted, zero API responses failed, and zero browser console errors occurred. No reconciliation run, payment, fulfillment, resolution, or provider configuration mutation was issued.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T11:44:36+07:00",
+    "commit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "This read-only administrator commerce evidence strengthens production visibility only; the four open reconciliation cases and all deployment, authorization, live-settlement, and rollback gates remain unresolved.",
+    "extensions": {
+      "frontendDeployedRevision": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "commerceRouteStatus": 200,
+      "reconciliationRouteStatus": 200,
+      "openCaseCount": 4,
+      "requestedApiPathCount": 2,
+      "blockedMethodCount": 0,
+      "failedApiResponseCount": 0,
+      "consoleErrorCount": 0,
+      "readOnly": true,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:READONLY-CASE-AGGREGATE-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh open reconciliation case aggregate",
+        "command": "Sanitized Playwright administrator reconciliation aggregate after bounded demo-auth refresh with GET-only requests",
+        "reference": "The current administrator view returned four OPEN cases: one PROVIDER OUTAGE with PROVIDER STATUS UNAVAILABLE on PENDING PAYMENT/NOT STARTED; one PROVIDER OUTAGE with PROVIDER STATUS UNAVAILABLE on CONFIRMED/FULFILLED; one PROVIDER FACT MISMATCH with PROVIDER PAID FACTS INCOMPLETE on CONFIRMED/FULFILLED; and one PROVIDER FACT MISMATCH with PAYMENT FACT MISMATCH on CONFIRMED/FULFILLED. No PAID_NOT_FULFILLED case was present. No identifiers, response bodies, or provider payloads were retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Case-level resolution safety boundary",
+        "command": "GET/HEAD/OPTIONS-only administrator reconciliation audit",
+        "reference": "The aggregate facts do not prove a canonical settlement and fulfillment basis for acknowledgement or retry of any open case. All four cases remain OPEN; no reconciliation run, case resolution, payment, fulfillment, or provider configuration mutation was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Bounded demo-auth refresh",
+        "command": "npm.cmd run test:e2e:production-uat -- --project=production-auth-setup",
+        "reference": "The existing production auth setup passed its four sanitized checks for configured demo password and student, instructor, and administrator login state. The refresh created no commerce or reconciliation state.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T11:54:34+07:00",
+    "commit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "Current read-only evidence confirms that no open case is safely resolvable from the available canonical facts. The production reconciliation write and live settlement gates remain explicitly unperformed.",
+    "extensions": {
+      "frontendDeployedRevision": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "productionAuthRefreshCheckCount": 4,
+      "openCaseCount": 4,
+      "openCaseStatusCounts": {"OPEN": 4},
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "openCaseOrderStateCounts": {"PENDING_PAYMENT_NOT_STARTED": 1, "CONFIRMED_FULFILLED": 3},
+      "openCaseReasonCounts": {"PROVIDER_STATUS_UNAVAILABLE": 2, "PROVIDER_PAID_FACTS_INCOMPLETE": 1, "PAYMENT_FACT_MISMATCH": 1},
+      "paidNotFulfilledCasePresent": false,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:CONTINUATION-BLOCKER-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {"kind":"DEPLOY","name":"Exact Backend publication","reference":"Backend commit 10d1ede411d599f7ddb3aad0af6dfcf7f00bc925 is exact origin/main and exact production deployment revision. CI 35060154235 and deployment 35060154166 passed.","status":"PASS"},
+      {"kind":"MANUAL","name":"Database hardening preflight","reference":"READ ONLY preflight: 7 total cases; all null, missing, duplicate, collision, oversized, and already-applied counts were 0. One historical resolved/acknowledged UNKNOWN_PROVIDER_STATUS case remains with PROVIDER_STATUS_MALFORMED, PENDING_PAYMENT, NOT_STARTED, PENDING attempt, and no settlement. The migration guard stops and no row changed.","status":"BLOCKED"},
+      {"kind":"MANUAL","name":"Reconciliation write and live PayOS UAT","reference":"No reconciliation write was issued because four cases lack canonical proof and database hardening is blocked. Course 10,000 VND UAT, Membership 20,000 VND UAT, rollback, and cleanup were not started.","status":"BLOCKED"}
+    ],
+    "result":"PASS",
+    "recordedAt":"2026-09-16T13:41:53+07:00",
+    "commit":"10d1ede411d599f7ddb3aad0af6dfcf7f00bc925",
+    "notes":"Backend publication and read-only production verification are current. SPR25-007 remains WAITING_MANUAL because the migration correctly fails closed.",
+    "extensions":{"backendRemoteSha":"10d1ede411d599f7ddb3aad0af6dfcf7f00bc925","backendDeployedSha":"10d1ede411d599f7ddb3aad0af6dfcf7f00bc925","frontendDeployedSha":"7ac6cdaf55191d9c0c56654dedcd79d98ac00e68","backendCiRunId":35060154235,"backendDeploymentRunId":35060154166,"openCaseCountBefore":4,"openCaseCountAfter":4,"healthStatus":200,"redisHealthStatus":"ok","redisLeaseRuntimeVerified":false,"reconciliationWriteAttempted":false,"financialMutationsPerformed":false,"migrationReviewed":true,"migrationApplied":false,"migrationPreflightAcknowledgedFinancialCaseCount":1,"migrationPreflightCollisionCount":0,"courseUatStarted":false,"membershipUatStarted":false,"rollbackVerified":false,"credentialMaterialRecorded":false,"responseBodiesRecorded":false,"entityIdentifiersRecorded":false,"rawIdempotencyKeysRecorded":false}
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LEASE-HISTORY-CONTRACT-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Historical acknowledged case classification",
+        "command": "Sanitized read-only production database transaction plus supported GET-only reconciliation listing",
+        "reference": "Exactly one historical RESOLVED/ACKNOWLEDGED UNKNOWN_PROVIDER_STATUS case was found. Its provider attempt remained PENDING with no settlement, the order remained PENDING_PAYMENT, fulfillment remained NOT_STARTED, and no provider confirmation or provider failure was present. The case is factually AMBIGUOUS; its deterministic source key matched. No data changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Historical transition origin",
+        "command": "Read-only lifecycle/audit provenance review plus old implementation and trigger inspection",
+        "reference": "The legacy administrator endpoint at commit 39c98d3 accepted acknowledged for UNKNOWN_PROVIDER_STATUS, and the then-current trigger blocked only duplicate_collection, late_payment, and paid_not_fulfilled. Lifecycle and audit actor provenance match a platform-admin action. No direct SQL or backfill evidence was found.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Database hardening safety boundary",
+        "command": "Migration structural review and production read-only preflight",
+        "reference": "The draft remains deterministic, collision-checked, non-destructive, and trigger-tightening, but production preflight found one historical acknowledged financial case. The migration was not applied and the historical row/audit evidence was not rewritten.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Redis reconciliation lease runtime probe",
+        "command": "Authenticated platform-admin GET /api/v1/admin/commerce/reconciliation/lease-probe",
+        "reference": "The deployed probe passed Redis acquisition, rejected competing acquisition, observed a 65000 ms TTL, verified owner-checked release with remaining TTL -2, and reported no persistent test lock.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Canonical Workspace contract gate",
+        "command": "npm run test:contracts; node core/conformance.js; node core/validate.js; node core/project.js",
+        "reference": "The repaired contract alias targets core/conformance.js. Contract, conformance, source-record validation, and projection gates pass; the obsolete test/contracts.test.js was not recreated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Financial mutation and UAT boundary",
+        "command": "Fresh sanitized GET-only production reconciliation audit",
+        "reference": "Four OPEN cases remain: two PROVIDER_OUTAGE and two PROVIDER_FACT_MISMATCH; no PAID_NOT_FULFILLED case is present. No reconciliation write, migration, Course UAT, Membership UAT, or rollback was started.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T16:25:58+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "Lease runtime and contract reporting are now verified. SPR25-007 remains WAITING_MANUAL because the historical ambiguous case keeps database hardening fail-closed and the authorized financial UAT boundary has not been entered.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "frontendDeployedSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "backendCiRunId": 35076970325,
+      "backendDeploymentRunId": 35076970360,
+      "backendDeploymentRecordId": 6477413889,
+      "ciStatus": "PASS",
+      "focusedTestSuiteCount": 4,
+      "focusedTestCount": 72,
+      "broaderBackendSuiteCount": 146,
+      "broaderBackendTestCount": 874,
+      "prismaValidation": "PASS",
+      "migrationContractSuiteCount": 2,
+      "migrationContractTestCount": 6,
+      "productionBuild": "PASS",
+      "endpointSecurity": "PASS:253:0",
+      "npmAudit": "KNOWN_PRE_EXISTING:27 vulnerabilities, 10 high",
+      "workspaceTests": "PASS:0 tests intentional",
+      "endpointCount": 253,
+      "endpointImplicitCount": 0,
+      "healthHttpStatus": 200,
+      "redisHealthPayloadStatus": "ok",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeaseObservedTtlMs": 65000,
+      "redisLeaseRemainingTtlMs": -2,
+      "redisLeasePersistentTestLock": false,
+      "historicalCaseCount": 1,
+      "historicalCaseClassification": "AMBIGUOUS",
+      "historicalCaseCurrentStatus": "RESOLVED",
+      "historicalCaseReason": "PROVIDER_STATUS_MALFORMED",
+      "historicalTransitionOrigin": "LEGACY_ADMIN_ENDPOINT_OLD_TRIGGER",
+      "openCaseCountBefore": 4,
+      "openCaseCountAfter": 4,
+      "openCaseStatusCounts": {"OPEN": 4},
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "resolvedCaseCount": 3,
+      "resolvedUnknownProviderStatusCount": 1,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "migrationReviewed": true,
+      "migrationApplied": false,
+      "migrationPreflightAcknowledgedFinancialCaseCount": 1,
+      "migrationPreflightCollisionCount": 0,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-PUBLICATION-DRIFT-RECHECK-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "DEPLOY",
+        "name": "Current Backend revision recheck",
+        "command": "git ls-remote plus public GitHub Actions deployment record",
+        "reference": "Local HEAD, origin/main, deployment head SHA, and successful production deployment record all remain dfc6310cc8636726d7a44cc4e18c4d5593519b4f. No migration draft is present in the published commit.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Current lease and health recheck",
+        "command": "Read-only health request plus authenticated platform-admin lease probe",
+        "reference": "Health is HTTP 200 with Redis ok. The deployed lease probe again passed acquisition, rejected competition, verified TTL 65000 ms and release with remaining TTL -2, and left no persistent test lock.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Current reconciliation case recheck",
+        "command": "Authenticated GET-only reconciliation case listing",
+        "reference": "The supported listing still returns exactly four OPEN cases: two PROVIDER_OUTAGE and two PROVIDER_FACT_MISMATCH. No PAID_NOT_FULFILLED case is present.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Deferred database and financial boundary",
+        "command": "Current authorization review",
+        "reference": "The historical case remains an ambiguous legacy acknowledgement; the hardening migration remains unapplied and the four open cases remain untouched. Course/Membership UAT and rollback remain deferred pending the next explicit authorization boundary.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T16:39:11+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "Current production state is unchanged and safe. No implicit authorization was inferred for the deferred database or financial actions.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendCiRunId": 35076970325,
+      "backendDeploymentRunId": 35076970360,
+      "backendDeploymentRecordId": 6477413889,
+      "healthHttpStatus": 200,
+      "redisHealthPayloadStatus": "ok",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeaseObservedTtlMs": 65000,
+      "redisLeaseRemainingTtlMs": -2,
+      "redisLeasePersistentTestLock": false,
+      "openCaseCount": 4,
+      "openCaseStatusCounts": {"OPEN": 4},
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "historicalCaseClassification": "AMBIGUOUS",
+      "migrationApplied": false,
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "nextAuthorizationRequired": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:MIGRATION-DESIGN-GATE-RERUN-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Historical source-key reconciliation",
+        "command": "Sanitized aggregate-only read-only production preflight plus deployed source construction review",
+        "reference": "Seven cases; null source-key 0; missing attempt 0; missing settlement 0; duplicate groups 0; duplicate extras 0; existing collisions 0; oversized derived keys 0; migration already applied 0; acknowledged financial cases 1; unproven legacy cases 0. One existing PROVIDER_FACT_MISMATCH key is noncanonical and is preserved; the historical UNKNOWN_PROVIDER_STATUS case remains canonical.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Safe migration design",
+        "command": "Pending migration SQL, README, schema, and structural contract review",
+        "reference": "The draft derives only NULL source_key values, preserves existing non-NULL identities verbatim, records immutable legacy acknowledgement provenance, tightens future acknowledgement, checks collisions, and contains no DELETE or DROP. Migration contract: 1 suite, 3 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Required post-change gates",
+        "command": "Focused, broad, Prisma, build, endpoint, audit, Workspace contract, conformance, projection, and record validation gates",
+        "reference": "Focused Backend 4/72; broad Backend 146/874; Prisma regression 6/32 plus migration contract 1/3; Prisma validation/generation/build pass; endpoint security 253 endpoints, 0 implicit; npm audit unchanged at 27 advisories including 10 high; Workspace gates pass and the intentional vendor test command reports 0 tests.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Deferred financial mutation boundary",
+        "command": "Authorization scope review",
+        "reference": "Migration not applied; historical case unchanged; no reconciliation writes; four OPEN cases unchanged; Course/Membership UAT and PayOS rollback not started. New explicit authorization is required before applying reviewed SQL or entering financial UAT.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T17:09:00+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "The legacy transition origin is proven application behavior and the pending hardening design preserves its ambiguous financial meaning. SPR25-007 remains WAITING_MANUAL.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "frontendDeployedSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "backendCiRunId": 35076970325,
+      "backendDeploymentRunId": 35076970360,
+      "backendDeploymentRecordId": 6477413889,
+      "ciStatus": "PASS",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeaseObservedTtlMs": 65000,
+      "redisLeaseRemainingTtlMs": -2,
+      "redisLeasePersistentTestLock": false,
+      "historicalCaseClassification": "AMBIGUOUS",
+      "historicalCaseCurrentStatus": "RESOLVED_ACKNOWLEDGED",
+      "historicalCaseReason": "UNKNOWN_PROVIDER_STATUS_PROVIDER_STATUS_MALFORMED",
+      "historicalTransitionOrigin": "LEGACY_ADMIN_ENDPOINT_OLD_TRIGGER",
+      "migrationDesign": "PRESERVE_EXISTING_NON_NULL_SOURCE_KEYS",
+      "migrationReadyForExplicitAuthorization": true,
+      "migrationApplied": false,
+      "migrationPreflightTotalCaseCount": 7,
+      "migrationPreflightNullSourceKeyCount": 0,
+      "migrationPreflightMissingAttemptCount": 0,
+      "migrationPreflightMissingSettlementCount": 0,
+      "migrationPreflightDuplicateGroupCount": 0,
+      "migrationPreflightDuplicateExtraRows": 0,
+      "migrationPreflightExistingCollisionCount": 0,
+      "migrationPreflightOversizedDerivedKeyCount": 0,
+      "migrationPreflightAcknowledgedFinancialCaseCount": 1,
+      "migrationPreflightUnprovenLegacyCaseCount": 0,
+      "migrationPreflightNoncanonicalExistingSourceKeyCount": 1,
+      "migrationPreflightNoncanonicalByKind": {"PROVIDER_FACT_MISMATCH": 1},
+      "migrationPreflightMarkerTablePresent": false,
+      "openCaseCountBefore": 4,
+      "openCaseCountAfter": 4,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "endpointSecurity": "PASS:253:0",
+      "npmAudit": "KNOWN_PRE_EXISTING:27 vulnerabilities, 10 high",
+      "workspaceConformance": "PASS",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LIVE-READONLY-REVALIDATION-20260916",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Production health and Redis dependency",
+        "command": "GET https://api.eduai.giaoducso.org.vn/health",
+        "reference": "HTTP 200; application status ok; Redis status ok.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Authenticated reconciliation lease probe",
+        "command": "Supported platform-admin GET /api/v1/admin/commerce/reconciliation/lease-probe",
+        "reference": "HTTP 200; Redis acquisition passed; competing acquisition rejected; observed TTL 65000 ms; owner release verified; remaining TTL -2; no persistent test lock.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh reconciliation case audit",
+        "command": "Authenticated GET /api/v1/admin/commerce/reconciliation/cases?status=open&page=1&pageSize=100",
+        "reference": "HTTP 200; four OPEN cases remain: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. No PAID_NOT_FULFILLED case is present.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Deferred financial boundary",
+        "command": "Read-only authorization review",
+        "reference": "No reconciliation write, migration apply, Course UAT, Membership UAT, or rollback was started. The historical case and all four OPEN cases remain unchanged.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-16T17:21:06+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "Current production state remains unchanged and consistent with the reviewed release checkpoint. SPR25-007 remains WAITING_MANUAL.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "frontendDeployedSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "healthHttpStatus": 200,
+      "redisHealthPayloadStatus": "ok",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeaseObservedTtlMs": 65000,
+      "redisLeaseRemainingTtlMs": -2,
+      "redisLeasePersistentTestLock": false,
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "reconciliationWriteAttempted": false,
+      "migrationApplied": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  }
+  ,
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:MIGRATION-CONFIGURATION-BLOCKED-20260917",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "OTHER",
+        "name": "Reviewed migration scope recheck",
+        "command": "Migration SQL SHA-256 and migration contract test",
+        "reference": "The exact reviewed migration remains local and unapplied. SHA-256 is 03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F; the structural contract passed 1 suite and 3 tests; static scope review found no DELETE, DROP, TRUNCATE, or DML against orders, payment attempts, payment events, settlements, fulfillment effects, refunds, or lifecycle evidence.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Current compatible Backend revision",
+        "command": "git ls-remote plus public GitHub deployment and CI metadata",
+        "reference": "Local HEAD, origin/main, latest successful Backend CI, and latest successful production deployment all remain dfc6310cc8636726d7a44cc4e18c4d5593519b4f.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Final migration preflight configuration boundary",
+        "command": "Sanitized read-only migration preflight before the production migration runner",
+        "reference": "Blocked before database connection because the required Backend-root .env.migration file is absent. The runtime .env credential was not reused, no substitute migration credential was created, and no production database query or mutation was performed by this attempt.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Current read-only production safety state",
+        "command": "Public deployment metadata, GET health, authenticated lease probe, and authenticated GET-only reconciliation listing",
+        "reference": "Backend remains on the compatible deployed revision; health is HTTP 200 with Redis ok; the lease probe passes acquisition, rejects competition, verifies TTL/release, and leaves no persistent test lock; four OPEN cases remain (PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2).",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Reviewed migration application boundary",
+        "command": "Explicit migration authorization review",
+        "reference": "SQL application is authorized in principle, but the normal production path cannot start until the separately provisioned migration-role configuration is restored. Reconciliation writes, Course/Membership UAT, and PayOS rollback remain unperformed and unauthorized by this continuation.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-17T09:23:42+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "No production database connection, migration, financial mutation, reconciliation write, live payment, or rollback occurred. SPR25-007 remains WAITING_MANUAL.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "frontendDeployedSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "migrationFile": "prisma/migrations/20260916123000_harden_reconciliation_source_identity/migration.sql",
+      "migrationSqlSha256": "03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F",
+      "migrationContract": "PASS:1:3",
+      "migrationConfigurationPresent": false,
+      "migrationPreflightDatabaseQueriesExecuted": false,
+      "migrationApplied": false,
+      "migrationRowsAffected": 0,
+      "healthHttpStatus": 200,
+      "redisHealthPayloadStatus": "ok",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeasePersistentTestLock": false,
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "historicalCaseClassification": "AMBIGUOUS",
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:RUNTIME-PREFLIGHT-CONFIG-BLOCKED-20260917",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Runtime aggregate preflight",
+        "command": "Existing read-only runtime connection with aggregate-only reconciliation and financial-state checks",
+        "reference": "Read-only checks passed: 7 reconciliation cases total, 4 OPEN, exactly 1 historical RESOLVED/ACKNOWLEDGED UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED case remains AMBIGUOUS; null source keys 0; missing-attempt and missing-settlement candidates 0; duplicate groups, duplicate extra rows, and existing collisions 0. The one existing noncanonical source key is preserved and is not a collision. Reviewed financial-state distributions and historical canonical facts remain unchanged.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Migration-role preflight boundary",
+        "command": "Normal production migration runner preflight",
+        "reference": "The required separately provisioned Backend-root .env.migration file is still absent. Migration metadata, current schema version, target pending set, and migration-role dependency checks therefore remain unverified. The runtime credential was not reused; no migration-role database query or mutation occurred.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Local release gates",
+        "command": "Focused, Prisma, build, endpoint-security, and Workspace/AI-DOS verification",
+        "reference": "Focused reconciliation/PayOS tests, migration contract, Prisma validation/generation, production build, endpoint security audit, Workspace contracts, projections, and AI-DOS conformance passed. Known npm audit advisories remain pre-existing and no dependency changes were made.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-17T09:37:51+07:00",
+    "commit": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+    "notes": "The runtime-only preflight confirmed no state drift in the inspected financial aggregates, but the reviewed migration cannot be applied until the separate migration-role configuration is restored. No production migration, financial mutation, reconciliation write, live payment, or rollback occurred. SPR25-007 remains WAITING_MANUAL.",
+    "extensions": {
+      "backendRemoteSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedSha": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "frontendDeployedSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "migrationFile": "prisma/migrations/20260916123000_harden_reconciliation_source_identity/migration.sql",
+      "migrationSqlSha256": "03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F",
+      "migrationConfigurationPresent": false,
+      "runtimeAggregatePreflightExecuted": true,
+      "migrationRolePreflightExecuted": false,
+      "migrationApplied": false,
+      "migrationRowsAffected": 0,
+      "openCaseCount": 4,
+      "historicalCaseClassification": "AMBIGUOUS",
+      "duplicateGroupCount": 0,
+      "duplicateExtraRowCount": 0,
+      "existingCollisionCount": 0,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  }
+  ,
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:READONLY-MIGRATION-RESUME-20260917",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "DEPLOY",
+        "name": "Backend revision and reviewed migration revalidation",
+        "command": "git rev-parse HEAD; git rev-parse origin/main; Get-FileHash -Algorithm SHA256 migration.sql; public CI metadata",
+        "reference": "Backend local and origin/main are 4fe9b854a52900a215a470f8eec5e49e0f964945; the reviewed migration SHA-256 remains 03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F; current main CI is PASS.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Migration TLS and database-role separation",
+        "command": "Owner-provided sanitized production-VPS read-only probes",
+        "reference": "The direct migration endpoint uses sslmode=verify-full with encrypted and authorized TLS; migration role is neondb_owner, runtime role is eduai_runtime, both target neondb, and roles are separated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh Backend readiness",
+        "command": "GET https://api.eduai.giaoducso.org.vn/health",
+        "reference": "HTTP 200; application status ok; Redis health status ok. No response body was retained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh Redis reconciliation lease diagnostic",
+        "command": "Supported platform-admin GET /api/v1/admin/commerce/reconciliation/lease-probe with non-GET browser requests blocked",
+        "reference": "Redis lease acquisition passed, competing acquisition was rejected, observed TTL was 65000 ms, release was verified, remaining TTL was -2, and no persistent test lock remained.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh GET-only reconciliation state",
+        "command": "Canonical administrator auth setup followed by GET-only reconciliation listing; all non-GET requests blocked",
+        "reference": "The sanitized listing returned four OPEN cases: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2, with no PAID_NOT_FULFILLED case. A resolved-case listing returned three resolved cases, including one UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED ACKNOWLEDGED case with PENDING_PAYMENT, PENDING attempt, NOT_STARTED fulfillment, and no settlement. No reconciliation, payment, fulfillment, or provider-configuration mutation was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Full migration preflight boundary",
+        "command": "Normal production migration runner read-only preflight",
+        "reference": "Not executed in this worker: the migration-role credential is provisioned only on the production VPS, while the normal production workflow couples its read-only preflight directly to migration. No safe preflight-only production channel is available here; deployment and migration were not invoked.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-17T17:07:51+07:00",
+    "commit": "4fe9b854a52900a215a470f8eec5e49e0f964945",
+    "notes": "Fresh read-only production evidence is current and preserves the historical ambiguity. SPR25-007 remains WAITING_MANUAL until the full migration-role preflight can be executed before the coupled deployment/migration boundary.",
+    "extensions": {
+      "backendMainSha": "4fe9b854a52900a215a470f8eec5e49e0f964945",
+      "backendDeployedShaLastVerified": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendCiStatus": "PASS",
+      "migrationSqlSha256": "03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F",
+      "migrationTls": "PASS",
+      "migrationRoleIdentity": "neondb_owner",
+      "runtimeRoleIdentity": "eduai_runtime",
+      "databaseRolesSeparated": true,
+      "runtimeTlsHardeningObservation": "Current runtime SSL mode emitted pg-connection-string future-semantics warning; runtime configuration unchanged.",
+      "healthHttpStatus": 200,
+      "redisHealthStatus": "ok",
+      "redisLeaseRuntimeVerified": true,
+      "redisLeaseObservedTtlMs": 65000,
+      "redisLeaseRemainingTtlMs": -2,
+      "redisLeasePersistentTestLock": false,
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "paidNotFulfilledCasePresent": false,
+      "resolvedCaseCount": 3,
+      "historicalAmbiguousCanonicalShapeCount": 1,
+      "reconciliationWriteAttempted": false,
+      "financialMutationsPerformed": false,
+      "migrationPreflightExecuted": false,
+      "migrationApplied": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-FAILURE-FORENSIC-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Post-failure migration ledger and guard forensic",
+        "command": "Bounded read-only PostgreSQL ledger/catalog probe against neondb",
+        "reference": "The reviewed migration target is recorded exactly once, finished, not rolled back, and its checksum matches the reviewed SHA-256. The reconciliation legacy marker, source-key NOT NULL boundary, immutable marker trigger, hardened source-key guard, hardened resolution guard, unique index, and foreign key are all present and compatible.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Historical ambiguous case preservation",
+        "command": "Read-only reconciliation case, order, attempt, event, settlement, fulfillment, lifecycle, and audit projections",
+        "reference": "Exactly one historical UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED case remains RESOLVED / ACKNOWLEDGED with PENDING attempt, PENDING_PAYMENT order, NOT_STARTED fulfillment, no provider event, settlement, or fulfillment fact, and matching legacy provenance. No canonical financial fact changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Post-failure reconciliation and financial invariants",
+        "command": "Read-only aggregate reconciliation and scoped financial-state projection",
+        "reference": "Four cases remain OPEN: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. No new case, acknowledgement, resolution, auto-close, reconciliation audit transition, order/payment/settlement/fulfillment/refund mutation, or tracked financial update was observed. Financial counts remain orders=7, attempts=5, events=3, settlements=3, fulfillment=3, refunds=0, lifecycle=24.",
+        "status": "PASS"
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Serving revision and failed-runner boundary",
+        "command": "Public production health/revision checks and public GitHub Actions metadata",
+        "reference": "Production health is HTTP 200 and exposes no revision marker. The authenticated GitHub job log records preflight through migrationPostflight=PASS, sourceKeyBackfillRows=0, legacyMarkerRows=1, financialRowsChanged=0, then migrationFailureClass=MIGRATION_RUNTIME_GUARD_PRIVILEGE_EXPOSED at database-migration. The serving checkout SHA remains unavailable.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "MANUAL",
+        "name": "Safe recovery boundary",
+        "command": "Post-failure recovery classification",
+        "reference": "The database state is already applied once and hardened, so the migration must not be rerun. A read-only catalog probe shows neondb_owner default privileges for public tables grant INSERT/UPDATE/DELETE to eduai_runtime across 105 public tables, including the immutable legacy-acknowledgement marker table; this caused MIGRATION_RUNTIME_GUARD_PRIVILEGE_EXPOSED. The current runner also requires the target migration to be pending and rejects targetApplied=true, so a simple redeploy would fail closed before migration recovery. No REVOKE, default-ACL change, broad privilege repair, or migration rerun was performed. Recovery remains MANUAL_REVIEW_REQUIRED for a minimal privilege correction, an already-applied-state runner path, and the unverified serving revision. No reconciliation write, live PayOS UAT, rollback, or manual financial repair was performed.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T02:45:40.0773171Z",
+    "commit": "0450335220e717b73fea5a15ba2fcaea60bfaecc",
+    "notes": "The reviewed migration is proven applied exactly once and the historical ambiguity is preserved. The exact runner failure is MIGRATION_RUNTIME_GUARD_PRIVILEGE_EXPOSED: the runtime role exposes DML on the immutable legacy marker table. SPR25-007 remains WAITING_MANUAL because privilege correction and the current serving Backend revision remain unresolved; no recovery or financial action is authorized by this evidence.",
+    "extensions": {
+      "backendMainSha": "0450335220e717b73fea5a15ba2fcaea60bfaecc",
+      "backendRemoteSha": "0450335220e717b73fea5a15ba2fcaea60bfaecc",
+      "backendDeployedShaActual": "UNVERIFIED",
+      "backendDeployedShaLastVerified": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendCiStatus": "PASS",
+      "deploymentRunId": 35298171005,
+      "deploymentJobId": 105455294063,
+      "deploymentFailureStage": "database-migration",
+      "migrationFailureClass": "MIGRATION_RUNTIME_GUARD_PRIVILEGE_EXPOSED",
+      "runtimeLegacyMarkerInsertPrivilege": true,
+      "runtimeLegacyMarkerUpdatePrivilege": true,
+      "runtimeLegacyMarkerDeletePrivilege": true,
+      "runtimeLegacyMarkerOwnerAssumable": false,
+      "runtimeLegacyMarkerAclGrantor": "neondb_owner",
+      "runtimeDefaultAclDmlExposed": true,
+      "runtimeDefaultAclScope": "neondb_owner/public/TABLE -> eduai_runtime SELECT,INSERT,UPDATE,DELETE",
+      "runtimeDmlPublicTableCount": 105,
+      "runnerAcceptsExactAlreadyAppliedState": false,
+      "migrationSqlSha256": "03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F",
+      "migrationTls": "PASS",
+      "migrationRoleIdentity": "neondb_owner",
+      "runtimeRoleIdentity": "eduai_runtime",
+      "databaseRolesSeparated": true,
+      "migrationOutcome": "APPLIED_ONCE",
+      "migrationLedgerTargetRowCount": 1,
+      "migrationLedgerChecksumMatches": true,
+      "migrationLedgerTargetFinished": true,
+      "migrationLedgerTargetRolledBack": false,
+      "dbGuardState": "HARDENED",
+      "legacyMarkerCount": 1,
+      "legacyMarkerMatchedCount": 1,
+      "sourceKeyBackfillRows": 0,
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "historicalCaseClassification": "AMBIGUOUS",
+      "historicalAmbiguityPreserved": true,
+      "historicalFinancialFactsChanged": false,
+      "financialStateMutations": "NONE_SCOPED",
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:POST-FAILURE-RECOVERY-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "DEPLOY",
+        "name": "Exact Backend recovery deployment",
+        "command": "Public GitHub Actions CI/deployment metadata for the reviewed commit",
+        "reference": "Backend CI run 35304956550 and production deployment run 35304956607 passed for d5972e59fce860bef0ec4a1236af6bf3e9f1e398. The deployment workflow verifies the VPS checkout SHA before migration and completed the migration, runtime-role, build, restart, readiness, and notification stages successfully. The prior serving SHA was not independently exposed before recovery; the post-deployment checkout/revision is exact.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Minimal legacy marker privilege correction",
+        "command": "Reviewed applied-state-safe runner privilege correction through the isolated migration connection",
+        "reference": "Before recovery, eduai_runtime had INSERT, UPDATE, and DELETE on only the reviewed legacy marker boundary in addition to its pre-existing grants. The runner revoked INSERT, UPDATE, and DELETE from eduai_runtime on public.commerce_reconciliation_legacy_acknowledgements through the migration role; SELECT and all unrelated runtime privileges were not broadened. The post-revoke runtime financial guard passed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Applied-state-safe migration handling",
+        "command": "Production migration runner with exact ledger/checksum/hardened-state verification",
+        "reference": "The reviewed migration remained APPLIED_ONCE: exactly one finished ledger row with the expected checksum. The hardened reconciliation schema and guard state matched the reviewed snapshot, so the runner accepted the already-applied state and skipped prisma migrate deploy; no migration SQL was rerun and no ledger row was inserted or changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Historical and financial invariants after recovery",
+        "command": "Read-only post-deployment reconciliation and scoped financial-state verification",
+        "reference": "The historical AMBIGUOUS RESOLVED/ACKNOWLEDGED UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED case remains unchanged: PENDING attempt, PENDING_PAYMENT order, NOT_STARTED fulfillment, and no settlement or settlement webhook fact. Four reconciliation cases remain OPEN with PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. No order, payment, attempt, settlement, fulfillment, entitlement, reconciliation-case, or audit financial mutation occurred; no reconciliation write was attempted.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Post-recovery health, Redis, and role separation",
+        "command": "GET https://api.eduai.giaoducso.org.vn/health plus deployment runtime-role verification",
+        "reference": "Backend health returned HTTP 200 with application status ok. After one transient post-restart Redis probe error, three consecutive bounded probes returned Redis status ok; no lease test lock or financial mutation was created. Deployment runtime-role verification passed; runtime role remains eduai_runtime, migration role remains neondb_owner, and roles remain separated.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Recovery release gates",
+        "command": "Exact-SHA CI, focused migration/reconciliation tests, Prisma gates, build, endpoint security, Workspace projections, and AI-DOS conformance",
+        "reference": "The reviewed runner tests, migration contract, Backend regression, Prisma validation/contracts, production build, and endpoint security audit pass; endpoint security reports 253 endpoints and 0 implicit routes. Workspace projection/conformance remains required after this record update. npm audit reporting remains environment-unavailable because the sandbox could not reach the registry; no dependency advisories were silently reclassified.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T04:01:54.4116523Z",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+    "notes": "The bounded recovery is complete: the exact Backend revision is deployed, the already-applied migration was recognized without reapplication, and only the reviewed legacy marker-table runtime DML privilege was removed. SPR25-007 remains WAITING_MANUAL because reconciliation writes, live Course/Membership PayOS UAT, and PayOS rollback remain outside this authorization.",
+    "extensions": {
+      "backendMainSha": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+      "backendRemoteSha": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+      "backendDeployedShaBefore": "UNVERIFIED",
+      "backendDeployedShaLastKnown": "dfc6310cc8636726d7a44cc4e18c4d5593519b4f",
+      "backendDeployedShaAfter": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+      "backendCiRunId": 35304956550,
+      "backendDeploymentRunId": 35304956607,
+      "backendDeploymentJobId": 105475468981,
+      "currentMainCi": "PASS",
+      "migrationRunnerReview": "PASS",
+      "runnerAlreadyAppliedHandling": "PASS: EXACT_LEDGER_CHECKSUM_AND_HARDENED_STATE_MATCH; MIGRATION_SKIPPED",
+      "migrationSqlSha256": "03803E8EEF652CE73BEC38267E274650F45665ECBEF578749E1DAABA663CF53F",
+      "migrationOutcome": "APPLIED_ONCE",
+      "migrationLedgerState": "EXACTLY_ONE_FINISHED_CHECKSUM_MATCH",
+      "dbGuardState": "HARDENED",
+      "markerTable": "public.commerce_reconciliation_legacy_acknowledgements",
+      "markerPrivilegesBefore": "eduai_runtime INSERT,UPDATE,DELETE=TRUE; owner-assumable=FALSE",
+      "markerPrivilegeFix": "REVOKE INSERT,UPDATE,DELETE FROM eduai_runtime on the marker table via neondb_owner",
+      "markerPrivilegesAfter": "eduai_runtime INSERT,UPDATE,DELETE=FALSE; SELECT unchanged",
+      "runtimeMarkerDmlExposed": false,
+      "financialStateMutations": "NONE",
+      "productionWrites": "MARKER_PRIVILEGE_ONLY",
+      "historicalAmbiguityPreserved": true,
+      "historicalFinancialFactsChanged": false,
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "rollbackVerified": false,
+      "backendHealthHttpStatus": 200,
+      "redisHealthStable": true,
+      "redisTransientInitialProbe": "ERROR_THEN_THREE_OK",
+      "runtimeRoleIdentity": "eduai_runtime",
+      "migrationRoleIdentity": "neondb_owner",
+      "databaseRolesSeparated": true,
+      "endpointCount": 253,
+      "endpointImplicitCount": 0,
+      "npmAudit": "ENVIRONMENT_UNAVAILABLE_REGISTRY_REACHABILITY",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:AUTHENTICATED-READONLY-UAT-GATE-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Authenticated administrator read-only path",
+        "command": "Supported production browser administrator commerce and audit views with GET-only interaction",
+        "reference": "The existing authenticated administrator session reached the supported Reconciliation and Audit Log views without credential entry. No non-GET action was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh reconciliation audit",
+        "command": "GET-only reconciliation listing and sanitized case detail views",
+        "reference": "The fresh listing returned four OPEN cases: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. The historical UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED case remains RESOLVED with PENDING_PAYMENT and NOT_STARTED and no settlement proof. Current cases remain evidence-insufficient for a supported transition; no reconciliation write was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Bounded UAT target readiness",
+        "command": "Read-only production course and membership catalog/detail views",
+        "reference": "The dedicated active Course target remains 10,000 VND and the dedicated published Membership version remains 20,000 VND. This continuation created no order, payment attempt, provider call, webhook, fulfillment, or entitlement.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Backend and Redis health",
+        "command": "GET /health",
+        "reference": "Production health returned application status ok and Redis status ok.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T14:11:06.1689223+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+    "notes": "The authenticated read-only production audit passed and preserved the four open cases plus the historical ambiguity. Course and Membership target readiness was verified without creating a transaction. The learner-session UAT boundary is recorded separately.",
+    "extensions": {
+      "backendDeployedSha": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+      "authenticatedReadOnlyPath": "PASS",
+      "administratorSessionVerified": true,
+      "reconciliationPreflight": "PASS_GET_ONLY",
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "historicalCaseClassification": "AMBIGUOUS",
+      "historicalAmbiguityPreserved": true,
+      "historicalFinancialFactsChanged": false,
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "courseTargetAmountMinor": "10000",
+      "membershipTargetAmountMinor": "20000",
+      "payosRollbackVerified": false,
+      "backendHealthHttpStatus": 200,
+      "redisHealthStable": true,
+      "financialStateMutations": "NONE",
+      "uatBlocker": "AUTHENTICATED_SESSION_LACKS_LEARNER_COMMERCE_PERMISSION",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LEARNER-UAT-SESSION-BLOCKED-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Learner UAT authorization context",
+        "command": "Supported Course purchase flow reached using the existing authenticated browser session",
+        "reference": "The authenticated session is an administrator session; the normal Course purchase panel explicitly denies this identity permission to perform the purchase. No checkout or financial action was attempted. Course UAT did not start and Membership remained unstarted as required.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-18T14:11:06.1689223+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+    "notes": "The available authenticated browser identity cannot perform the normal learner purchase flow. Do not automate login or use the administrator identity for a real-money transaction. SPR25-007 remains WAITING_MANUAL pending an existing authorized learner session.",
+    "extensions": {
+      "authenticatedReadOnlyPath": "PASS",
+      "administratorSessionVerified": true,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "financialStateMutations": "NONE",
+      "uatBlocker": "AUTHENTICATED_SESSION_LACKS_LEARNER_COMMERCE_PERMISSION",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LEARNER-CHECKOUT-ROLE-CONTRACT-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Learner checkout role boundary",
+        "command": "Read-only Frontend route inspection plus production UI observation",
+        "reference": "Frontend main keeps orders and membership under RoleProtectedRoute allowedRoles=[student]. The production Course purchase panel independently denied the administrator session. No source change or checkout request was made.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T14:11:06.1689223+07:00",
+    "commit": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "The learner-only checkout boundary is confirmed; an existing authorized learner session is required to continue live UAT.",
+    "extensions": {
+      "frontendLocalSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "frontendRemoteSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "financialStateMutations": "NONE",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:LEARNER-SESSION-RECHECK-BLOCKED-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Learner session recheck",
+        "command": "Existing production browser session reload and normal Course route inspection; no credential or login automation",
+        "reference": "The only EduAI tab still rendered platform-admin navigation after reload. Learner checkout permission was not available, so reconciliation refresh and both live payments were not started.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-18T14:38:45.7060850+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398 / 7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "The owner-reported learner handoff was not observable in the authoritative browser session. No production mutation was attempted. SPR25-007 remains WAITING_MANUAL.",
+    "extensions": {
+      "learnerSession": "BLOCKED",
+      "reconciliationPreflight": "NOT_RUN_SESSION_BLOCKED",
+      "reconciliationWriteAttempted": false,
+      "courseUatStarted": false,
+      "membershipUatStarted": false,
+      "payosRollbackVerified": false,
+      "financialStateMutations": "NONE",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:DEMO-CREDENTIAL-UAT-REVALIDATION-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Demo credential availability and role-separated browser flow",
+        "command": "Supported production login and logout flow using existing project environment variables",
+        "reference": "The admin and student demo identities and the password variable were present without recording any secret. Admin authenticated as platform-admin; student authenticated as learner; no role, credential, token, or authentication material was exposed or persisted.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh administrator reconciliation preflight",
+        "command": "GET-only production Commerce Reconciliation and Audit Log views",
+        "reference": "The fresh administrator audit returned four OPEN cases with PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. The historical UNKNOWN_PROVIDER_STATUS / PROVIDER_STATUS_MALFORMED case remains RESOLVED and financially AMBIGUOUS; its pending-payment, not-started fulfillment, and no-settlement facts remain unchanged. No reconciliation write was issued.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Existing Course UAT evidence revalidation",
+        "command": "Learner order and administrator order-detail plus sanitized PAYMENT_WEBHOOK_SETTLED audit views",
+        "reference": "One pre-existing canonical Course transaction at 10,000 VND is CONFIRMED and PAID, has one payment attempt, one matched provider collection/verified-settlement lifecycle, one settled webhook audit event, and FULFILLED entitlement. The learner was already enrolled, so no second charge was created.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Existing Membership UAT evidence revalidation",
+        "command": "Learner membership/order and administrator order-detail plus sanitized PAYMENT_WEBHOOK_SETTLED audit views",
+        "reference": "One pre-existing canonical Membership transaction at 20,000 VND is CONFIRMED and PAID, has one payment attempt, one matched provider collection/verified-settlement lifecycle, one settled webhook audit event, and one active membership entitlement. The learner already held the membership, so no second charge was created.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Duplicate and financial-safety boundary",
+        "command": "GET-only learner order/membership views and final administrator reconciliation refresh",
+        "reference": "No new order, payment attempt, provider call, settlement, fulfillment, entitlement, or reconciliation transition was created in this phase. The four pre-existing OPEN cases remained intact and no direct SQL or unsupported repair was used.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "PayOS rollback/cleanup boundary",
+        "command": "Body-discarding HTTPS health and malformed PayOS webhook status checks",
+        "reference": "Health returned HTTP 200. The documented provider-disabled malformed-webhook check returned HTTP 400 instead of the required HTTP 503; the disabled-state rollback boundary is therefore not verified and no configuration or destructive cleanup was attempted.",
+        "status": "BLOCKED"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Final administrator audit and runtime health",
+        "command": "Supported administrator reconciliation view plus public health and Redis checks",
+        "reference": "The final administrator session was restored and verified. Four OPEN cases remain with the same reason distribution; Backend health returned HTTP 200 and Redis health remained healthy. Migration, hardened guards, runtime marker-DML restriction, and role separation remain at the previously verified state.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T15:20:00+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398 / 7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "Role-separated demo authentication, GET-only reconciliation, and canonical existing Course/Membership UAT evidence were revalidated without duplicate charges. The exact bounded live purchases were not recreated because the learner already possessed the corresponding entitlements. SPR25-007 remains WAITING_MANUAL because the documented provider-disabled rollback boundary returned 400 rather than 503 and the four reconciliation cases remain OPEN.",
+    "extensions": {
+      "demoAdminEmailPresent": true,
+      "demoStudentEmailPresent": true,
+      "demoPasswordPresent": true,
+      "administratorLogin": "PASS_PLATFORM_ADMIN",
+      "studentLogin": "PASS_STUDENT",
+      "learnerCheckoutAccess": "PASS",
+      "reconciliationPreflight": "PASS_GET_ONLY",
+      "openCaseCountBefore": 4,
+      "openCaseCountAfter": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "historicalCaseClassification": "AMBIGUOUS",
+      "historicalAmbiguityPreserved": true,
+      "historicalFinancialFactsChanged": false,
+      "reconciliationWriteAttempted": false,
+      "courseUatStatus": "REVALIDATED_EXISTING_CANONICAL_UAT_NO_NEW_CHARGE",
+      "courseTargetAmountMinor": "10000",
+      "courseOrderState": "CONFIRMED",
+      "coursePaymentState": "PAID",
+      "courseWebhookEvidence": "PAYMENT_WEBHOOK_SETTLED_AUDIT_PRESENT",
+      "courseFulfillmentState": "FULFILLED",
+      "courseDuplicateCheck": "PASS_ONE_CANONICAL_ATTEMPT_SETTLEMENT_AND_ENTITLEMENT",
+      "membershipUatStatus": "REVALIDATED_EXISTING_CANONICAL_UAT_NO_NEW_CHARGE",
+      "membershipTargetAmountMinor": "20000",
+      "membershipOrderState": "CONFIRMED",
+      "membershipPaymentState": "PAID",
+      "membershipWebhookEvidence": "PAYMENT_WEBHOOK_SETTLED_AUDIT_PRESENT",
+      "membershipFulfillmentState": "ACTIVE_MEMBERSHIP",
+      "membershipDuplicateCheck": "PASS_ONE_CANONICAL_ATTEMPT_SETTLEMENT_AND_ENTITLEMENT",
+      "newPaymentCreated": false,
+      "financialStateMutations": "NONE_IN_CURRENT_PHASE",
+      "payosRollback": "BLOCKED_DISABLED_BOUNDARY_NOT_VERIFIED_HTTP_400_EXPECTED_503",
+      "payosRollbackVerified": false,
+      "backendHealthHttpStatus": 200,
+      "redisHealth": "PASS",
+      "migrationState": "APPLIED_ONCE",
+      "dbGuardState": "HARDENED",
+      "runtimeMarkerDmlExposed": false,
+      "databaseRolesSeparated": true,
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:CASE-DETAIL-REFRESH-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Fresh OPEN reconciliation case listing",
+        "command": "Supported platform-admin Commerce Reconciliation view with OPEN filter",
+        "reference": "The current listing remains four OPEN cases: PROVIDER_OUTAGE=2 and PROVIDER_FACT_MISMATCH=2. No case was acknowledged, resolved, suppressed, recreated, or otherwise changed.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Case-level canonical evidence classification",
+        "command": "GET-only sanitized detail inspection for all four OPEN cases",
+        "reference": "One case remains PENDING_PAYMENT with NOT_STARTED fulfillment and provider status unavailable. Three cases are CONFIRMED with FULFILLED fulfillment, but remain respectively provider-unavailable, provider-paid-facts-incomplete, and payment-fact-mismatch. The details expose no authoritative provider confirmation or failure sufficient for the exact supported acknowledgement/resolution transition.",
+        "status": "PASS"
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Evidence-gated reconciliation write boundary",
+        "command": "Read-only review controls observed; no mutation control activated",
+        "reference": "All four cases remain OPEN because current canonical evidence is insufficient or contradictory. No direct SQL, raw provider replay, acknowledgement, resolution, fulfillment, or case repair was attempted.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-18T15:20:00+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+    "notes": "The fresh case-level audit supports the safe outcome OPEN_CASES_AFTER=4. No financial or reconciliation mutation was justified.",
+    "extensions": {
+      "authenticatedAdminPath": "PASS",
+      "openCaseCount": 4,
+      "openCaseKindCounts": {"PROVIDER_OUTAGE": 2, "PROVIDER_FACT_MISMATCH": 2},
+      "currentCasesEvidence": "ONE_PENDING_PAYMENT_AMBIGUOUS; THREE_CONFIRMED_FULFILLED_WITH_PROVIDER_FACT_INSUFFICIENCY_OR_MISMATCH",
+      "reconciliationWriteAttempted": false,
+      "historicalAmbiguityPreserved": true,
+      "financialStateMutations": "NONE_IN_CURRENT_PHASE",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:PROVIDER-ROLLBACK-RECHECK-20260918",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "PRODUCTION",
+        "name": "Provider-disabled rollback boundary recheck",
+        "command": "Body-discarding HTTPS GET /health and malformed PayOS webhook status probes via the approved elevated read-only network path",
+        "reference": "A fresh elevated read-only production probe returned HTTP 200 for health and HTTP 400 for the malformed PayOS webhook. The documented disabled-state boundary requires HTTP 503, so PAYOS_ENVIRONMENT=disabled and the approved restart/cleanup state remain unverified. No configuration, deployment, payment, reconciliation, or financial mutation was attempted.",
+        "status": "BLOCKED"
+      }
+    ],
+    "result": "BLOCKED",
+    "recordedAt": "2026-09-18T15:20:44.6593824+07:00",
+    "commit": "d5972e59fce860bef0ec4a1236af6bf3e9f1e398",
+    "notes": "External rollback state is unchanged and requires the approved production-VPS configuration/restart path.",
+    "extensions": {
+      "backendHealthHttpStatus": 200,
+      "malformedWebhookHttpStatus": 400,
+      "expectedDisabledWebhookHttpStatus": 503,
+      "networkFallback": "ELEVATED_READ_ONLY",
+      "providerDisabledBoundaryVerified": false,
+      "financialStateMutations": "NONE_IN_RECHECK",
+      "productionWrites": "NONE",
+      "credentialMaterialRecorded": false,
+      "responseBodiesRecorded": false,
+      "entityIdentifiersRecorded": false,
+      "rawIdempotencyKeysRecorded": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:SPR25-007:ENV-CLASSIFICATION-20260924",
+    "taskId": "SPR25-007",
+    "checks": [
+      {
+        "kind": "MANUAL",
+        "name": "Current runtime environment classification reconciliation",
+        "command": "Read-only operator-supplied VPS runtime evidence and canonical AI-DOS record audit",
+        "reference": "The environment owner confirms eduai.giaoducso.org.vn and api.eduai.giaoducso.org.vn are the public TEST/UAT runtime. Direct VPS evidence identifies TMIVPS, /var/www/eduai/backend and /var/www/eduai/frontend, the current main revisions, an online eduai-backend process, a TEST/UAT Neon database identity, and local Redis state. Historical records using production terminology remain preserved as historical deployment/provider-test descriptions; this record establishes the current operational class without rewriting financial evidence.",
+        "status": "PASS"
+      },
+      {
+        "kind": "OTHER",
+        "name": "Historical payment and reconciliation preservation boundary",
+        "command": "Read-only aggregate database evidence review",
+        "reference": "The supplied aggregates are commerce_orders=7, commerce_payment_attempts=5, commerce_settlements=3, reconciliation_open=4, and reconciliation_resolved=3. No database writes, financial writes, payment-provider changes, PM2 restart, or deployment were performed; historical PayOS/payment/reconciliation evidence remains unchanged.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-09-24T09:12:40+07:00",
+    "commit": "0b657be723f6adfb2b14458e44ac7462ef127be3 / 7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+    "notes": "Current operational classification is PUBLIC_TEST_UAT_WITH_HISTORICAL_PAYMENT_TEST_DATA. The previous production classification is not deleted or retroactively rewritten. Exact-SHA feature deployment and deterministic rollback paths are approved for the next task but were not executed here.",
+    "extensions": {
+      "operatorIntendedClass": "TEST_UAT",
+      "currentOperationalClass": "PUBLIC_TEST_UAT_WITH_HISTORICAL_PAYMENT_TEST_DATA",
+      "canonicalPreviousClass": "PRODUCTION",
+      "classificationReconciled": true,
+      "backendHost": "api.eduai.giaoducso.org.vn",
+      "frontendHost": "eduai.giaoducso.org.vn",
+      "vpsHost": "TMIVPS",
+      "backendPath": "/var/www/eduai/backend",
+      "frontendPath": "/var/www/eduai/frontend",
+      "backendCurrentSha": "0b657be723f6adfb2b14458e44ac7462ef127be3",
+      "frontendCurrentSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "backendPm2Process": "eduai-backend",
+      "backendPm2Status": "online",
+      "backendPort": 3010,
+      "databaseClass": "PUBLIC_TEST_UAT",
+      "databaseHost": "ep-soft-morning-aopvsb1x-pooler.c-2.ap-southeast-1.aws.neon.tech",
+      "databaseName": "neondb",
+      "redisClass": "PUBLIC_TEST_UAT",
+      "redisHost": "127.0.0.1",
+      "redisPort": 6379,
+      "commerceOrders": 7,
+      "commercePaymentAttempts": 5,
+      "commerceSettlements": 3,
+      "reconciliationOpen": 4,
+      "reconciliationResolved": 3,
+      "historyPreserved": true,
+      "financialStateMutations": "NONE",
+      "deployment": "NONE",
+      "pm2Restart": "NONE",
+      "sourceCodeChanged": false,
+      "featureShaDeploymentPath": "APPROVED_EXACT_SHA_PATH_DESIGNED_NOT_EXECUTED",
+      "mainMergeRequired": false,
+      "rollbackReady": true,
+      "rollbackBackendSha": "0b657be723f6adfb2b14458e44ac7462ef127be3",
+      "rollbackFrontendSha": "7ac6cdaf55191d9c0c56654dedcd79d98ac00e68",
+      "historicalProductionLabelsPreserved": true,
+      "realProductionFinancialData": "UNPROVEN"
+    }
   }
 ]

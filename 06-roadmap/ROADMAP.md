@@ -20,8 +20,14 @@ Project-owned compatibility overlay. Canonical source: `.ai-dos/records/roadmap.
 ADR-005 is accepted and amended for permanent Commerce runtime with independent
 payment-provider activation. Sprints 23 and 24 are complete with deployed,
 reconciled production UAT evidence. Sprint 25 is active and `SPR25-007` remains
-the release gate pending the remaining structured settlement, reconciliation,
-and provider-rollback evidence. The post-fix production Cart check passed:
-cancelled or expired payments no longer appear in the pending-payment notice.
+the release gate. Backend main `d5972e5` passed exact CI and production
+deployment. The applied-state-safe runner recognized the existing migration
+exactly once from the expected checksum and hardened guard state without
+reapplying it, and revoked only marker-table DML from `eduai_runtime`. Backend
+health is `200` and stable Redis health is `ok`; the historical ambiguous case
+remains unchanged. Four OPEN reconciliation cases remain, with no financial
+mutation; supported writes, bounded live UAT, and provider rollback remain
+incomplete. The post-fix production Cart check passed: cancelled or expired
+payments no longer appear in the pending-payment notice.
 Human-authored details are at
 `EduAI_Docs/docs/tasks_3.0/20-phase-3-development-roadmap.md`.

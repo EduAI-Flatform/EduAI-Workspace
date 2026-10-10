@@ -9,9 +9,20 @@ Status:
 WAITING_MANUAL
 
 Blocked By:
-Remaining structured settlement, reconciliation, and provider-rollback
-evidence. Targeted post-fix Cart verification passed: cancelled or expired
-payments no longer appear in the pending-payment notice.
+Backend main `d5972e5` passed exact CI and production deployment. The
+applied-state-safe runner recognized the reviewed migration exactly once from
+the expected checksum and hardened guard state without reapplying it, and
+revoked only INSERT/UPDATE/DELETE on the immutable legacy marker from
+`eduai_runtime`. The lease-specific runtime probe remains verified, Backend
+health is `200`, and stable Redis health is `ok`. A fresh case-level audit
+still shows four OPEN cases (`PROVIDER_OUTAGE=2`,
+`PROVIDER_FACT_MISMATCH=2`), the historical resolved/acknowledged
+`UNKNOWN_PROVIDER_STATUS` case remains ambiguous, and no financial or
+reconciliation mutation occurred in the continuation. Existing canonical
+Course/Membership settlement and fulfillment evidence was revalidated without
+duplicate charges. Provider rollback remains unverified because the malformed
+webhook returned `400` instead of the disabled-state `503` requirement.
+The targeted closed-payment Cart regression remains passing.
 
 Task done (historical list retained below):
 Sprint 01:

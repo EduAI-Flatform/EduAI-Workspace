@@ -6,49 +6,52 @@
 - Priority: `CRITICAL`
 - Related task: `SPR25-007`.
 - Required action:
-  - Completed: the HTTP 500 idempotency-contract fix is deployed in Backend
-    `83f3e404d1f057abe1d5661bdf5faa4aabf6e2f4`; the existing owned course
-    checkout is visible at exactly `10.000 VND`, with one pending attempt
-    and zero settlement.
-  - Completed: human-only authorization for exactly two bounded real PayOS
-    transactions is confirmed: one Course at `10.000 VND` and one Membership
-    at `20.000 VND`, total maximum `30.000 VND`.
-  - Completed: production PayOS is active through the approved secret-management
-    and PM2 restart path; no provider credential or configuration value was
-    shared or recorded.
-  - No third payment is allowed. The approved student session's current
-    `10.000 VND` provider link is expired; do not pay it again or create
-    another Course order/request. Reconcile the existing user-paid `10.000 VND`
-    order only after the deployment migration gate is recovered and its
-    authenticated buyer identity is established. Do not start Membership first.
-  - Do not run the previous mixed course-and-membership scenario: the deployed
-    product creates separate immutable course and membership orders and does
-    not support mixed checkout. After the decision, run only the explicitly
-    authorized scope through QR creation, server-verified settlement,
-    exactly-once fulfillment, ownership isolation, safe administrator history,
-    and bounded recovery evidence.
-  - Reconcile the exact financial/test effects, restore
-    `PAYOS_ENVIRONMENT=disabled`, restart through the approved path, then
-    verify health and provider-disabled fail-closed behavior.
-- Current checkpoint: diagnostic fix `46420a4` passed CI and the official
-  production deployment `34133519787` succeeded; `/health` is `200`.
-  The approved student provider link is `EXPIRED`; the separate user-paid
-  `10.000 VND` observation remains locally `PENDING_PAYMENT` with
-  `NOT_STARTED` fulfillment. One bounded reconciliation run checked two
-  attempts, recovered zero, required review for one, and left three sanitized
-  cases open, including `PROVIDER_PAID_FACTS_INCOMPLETE` and
-  `PAYMENT_FACT_MISMATCH`. The latter is persisted by the verified-webhook
-  canonical fact gate on the newest 10.000 VND order, not an orphan case. No
-  third payment or manual fulfillment occurred.
-- Evidence: `EVIDENCE:SPR25-007:POST-DEPLOYMENT-RECONCILIATION`,
-  `EVIDENCE:SPR25-007:IDEMPOTENCY-CONTRACT-FIX`, and
-  `EVIDENCE:SPR25-007:PENDING-CHECKOUT-RECOVERY`.
-- Targeted post-fix production Cart verification passed on 2026-09-11:
-  cancelled or expired payments no longer appear in the pending-payment
-  notice. Evidence: `EVIDENCE:SPR25-007:CART-CLOSED-PAYMENT-VERIFICATION`.
-- Blocks: only `SPR25-007`; the remaining Sprint 25 release assertions require
-  the human completion and reconciliation of the already authorized Course and
-  Membership transactions.
+  - Current production state is read-only audited: four reconciliation cases
+    remain open, with `PROVIDER_OUTAGE=2` and
+    `PROVIDER_FACT_MISMATCH=2`. Do not acknowledge, resolve, or
+    fulfill these cases manually while the implementation safety blockers
+    remain open.
+  - Do not invoke the supported reconciliation write until the implementation
+    is corrected and explicitly authorized for this production side effect.
+    Do not use direct database mutation, raw provider replay, or manual
+    fulfillment.
+  - The human-only live UAT scope remains bounded to exactly two real PayOS
+    transactions if later reauthorized: one dedicated Course at
+    `10.000 VND` and one dedicated Membership at `20.000 VND`,
+    total maximum `30.000 VND`. No third payment is allowed. Existing
+    canonical Course and Membership transactions were revalidated, and no
+    duplicate payment was created because both learner entitlements existed.
+  - Do not execute mixed course-and-membership checkout. Keep Membership
+    unstarted until the Course payment reaches a reconciled terminal state
+    through the supported workflow.
+  - After safe reconciliation and any authorized UAT, restore
+    `PAYOS_ENVIRONMENT=disabled` through the approved restart/deployment
+    path and verify health `200` plus provider-disabled fail-closed behavior.
+  - Retain sanitized aggregate evidence only; never record credentials, tokens,
+    raw provider payloads, response bodies, payment identifiers, entity
+    identifiers, or raw idempotency keys.
+- Current checkpoint: Backend main `d5972e5` passed exact CI and production
+  deployment. The applied-state-safe runner recognized the reviewed migration
+  exactly once from the expected checksum and hardened DB guards without
+  reapplying it, and revoked only INSERT/UPDATE/DELETE on the immutable legacy
+  marker from `eduai_runtime`. The historical ambiguous case remains
+  preserved. A fresh case-level audit still shows four OPEN cases
+  (`PROVIDER_OUTAGE=2`, `PROVIDER_FACT_MISMATCH=2`) with no evidence-gated
+  reconciliation write. Existing Course 10,000 VND and Membership 20,000 VND
+  canonical settlement/fulfillment evidence was revalidated without a new
+  charge. Provider rollback is not verified: the malformed webhook returned
+  HTTP 400 instead of the disabled-state HTTP 503 requirement.
+- Evidence: `EVIDENCE:SPR25-007:PROVIDER-ROLLBACK-RECHECK-20260918`.
+- Latest local and read-only production evidence:
+  `EVIDENCE:SPR25-007:DEMO-CREDENTIAL-UAT-REVALIDATION-20260918` and
+  `EVIDENCE:SPR25-007:CASE-DETAIL-REFRESH-20260918` and
+  `EVIDENCE:SPR25-007:PROVIDER-ROLLBACK-RECHECK-20260918`.
+- Blocks: only `SPR25-007`; remaining release assertions require canonical
+  proof for any supported reconciliation transition and provider rollback.
+- Current release blockers: four OPEN cases remain evidence-insufficient or
+  fact-mismatched, and the approved PayOS rollback/cleanup verification is
+  incomplete. The marker privilege correction and applied-state-safe runner
+  recovery are complete.
 - Security: retain no credentials, sessions, response bodies, database or role
   names, entity identifiers, raw idempotency keys, provider payloads, payment
   links, QR data, receiving-account data, or signatures.
