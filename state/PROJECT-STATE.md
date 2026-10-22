@@ -42,3 +42,22 @@ PRODUCTION_DESTRUCTIVE_ACTION_HUMAN_STOP=REQUIRED
 | ADM-07 | PLANNED | ADM-06 DONE | Not started |
 
 Creating this planning dossier does not authorize `ADM-00` implementation. When the owner explicitly starts `ADM-00`, update `ADMIN_UI_CURRENT_PHASE`, authorization and phase state before implementation.
+
+## Payment & Wallet program state (independent lane)
+
+```text
+PAYW_PROGRAM_STATUS=IN_PROGRESS
+PAYW_CURRENT_PHASE=PAYW-00
+PAYW_CURRENT_PHASE_STATUS=VERIFYING
+PAYW_OWNER_START_AUTHORIZED=YES
+PAYW_NEXT_MAJOR_PHASE_AUTHORIZED=NO
+PAYW_ROADMAP=phases/PAYMENT-WALLET-ROADMAP.md
+PAYW_TMI_POINTS_ISOLATED=YES
+PAYW_PRODUCTION_PAYMENT_ACTIVATION_AUTHORIZED=NO
+PAYW_REAL_FINANCIAL_WRITES_AUTHORIZED=NO
+```
+
+`PAYW-00` is design/audit only. No new money flow is live. Phase status may
+become DONE only after exact CI, reviewed PR, merged SHA and remote-main
+verification. The `SPR25-007` financial release gate and `SPRINT:26`
+Analytics track remain unchanged.

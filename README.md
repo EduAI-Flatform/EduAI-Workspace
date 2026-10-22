@@ -73,3 +73,12 @@ Execute dependency-valid work inside the authorized major phase through implemen
 Do not start the next major Admin phase without owner authorization.
 Preserve the independent AI-DOS Sprint 25 payment/reconciliation state and all financial hard stops.
 ```
+
+## Payment & Wallet program
+
+Owner authorized start of `PAYW-00` on 2026-10-22. The new
+[PAYW roadmap](phases/PAYMENT-WALLET-ROADMAP.md) and
+[PAYW-00 audit](phases/PAYW-00-PAYMENT-WALLET-ARCHITECTURE-AUDIT/README.md)
+coordinate bank VietQR, buyer Ví GDS through a permitted partner, and seller
+payable accounting. Existing TMI remains non-cash and canonical AI-DOS payment
+records, Sprint 26 Analytics and Admin UI phases are preserved.
