@@ -17,9 +17,13 @@
 
 ## Production gates - OPEN
 
-- [ ] PAYW-D01 actual beneficiary, control/legal receiving authority verified.
-- [ ] PAYW-D08 trained authorized operators/source custody and release approval.
+- [ ] PAYW-D01 inspected documentary proof of account holder, current control and legally authorized collections for every enabled course model, with restricted evidence references and reviewer signoff.
+- [ ] PAYW-D08 two distinct named authorized, independently trained reconciliation operators; verified bank-source custody/retention, escalation and explicit release approval.
 - [ ] Independent SPR25-007 canonical gates satisfied.
-- [ ] Explicit production/migration/real-money UAT approval and separate release evidence.
+- [ ] PAYW-D03/D04/D10 (as applicable) contracting, tax/invoice, allocation/refund policy and model A/B applicability accepted; unimplemented seller proceeds remain disabled.
+- [ ] Reviewed fail-closed real-bank production implementation (current production path intentionally refuses), migration/rollback/security checks, fresh CI and monitoring acceptance.
+- [ ] Explicit production/migration/env/real-money UAT approval and separate release evidence specifying pilot scope and safe stop.
 
 Technical delivery can coexist with production BLOCKED_EXTERNAL; never infer PASS production or GO-LIVE.
+
+The 2026-10-22 initial 'documents available' answer was followed by a clarification request; evidence inventory is **not yet confirmed**. Neither that response nor the dual business model satisfies any unchecked gate. Two operators remain unassigned. See [GO-LIVE readiness](GO-LIVE-READINESS.md) for evidence intake, dual-control roster and no-go checks.
