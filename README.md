@@ -9,7 +9,7 @@ Kho điều phối chung cho [Frontend](https://github.com/EduAI-Flatform/EduAI-
 | Luồng | Tình trạng hiện tại | Điều hướng |
 | --- | --- | --- |
 | AI-DOS commerce/payment | Sprint 25, `SPR25-007` chờ xử lý thủ công; hồ sơ tài chính là nguồn chuẩn | [Hồ sơ AI-DOS](.ai-dos/manifest.json) · [Trạng thái tương thích](10-state/TASK_STATUS.md) |
-| Payment & Wallet | PAYW-01 IN_PROGRESS safe source/sandbox; production BLOCKED_EXTERNAL; PAYW-00 VERIFYING | [Roadmap](phases/PAYMENT-WALLET-ROADMAP.md) / [PAYW-01](phases/PAYW-01-MANUAL-VIETQR/README.md) |
+| Payment & Wallet | PAYW-01 sandbox delivered; phase BLOCKED_EXTERNAL for live/legal gates; PAYW-00 VERIFYING | [Roadmap](phases/PAYMENT-WALLET-ROADMAP.md) / [PAYW-01](phases/PAYW-01-MANUAL-VIETQR/README.md) |
 | Admin UI | Roadmap chuẩn bị xong; `ADM-00` READY nhưng chưa được duyệt bắt đầu | [Roadmap](phases/ADMIN-UI-ROADMAP.md) · [ADM-00](phases/ADM-00-ADMIN-UI-BASELINE-INVENTORY/README.md) |
 
 ## Bắt đầu ở đâu?

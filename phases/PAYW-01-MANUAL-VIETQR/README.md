@@ -1,6 +1,6 @@
 # PAYW-01 - Controlled bank VietQR
 
-**Status:** VERIFYING safe implementation; production BLOCKED_EXTERNAL.
+**Status:** BLOCKED_EXTERNAL for live/legal gates; sandbox technical implementation delivered and verified.
 **Owner start:** 2026-10-22, explicit PAYW-01 request.
 
 PAYW-00 remains VERIFYING. The owner explicitly authorizes maximum safe design, source, synthetic tests and docs while legal decisions remain OPEN. This scoped exception to the ordinary PAYW-00 DONE dependency does not accept ADR-006 or waive release gates.

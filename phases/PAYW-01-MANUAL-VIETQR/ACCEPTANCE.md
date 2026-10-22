@@ -12,7 +12,7 @@
 - [x] Safe cancel/expiry, preserved settlement and idempotent fulfillment recovery.
 - [x] Stitch-first checkout plus controlled admin API/runbook review, copy, timer and responsive/a11y browser proof at seven widths.
 - [x] Backend/frontend required and focused checks, final independent review pass.
-- [ ] Workspace conformance/layout, PR/CI/main SHAs and merged branch cleanup recorded.
+- [x] Source delivery conformance, PR/main CI, remote SHAs and merged source-branch cleanup recorded; own final documentation lifecycle is verified in Workspace PR#8 timeline.
 - [x] No live transaction/activation/deploy/production DB/secret change or AI-DOS financial mutation.
 
 ## Production gates - OPEN

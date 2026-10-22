@@ -2,7 +2,7 @@
 
 **Program:** `PAYMENT-WALLET` (`PAYW`)  
 **Owner instruction:** Start `PAYW-00` on 2026-10-22  
-**Current:** PAYW-01 safe implementation IN_PROGRESS; production BLOCKED_EXTERNAL; PAYW-00 remains VERIFYING
+**Current:** PAYW-01 sandbox implementation delivered; phase BLOCKED_EXTERNAL for live/legal gates; PAYW-00 remains VERIFYING
 **Canonical existing payment state:** `.ai-dos/records/*`, unchanged.
 
 ## Objective
