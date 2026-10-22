@@ -18,7 +18,7 @@ Snapshot order/request IDs, unique transfer reference, integer VND amount, bank 
 
 ## States and verified-money boundary
 
-PENDING may become UNDER_REVIEW on support/evidence review. Time expiry yields EXPIRED; safe cancellation yields CANCELLED; mismatch or suspicion yields NEEDS_SUPPORT. Only independently approved, exactly matched statement evidence permits PAID. Expired/cancelled requests cannot be reopened by buyer action, upload, polling or timer. App expiry cannot revoke a bank QR; late funds need an exception case.
+Customer support changes PENDING to NEEDS_SUPPORT; a matched operator-recorded statement changes it to UNDER_REVIEW. Time expiry yields EXPIRED; safe cancellation yields CANCELLED; mismatch or suspicion yields NEEDS_SUPPORT. Only independently approved, exactly matched statement evidence permits PAID. Expired/cancelled requests cannot be reopened by buyer action, upload, polling or timer. App expiry cannot revoke a bank QR; late funds need an exception case.
 
 A maker records bank/account/transaction identity, bank occurrence time, integer amount/reference and immutable official-statement source plus SHA-256 digest. Two distinct authorized admins independently approve source provenance and every value. Source entry is not approval; the maker may be one approver but cannot supply both approvals. A digest alone cannot authenticate an external bank fact. No screenshot, customer claim, checkbox or unreviewed evidence can cross the verified-settlement boundary.
 

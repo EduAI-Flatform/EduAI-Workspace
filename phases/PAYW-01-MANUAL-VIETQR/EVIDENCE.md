@@ -13,12 +13,12 @@
 | Frontend tests | 380 unit tests / 95 files PASS; build includes tsc --noEmit PASS. 28 Chromium browser scenarios PASS: bank 8 (seven widths plus real method-selector POST), PayOS 2, VNPay 16, membership 2. No separate lint/typecheck npm scripts exist. |
 | Stitch/browser/a11y | Stitch project 18116946755394055085, screen d4b5c0fc57c24ea9aa6e17379968d3ea generated/reviewed before UI. Project-native tokens retained; invented shell/security claims rejected. Screenshots visually inspected at 320/390/1440; all seven widths checked overflow, 44px controls, focus, QR corners/center unobstructed, console/network guards and support never PAID. Chrome DevTools MCP unavailable due existing profile lock; real Playwright Chromium used. Synthetic QR browser fixtures test presentation, not live bank scanning. |
 | Workspace checks | npm.cmd run test:contracts PASS (ok true, diagnostics empty, SPR25-007 blocked); npm.cmd run test:workspace PASS; git diff --check PASS. Initial npm invocation was blocked by PowerShell script policy; npm.cmd ran without policy changes. |
-| PR/CI/merge/remote main | [Backend PR #10](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/10) merged as 1c7c6fcc47f619dad9031f652453bf1ef26459c1 after [PR CI](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39740159669) SUCCESS; remote main exact SHA and unchanged tree verified. [Main CI](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39740476584) pending; deployment inventory 0. Frontend PR #18 head e3863b45da15af3fe60dd81395b3352c42ac6b2d (Frontend CI run 39740285480 pending). No merge claimed. |
-| Branch cleanup | PENDING after verified merge |
+| PR/CI/merge/remote main | [Backend PR #10](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/10) merged as 1c7c6fcc47f619dad9031f652453bf1ef26459c1 after [PR CI](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39740159669) SUCCESS; remote main exact SHA and unchanged tree verified. [Main CI](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39740476584) SUCCESS; deployment inventory 0. [Frontend PR #18](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/18) merged as 67335effd9b9b9e849cb468d09d347b0f3b35ff3 after [PR CI](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/39740285480) SUCCESS, including PWA and 28 checkout browser scenarios. Exact remote main/tree verified; [main CI](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/39740995832) pending, deployment inventory empty. |
+| Branch cleanup | Backend feat/payw-01-manual-vietqr deleted remote/local after exact main SHA + main CI SUCCESS; ancestry check and empty unique-commit list verified, refs pruned, local main clean. Frontend/Workspace pending. |
 | Deployment safeguards | Independent reviewer ran node --test scripts/production-deployment-gate.test.cjs: PASS 3/3 Backend and 4/4 Frontend; coordinator also observed RED 3 then GREEN 3 each: workflow_dispatch only, explicit boolean approval defaults false, main-only deployment and skipped deploy notifications. Vercel git.deploymentEnabled.main=false also blocks automatic main deployment while preserving feature previews. Official reference: https://vercel.com/docs/project-configuration/git-configuration . No production deployment authorized. |
 | Production acceptance | BLOCKED_EXTERNAL; none claimed |
 
-Preserve pending facts until observed. Keep raw official statements/secrets out of Git; sanitized synthetic evidence or approved opaque references only. Historical PAYW-00 and AI-DOS financial records are unchanged.
+Preserve pending facts until observed. Keep raw official statements/secrets out of Git; sanitized synthetic evidence or approved opaque references only. Historical PAYW-00 cleanup evidence is updated; AI-DOS canonical financial records are unchanged.
 
 ## Additional verification and review
 
@@ -36,8 +36,11 @@ Full Frontend audit: 14 (8 high, 6 moderate) in existing development/build tooli
 
 - Backend run39739686376: new PostgreSQL job initially lacked test JWT config during Prisma postinstall. Added CI-only values, no secret changes.
 - Backend run39739947000: real DB rejected synthetic order number length41 against varchar40; fixed fixture to36 characters. No financial schema weakening.
-- Frontend run39739313880: membership fixture missed new GET methods mock and runtime guard caught proxy500 at both widths. Reproduced RED2, fixed fixture only; exact local CI command GREEN28/28, PR CI rerun pending.
+- Frontend run39739313880: membership fixture missed new GET methods mock and runtime guard caught proxy500 at both widths. Reproduced RED2, fixed fixture only; exact local CI command GREEN28/28, PR CI rerun39740285480 SUCCESS.
 
 ## Retained visual artifacts
 
 [320px QR viewport](evidence/checkout-320.png), [390px QR viewport](evidence/checkout-390.png), [1440px overview](evidence/checkout-1440.png). Synthetic test records only; these images verify presentation, never receipt of money. Full CI screenshots are attached by the payment browser job.
+
+- Workspace source PR [#7](https://github.com/EduAI-Flatform/EduAI-Workspace/pull/7): conformance run39740016337 SUCCESS before final receipts; current-head CI must pass before merge.
+- Final independent Workspace review corrected support status distinction and replaced misleading admin-UI wording with actual controlled API/runbook scope. No unresolved blocking source findings.

@@ -10,8 +10,8 @@
 - [x] Screenshots, buyer notification, unreviewed evidence and forged gateway callbacks cannot grant access.
 - [x] Under/overpayment, wrong account/content, suspicious/late/closed requests stay support-only.
 - [x] Safe cancel/expiry, preserved settlement and idempotent fulfillment recovery.
-- [x] Stitch-first checkout/admin states, copy, timer and responsive/a11y browser proof at seven widths.
-- [ ] Backend/frontend required and focused checks, final independent review pass.
+- [x] Stitch-first checkout plus controlled admin API/runbook review, copy, timer and responsive/a11y browser proof at seven widths.
+- [x] Backend/frontend required and focused checks, final independent review pass.
 - [ ] Workspace conformance/layout, PR/CI/main SHAs and merged branch cleanup recorded.
 - [x] No live transaction/activation/deploy/production DB/secret change or AI-DOS financial mutation.
 
