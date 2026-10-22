@@ -23,3 +23,5 @@ VERIFYING while financial/legal design decisions and historical branch-cleanup
 gates remain open; its documentation PRs and CI have been verified. Later
 major phases are not authorized by this start. No override of
 `.ai-dos/records/*` is permitted.
+
+On 2026-10-22 the owner separately starts [PAYW-01](PAYW-01-MANUAL-VIETQR/README.md) safe source/sandbox work while PAYW-00 stays VERIFYING. Legal/beneficiary authority stays OPEN; no live collection or PAYW-02.

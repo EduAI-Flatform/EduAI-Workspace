@@ -54,3 +54,7 @@ PAYW-04 may be designed after architecture audit while PAYW-01–03 proceed,
 but real-money wallet activity is prohibited until PAYW-05's legal/provider
 and owner-approval gates pass. No new PAYW phase starts without owner approval.
 PAYW does not supersede TMI points, Phase 3 Analytics/Affiliate or ADM-04 UI.
+
+## PAYW-01 scoped safe start - 2026-10-22
+
+Owner authorizes safe source/sandbox implementation before PAYW-00 DONE. PAYW-00 remains VERIFYING; PAYW-D01 actual beneficiary/legal receiving authority and PAYW-D08 operators/release approval stay OPEN. Production is BLOCKED_EXTERNAL. This explicit scope exception does not waive SPR25-007, authorize real financial writes or start PAYW-02. No bank/API/CI runtime failure is inferred.

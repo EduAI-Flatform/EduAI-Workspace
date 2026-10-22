@@ -16,7 +16,8 @@
 - [x] PR reviewed; required CI checks pass.
 - [x] Remote main merge SHA verified; evidence recorded.
 
-- [ ] ADR-006 accepted or explicitly reviewed, all owner design gates adjudicated and merged feature branches cleaned up.
+- [x] Historical merged temporary branches safely deleted remotely; no local counterparts; coordinator verified/pruned on 2026-10-22.
+- [ ] ADR-006 accepted or explicitly reviewed and all owner design gates adjudicated.
 
-`DONE` is prohibited until the remaining design/cleanup gates are satisfied.
+`DONE` is prohibited until the remaining design/legal gates are satisfied.
 Documentation is not permission for production money movement.
