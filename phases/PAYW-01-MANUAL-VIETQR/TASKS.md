@@ -7,6 +7,8 @@
 | PAYW-01-003 | Stitch-first checkout plus controlled admin API/runbook review, copy/timer/support/responsive states | DONE - design, implementation and browser evidence verified |
 | PAYW-01-004 | Unit/integration/race/security/browser/a11y/regression verification | DONE - unit/integration/browser/race and PR/main checks verified |
 | PAYW-01-005 | Evidence/runbook, review, PR/CI/merge, remote main verification, branch cleanup | Source lifecycle DONE; final documentation lifecycle receipt tracked in Workspace PR#8 timeline |
-| PAYW-01-LIVE | Beneficiary/collection authority, operators and release approval | BLOCKED_EXTERNAL - PAYW-D01/D08 OPEN |
+| PAYW-01-LIVE | Verified beneficiary/collection authority for applicable business model, dual operators, finance/legal/security signoff, independent SPR25-007 and explicit release approval | BLOCKED_EXTERNAL - PAYW-D01/D03/D08 and other applicable decisions OPEN |
 
 Safe same-phase work needs no new prompt. No real financial writes or PAYW-02.
+
+2026-10-22: Owner reports supporting MB/collection documents exist but are not reviewed; direct-sale and independent-seller models coexist, and two reconciliation operators are unassigned. Safe [GO-LIVE readiness](GO-LIVE-READINESS.md) dossier prepared without changing live gates.
