@@ -24,3 +24,7 @@ CI failures. Preserve `SPR25-007` and do not perform real-money writes.
 ## PAYW-01 scoped safe start - 2026-10-22
 
 Owner authorizes safe source/sandbox implementation before PAYW-00 DONE. PAYW-00 remains VERIFYING; PAYW-D01 actual beneficiary/legal receiving authority and PAYW-D08 operators/release approval stay OPEN. Production is BLOCKED_EXTERNAL. This explicit scope exception does not waive SPR25-007, authorize real financial writes or start PAYW-02. No bank/API/CI runtime failure is inferred.
+
+## PAYW-01 production-readiness update - 2026-10-22
+
+Owner reports both direct-sale and third-party collection models and says corporate MB/account and collection-rights documents exist; actual evidence has not been examined or signed off. Two independent bank-statement reconciliation operators are not yet assigned. Therefore PAYW-D01/D03/D08 (and applicable D04/D10) remain OPEN; [GO-LIVE readiness](../phases/PAYW-01-MANUAL-VIETQR/GO-LIVE-READINESS.md) is a no-go preparation dossier, not a provider/production release. Production still refuses the sandbox-only bank-transfer code path. SPR25-007 remains independent and unchanged.
