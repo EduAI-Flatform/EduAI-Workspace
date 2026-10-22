@@ -4,7 +4,7 @@ No entry below is assumed resolved merely by being documented.
 
 | ID | Required business/legal fact | Needed before | Current decision |
 | --- | --- | --- | --- |
-| PAYW-D01 | Confirm MB account 1122883979 legal beneficiary, ownership/control and merchant authority to receive all course proceeds | PAYW-01 activation | OPEN — owner reports MB corporate account and collection-rights documents exist (2026-10-22), but neither evidence nor scope has been independently reviewed/accepted; both direct-sale and independent-seller collections asserted |
+| PAYW-D01 | Confirm MB account 1122883979 legal beneficiary, ownership/control and merchant authority to receive all course proceeds | PAYW-01 activation | OPEN — owner initially selected 'documents available', then requested clarification of what proof of account and collection authority means (2026-10-22); actual evidence inventory, authenticity and collection scope NOT CONFIRMED; both direct-sale and independent-seller models asserted |
 | PAYW-D02 | Choose issuer/regulated wallet partner, scope, KYC/AML, safeguarding, linked accounts and signed API agreement | PAYW-05 | OPEN — no partner evidenced |
 | PAYW-D03 | Is EduAI merchant of record or contracted collector for each seller? Determine invoicing and VAT/withholding duties | PAYW-02 | OPEN — owner reports both direct seller and third-party collection models (2026-10-22); mode-by-mode merchant/agency contracts, invoice/VAT/withholding and accounting signoff still required |
 | PAYW-D04 | Allocation base after discounts, tax treatment, PSP/bank fees, affiliate precedence, treatment of self-sold membership | PAYW-02 | OPEN — product/finance owner |
