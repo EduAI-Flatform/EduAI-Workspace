@@ -1,84 +1,39 @@
 # EduAI Workspace
 
-Workspace điều phối phát triển liên repository cho **EduAI**.
+Kho điều phối chung cho [Frontend](https://github.com/EduAI-Flatform/EduAI-Front-End-Web), [Backend](https://github.com/EduAI-Flatform/EduAI-Back-End) và [Workspace](https://github.com/EduAI-Flatform/EduAI-Workspace) của [EduAI](https://eduai.giaoducso.org.vn).
 
-## Repositories
+**Một major phase = một prompt của chủ dự án.** Sau khi phase được phê duyệt bắt đầu, Codex tự chạy các subphase an toàn đến khi đủ acceptance hoặc gặp hard stop thật: đọc nguồn → Stitch (nếu UI) → code → test/review → commit/PR/CI/merge → kiểm tra `main` → evidence → dọn nhánh. Không yêu cầu chủ dự án copy prompt mới sau từng subphase.
 
-- Frontend: `EduAI-Flatform/EduAI-Front-End-Web`
-- Backend: `EduAI-Flatform/EduAI-Back-End`
-- Workspace: `EduAI-Flatform/EduAI-Workspace`
-- Production target: `https://eduai.giaoducso.org.vn`
+## Xem tình trạng dự án
 
-## Mô hình điều phối
+| Luồng | Tình trạng hiện tại | Điều hướng |
+| --- | --- | --- |
+| AI-DOS commerce/payment | Sprint 25, `SPR25-007` chờ xử lý thủ công; hồ sơ tài chính là nguồn chuẩn | [Hồ sơ AI-DOS](.ai-dos/manifest.json) · [Trạng thái tương thích](10-state/TASK_STATUS.md) |
+| Payment & Wallet | `PAYW-00` VERIFYING, quyết định pháp lý/đối soát chưa hoàn tất; `PAYW-01` chưa được duyệt bắt đầu | [Roadmap](phases/PAYMENT-WALLET-ROADMAP.md) · [Phase hiện tại](phases/PAYW-00-PAYMENT-WALLET-ARCHITECTURE-AUDIT/README.md) |
+| Admin UI | Roadmap chuẩn bị xong; `ADM-00` READY nhưng chưa được duyệt bắt đầu | [Roadmap](phases/ADMIN-UI-ROADMAP.md) · [ADM-00](phases/ADM-00-ADMIN-UI-BASELINE-INVENTORY/README.md) |
 
-EduAI hiện dùng hai lớp điều phối có trách nhiệm tách biệt:
+## Bắt đầu ở đâu?
 
-1. `.ai-dos/` là nguồn canonical cho Phase 3 commerce/payment hiện hữu, gồm Sprint 23–28, bằng chứng tài chính, reconciliation và release gate `SPR25-007`.
-2. `phases/` + `state/` là lớp điều phối phase theo phong cách CongDongNgonNgu cho các chương trình phát triển mới, bắt đầu với `ADMIN-UI`.
+1. [`AGENTS.md`](AGENTS.md) — quy tắc bắt buộc với mọi phiên Codex.
+2. [`state/PROJECT-STATE.md`](state/PROJECT-STATE.md) · [Dependencies](state/DEPENDENCY-GRAPH.md) · [Blockers](state/BLOCKERS.md) — phase nào được phép chạy.
+3. [One-prompt phase autopilot](docs/engineering/PHASE-AUTOPILOT.md) · [Codex working rules](docs/engineering/CODEX-WORKING-RULES.md) — tự động trọn phase, CI/merge, hard stops.
+4. [`phases/`](phases/README.md) — từng dossier `README/TASKS/ACCEPTANCE/TEST-PLAN/UI-STITCH`.
+5. [Frontend architecture](docs/engineering/FRONTEND-ARCHITECTURE.md) · [Phase template](templates/PHASE-TASK-TEMPLATE.md).
 
-Không được dùng lớp phase mới để ghi đè, làm mất hoặc suy diễn lại bằng chứng payment/production trong `.ai-dos/records/`.
+Mỗi lần chỉ cần chỉ định major phase chính xác và ra lệnh bắt đầu. Prompt mẫu có thể copy trực tiếp trong [PHASE-AUTOPILOT.md](docs/engineering/PHASE-AUTOPILOT.md).
 
-## Nguyên tắc vận hành
+## Ranh giới không được phá vỡ
 
-1. Đọc `AGENTS.md` trước mọi task.
-2. Đọc `state/PROJECT-STATE.md`, `state/DEPENDENCY-GRAPH.md` và `state/BLOCKERS.md` khi liên quan.
-3. Đọc `docs/engineering/CODEX-WORKING-RULES.md`.
-4. Đọc dossier của phase hiện tại: `README.md`, `TASKS.md`, `ACCEPTANCE.md`, `TEST-PLAN.md`, `UI-STITCH.md`.
-5. Với Frontend, đọc `docs/engineering/FRONTEND-ARCHITECTURE.md`.
-6. Với UI mới hoặc redesign đáng kể, bắt buộc dùng Stitch qua MCP trước khi code.
-7. Mỗi task phải implement → verify → architecture review → review/remediation → commit → push → CI → remote verification → evidence trước khi `DONE`.
-8. Không tự chạy sang major phase kế tiếp nếu chủ dự án chưa cho phép bắt đầu phase đó.
+- `.ai-dos/records/` tiếp tục là nguồn chuẩn cho Sprint 25 payment/reconciliation, các bằng chứng lịch sử và gate `SPR25-007`. Không hợp nhất/suy diễn lại từ file planning.
+- `phases/` + `state/` là điều phối theo kiến trúc CongDongNgonNgu cho các luồng mới, nhưng không tạo một bản sao AI-DOS.
+- Thay đổi UI không ngầm thay đổi auth, khoản thu, hoàn tiền, phân chia doanh thu hay quyền của người dùng. Thiết kế mới phải theo Stitch, kiểm tra các kích thước `320/375/390/412/768/1024/1440`.
+- Triển khai/restart production, tác động DB production, tiền thật, PayOS/VNPay/MB activation, chuyển khoản, bí mật/môi trường và hành động phá hủy vẫn cần phê duyệt riêng.
 
-## Admin UI program
+## Công cụ và tài liệu cũ
 
-Roadmap authoritative cho chương trình hoàn thiện giao diện Admin: [`phases/ADMIN-UI-ROADMAP.md`](phases/ADMIN-UI-ROADMAP.md).
-
-Các phase:
-
-- `ADM-00` — Admin UI Baseline & Inventory
-- `ADM-01` — Admin Design System & Shell
-- `ADM-02` — Shared Admin Component Foundation
-- `ADM-03` — Governance & Platform Operations
-- `ADM-04` — Commerce & Benefits Operations
-- `ADM-05` — Career & Mentor Operations
-- `ADM-06` — Mobile, Tablet & Accessibility Hardening
-- `ADM-07` — Admin Runtime UAT & Visual Acceptance
-
-Program hiện ở trạng thái planning; `ADM-00` là phase tiếp theo đủ điều kiện nhưng chưa được coi là đã bắt đầu chỉ vì dossier đã được tạo.
-
-## AI-DOS compatibility
-
-Các thư mục `.ai-dos/`, `core/`, `00-project/`, `05-operations/`, `06-roadmap/`, `07-tasks/`, `10-state/` vẫn được giữ để bảo toàn hệ thống hiện tại. `10-state/TASK_STATUS.md` và `06-roadmap/ROADMAP.md` tiếp tục là compatibility views của AI-DOS.
-
-Canonical AI-DOS commands:
-
-```powershell
-node core/conformance.js --manifest .ai-dos/manifest.json
-node core/project.js --manifest .ai-dos/manifest.json --out .ai-dos/generated
+```bash
+npm run test:contracts
+npm run test:workspace
 ```
 
-`npm run test:contracts` là contract gate chính của runtime AI-DOS đã vendored.
-
-## Cách khởi động Codex cho Admin UI
-
-```text
-Read AGENTS.md and the EduAI-Workspace repository.
-Read state/PROJECT-STATE.md, state/DEPENDENCY-GRAPH.md, state/BLOCKERS.md, and docs/engineering/CODEX-WORKING-RULES.md.
-Read phases/ADMIN-UI-ROADMAP.md and determine the current owner-authorized Admin phase without redoing completed work.
-Read that phase's README/TASKS/ACCEPTANCE/TEST-PLAN/UI-STITCH files.
-Read docs/engineering/FRONTEND-ARCHITECTURE.md and the target Frontend AGENTS.md if present.
-Inspect the real Frontend source, tests, git state and relevant runtime before editing.
-For any substantial UI/redesign, use Stitch MCP before implementation.
-Execute dependency-valid work inside the authorized major phase through implementation, verification, review/remediation, commit, push, PR/CI, merge, remote-main verification, evidence and branch cleanup.
-Do not start the next major Admin phase without owner authorization.
-Preserve the independent AI-DOS Sprint 25 payment/reconciliation state and all financial hard stops.
-```
-
-## Payment & Wallet program
-
-Owner authorized start of `PAYW-00` on 2026-10-22. The new
-[PAYW roadmap](phases/PAYMENT-WALLET-ROADMAP.md) and
-[PAYW-00 audit](phases/PAYW-00-PAYMENT-WALLET-ARCHITECTURE-AUDIT/README.md)
-coordinate bank VietQR, buyer Ví GDS through a permitted partner, and seller
-payable accounting. Existing TMI remains non-cash and canonical AI-DOS payment
-records, Sprint 26 Analytics and Admin UI phases are preserved.
+Các đặc tả kỹ thuật lịch sử vẫn được giữ có chọn lọc trong [`EduAI_Docs/docs/`](EduAI_Docs/docs/README.md). Bộ prompt/task Sprint 01–12 cũ đã đưa ra khỏi cây tài liệu đang hoạt động, có thể khôi phục từ [lịch sử Git](docs/archive/README.md). Các thư mục `core/`, `00-project/`, `05-operations/`, `06-roadmap/`, `07-tasks/`, `10-state/` còn nằm trong manifest AI-DOS nên **chưa được phép xóa**.

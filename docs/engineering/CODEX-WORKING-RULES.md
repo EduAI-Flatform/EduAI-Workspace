@@ -6,9 +6,11 @@ Every session reconstructs context from repository truth. Read root `AGENTS.md`,
 
 ## 2. Major-phase execution
 
-A major phase requires explicit owner start. After start, Codex may execute dependency-valid work in that same phase without asking routine permission for branch creation, edits, tests, review/remediation, commit, push, PR, CI observation/retry of ordinary failures, merge after gates pass, remote-main verification and merged-branch cleanup.
+A major phase requires explicit owner start. **One owner prompt is enough for its complete safe lifecycle**: decompose the major phase into meaningful dependency-ordered subphases, then automatically execute each through source audit, implementation, tests, architecture/security review, remediation, Conventional Commit, push, PR, required CI, merge, exact remote-main verification, evidence and temporary-branch cleanup.
 
-Do not cross into the next major phase automatically.
+Do not pause at an ordinary subphase boundary for another manually copied prompt. Do not split implementation, review, runtime and acceptance into gratuitous separate human interaction rounds. At a terminal subphase, publish only observed evidence; if there is a real blocker, record the exact blocker and perform bounded safe recovery. If a preconfigured and confirmed relay exists, use it for sanitized same-phase continuation; if it does not, resolve the next eligible task from Workspace files. A relay failure never authorizes invented evidence, CI bypass or repeated identical retries. See [PHASE-AUTOPILOT.md](PHASE-AUTOPILOT.md).
+
+Do not cross into the next major phase automatically. Never let work on Admin UI or PAYW implicitly alter canonical `.ai-dos/records/` financial truth.
 
 ## 3. Stitch-first UI workflow
 
@@ -46,7 +48,7 @@ Record only observed facts: changed files, commit SHA, test/build result, respon
 
 ## 8. Production and security hard stops
 
-Explicit owner approval is still required for payment-provider activation, real financial/refund/reconciliation writes, risky production schema migration, destructive production data actions, credential/secrets changes, security weakening or required-gate bypass.
+Explicit owner approval is still required for production deployment/restart, production DB writes or risky migrations, real financial/refund/reconciliation/settlement/payout writes, payment-provider/merchant activation, destructive production data/schema/infrastructure/DNS actions, external spending/paid provider activation, credentials/secrets/environment changes, private-data collection activation, security weakening, force push/shared-history rewrite or required-gate bypass.
 
 ## 9. Git lifecycle
 

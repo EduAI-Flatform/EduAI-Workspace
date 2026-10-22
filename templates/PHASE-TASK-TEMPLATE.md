@@ -1,48 +1,47 @@
-# EduAI Phase Task Template
+# EduAI phase task template
+
+All tasks inherit [AGENTS](../AGENTS.md) and [phase autopilot](../docs/engineering/PHASE-AUTOPILOT.md). A task template is **not** another prompt the owner must paste.
 
 ```md
-## ADM-XX-YYY — Task title
+## <PHASE-ID>-<SUBPHASE-ID> — Outcome title
 **Status:** READY
-**Depends on:** <dependencies>
-**Target repo(s):** Frontend / Backend / Workspace
-**Architecture conformance required:** YES
+**Depends on:** <accepted previous outcome(s)>
+**Target repositories:** <Frontend | Backend | Workspace>
+**Architecture baseline:** <authoritative path>
+**Financial/production hard stops:** <exact restricted operations>
+
+### Objective
+<One observable outcome, not merely a list of commands.>
+
+### Scope and exclusions
+- In: ...
+- Out: ...
 
 ### Mandatory preflight
-1. Read Workspace `AGENTS.md`.
-2. Read `state/PROJECT-STATE.md`, `state/DEPENDENCY-GRAPH.md`, and relevant blockers.
-3. Read `docs/engineering/CODEX-WORKING-RULES.md`.
-4. Read current phase README/TASKS/ACCEPTANCE/TEST-PLAN/UI-STITCH.
-5. Read target repo `AGENTS.md` if present.
-6. For frontend work, read `docs/engineering/FRONTEND-ARCHITECTURE.md`.
-7. Inspect real source, tests, config, neighbouring code, runtime and git state.
+Read Workspace AGENTS/state/dependency/blockers/engineering rules,
+the whole selected major-phase dossier, target-repo AGENTS,
+relevant architecture and actual code/tests/git/runtime state.
 
-### Goal
-<observable product outcome>
+### Implementation and design
+- Smallest maintainable change and reuse of established contracts.
+- Substantial UI: Stitch MCP, approved design comparison, mobile composition.
+- Never hide financial/provider/permission semantics inside an unrelated UI edit.
 
-### In scope
-- ...
+### Acceptance
+- Functional ...
+- Architecture, security and privacy ...
+- Responsive / accessibility / visual ... (when applicable)
 
-### Out of scope
-- ...
+### Verification and evidence
+- Focused + all required repository tests, build, lint, typecheck, audit.
+- Runtime/UAT or migration checks only when actually authorized/applicable.
+- Diff review, Conventional Commit, branch push, PR, CI, merge,
+  exact remote main, post-merge check and merged-branch cleanup.
+- Record exact SHAs, actual PASS/FAIL results, CI URLs and unresolved gates.
 
-### Stitch requirement
-`REQUIRED | NOT_REQUIRED_WITH_REASON`
-
-### Functional acceptance
-- ...
-
-### Architecture acceptance
-- reuse established primitives/patterns;
-- no unrelated dumping stylesheet growth;
-- no silent route/API/auth/payment semantic changes;
-- responsive/a11y requirements pass.
-
-### Verification
-Run focused tests and all applicable repository gates. For frontend: lint, typecheck, tests, build, audit plus required browser/runtime/visual checks.
-
-### Evidence required
-Changed files, exact SHA, tests/build, responsive/a11y/visual evidence, CI, remote SHA, runtime evidence when applicable, merge and branch cleanup.
-
-### Completion rule
-Use DONE only after every applicable gate is observed. Otherwise use VERIFYING or a truthful blocked state.
+### Continuation
+When DONE, autonomously continue the next dependency-valid subphase in
+the SAME owner-authorized major phase. When blocked, preserve safe completed
+work, record exact blocker and stop at a genuine hard human dependency.
+Never cross a new major-phase boundary without owner start.
 ```

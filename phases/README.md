@@ -19,5 +19,7 @@ A dossier may be `READY` without being started. Major-phase implementation begin
 [PAYMENT-WALLET-ROADMAP.md](PAYMENT-WALLET-ROADMAP.md) is the authorized
 planning lane for bank collection, student Ví GDS and seller earnings.
 `PAYW-00` was explicitly started by the owner on 2026-10-22 and is
-VERIFYING while PR/CI/merge evidence is pending. Later major phases are not
-authorized by this start. No override of `.ai-dos/records/*` is permitted.
+VERIFYING while financial/legal design decisions and historical branch-cleanup
+gates remain open; its documentation PRs and CI have been verified. Later
+major phases are not authorized by this start. No override of
+`.ai-dos/records/*` is permitted.

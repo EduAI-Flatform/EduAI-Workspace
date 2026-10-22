@@ -10,6 +10,7 @@
   "scripts": {
     "test": "node --test",
     "test:contracts": "node core/conformance.js --manifest .ai-dos/manifest.json",
+    "test:workspace": "node scripts/check-workspace-layout.mjs",
     "validate": "node core/validate.js"
   }
 }
