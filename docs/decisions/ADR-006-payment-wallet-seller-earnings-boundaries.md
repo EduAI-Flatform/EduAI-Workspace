@@ -33,7 +33,8 @@ stored-value money and split settlement; this is a new controlled program.
 5. **Keep ADR-004 verified financial/fulfillment separation.** Allocation and
    payout journal effects are independently idempotent and recoverable;
    downstream failure cannot erase a verified provider/bank settlement.
-6. **No retroactive policy mutation.** Snapshot share version, seller,
+6. **No learner cash-out on demand.** The owner confirmed on 2026-10-22 that unused Ví GDS balance cannot be withdrawn at will. Refunds are a distinct, policy-controlled process, with eligibility, mandatory legal exceptions, route, timing and partner mechanics still requiring approval. This business preference does not resolve the regulatory classification of real-money prepaid balances.
+7. **No retroactive policy mutation.** Snapshot share version, seller,
    item price, discounts and allocation. Reversals/adjustments are new journal
    entries tied to source events. Order-level/seller accounting must reconcile.
 
@@ -43,6 +44,7 @@ stored-value money and split settlement; this is a new controlled program.
 - Merchant of record vs collection agent, tax/invoice/affiliate policy.
 - Regulatory classification and contract with permitted wallet provider.
 - Seller payout hold period, threshold, refund liability and dual approval.
+- Learner Ví GDS refund policy, statutory exceptions and approved refund rails; no self-service discretionary balance withdrawal.
 - Production provider switch and real-money UAT owner authorization.
 
 The data models and detailed failure matrix are in
