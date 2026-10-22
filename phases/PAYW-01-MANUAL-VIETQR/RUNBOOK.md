@@ -35,7 +35,7 @@ The process must use development/test NODE_ENV plus BANK_TRANSFER_SANDBOX_ENABLE
 
 - GET /payments/methods advertises enabled methods. POST /payments/orders/:orderId/request optionally selects provider bank_transfer; zero-payable orders preserve existing internal no-payment flow.
 - GET /payments/orders/:orderId/request and POST /payments/orders/:orderId/cancel are owner-scoped; customer support POST /payments/orders/:orderId/bank-transfer/support accepts reason length 8..300 and Idempotency-Key, never confirms money.
-- GET /admin/commerce/bank-transfers returns bounded requests; GET /admin/commerce/bank-transfers/:requestId includes immutable evidence, approvals and support reasons.
+- GET /admin/commerce/bank-transfers?page=1&pageSize=20 returns {items,page,pageSize,total,totalPages}, with pageSize 1..100 and stable creation/id ordering; authorization is checked before count/list. GET /admin/commerce/bank-transfers/:requestId includes immutable evidence, approvals and support reasons.
 - POST /admin/commerce/bank-transfers/:requestId/statements requires Idempotency-Key and bankBin, accountNumber, canonical uppercase transactionId, integer-string amountMinor, transferContent, occurredAt, statementReference, statementSha256, source BANK_STATEMENT_CHECKED; suspicious=true forces support.
 - POST /admin/commerce/bank-transfers/evidence/:evidenceId/approvals requires Idempotency-Key and independently reentered source BANK_STATEMENT_CHECKED, statementSha256, transactionId, amountMinor, accountNumber, transferContent. Two distinct current authorized admins must approve.
 
