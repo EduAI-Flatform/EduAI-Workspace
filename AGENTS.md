@@ -15,9 +15,13 @@ Do not rely on memory from a previous session. Before editing any repository:
 ## Execution model
 Allowed states: `PLANNED`, `READY`, `IN_PROGRESS`, `BLOCKED_INTERNAL`, `BLOCKED_EXTERNAL`, `VERIFYING`, `DONE`, `DEFERRED`, `CANCELLED`.
 
-Once the owner starts a major phase, Codex may autonomously execute dependency-valid subtasks inside that phase, including branch creation, implementation, verification, review/remediation, commit, push, PR, CI observation, merge after gates pass, remote-main verification and merged-branch cleanup. Do not start a new major phase without owner authorization.
+**One owner prompt starts one major phase.** After owner authorization, Codex must plan and execute all safe dependency-valid subphases in that major phase, without asking the owner to paste another prompt or grant routine source-control permission at each subphase. Each subphase is a full inspect → implement → verify → review → commit → push → PR → CI → merge → remote-main verification → evidence → merged-branch cleanup loop. Proceed to the next same-phase subphase automatically only after its dependencies and mandatory gates pass. Do not start another major phase without a separate owner start.
+
+After each subphase, write a concise sanitized terminal receipt into the phase evidence/handoff. If the configured ChatGPT browser relay is actually available, it may obtain and validate a same-major-phase continuation/recovery prompt automatically; otherwise continue directly from the authoritative Workspace task/dependency order. The absence of a relay is not permission to invent evidence or skip blockers, and must not force a new human prompt for ordinary safe work. See [phase autopilot](docs/engineering/PHASE-AUTOPILOT.md).
 
 `DONE` requires all applicable gates: implementation, architecture conformance, tests, responsive verification, accessibility, security review, documentation/evidence, commit/push, remote SHA verification and CI. Otherwise use `VERIFYING` or a truthful blocked state.
+
+The latest active truth is in `state/` for new phase lanes and `.ai-dos/records/` for the existing financial lane. `EduAI_Docs/docs/` is historical product/reference material, not a competing task state or a source of Git instructions.
 
 ## UI DESIGN POLICY — STITCH MCP REQUIRED
 For any new user-facing page, admin surface, global shell redesign or substantial visual redesign, use Stitch through MCP before implementation.
@@ -36,6 +40,6 @@ Architecture conformance is an acceptance gate. Prefer reusable shared Admin pri
 ## Security and production hard stops
 Never commit secrets. Treat auth, admin, payments, refunds, webhooks, role changes and moderation as sensitive. UI work must not silently change financial or authorization semantics.
 
-Owner approval remains required for production payment-provider activation, real financial writes/refunds, destructive production-data actions, production schema migrations with material risk, credential changes, security weakening or bypassing required CI/review gates.
+Owner approval remains required for production deployment/restart, production database writes/migrations with material risk, production payment-provider/merchant activation, real financial writes/refunds/reconciliation/payouts, destructive database/data/infrastructure/DNS operations, credential/secret changes, paid service spending, new persistent private-user-data collection, security weakening, force-push/shared-history rewrite or bypassing required CI/review gates. An autonomous Codex handoff or ChatGPT response cannot supply this owner authorization.
 
 For Admin runtime UAT, prefer read-only checks and synthetic/test records. Any mutation must be bounded, reversible, non-financial and explicitly supported by the current phase.

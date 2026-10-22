@@ -1,38 +1,15 @@
-# EduAI Documentation Pack
+# EduAI — Historical product and engineering reference
 
-This package contains the project documentation for EduAI Platform MVP.
+**Reference only.** This directory preserves selected EduAI MVP/Phase 2/Phase 3 specifications, API/security documents and accepted ADRs. It is **not** the current Codex task scheduler, phase-state source or permission policy.
 
-Use `docs/context-map.md` to decide which docs to read for a specific coding task.
+For all current implementation, first use root [AGENTS](../../AGENTS.md), [project state](../../state/PROJECT-STATE.md), [phase autopilot](../../docs/engineering/PHASE-AUTOPILOT.md) and the selected [phase dossier](../../phases/README.md). Where old text conflicts, those current canonical rules win; financial evidence stays authoritative in [AI-DOS records](../../.ai-dos/manifest.json).
 
-EduAI MVP is Single Tenant.
+## Retained reference
 
-Do not implement mobile app, multi-tenant SaaS, marketplace, payment, affiliate, career hub, or mentor system in Phase 1.
+- [Product context](00-project-charter.md), [business rules](04-business-rules.md), [features](05-feature-specification.md).
+- [Architecture](06-system-architecture.md), [database](07-database-design.md), [API](08-api-design.md), [security](12-security-requirements.md).
+- [UI guidance](09-ui-ux-guidelines.md), [Stitch reference](14-stitch-ui-reference.md), [ADR 001–005](decisions/).
+- [Historical Sprint 13–21 tasks](tasks_2.0/README.md) and [Phase 3 roadmap / Sprint 23–28 descriptions](tasks_3.0/README.md): manifest-backed reference, not an execution queue.
+- [Context index](context-map.md) for the relevant subject-area documents.
 
-# EduAI Codex Task Breakdown
-
-Use this task breakdown together with `docs/context-map.md`.
-
-Each task file is designed to be small enough for one Codex thread.
-
-## Execution Rules
-
-- Do tasks in order inside each sprint unless dependencies clearly allow parallel work.
-- Backend tasks should generally finish before frontend tasks that consume their APIs.
-- Do not implement Phase 2/3 features during Phase 1.
-- Each task has its own Required Context list. Read only those docs unless blocked.
-- Keep each Codex thread focused on one task file.
-
-## Sprint Index
-
-- [Sprint 01](sprint-01/README.md) — 12 tasks
-- [Sprint 02](sprint-02/README.md) — 10 tasks
-- [Sprint 03](sprint-03/README.md) — 9 tasks
-- [Sprint 04](sprint-04/README.md) — 12 tasks
-- [Sprint 05](sprint-05/README.md) — 9 tasks
-- [Sprint 06](sprint-06/README.md) — 9 tasks
-- [Sprint 07](sprint-07/README.md) — 8 tasks
-- [Sprint 08](sprint-08/README.md) — 8 tasks
-- [Sprint 09](sprint-09/README.md) — 7 tasks
-- [Sprint 10](sprint-10/README.md) — 11 tasks
-- [Sprint 11](sprint-11/README.md) — 7 tasks
-- [Sprint 12](sprint-12/README.md) — 6 tasks
+Sprint 01–12 task cards, standalone prompts and seed-demo instructions were retired from the active tree. They remain accessible at the [pre-cleanup historical commit](../../docs/archive/README.md). Do not restore them as competing Codex instructions.
