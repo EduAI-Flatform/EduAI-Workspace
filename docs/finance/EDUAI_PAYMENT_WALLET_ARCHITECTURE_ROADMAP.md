@@ -8,7 +8,7 @@
 
 EduAI phát triển **hai nghiệp vụ khác nhau**, dùng chung cơ chế xác nhận giao dịch và đối soát:
 
-1. **Ví GDS cho học viên:** học viên nạp tiền, xem số dư, dùng số dư mua khóa học và nhận hoàn tiền khi chính sách cho phép. Trong môi trường thực, chức năng lưu giữ giá trị tiền tệ/nạp–chi phải triển khai thông qua một **đơn vị cung ứng dịch vụ đủ điều kiện/được cấp phép** và được tư vấn pháp lý xác nhận. EduAI chỉ giữ dữ liệu giao dịch và sổ đối chiếu (mirror), **không tự đóng vai đơn vị phát hành ví điện tử** khi chưa đủ điều kiện.
+1. **Ví GDS cho học viên:** học viên nạp tiền, xem số dư, dùng số dư mua khóa học và nhận hoàn tiền theo chính sách được phê duyệt. **Không cho học viên rút số dư tùy ý về ngân hàng**; hoàn tiền là quy trình riêng, không phải chức năng rút tiền, và phải bảo đảm các trường hợp hoàn tiền bắt buộc theo pháp luật. Trong môi trường thực, chức năng lưu giữ giá trị tiền tệ/nạp–chi phải triển khai thông qua một **đơn vị cung ứng dịch vụ đủ điều kiện/được cấp phép** và được tư vấn pháp lý xác nhận. EduAI chỉ giữ dữ liệu giao dịch và sổ đối chiếu (mirror), **không tự đóng vai đơn vị phát hành ví điện tử** khi chưa đủ điều kiện.
 2. **Ví doanh thu cho người bán:** đây là **sổ theo dõi khoản phải trả** (seller earnings/payable ledger), không phải ví điện tử lưu giữ tiền. Nó ghi nhận doanh thu phát sinh từ đơn đã xác minh, phần được phân bổ cho người bán, các khoản giữ lại, hoàn tiền, công nợ và chi trả thực tế.
 
 **Phương thức thu tiền tạm thời:** VietQR vào **MB Bank — 1122883979**. Tên người thụ hưởng “Giáo dục số” là thông tin người dùng cung cấp; cần kiểm tra tên chủ tài khoản thực tế và thẩm quyền thu tiền của pháp nhân trước khi mở chính thức. Không dùng lại QR PayOS dưới một nhãn khác.
@@ -74,7 +74,7 @@ Không dùng một biến `walletBalance` cập nhật trực tiếp để quy�
 1. Học viên liên kết/được nhận diện bởi đối tác phát hành ví (bao gồm KYC theo yêu cầu của đối tác và pháp luật).
 2. Nạp tiền: `INITIATED → PENDING_PARTNER → VERIFIED → CREDITED` hoặc `FAILED/REVIEW` sau sự kiện đối tác xác thực. Không cộng số dư từ frontend return.
 3. Thanh toán khóa học: kiểm tra `availableBalance`, tạo reservation idempotent theo order, gọi lệnh đối tác để giữ/trừ tiền và chốt thành công theo hợp đồng API. Chỉ sau xác minh `CAPTURED` mới ghi canonical settlement. Nếu callback mất/kết quả bất định, khóa attempt và đối soát trước khi cho thử lại.
-4. Thanh toán bị hủy/thất bại: giải phóng reservation đúng một lần. Hoàn tiền: qua API đối tác, chỉ ghi hoàn thành khi đối tác xác nhận.
+4. Thanh toán bị hủy/thất bại: giải phóng reservation đúng một lần. Hoàn tiền: chỉ thực hiện theo chính sách đã phê duyệt và quyền lợi bắt buộc áp dụng, qua quy trình/API đối tác phù hợp; chỉ ghi hoàn thành khi nguồn xác thực xác nhận. Không có API/UI cho học viên tự rút số dư tùy ý. Quy tắc điều kiện, thời hạn, nguồn nhận hoàn và ngoại lệ phải được chốt trước vận hành thật.
 5. Giai đoạn đầu chỉ hỗ trợ **một nguồn thanh toán trên mỗi đơn**: hoặc đủ số dư Ví GDS hoặc toàn bộ bằng QR MB. Không cho thanh toán kết hợp hai nguồn trước khi thiết kế được atomicity, hoàn tiền từng phần và đối soát hai nguồn.
 6. Mọi khoản tiền thật/số dư khả dụng của học viên do đối tác được phép quản lý; EduAI lưu bản ghi đối chiếu, không cho Admin tự tạo số dư có giá trị tiền.
 
@@ -130,7 +130,7 @@ Tên bảng là **đề xuất**, cần rà lại schema thực tế và đặt 
 
 **Checkout:** phương thức `1. Quét QR ngân hàng (MB Bank)` và `2. Ví GDS`; hiện trạng thái khả dụng từ server, số dư Ví GDS (khi có đối tác), mã QR từng đơn, đồng hồ hạn đơn hàng, mã chuyển khoản, trạng thái xác minh và hướng dẫn sai/lệch/chậm thanh toán. Phân biệt rõ “Đã gửi bằng chứng” với “Đã thanh toán”. Không hứa QR ngân hàng tự hết hiệu lực.
 
-**Học viên:** trang Ví GDS gồm số dư khả dụng, tiền đang xử lý, nạp/rút (chỉ trong phạm vi đối tác và quy định cho phép), mua khóa học, hoàn tiền, lịch sử, khiếu nại.
+**Học viên:** trang Ví GDS gồm số dư khả dụng, tiền đang xử lý, nạp tiền, mua khóa học bằng số dư, yêu cầu hoàn tiền theo chính sách, lịch sử, khiếu nại; không có thao tác rút số dư tùy ý.
 
 **Người bán:** Dashboard doanh thu gồm tổng bán, chờ đối soát, chờ đủ điều kiện, khả dụng, đã yêu cầu chi, đã chi, điều chỉnh hoàn tiền; lịch sử theo từng khóa học/đơn và yêu cầu chi trả.
 
@@ -186,7 +186,7 @@ Mỗi phase con thực hiện đầy đủ **đọc Workspace → thiết kế �
 | Xác minh chủ tài khoản MB 1122883979, pháp nhân có quyền nhận tiền, quy trình đối soát ngân hàng | PAYW-01 | Chủ tài khoản + tài chính |
 | EduAI là bên bán hay trung gian thu hộ; hợp đồng seller và hóa đơn/thuế | PAYW-02 | Lãnh đạo + kế toán + pháp lý |
 | Tỷ lệ mặc định, phí, VAT, Affiliate, thời gian giữ lại, ngưỡng/lịch chi | PAYW-02/03 | Admin nghiệp vụ + tài chính |
-| Nhà cung cấp ví được phép, hợp đồng, KYC/AML, cơ chế bảo đảm tiền, phương thức rút/hoàn | PAYW-05 | Pháp lý + nhà cung cấp |
+| Nhà cung cấp dịch vụ phù hợp, hợp đồng, KYC/AML khi áp dụng, cơ chế bảo đảm tiền, quy trình hoàn tiền theo chính sách (không rút tùy ý) | PAYW-05 | Pháp lý + nhà cung cấp |
 | Quyền kích hoạt production, CI/UAT và quy trình xử lý sự cố | Mọi phase tiền | Release owner |
 
 ## 11. Prompt khởi động cho Codex

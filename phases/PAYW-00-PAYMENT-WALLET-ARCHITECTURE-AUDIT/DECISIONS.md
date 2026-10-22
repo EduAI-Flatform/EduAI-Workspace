@@ -12,6 +12,8 @@ No entry below is assumed resolved merely by being documented.
 | PAYW-D06 | Partner handling of wallet funding, failed captures, reversal, refunds, account restrictions and balances | PAYW-04/05 | OPEN — partner interface |
 | PAYW-D07 | Whether MB API/VA and bank payout automation are contractually available to this business account | PAYW-06 | OPEN — bank agreement |
 | PAYW-D08 | Release gate and owner approval for switching the default payment provider; reconciliation operator readiness | PAYW-01 activation | OPEN — `SPR25-007` remains separate |
+| PAYW-D09 | Can learners withdraw unused Ví GDS funds to a bank account at will? | PAYW-04 scope and UX | **OWNER DECIDED 2026-10-22:** No discretionary cash-out; only policy-governed refunds |
+| PAYW-D10 | Refund policy for Ví GDS: eligibility, legal exceptions, partial/full refunds, original payment route, processing time, duplicate/error deposits and handling failed refunds | PAYW-05 live activation | OPEN — product, finance and legal signoff; D09 does not resolve these details |
 
 ## Working design defaults (not live business configuration)
 
@@ -22,6 +24,7 @@ No entry below is assumed resolved merely by being documented.
 - Seller money is a payable, not independently spendable electronic money.
 - Admin payout requires distinct approval and execution roles, immutable
   external reference and reconciliation.
+- Learner Ví GDS balance may only be spent on eligible EduAI purchases; no learner-to-learner transfers or ad-hoc conversion to cash are assumed. Refunds must follow the approved policy and any mandatory legal rights.
 - All new financial features default OFF and fail closed.
 
 Owner approvals should cite these IDs in the future phase evidence, rather

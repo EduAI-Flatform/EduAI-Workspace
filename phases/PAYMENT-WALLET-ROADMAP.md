@@ -45,6 +45,7 @@ alongside, but the wallet money flow requires `PAYW-04 → PAYW-05`.
 - Monetary amounts use integer VND; policy snapshots survive later changes.
 - Canonical financial settlement remains separate from fulfillment and finance
   posting, each idempotent and recoverable.
+- Learners cannot cash out Ví GDS balance on demand. Any refund requires an approved policy, legal exceptions, verified financial evidence and a separately controlled refund flow.
 - No self-issued stored-value wallet or production real-money funding/spending
   without legal/partner validation and owner approval.
 - No unsupported claim that a static/per-order bank QR itself expires.
