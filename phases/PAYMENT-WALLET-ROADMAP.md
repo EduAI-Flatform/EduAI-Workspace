@@ -2,7 +2,7 @@
 
 **Program:** `PAYMENT-WALLET` (`PAYW`)  
 **Owner instruction:** Start `PAYW-00` on 2026-10-22  
-**Current:** `PAYW-00` — audit/design deliverables; verification and PR/CI pending  
+**Current:** PAYW-01 safe implementation IN_PROGRESS; production BLOCKED_EXTERNAL; PAYW-00 remains VERIFYING
 **Canonical existing payment state:** `.ai-dos/records/*`, unchanged.
 
 ## Objective
@@ -60,3 +60,7 @@ payment release gate and `ADM-00–07` Admin UI program remain independent.
 
 Read [the full architecture](../docs/finance/EDUAI_PAYMENT_WALLET_ARCHITECTURE_ROADMAP.md)
 and [PAYW-00 dossier](PAYW-00-PAYMENT-WALLET-ARCHITECTURE-AUDIT/README.md).
+
+## PAYW-01 owner start - 2026-10-22
+
+[PAYW-01 dossier](PAYW-01-MANUAL-VIETQR/README.md) records explicit safe source/sandbox authorization while legal gates remain OPEN. No ADR acceptance, production activation or PAYW-02 authorization is inferred.

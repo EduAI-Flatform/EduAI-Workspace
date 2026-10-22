@@ -1,6 +1,6 @@
 # PAYW-00 — Payment & Wallet Architecture Audit
 
-**Status:** VERIFYING — audit/docs merged, contract CI passed; ADR acceptance, final gate and merged-branch cleanup pending  
+**Status:** VERIFYING — audit/docs merged, contract CI passed; ADR acceptance and final legal/design gate pending; historical branch cleanup verified 2026-10-22
 **Major-phase owner start:** Authorized 2026-10-22  
 **Next phase:** PAYW-01 is not authorized by this start.
 

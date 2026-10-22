@@ -47,7 +47,7 @@ At a hard stop: preserve completed safe work, record `HUMAN_AUTHORIZATION_REQUIR
 | --- | --- | --- |
 | Existing commerce/payment Sprint 25 | `.ai-dos/records/`; gate `SPR25-007` | Preserve facts, four open cases and independent release restrictions |
 | Admin UI `ADM-00..07` | `state/`, `phases/ADM-*/` | Planning only until the owner starts `ADM-00` |
-| Payment & Wallet `PAYW-00..06` | `state/`, `phases/PAYW-*/`, finance ADRs | `PAYW-00` VERIFYING; no PAYW-01 start or live money-flow authorization |
+| Payment & Wallet `PAYW-00..06` | `state/`, `phases/PAYW-*/`, finance ADRs | `PAYW-00` VERIFYING; owner started safe PAYW-01 source/sandbox work on 2026-10-22; no live money-flow authorization |
 
 TMI points remain noncash; seller earnings payable is not by itself a licensed wallet. Buyer stored-value wallet is sandbox/design only until licensed partner, legal, merchant-of-record, KYC/AML and owner gates are resolved.
 

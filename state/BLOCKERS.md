@@ -20,3 +20,7 @@ for verified MB beneficiary/receiving authority, seller merchant-of-record
 and tax policy, licensed learner wallet partner, payout holds and financial
 release approvals. These are open policy decisions, not observed bank/API or
 CI failures. Preserve `SPR25-007` and do not perform real-money writes.
+
+## PAYW-01 scoped safe start - 2026-10-22
+
+Owner authorizes safe source/sandbox implementation before PAYW-00 DONE. PAYW-00 remains VERIFYING; PAYW-D01 actual beneficiary/legal receiving authority and PAYW-D08 operators/release approval stay OPEN. Production is BLOCKED_EXTERNAL. This explicit scope exception does not waive SPR25-007, authorize real financial writes or start PAYW-02. No bank/API/CI runtime failure is inferred.

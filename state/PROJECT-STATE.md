@@ -58,10 +58,12 @@ Creating this planning dossier does not authorize `ADM-00` implementation. When 
 
 ```text
 PAYW_PROGRAM_STATUS=IN_PROGRESS
-PAYW_CURRENT_PHASE=PAYW-00
+PAYW_CURRENT_PHASE=PAYW-01
 PAYW_CURRENT_PHASE_STATUS=VERIFYING
 PAYW_OWNER_START_AUTHORIZED=YES
 PAYW_NEXT_MAJOR_PHASE_AUTHORIZED=NO
+PAYW_SAFE_IMPLEMENTATION_AUTHORIZED=YES
+PAYW_PRODUCTION_STATUS=BLOCKED_EXTERNAL
 PAYW_ROADMAP=phases/PAYMENT-WALLET-ROADMAP.md
 PAYW_TMI_POINTS_ISOLATED=YES
 PAYW_PRODUCTION_PAYMENT_ACTIVATION_AUTHORIZED=NO
@@ -71,6 +73,10 @@ PAYW_REAL_FINANCIAL_WRITES_AUTHORIZED=NO
 `PAYW-00` is design/audit only. No new money flow is live. Phase status may
 become DONE only after accepted architecture/financial decision gates and
 applicable evidence. Its documentation PRs and main conformance CI were
-previously verified, but the ADR/owner legal-business decisions and historical
-temporary-branch cleanup remain unresolved. The `SPR25-007` financial release
+previously verified, but the ADR/owner legal-business decisions remain unresolved.
+Historical temporary-branch cleanup was verified on 2026-10-22 (PAYW-00/EVIDENCE.md). The `SPR25-007` financial release
 gate and `SPRINT:26` Analytics track remain unchanged.
+
+## PAYW-01 safe owner start - 2026-10-22
+
+Owner explicitly starts [PAYW-01](../phases/PAYW-01-MANUAL-VIETQR/README.md) design/source/synthetic tests/docs despite unresolved PAYW-00 decisions. PAYW-00 remains VERIFYING; ADR-006 is not accepted. This scoped implementation exception leaves PAYW-D01/D08 OPEN and production BLOCKED_EXTERNAL. No production/real financial writes or PAYW-02 are authorized; SPR25-007 and AI-DOS remain unchanged.
