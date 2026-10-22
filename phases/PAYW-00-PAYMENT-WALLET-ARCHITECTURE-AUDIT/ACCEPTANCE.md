@@ -12,9 +12,11 @@
 - [x] Policy precedence, snapshot, refund and payout requirements proposed.
 - [x] Open merchant-of-record, tax, partner, payout and receiving-account
   questions recorded without invented answers.
-- [ ] Documentation consistency/conformance validated on committed branch.
-- [ ] PR reviewed; required CI checks pass.
-- [ ] Remote main merge SHA verified and phase evidence closed.
+- [x] Documentation consistency/conformance validated on committed branch.
+- [x] PR reviewed; required CI checks pass.
+- [x] Remote main merge SHA verified; evidence recorded.
 
-`DONE` is prohibited while the last three boxes remain unresolved.
+- [ ] ADR-006 accepted or explicitly reviewed, all owner design gates adjudicated and merged feature branches cleaned up.
+
+`DONE` is prohibited until the remaining design/cleanup gates are satisfied.
 Documentation is not permission for production money movement.
