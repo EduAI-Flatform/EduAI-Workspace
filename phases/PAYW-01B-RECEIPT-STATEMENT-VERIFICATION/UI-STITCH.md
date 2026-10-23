@@ -1,7 +1,15 @@
-﻿# PAYW-01B Stitch design
+# PAYW-01B Stitch design
 
 Existing checkout basis: project 18116946755394055085 / screen d4b5c0fc57c24ea9aa6e17379968d3ea. Inspected shared PaymentMethodChoice, BankTransferCheckout and AdminCommercePage before design.
 
 New bounded Admin reference generated 2026-10-23 via Stitch MCP: project 18116946755394055085 / screen 2d7844baf0b949a79fee93d0f561b95b, title “Đối soát Ngân hàng Admin - EduAI PAYW-01B”. Two panes: receipt queue and separate buyer-claim versus incoming-bank-source details, 0/2 approval, unverified access badge and source-specific revocation/audit. Native implementation must reuse existing EduAI tokens and components.
 
 Review constraints: reject generated claims of Napas/webhooks/verified integrations not in source; replace with owner-managed bank-app review. Do not enable payment confirmation directly from OCR. Second approval is submitted through existing API; do not create a UI deadlock requiring 2/2 before the second submission. Generated desktop design and responsive notes are references, NOT proof of seven-width runtime/a11y verification. Mobile composition, revoke confirmation and customer upload design still need concrete review before E implementation.
+
+## E mobile/reference and implementation review
+
+Generated mobile reference on2026-10-23: project18116946755394055085 / screenfed6efa819294a7199a333e88adcc5f8, title `Kiểm tra ảnh giao dịch & Đối soát biên lai Mobile - EduAI`. Inspected screenshot before implementation. Adopted image-then-OCR sequence, separate unverified full-access notice, disabled GDS and the compact Admin two-source hierarchy. Rejected generated24h automatic revocation, invented bank integrations and extra marketing/compliance claims. Actual implementation reuses EduAI color tokens and the existing Radix confirmation dialog.
+
+Local Chromium matrix22checks PASS: course/membership customer panels plus Admin at320/375/390/412/768/1024/1440, no horizontal overflow, private authenticated blob image, OCR beneath image,44px buttons, strict console/network guard and reason/confirmation/dual-source controls. Screenshot review at390/1440 led to Admin padding/nav-label fixes, correct learning link and removal of a contradictory not-granted hero label. Expected React StrictMode image request cancellation was eliminated at source by checking cancellation before starting fetch; runtime guard was not weakened. Final screenshots are ignored `test-results/payw-01b/`, reproduced and uploaded by Frontend CI.
+
+Frontend PR19 CI39929988785 on5fa3533 success, including99files/391unit checks,22new browser checks and existing payment/browser regression. A final pending/history filter is now on53956f0; its own CI must pass before acceptance. Backend PR18 final headde3a451 must independently pass corrected PostgreSQL stress and quality. No production/browser evidence is inferred from synthetic fixtures.
