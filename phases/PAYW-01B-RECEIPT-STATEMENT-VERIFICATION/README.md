@@ -1,6 +1,6 @@
 # PAYW-01B — VietQR receipt review, bank-source verification & controlled release
 
-Current source/sandbox acceptance: see [FINAL-REPORT.md](FINAL-REPORT.md). A–E complete; F Backend/Frontend exact main CI PASS and branches cleaned, with final Workspace receipt in this PR. Production remains NO-GO and owner-operated bank reconciliation does not remove Admin checks or dual approvals.
+Current source/sandbox acceptance: see [FINAL-REPORT.md](FINAL-REPORT.md). A–F safe source/sandbox complete: Backend/Frontend/Workspace exact main CI PASS and merged temporary branches cleaned. See final report and terminal evidence. Production remains NO-GO and owner-operated bank reconciliation does not remove Admin checks or dual approvals.
 
 **Owner start:** 2026-10-23. **Safe engineering/planning: AUTHORIZED.** **Public GO-LIVE: BLOCKED_EXTERNAL / NO-GO.**
 **Relationship:** a specifically authorized PAYW-01 follow-on lane; PAYW-01 sandbox remains delivered/live blocked, PAYW-02 has not started. Preserve independent `SPR25-007` AI-DOS financial gate and `.ai-dos/records/` without edits.
