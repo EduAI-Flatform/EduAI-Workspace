@@ -1,5 +1,7 @@
 # PAYW-01B — VietQR receipt review, bank-source verification & controlled release
 
+Current source/sandbox acceptance: see [FINAL-REPORT.md](FINAL-REPORT.md). A–E complete; F Backend/Frontend exact main CI PASS and branches cleaned, with final Workspace receipt in this PR. Production remains NO-GO and owner-operated bank reconciliation does not remove Admin checks or dual approvals.
+
 **Owner start:** 2026-10-23. **Safe engineering/planning: AUTHORIZED.** **Public GO-LIVE: BLOCKED_EXTERNAL / NO-GO.**
 **Relationship:** a specifically authorized PAYW-01 follow-on lane; PAYW-01 sandbox remains delivered/live blocked, PAYW-02 has not started. Preserve independent `SPR25-007` AI-DOS financial gate and `.ai-dos/records/` without edits.
 
@@ -8,7 +10,7 @@
 1. Public EduAI customer buys a real course or membership, transfers real VND to company-issued MB receiving account and uploads a screenshot of the successful-transfer display.
 2. Image OCR/validation compares visible payee, amount and unique order reference. The owner requests **full ordinary entitlement immediately**, not limited demo content or a time-limited demo, even before an incoming bank credit is independently confirmed.
 3. Admin checks company MB incoming transaction history later; if credited, click **Xác nhận đã thanh toán**; if not, click **Thu hồi quyền truy cập**. This temporary business workflow is intended to be superseded by company PayOS integration.
-4. Owner states that account is provided by the company; they personally do not hold ownership documents. As of 2026-10-23, owner newly reports being able to view transactions **in a bank app**, but has not clarified whether this is **the corporate MB receiving account's incoming ledger** or their own bank app's outgoing payments. Treat provenance, completeness, account scope, access authority and review procedure as **PENDING VERIFICATION**, not proof accepted. One operator available, no independent second reviewer. Third-party seller contracts remain absent.
+4. Owner states that account is provided by the company; they personally do not hold ownership documents. As of 2026-10-23, owner newly reports being able to view transactions **in a bank app**, and subsequently clarified it is **the corporate MB receiving account's incoming transactions**, visible only in the app; owner handles operational reconciliation. Treat provenance, completeness, account scope, access authority and review procedure as **PENDING VERIFICATION**, not proof accepted. One operator available, no independent second reviewer. Third-party seller contracts remain absent.
 
 ## Trust boundary and non-negotiable factual separation
 
