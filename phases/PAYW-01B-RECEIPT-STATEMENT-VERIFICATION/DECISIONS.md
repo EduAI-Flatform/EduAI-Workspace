@@ -9,3 +9,5 @@
 - Current bank migration locks checkout receiver to synthetic account. Keep this invariant. Admin env-configured recipient preview is separate and must not silently become the checkout receiver. Real receiver activation requires reviewed additive schema and protected release.
 - Membership early access requires an explicit conversion design preserving consumed quota and purchased term on later verified fulfillment; cannot reuse sourceOrderLineId naively or refill benefits.
 - Public GO-LIVE remains NO-GO; preserve SPR25-007 and canonical AI-DOS records.
+
+B runtime names (source only): BANK_RECEIPT_SANDBOX_ENABLED=false by default; BANK_RECEIPT_SYNTHETIC_BUYER_IDS synthetic UUID list; BANK_RECEIPT_STORAGE_ROOT optional absolute private local path; BANK_RECEIPT_OCR_DATA_PATH absolute local eng/vie model directory. Existing BANK_TRANSFER_SANDBOX_ENABLED and BANK_TRANSFER_SANDBOX_OPERATOR_IDS still gate testing. Do not set these on production; production refuses this path independently.
