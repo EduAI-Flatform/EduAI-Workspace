@@ -1,6 +1,6 @@
 # PAYW-01B — Báo cáo nghiệm thu nguồn và sandbox
 
-Cập nhật ngày 23/10/2026. Backend/Frontend F đã merge, exact main CI PASS và nhánh tạm đã xóa; vòng tài liệu Workspace F được chốt qua PR chứa báo cáo này. **Production vẫn NO-GO.** Phạm vi C đã được chủ dự án giảm: chủ dự án tự xử lý đối soát tiền vào MB trên app; vẫn giữ màn hình Admin và các kiểm soát tài chính hiện có.
+Cập nhật ngày 23/10/2026. A–F trong phạm vi mã nguồn/sandbox đã hoàn tất; cả ba kho đã merge, exact main CI PASS và nhánh F đã xóa. **Production vẫn NO-GO.** Phạm vi C đã được chủ dự án giảm: chủ dự án tự xử lý đối soát tiền vào MB trên app; vẫn giữ màn hình Admin và các kiểm soát tài chính hiện có.
 
 ## 1. Trạng thái kho mã
 
@@ -8,7 +8,7 @@ Cập nhật ngày 23/10/2026. Backend/Frontend F đã merge, exact main CI PASS
 |---|---|---|---|
 | Backend | `92cc78bd7a50d2bcc605a3681b315a6debb03c52` | [19](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/19) | PR/main CI39935234234 PASS; remote/local main trùng SHA; nhánh F đã xóa |
 | Frontend | `ab61ca0c4f2ae63dc4668a3d5b4bc336f8054fd6` | [20](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/20) | PR/main CI39935243468 PASS; remote/local main trùng SHA; nhánh F đã xóa |
-| Workspace | E: `45342f09a1f91c8dc5ac26e6f8d2779cfbb71d9f` | [16](https://github.com/EduAI-Flatform/EduAI-Workspace/pull/16) | E main CI39932663848 PASS, nhánh đã xóa; tài liệu F đang hoàn tất |
+| Workspace | F: `67435eaad7bfff8a3bc568e17f6b753260ac11e9` | [17](https://github.com/EduAI-Flatform/EduAI-Workspace/pull/17) | PR CI39948687577 / main CI39948775478 PASS; nhánh F đã xóa. Bản ghi terminal bổ sung nằm trong lịch sử Git sau SHA này |
 
 Không reset/force-push hay bỏ commit cũ. Các cập nhật Workspace đã được giữ và bổ sung theo từng subphase. `SPR25-007` vẫn blocked; cấu trúc AI-DOS giữ nguyên330records/97tasks.
 
@@ -46,7 +46,7 @@ CI thất bại đã được ghi nhận và sửa bằng nguồn, không che ho
 
 - Backend: A[14](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/14); B[15](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/15)/[16](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/16); D[17](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/17); E[18](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/18); F[19](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/19).
 - Frontend: E[19](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/19); F[20](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/20).
-- Workspace: A12/13, B/C14, D15, E16; F được ghi trong PR chứa báo cáo này. SHA/runs terminal đầy đủ tại [EVIDENCE.md](EVIDENCE.md).
+- Workspace: A12/13, B/C14, D15, E16; F [17](https://github.com/EduAI-Flatform/EduAI-Workspace/pull/17), main CI [39948775478](https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/39948775478) PASS; nhánh đã xóa. SHA/runs terminal đầy đủ tại [EVIDENCE.md](EVIDENCE.md).
 - F Backend PR CI[39934429307](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39934429307) PASS; PostgreSQL job120350371268 xác nhận các ca hội viên thực tế.
 - F Frontend PR CI[39934640147](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/39934640147) PASS. Exact main CI [39935234234](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/39935234234) và [39935243468](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/39935243468) PASS; hai nhánh F đã được kiểm tra ancestor, xóa remote/local và prune.
 

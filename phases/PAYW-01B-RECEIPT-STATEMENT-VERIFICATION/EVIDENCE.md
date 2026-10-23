@@ -107,3 +107,7 @@ Final local Backend165suites/1235tests and build PASS. Actual local Tesseract sy
 - Frontend mainab61ca0c4f2ae63dc4668a3d5b4bc336f8054fd6 CI https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/39935243468 completed/success; browser job120353068529 direct detail success, all three jobs PASS.
 - Both test/payw-01b-final-acceptance heads verified ancestors of origin/main, remote/local branches deleted, stale refs pruned. HEAD and origin/main match exact merge SHAs; source worktrees clean. Earlier approval-service usage-limit rejection executed no cleanup; subsequent authorized retry succeeded.
 - Workspace F source report remains subject to its own PR CI/merge/main/branch-cleanup; no financial/production gate was waived.
+
+### F Workspace terminal receipt
+
+Workspace PR17 https://github.com/EduAI-Flatform/EduAI-Workspace/pull/17 merged67435eaad7bfff8a3bc568e17f6b753260ac11e9. Exact PR CI39948687577 and main CI https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/39948775478 success; direct main job120397837082 success. F head013d3a47fb4493cc66e65cd8d866535981f065b7 ancestor verified, remote/local docs/payw-01b-final-acceptance deleted/pruned. Local main matched remote; conformance330records/97tasks and layout PASS after merge. A–F source/sandbox accepted; production remains NO-GO. This terminal-only documentation addendum has its own normal PR/check/cleanup and does not change source or financial acceptance.
