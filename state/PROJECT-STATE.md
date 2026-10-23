@@ -82,3 +82,20 @@ gate and `SPRINT:26` Analytics track remain unchanged.
 ## PAYW-01 safe owner start - 2026-10-22
 
 Owner explicitly starts [PAYW-01](../phases/PAYW-01-MANUAL-VIETQR/README.md) design/source/synthetic tests/docs despite unresolved PAYW-00 decisions. PAYW-00 remains VERIFYING; ADR-006 is not accepted. This scoped implementation exception leaves PAYW-D01/D08 OPEN and production BLOCKED_EXTERNAL. No production/real financial writes or PAYW-02 are authorized; SPR25-007 and AI-DOS remain unchanged.
+
+
+## PAYW-01B owner start and public GO-LIVE boundary — 2026-10-23
+
+```text
+PAYW_01B_PHASE=PAYW-01B-RECEIPT-STATEMENT-VERIFICATION
+PAYW_01B_OWNER_SAFE_SOURCE_START=AUTHORIZED
+PAYW_01B_SAFE_IMPLEMENTATION_STATE=PLANNED
+PAYW_01B_PUBLIC_REAL_MONEY_GO_LIVE=BLOCKED_EXTERNAL
+PAYW_01B_OWNER_BANK_APP_STATEMENT_SOURCE=REPORTED_SCOPE_UNVERIFIED
+PAYW_01B_SCREENSHOT_AS_FINANCIAL_PROOF=PROHIBITED
+PAYW_01B_EARLY_FULL_ENTITLEMENT=OWNER_REQUESTED_NOT_RELEASE_APPROVED
+PAYW_01B_TWO_OPERATOR_ALTERNATIVE=UNDECIDED
+PAYW_01B_DOSSIER=phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md
+```
+
+This is an explicitly owner-started **parallel safe source phase**, not completion or replacement of PAYW-01-LIVE. `PAYW_NEXT_MAJOR_PHASE_AUTHORIZED=NO` still forbids starting PAYW-02. Owner now reports viewing transactions through a bank app, but has not clarified whether it shows incoming corporate MB credits or payer-side outgoing receipts. Therefore D01/D08, `SPR25-007`, production guard and release hard stops remain open. User-requested immediate full access from a photo must never be represented as verified PAID. No real-world activation was executed by this documentation update.

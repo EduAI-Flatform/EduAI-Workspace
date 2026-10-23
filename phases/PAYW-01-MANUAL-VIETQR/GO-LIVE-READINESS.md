@@ -97,3 +97,10 @@ All tests must use synthetic bank records, no real customer/order/account funds.
 4. Authorize a **new** reviewed production-readiness engineering phase only after business gates are ready. Actual deployment/real-money UAT requires further separate explicit approval.
 
 **Invariant:** PAYW-01 sandbox DONE does not equal GO-LIVE PASS. PAYW-01-LIVE stays BLOCKED_EXTERNAL; PAYW-02 remains unstarted. Preserve existing payment-provider rollback and SPR25-007 boundaries.
+
+
+## Latest owner update — 2026-10-23 (supersedes only dated unverified-source assumptions above)
+
+Owner now reports the MB receiving account was provided by the company, but the owner has no personal holder/collection documents; they also say they can view transactions in a **bank app**. The app/account scope remains ambiguous: payer outgoing screen is not evidence of corporate MB incoming credit. The request is now to have public buyers transfer **real** money, upload screenshot/OCR, gain full actual course/membership access immediately and let a **single** Admin later verify or revoke. Record user intent, **not approved production policy**. Source authenticity/permissions and independent controls are still open. Screenshot/OCR may never prove `PAID` or authorize payouts.
+
+[PAYW-01B](../PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md) starts a **safe implementation/preflight lane** by explicit owner request. Existing PAYW-01 source may be technically complete in sandbox; production absolute guard, `SPR25-007`, documentary D01/D03/D08, separate release approvals and NO-GO disposition continue to apply. No production deploy, payment activation or live settlement may be inferred.

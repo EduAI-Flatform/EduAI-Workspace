@@ -64,3 +64,12 @@ and [PAYW-00 dossier](PAYW-00-PAYMENT-WALLET-ARCHITECTURE-AUDIT/README.md).
 ## PAYW-01 owner start - 2026-10-22
 
 [PAYW-01 dossier](PAYW-01-MANUAL-VIETQR/README.md) records explicit safe source/sandbox authorization while legal gates remain OPEN. No ADR acceptance, production activation or PAYW-02 authorization is inferred.
+
+
+## 2026-10-23 prioritized PAYW-01B — temporary VietQR receipt/reconciliation approach
+
+The owner explicitly prioritizes [PAYW-01B](PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md) safe engineering next, before PAYW-02 and before eventual business PayOS integration. Requested user flow: genuine VietQR transfer → screenshot upload → OCR fields → immediate **full** entitlement before confirmation → one Admin later confirms incoming bank credit or revokes entitlement. Record this as **OWNER REQUESTED / SECURITY AND RELEASE NOT ACCEPTED**, not as already deployed.
+
+Preferred release design uses an authenticated incoming MB account statement/provider feed to decide `PAID` server-side and grant access; photo is support evidence. Separate financial truth from any unverified full-access experiment. Owner now says transactions can be viewed through a banking app; identity of the app, receiving ledger, authorization and statement-export/API path are not established. One reconciliation operator is available, so existing two-actor live acceptance remains blocked unless a reviewed compensating control is separately authorized. Real seller/membership collection remains gated by relevant PAYW-D decisions.
+
+**Ordering:** PAYW-01B safe source A–F may proceed under the 2026-10-23 owner start and one-prompt autonomy. PAYW-01 production GO-LIVE remains BLOCKED_EXTERNAL; `SPR25-007`, production deploy/migration/env/real-money UAT and `PAYW-02` are not authorized by this paragraph. See [acceptance](PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/ACCEPTANCE.md) and [GO-LIVE gates](PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/GO-LIVE-GATES.md).
