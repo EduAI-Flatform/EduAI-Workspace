@@ -4,7 +4,7 @@
 
 ## What the owner has reported
 - Company allocated the MB receiving account for EduAI. Owner does not personally possess bank-holder or signing/collection documents; transaction payee name from QR alone is not proof of authority.
-- Owner reports they can view transactions in a banking app. **Unclear:** this app may show the company's MB *incoming* bank ledger or merely their own *outgoing* transfer activity; identify bank, authenticated account role, account last four digits, viewing permission and source export capability. Never request PIN, OTP, passwords, bank sessions or raw statements in chat/Git.
+- Owner clarified they can view incoming transactions of the company MB account in the banking app only, without statement export, and will operate reconciliation themselves. Admin checking remains required. This reported access does not establish collection authority or independently satisfy live bank-source acceptance. Never request PIN, OTP, passwords, bank sessions or raw statements in chat/Git.
 - One available reconciliation/admin person. Current bank code expects two independent operator approvals; the owner asks for one-admin post-review workflow. Any alternative to dual control remains a separate security/legal/finance change proposal.
 - No third-party seller contract yet; direct company courses and third-party courses require separate activation tracks. Scope seller/membership independently.
 
