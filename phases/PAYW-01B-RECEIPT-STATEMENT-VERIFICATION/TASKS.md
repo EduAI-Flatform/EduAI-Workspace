@@ -4,6 +4,7 @@ Owner explicitly started **safe implementation planning on 2026-10-23**. Autonom
 
 | Subphase | Scope and deliverable | State |
 | --- | --- | --- |
+| PAYW-01B-QRP | Isolated Admin-only VietQR recipient preview: bank and beneficiary from Backend env, guarded read-only QR API, no payment/order/entitlement/DB writes, defaults OFF. Real receiving-account values excluded from GitHub and set by owner on VPS. | DONE (source only): Backend PR #12 merged; CI #224 PASS; deployment and production use not enabled |
 | PAYW-01B-A | Fresh Backend/Frontend/Workspace source, PR/CI and production drift audit; bank-origin source/owner authority fact-check; threat model; exact API/DB contracts; new Admin/checkout Stitch if material | PLANNED |
 | PAYW-01B-B | Upload pipeline isolated and secure (type/signature, image size, antivirus where available, storage ACL/TTL, PII retention, rate limits); OCR claim normalization, duplicate detection, never financial proof; support/appeal case and ownership/RBAC | PLANNED |
 | PAYW-01B-C | Verified *incoming receiving-account* statement ingest/review adapter with explicit provenance and read-only manual source evidence; exact order/reference/amount/account/tx-id/time and concurrency/replay checks. Keep existing two-person settlement restriction unless approved independent control redesign | PLANNED — blocked on bank-source clarification for final adapter |

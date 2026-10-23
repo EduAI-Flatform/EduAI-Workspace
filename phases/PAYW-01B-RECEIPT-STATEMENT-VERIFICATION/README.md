@@ -30,5 +30,6 @@
 ## Project coordination
 
 - [Tasks](TASKS.md), [Acceptance](ACCEPTANCE.md), [Source & launch gate](GO-LIVE-GATES.md).
+- [Admin VietQR preflight evidence](ADMIN-QR-PREFLIGHT.md): a source-only, Admin-guarded preview of the owner-configured receiving account. The four receiving-account parameters and its preview enable flag belong in Backend runtime `.env`, not the repository. Changing the receiver later requires a controlled new scan. This does **not** authorize public money collection or change the status of PAYW-01B-LIVE.
 - Apply root `AGENTS.md` + one-prompt-per-major-phase workflow. For materially changed checkout/Admin UI use Stitch first and verify 320/375/390/412/768/1024/1440.
 - Backend owns evidence/source/settlement/access ledger; Frontend owns customer upload/status and Admin queues/actions; Workspace owns sanitized decisions, checklists, observed evidence. No secrets, full statements, customer images or sensitive IDs in Git.
