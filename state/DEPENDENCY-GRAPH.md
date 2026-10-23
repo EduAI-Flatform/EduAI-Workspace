@@ -58,3 +58,10 @@ PAYW does not supersede TMI points, Phase 3 Analytics/Affiliate or ADM-04 UI.
 ## PAYW-01 scoped safe start - 2026-10-22
 
 Owner authorizes safe source/sandbox implementation before PAYW-00 DONE. PAYW-00 remains VERIFYING; PAYW-D01 actual beneficiary/legal receiving authority and PAYW-D08 operators/release approval stay OPEN. Production is BLOCKED_EXTERNAL. This explicit scope exception does not waive SPR25-007, authorize real financial writes or start PAYW-02. No bank/API/CI runtime failure is inferred.
+
+
+## Explicit PAYW-01B follow-on lane — owner safe start 2026-10-23
+
+`PAYW-01 sandbox source DONE → PAYW-01B receipt-claim/official-statement verification source preparation → production acceptance gate (separately blocked) → PAYW-02 only after new owner phase start`.
+
+PAYW-01B is a scoped, parallel technical preparation exception, not fulfillment of PAYW-01 live prerequisites or a redefinition of `SPR25-007`. Its screenshot OCR input has no authority over financial settlement; any experimentally granted full access must be separately tagged as unverified, and public use demands a new explicit risk/signoff decision. Read [PAYW-01B dossier](../phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md).
