@@ -31,3 +31,13 @@ Owner approvals should cite these IDs in the future phase evidence, rather
 than editing an old settled order or guessing policy values.
 
 Owner updates reflect reported availability and business intent, **not** accepted legal evidence or authorization to collect live funds. See [PAYW-01 GO-LIVE readiness](../PAYW-01-MANUAL-VIETQR/GO-LIVE-READINESS.md).
+
+## 2026-10-23 decision addendum (latest owner intent; existing OPEN gates remain)
+
+| ID | Owner request or newly reported fact | Decision and release status |
+| --- | --- | --- |
+| PAYW-D11 | Accept student-uploaded transfer screenshot/OCR as trigger for immediate **full normal** course/membership access before proof of bank receipt, allowing later Admin revocation | **OWNER REQUESTED, NOT SECURITY/FINANCE OR GO-LIVE APPROVED.** A photo remains untrusted and cannot produce `PAID`. Any early access must have `UNVERIFIED_RECEIPT_ACCESS` provenance, audit, revocation/appeal and separately approved exposure limit; consumed content cannot be recovered. |
+| PAYW-D12 | One person currently reconciles; Admin needs `Xác nhận đã thanh toán` and `Thu hồi quyền truy cập` | **OPEN.** Paid confirmation requires a verified incoming bank-origin source and appropriate approval; revocation must target only unverified entitlement. Existing two-distinct-admin control remains until a reviewed, independently approved alternate mechanism exists. |
+| PAYW-D13 | Owner now reports seeing transactions inside a banking app | **PENDING FACT CHECK.** Determine whether it is company MB *incoming* ledger versus payer/outgoing view, access authorization, stable bank transaction ID/timestamp, retrieval/export and privacy custody. A claim of bank-app access is not itself verified bank receipt or documentary collection authority (D01). |
+
+PAYW-01B safe source planning authorized; public financial collection and early entitlement activation **not accepted**; `SPR25-007` stays independent. See [PAYW-01B](../PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md).
