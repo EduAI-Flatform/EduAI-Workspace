@@ -105,3 +105,25 @@ npx playwright test --config playwright.payw.config.ts --headed --debug --grep "
 Config riêng mở Frontend127.0.0.1:5174, không đọc dotenv, không có proxy Backend, không dùng lại server khác; API/ảnh/tài khoản đều là fixture tổng hợp. Có thể xem ảnh/OCR, quyền đang chờ đối soát, nút bị khóa khi thiếu chứng cứ ngân hàng, xác nhận thao tác và thu hồi. Đây là UAT giao diện, không tạo giao dịch hay quyền trong DB thật. Kết quả PostgreSQL/OCR thật ở mục3/CI là bằng chứng riêng cho lớp Backend.
 
 Ảnh chụp tại `test-results/payw-01b/`; CI lưu artifact theo run. Không dùng tài khoản hoặc dữ liệu production, không chuyển dù chỉ một khoản nhỏ vào tài khoản tổng hợp. Website production hiện chưa có thay đổi của phase này.
+
+## 9. Nhật ký CD và tình trạng sẵn sàng phát hành — 24/10/2026
+
+**Quyết định: NO-GO cho checkout thu tiền thật và phát hành PAYW-01B; không thay đổi `SPR25-007`.** Môi trường website hiện được chủ dự án sử dụng để kiểm thử, nhưng điểm triển khai vẫn dùng đường CD `Deploy Backend Production` và cơ sở dữ liệu thật; tên gọi “môi trường thử nghiệm” không tự bỏ yêu cầu phê duyệt tác động dữ liệu.
+
+### Bằng chứng điều tra
+
+- [Backend CD #40066410831](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40066410831), source `64af8307eda970d0b9a09768f9349ec4539a5c3b`: build/validate thành công, deploy dừng trước khi apply migration, tại `migrationPreflightSnapshotStep: LEDGER_ASSERT` với `MIGRATION_LEDGER_STATE_DRIFT`. Đây là quy tắc fail-closed ở `scripts/run-production-migrations.cjs`, không phải lỗi cài package.
+- Mã mới có ba migration schema tiếp theo mà gate cũ chưa cho phép: `20261023010000_add_bank_receipt_claims`, `20261023020000_add_receipt_access`, `20261023021000_add_receipt_quota_pools`. Chúng ảnh hưởng receipt, entitlement và quota; phải nghiệm thu dữ liệu cùng quyền trước khi chạy.
+- Log CD cho thấy `git reset` và `npm ci` trên VPS đã diễn ra; không có bằng chứng migration mới được apply hoặc PM2 được restart trong lượt thất bại. Kiểm tra đọc-only `GET https://api.eduai.giaoducso.org.vn/health` trả HTTP 200, chỉ chứng minh API trả health; không chứng minh luồng thanh toán hoạt động.
+- [Backend PR #21](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/21) sửa preflight theo hướng ghim đúng thứ tự và SHA-256 của cả ba file SQL, kiểm tra lại ngay trước khi apply và phân loại `MIGRATION_RELEASE_APPROVAL_REQUIRED` thay cho thông báo drift chung trong trường hợp đúng ba migration đang đợi phê duyệt. PR CI [#40067438302](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40067438302) PASS; PR đã merge vào `main` tại `b7d03367133209f4ad0e506af74fc891b0d1c788`. Đây là **sửa mã nguồn**, không phải deploy.
+- Workflow CD giờ có input riêng `authorize_receipt_schema_migrations`, mặc định **false**. Chỉ khi chủ dự án cấp phép phát hành schema cụ thể và chọn input này trong lượt CD thủ công, runner mới có thể chấp nhận đúng các migration đã ghim; mọi migration không rõ nguồn hoặc sai checksum vẫn bị chặn. `authorize_production` và các kiểm soát khác không bị loại bỏ. Không bật payment, sửa khóa bí mật, restart PM2 hay ghi database trong sửa PR.
+- Chế độ CD tự động theo push **chưa được bật lại**; file workflow vẫn chỉ `workflow_dispatch`, do việc tự chạy migration hoặc deploy mã phụ thuộc schema lên dữ liệu đang hoạt động không được bao gồm trong phê duyệt sửa nguồn này. Cần quyết định riêng về cơ chế CI/CD tự động có phân tách deployment an toàn.
+
+### Hành động còn phải hoàn tất
+
+1. Xem xét và duyệt kế hoạch phát hành ba migration nêu trên theo đúng SHA-256 đã ghim, backup/rollback và chạy staging rehearsal đối với PostgreSQL và dữ liệu entitlement/quota thực tế. Đối chiếu trực tiếp trạng thái ledger, không dùng `migrate resolve` để bỏ qua lỗi.
+2. Phê duyệt riêng lượt tác động database/PM2 trên VPS, sau đó thực thi CD với input đúng phạm vi; kiểm tra schema/role/postflight và source SHA khớp trước khi đưa mã mới phục vụ người dùng.
+3. Sau khi migration ổn định, đánh giá restore tự động CD theo nhánh `main` với gate độc lập và khả năng dừng khi còn pending migrations; không biến input manual thành bật mặc định.
+4. Kiểm thử website bằng dữ liệu/tài khoản thử nghiệm không chuyển tiền thật, đối chiếu UAT khóa học/hội viên, ảnh biên lai, Admin đối soát/thu hồi, idempotency, receipt privacy, các lỗi dependency còn mở và tiếp tục giải quyết các điều kiện GO-LIVE ở mục 7.
+
+**Giới hạn chứng cứ:** Báo cáo này chỉ dựa vào CI/GitHub Actions, mã workflow và HTTP health công khai; chưa có ảnh chụp trực tiếp ledger/backup staging hay xác nhận tiền vào ngân hàng. Không coi mã nguồn PASS hoặc health 200 là GO-LIVE.
