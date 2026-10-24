@@ -12,10 +12,10 @@ Ngày 24/10, bản vá Backend giới hạn trong `package.json` và `package-lo
 - Nâng riêng `multer` lên 2.5.0, `body-parser` lên 1.20.9 và `qs` lên 6.16.0; giữ NestJS major 10, PayOS/VNPay và mọi logic thanh toán.
 - Audit **production-only** trước thay đổi: Backend 12 mục (6 high/6 moderate). Sau thay đổi: **6 moderate, 0 high/critical**. `npm audit --omit=dev --audit-level=high` PASS.
 - Backend `prisma generate`, `prisma validate`, `npm run build`, endpoint audit **271 route / 0 implicit**, Jest **165 suite / 1.235 test**, tập trung thanh toán **31 suite / 428 test**, và migration/PGlite **5 suite / 73 test** PASS với biến môi trường và dữ liệu tổng hợp cục bộ.
-- Frontend giữ nguyên mã, build và **99 file / 391 unit test** PASS. Audit production **2 moderate, 0 high/critical**, đều liên quan React Router 6; nâng lên React Router 7.18.4 là breaking major và cần riêng một đợt đánh giá tương thích/navigation.
-- Backend còn 6 moderate từ chuỗi NestJS 10/`file-type`/`ajv`; không dùng `npm audit fix --force`, không đánh dấu các mục này là đã khắc phục. Audit tất cả devDependencies cũng phải được đánh giá trước phát hành.
+- Frontend không sửa logic giao diện/thanh toán; nâng Vite trong major 6 lên 6.4.5, pin `browserslist@4.29.4` và `source-map-js@1.2.2`. Build và **99 file / 391 unit test** PASS. Audit **toàn bộ dependency**: trước 3 high/6 moderate, sau **0 high/5 moderate**. Audit production **2 moderate, 0 high/critical**, đều liên quan React Router 6; nâng lên React Router 7.18.4 là breaking major và cần riêng một đợt đánh giá tương thích/navigation.
+- Backend còn 6 moderate ở production từ chuỗi NestJS 10/`file-type`/`ajv`; **audit toàn bộ (bao gồm dev)** còn 2 high (`picomatch`, `tmp`) do Nest CLI 10, cần đánh giá nâng major. Không dùng `npm audit fix --force`, không đánh dấu các mục này là đã khắc phục.
 
-**Lưu ý nghiệm thu:** Kết quả trên là thực thi cục bộ; không tự nhận CI PR/main PASS cho nhánh hardening cho đến khi có run và merge SHA quan sát được.
+**Lưu ý nghiệm thu (đã đối chiếu 24/10):** Bản vá Backend [PR #20](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/20) đã merge `64af8307`, PR CI #244 (`40054591546`) PASS cả hai job. Frontend [PR #21](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/21) đã merge `0a270830`; PR CI #202 (`40054914617`) PASS cả ba job, gồm Chromium checkout và PWA. Chưa có bằng chứng CI sau merge trên main hoặc staging E2E, không tự suy diễn PASS.
 
 ## 2. Kiểm thử tích hợp staging — chưa đủ điều kiện tuyên bố PASS
 
@@ -32,6 +32,8 @@ Yêu cầu cho một lượt UAT tích hợp staging hợp lệ:
 5. Chạy 25 browser test cùng smoke API thật, viewport 320/375/390/412/768/1024/1440; ghi API status, timestamp, SHA, migrations, logs đã làm sạch và rollback drill.
 6. Tắt cờ sandbox và chứng minh đường production từ chối nhận ảnh/cấp quyền thật. Xóa dữ liệu thử bằng cơ chế staging đã được xác định rõ, không chạy lệnh xóa dựa trên biến đường dẫn chưa kiểm chứng.
 
+Ngày 24/10, chủ dự án cho phép tận dụng **môi trường thử nghiệm đang có**. Đây là thông tin do chủ dự án cung cấp, **chưa chứng minh môi trường đó dùng database/test identities tách biệt với production**. Chỉ bắt đầu ca E2E có ghi dữ liệu sau khi kiểm chứng an toàn, tắt tiền thật và xác nhận không ảnh hưởng dữ liệu/người dùng hiện có.
+
 Hiện trạng: **STAGING E2E = NOT RUN**, không được chuyển sang PASS từ bằng chứng unit/CI riêng lẻ.
 
 ## 3. GO-LIVE — các cổng còn mở
@@ -43,7 +45,7 @@ Hiện trạng: **STAGING E2E = NOT RUN**, không được chuyển sang PASS t�
 | Điều hành một người (D08) | Backend vẫn yêu cầu hai Admin độc lập khi quyết toán thật; nếu đổi phải có phương án kiểm soát thay thế được duyệt riêng |
 | Phạm vi bán hàng / chính sách (D03/D04/D10) | Điều khoản mua khóa học/hội viên, thu hộ bên thứ ba, hoàn tiền, thuế và hợp đồng cần chốt |
 | Kho ảnh/giữ dữ liệu | Adapter lưu tạm sandbox chưa phải hạ tầng ảnh riêng tư production; cần retention, xóa, giám sát, phản hồi sự cố và hạn mức rủi ro OCR |
-| Dependency | Đã có bản vá local đưa production **high về 0**; moderate và dev dependency còn cần quyết định/kiểm chứng, chưa được tự động miễn trừ |
+| Dependency | Bản vá Backend production và Frontend toàn bộ đưa **high về 0**; Backend dev còn 2 high, cả hai kho vẫn có moderate cần đánh giá/kiểm chứng, chưa được tự động miễn trừ |
 | Ví GDS | Không có ví tiền thật hoạt động; không được nạp/trừ tiền hoặc dùng điểm TMI thay thế |
 | Migration + rollback production | Các migration `20261023010000_add_bank_receipt_claims`, `20261023020000_add_receipt_access`, `20261023021000_add_receipt_quota_pools` mới chỉ thuộc mã nguồn; cần staging rehearsal và phê duyệt riêng |
 | Thanh toán người dùng thật | **NO-GO**: OCR chỉ là claim, không được chuyển `PAID`/đối soát, không bật `BANK_TRANSFER_SANDBOX_ENABLED` ở production |
