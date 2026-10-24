@@ -2,6 +2,8 @@
 
 Current source/sandbox acceptance: see [FINAL-REPORT.md](FINAL-REPORT.md). A–F safe source/sandbox complete: Backend/Frontend/Workspace exact main CI PASS and merged temporary branches cleaned. See final report and terminal evidence. Production remains NO-GO and owner-operated bank reconciliation does not remove Admin checks or dual approvals.
 
+Post-acceptance dependency and staging-readiness work (owner start 2026-10-24): [RELEASE-READINESS-20261024.md](RELEASE-READINESS-20261024.md). This does not authorize production activation or replace the A–F acceptance receipts.
+
 **Owner start:** 2026-10-23. **Safe engineering/planning: AUTHORIZED.** **Public GO-LIVE: BLOCKED_EXTERNAL / NO-GO.**
 **Relationship:** a specifically authorized PAYW-01 follow-on lane; PAYW-01 sandbox remains delivered/live blocked, PAYW-02 has not started. Preserve independent `SPR25-007` AI-DOS financial gate and `.ai-dos/records/` without edits.
 
