@@ -127,3 +127,29 @@ Config riêng mở Frontend127.0.0.1:5174, không đọc dotenv, không có prox
 4. Kiểm thử website bằng dữ liệu/tài khoản thử nghiệm không chuyển tiền thật, đối chiếu UAT khóa học/hội viên, ảnh biên lai, Admin đối soát/thu hồi, idempotency, receipt privacy, các lỗi dependency còn mở và tiếp tục giải quyết các điều kiện GO-LIVE ở mục 7.
 
 **Giới hạn chứng cứ:** Báo cáo này chỉ dựa vào CI/GitHub Actions, mã workflow và HTTP health công khai; chưa có ảnh chụp trực tiếp ledger/backup staging hay xác nhận tiền vào ngân hàng. Không coi mã nguồn PASS hoặc health 200 là GO-LIVE.
+
+
+## 10. Tiến độ được chủ dự án phê duyệt và chốt tạm — 26/10/2026
+
+**Phạm vi đã được chủ dự án cho phép:** kiểm tra/sao lưu trước khi áp dụng đúng ba migration receipt/access đã ghim SHA-256 lên Neon `neondb`, và khôi phục CD tự động Backend từ `main` lên VPS. Việc cấp phép này **không** phải phê duyệt thu tiền thật từ ảnh biên lai, bỏ hai người đối soát, mở Ví GDS, kích hoạt nhà cung cấp thanh toán, hoàn tiền hay nới `SPR25-007`.
+
+### Sao lưu và trạng thái Neon được quan sát trực tiếp
+
+- Ngày **26/10/2026, 08:21:36 Asia/Saigon** (01:21:36 UTC), trong Neon Console dự án EduAI / nhánh `production`, đã chọn **Create snapshot** và nhận thông báo `Snapshot was successfully created`; trang `Backup & Restore` hiển thị **1 manual snapshot**, `Expires on: never`. Đây là bản snapshot trên Neon, không khẳng định đã xuất một `pg_dump` ngoại tuyến hoặc diễn tập phục hồi.
+- Màn hình Neon đồng thời cảnh báo `Limit reached` — đã dùng hết compute tháng. Free Plan hiển thị **100 compute hours/project**; trang chi tiết nhánh hiển thị khoảng **103.96 CU-hrs** từ ngày 01/10. Nhánh `production` hiển thị endpoint `Inactive`. Không được coi DB là sẵn sàng để chạy migration/health thực tế ở thời điểm này.
+- Trang Billing nêu tùy chọn tăng hạn mức có phí (`Add for $10 / month`) và plan trả theo mức sử dụng. **Không chọn nâng gói, không tạo chi phí.** Cần chủ dự án quyết định chờ allowance mới hay cấp phép riêng khoản chi nếu thực sự cần chạy ngay.
+
+### Khôi phục nguồn tự động CD theo cơ chế có chốt
+
+- [Backend PR #22](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/22) sửa `.github/workflows/deploy-production.yml` để `push` trên `main` kích hoạt workflow, nhưng job deploy tự động chỉ được xét khi biến repository `EDUAI_AUTO_CD_ENABLED` bằng `true`; manual deploy vẫn cần `authorize_production=true`, ba migration chỉ được áp dụng bằng `authorize_receipt_schema_migrations=true` của lượt thủ công.
+- PR #22 CI [#40254110779](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40254110779) PASS; merge Backend `main` ở `352bd4b8cb245c180bbddca81152558454ca4dff`.
+- Đã kiểm tra GitHub Settings → Actions Variables: không có biến ở cấp repository hay organization, nên `EDUAI_AUTO_CD_ENABLED` **đang không được bật**. Lượt workflow `push` sau merge [#40254351259](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40254351259) được khởi tạo; trước khi ghi trạng thái DONE cần xác minh CI sau merge và job deploy `skipped` theo chốt.
+- Chỉ khôi phục cơ chế trigger có chốt; **chưa apply SQL trên Neon**, **chưa restart PM2**, **chưa cho phép auto-CD thực sự SSH lên VPS**, không thay đổi `.env` hoặc nghiệp vụ tài chính.
+
+### Việc bắt buộc còn lại
+
+1. Giải quyết Neon Free compute allowance bằng quyết định riêng; xác nhận database truy cập bình thường, migration ledger và snapshot phục hồi được trước khi chạy SQL.
+2. Chạy rehearsal trên nhánh/dữ liệu thử nghiệm và kiểm soát tác động của ba migration, hậu kiểm entitlement/quota/permissions trước khi dùng chốt manual migration.
+3. Chạy một lượt thủ công đã duyệt đúng SHA với `authorize_production=true`, `authorize_receipt_schema_migrations=true`; thu bằng chứng từ CI/CD và postflight runtime. Không thay bằng `prisma migrate resolve` hoặc thao tác xóa/ghi lại ledger.
+4. Chỉ sau khi schema và runtime ổn định mới có thể đặt biến `EDUAI_AUTO_CD_ENABLED=true` để chính thức tự động deploy các commit `main` kế tiếp, có quy trình tắt khẩn cấp và giám sát.
+5. Duy trì **PAYW-01B public GO-LIVE = NO-GO**, `SPR25-007` không đổi. Ảnh biên lai/OCR không xác minh tiền vào MB và không tự đánh dấu PAID.
