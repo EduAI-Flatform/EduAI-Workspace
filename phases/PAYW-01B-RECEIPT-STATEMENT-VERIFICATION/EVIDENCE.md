@@ -111,3 +111,9 @@ Final local Backend165suites/1235tests and build PASS. Actual local Tesseract sy
 ### F Workspace terminal receipt
 
 Workspace PR17 https://github.com/EduAI-Flatform/EduAI-Workspace/pull/17 merged67435eaad7bfff8a3bc568e17f6b753260ac11e9. Exact PR CI39948687577 and main CI https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/39948775478 success; direct main job120397837082 success. F head013d3a47fb4493cc66e65cd8d866535981f065b7 ancestor verified, remote/local docs/payw-01b-final-acceptance deleted/pruned. Local main matched remote; conformance330records/97tasks and layout PASS after merge. A–F source/sandbox accepted; production remains NO-GO. This terminal-only documentation addendum has its own normal PR/check/cleanup and does not change source or financial acceptance.
+
+## PAYW-01B-UAT — 30/10/2026
+
+See [UAT-20261030.md](UAT-20261030.md) and its retained synthetic screenshot matrix. Current source/main CI and Backend CD verified via public GitHub API; Backend health/Redis OK. Latest recorded Frontend deployment predates PAYW UI; served main-bundle markers support drift but do not establish the exact live revision. Local browser 25 receipt + 8 VietQR cases, 9 expiry/UI unit tests, 125 Backend focused tests, 68 in-memory SQL cases, Backend build and real local synthetic OCR PASS. These are separate layers, not integrated website acceptance.
+
+Phase remains BLOCKED_EXTERNAL: approved browser relay unavailable, isolated staging not verified, GitHub PR channel needed after credential-helper access was rejected by automatic approval review. No production data/env/deploy/financial writes; no change to NO-GO or SPR25-007. Report PR/main CI/merge/cleanup not yet completed; do not report UAT DONE.
