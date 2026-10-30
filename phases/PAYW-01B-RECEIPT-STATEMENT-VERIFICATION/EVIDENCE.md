@@ -117,3 +117,7 @@ Workspace PR17 https://github.com/EduAI-Flatform/EduAI-Workspace/pull/17 merged6
 See [UAT-20261030.md](UAT-20261030.md) and its retained synthetic screenshot matrix. Current source/main CI and Backend CD verified via public GitHub API; Backend health/Redis OK. Latest recorded Frontend deployment predates PAYW UI; served main-bundle markers support drift but do not establish the exact live revision. Local browser 25 receipt + 8 VietQR cases, 9 expiry/UI unit tests, 125 Backend focused tests, 68 in-memory SQL cases, Backend build and real local synthetic OCR PASS. These are separate layers, not integrated website acceptance.
 
 Phase remains BLOCKED_EXTERNAL: approved browser relay unavailable, isolated staging not verified, GitHub PR channel needed after credential-helper access was rejected by automatic approval review. No production data/env/deploy/financial writes; no change to NO-GO or SPR25-007. Report PR/main CI/merge/cleanup not yet completed; do not report UAT DONE.
+
+## Direct UAT continuation - 2026-10-30
+
+Owner authorizes existing-environment UAT and guarded Frontend CD; separate staging prerequisite superseded. [DIRECT-UAT-20261030.md](DIRECT-UAT-20261030.md) records actual demo learner/Admin sign-in, missing deployed receipt route, read-only Neon migration ledger, health/CD observations and outstanding GitHub dispatch/VPS/backup access. No commerce/receipt/entitlement write, guard change or payment activation. Fixture results were not rerun or relabelled as integrated E2E. Prior PR24/main CI verified and merged branch cleaned.

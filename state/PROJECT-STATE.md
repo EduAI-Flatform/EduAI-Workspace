@@ -99,3 +99,7 @@ PAYW_01B_DOSSIER=phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md
 ```
 
 This is an explicitly owner-started **parallel safe source phase**, not completion or replacement of PAYW-01-LIVE. `PAYW_NEXT_MAJOR_PHASE_AUTHORIZED=NO` still forbids starting PAYW-02. Owner now reports viewing transactions through a bank app, but has not clarified whether it shows incoming corporate MB credits or payer-side outgoing receipts. Therefore D01/D08, `SPR25-007`, production guard and release hard stops remain open. User-requested immediate full access from a photo must never be represented as verified PAID. No real-world activation was executed by this documentation update.
+
+## Direct environment UAT owner decision - 2026-10-30
+
+The owner now explicitly authorizes PAYW-01B-UAT on the existing EduAI website/API and Neon project muddy-term-45367509 / branch br-late-flower-aoj42wzx / neondb, plus deployment of tested Frontend main through existing CD if stale. No new staging resource is required or permitted for this continuation. This supersedes only the earlier separate-staging prerequisite. Before any test write, verify snapshot/recovery, exact DB and bounded test identity/data scope. Payment guards, production NODE_ENV, existing financial records, public NO-GO and SPR25-007 remain protected. Current observations and remaining access are in phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/DIRECT-UAT-20261030.md; no E2E completion is asserted.
