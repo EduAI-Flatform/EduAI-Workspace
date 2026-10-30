@@ -153,3 +153,42 @@ Config riêng mở Frontend127.0.0.1:5174, không đọc dotenv, không có prox
 3. Chạy một lượt thủ công đã duyệt đúng SHA với `authorize_production=true`, `authorize_receipt_schema_migrations=true`; thu bằng chứng từ CI/CD và postflight runtime. Không thay bằng `prisma migrate resolve` hoặc thao tác xóa/ghi lại ledger.
 4. Chỉ sau khi schema và runtime ổn định mới có thể đặt biến `EDUAI_AUTO_CD_ENABLED=true` để chính thức tự động deploy các commit `main` kế tiếp, có quy trình tắt khẩn cấp và giám sát.
 5. Duy trì **PAYW-01B public GO-LIVE = NO-GO**, `SPR25-007` không đổi. Ảnh biên lai/OCR không xác minh tiền vào MB và không tự đánh dấu PAID.
+
+## 11. Bằng chứng Neon Launch, schema và Backend CD — 30/10/2026
+
+**Quyết định kỹ thuật:** Gói Neon đã được chủ dự án nâng và xác nhận trực tiếp là **Launch**. Ba migration receipt/access đã được apply và Backend CD thủ công thành công. Việc này **không** thay đổi quyết định **PAYW-01B checkout thu tiền thật = NO-GO** hoặc trạng thái `SPR25-007`; không coi ảnh biên lai là chứng cứ tiền vào ngân hàng.
+
+### Snapshot và ledger quan sát trực tiếp
+
+- Neon EduAI project `muddy-term-45367509`, branch `production` (`br-late-flower-aoj42wzx`), database `neondb`: Console xác nhận **Launch** sau khi chủ dự án nâng gói.
+- Giữ snapshot ngày 26/10. Đã tạo thêm snapshot thủ công lúc **09:35:33, 30/10/2026 (Asia/Saigon)**; Neon trả `Snapshot was successfully created`, hiển thị **2 snapshots**, cùng `Expires on: never`. Không thực hiện `pg_dump` ngoại tuyến hay thử restore.
+- [Backend CD #159, attempt 1](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40992759128) chạy thủ công với `authorize_production=true` và `authorize_receipt_schema_migrations=true`. Migration đã thực sự apply; bảng `_prisma_migrations` trên Neon có `finished_at`, `rolled_back_at=NULL`, `applied_steps_count=1` với các checksum:
+
+| Migration | SHA-256 / checksum quan sát trong ledger |
+|---|---|
+| `20261023010000_add_bank_receipt_claims` | `ff4c6807b7be7a0caf95acdeb347bca28024b9545ea93fe113c17bc68e740571` |
+| `20261023020000_add_receipt_access` | `f6533ebc1f4d6c1cdcad9f3a3f3d498bd84f639171be65f00607ccb1890f85d1` |
+| `20261023021000_add_receipt_quota_pools` | `4a3b322c2c8a219138126326839dcd09406e7a3b2c92b65abb2a346449646703` |
+
+### CD và hậu kiểm sau migration
+
+- Attempt 1 thất bại **sau khi apply đủ 3 migration**, tại hậu kiểm `MIGRATION_FINANCIAL_STATE_CHANGED`. Phân loại lỗi chứng minh có sai khác trong snapshot kiểm tra chứ **chưa xác định bảng/nguồn nào gây sai khác**. Guard vẫn fail-closed; không sửa ledger, bỏ so khớp digest hoặc đưa lỗi về PASS.
+- Đã rerun job deploy bị lỗi của cùng run #159 (attempt 2), **PASS**. Log xác nhận `migrationTargetApplied: true`, `migrationApply: SKIPPED_ALREADY_APPLIED`, `migrationPostflight: PASS`, `financialRowsChanged: 0`, `runtimeFinancialGuardPrivilegesBlocked: true`, `runtimeRoleLeastPrivilegeReady: true`. Build và PM2 restart thành công; `deployedBackendSha: 352bd4b8cb245c180bbddca81152558454ca4dff`.
+- HTTP read-only `GET https://api.eduai.giaoducso.org.vn/health` sau restart trả `success:true`, `status:ok`, Redis `ok`. Không suy diễn health thành UAT thanh toán/học viên.
+- Log trên VPS ghi `paymentProviderActivated:true` và `paymentProviderDisabled:false` theo cấu hình đã có; lượt này **không sửa .env/không bật provider bằng thao tác chủ động**. Đây là tín hiệu cần đánh giá độc lập trước mọi GO-LIVE.
+- Tại GitHub Settings → Actions Variables, đã đặt và đọc lại repository variable **`EDUAI_AUTO_CD_ENABLED=true`** để cho phép job deploy khi push `main`. Workflow còn giữ điều kiện `authorize_receipt_schema_migrations` cho manual input; tự động không được dùng input này. Có thể dừng tự động deploy bằng cách đặt biến `false` hoặc xóa biến.
+
+### Xác minh push → auto-CD end-to-end
+
+- [Backend PR #23](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/23) chỉ thêm tài liệu vận hành và kill switch. PR CI [#40994328108](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40994328108): `Test and build backend` PASS; job PostgreSQL concurrent có lần đầu FAILED ở `RECEIPT_CONCURRENT_OPERATION` trong 10 vòng upload cạnh tranh do serialization conflict, rerun độc lập PASS. Không sửa/miễn trừ test và không gọi lỗi đã được sửa dứt điểm.
+- Sau CI PASS, PR #23 được merge trên Backend `main` tại `dccb4db7d1e80b92ac7bfae177ef83c5e110b2d0` (docs-only).
+- GitHub **tự kích hoạt** [Backend CD #160](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/40994679159) từ sự kiện **push main**, không phải thủ công. `Validate and build` PASS, `Deploy to VPS` PASS, `deployedBackendSha=dccb4db7d1e80b92ac7bfae177ef83c5e110b2d0`.
+- Job deploy auto ghi `receiptSchemaMigrationAuthorization: NOT_GRANTED`, `pendingMigrationName: UNAVAILABLE`, `migrationApply: SKIPPED_ALREADY_APPLIED`, `migrationPostflight: PASS`, `financialRowsChanged: 0`, `runtimeRoleLeastPrivilegeReady: true`, PM2 restart thành công, `Backend deployment completed.` Đây là bằng chứng chốt **AUTO_CD_TRIGGER_AND_DEPLOY=PASS**.
+- Ngay sau restart, một lượt kiểm tra `/health` trả HTTP 200 và `status:ok` nhưng `redis.status:error`; **hai lần kiểm tra tiếp theo** đều trả `redis.status:ok`. Ghi nhận như một tín hiệu transient có thể cần quan sát; không khẳng định Redis hoàn toàn không còn lỗi trong tương lai.
+- **Chưa mở thanh toán từ ảnh/QR MB thật, chưa thay đổi `.env`, chưa bỏ kiểm soát hai Admin, chưa vận hành GDS, chưa GO-LIVE.** Những hạn chế dependency audit và release gate `SPR25-007` tiếp tục có hiệu lực.
+
+### Bàn giao
+
+- Backend tự động CD trên `main`: **PASS** ở run #160 và đang **ON** qua `EDUAI_AUTO_CD_ENABLED=true`.
+- Database/schema: **PASS** trong đúng ba migration đã duyệt và kiểm tra lại, nhưng **chưa thực hiện khôi phục snapshot**; rollback data phải theo quy trình riêng nếu cần.
+- Payment public: **NO-GO** đến khi điều kiện tài chính, bảo mật, UAT và `SPR25-007` được xử lý độc lập.
