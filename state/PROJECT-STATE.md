@@ -103,3 +103,9 @@ This is an explicitly owner-started **parallel safe source phase**, not completi
 ## Direct environment UAT owner decision - 2026-10-30
 
 The owner now explicitly authorizes PAYW-01B-UAT on the existing EduAI website/API and Neon project muddy-term-45367509 / branch br-late-flower-aoj42wzx / neondb, plus deployment of tested Frontend main through existing CD if stale. No new staging resource is required or permitted for this continuation. This supersedes only the earlier separate-staging prerequisite. Before any test write, verify snapshot/recovery, exact DB and bounded test identity/data scope. Payment guards, production NODE_ENV, existing financial records, public NO-GO and SPR25-007 remain protected. Current observations and remaining access are in phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/DIRECT-UAT-20261030.md; no E2E completion is asserted.
+
+## Live UI acceptance browser scope and status — 2026-10-30
+
+PAYW-01B-LIVE-UI-ACCEPTANCE remains VERIFYING, with publishing/live-after-fix retest waiting for a connected GitHub channel. Owner restricts UI automation to the existing approved Chrome session and EduAI tab only: no Windows desktop/personal apps, unrelated tabs, alternate browser/profile, cookie cleanup or credential extraction. Reconnect that session or record BLOCKED_BROWSER; code/CI tasks continue independently.
+
+Frontend baseline f101097 deployed CI/CD PASS. Current Chrome's in-app update resolved its stale PWA shell. Receipt UI exists but actual Backend returns BANK_RECEIPT_DISABLED (503); preserve that guard. A separate error-presentation defect is fixed and tested on Frontend branch fix/payw-receipt-disabled-message at 1fdc936; it is not merged/deployed/live-accepted. Details: phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/LIVE-UI-ACCEPTANCE-20261030.md. Missing DB/backup verification applies only to test writes, not read-only UI. Financial NO-GO and SPR25-007 unchanged.

@@ -1,0 +1,58 @@
+{
+    "kind":  "LIVE_READ_ONLY",
+    "browser":  "existing approved Chrome, DevTools page 5 only",
+    "route":  "/cart",
+    "state":  "empty",
+    "fixture":  false,
+    "widths":  [
+                   {
+                       "scroll":  320,
+                       "screenshot":  "cart-320.jpg",
+                       "width":  320,
+                       "noHorizontalOverflow":  true,
+                       "client":  320
+                   },
+                   {
+                       "scroll":  375,
+                       "screenshot":  "cart-375.jpg",
+                       "width":  375,
+                       "noHorizontalOverflow":  true,
+                       "client":  375
+                   },
+                   {
+                       "scroll":  390,
+                       "screenshot":  "cart-390.jpg",
+                       "width":  390,
+                       "noHorizontalOverflow":  true,
+                       "client":  390
+                   },
+                   {
+                       "scroll":  412,
+                       "screenshot":  "cart-412.jpg",
+                       "width":  412,
+                       "noHorizontalOverflow":  true,
+                       "client":  412
+                   },
+                   {
+                       "scroll":  768,
+                       "screenshot":  "cart-768.jpg",
+                       "width":  768,
+                       "noHorizontalOverflow":  true,
+                       "client":  768
+                   },
+                   {
+                       "scroll":  1009,
+                       "screenshot":  "cart-1024.jpg",
+                       "width":  1024,
+                       "noHorizontalOverflow":  true,
+                       "client":  1009
+                   },
+                   {
+                       "scroll":  1425,
+                       "screenshot":  "cart-1440.jpg",
+                       "width":  1440,
+                       "noHorizontalOverflow":  true,
+                       "client":  1425
+                   }
+               ]
+}

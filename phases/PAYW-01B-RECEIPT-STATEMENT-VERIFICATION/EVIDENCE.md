@@ -121,3 +121,9 @@ Phase remains BLOCKED_EXTERNAL: approved browser relay unavailable, isolated sta
 ## Direct UAT continuation - 2026-10-30
 
 Owner authorizes existing-environment UAT and guarded Frontend CD; separate staging prerequisite superseded. [DIRECT-UAT-20261030.md](DIRECT-UAT-20261030.md) records actual demo learner/Admin sign-in, missing deployed receipt route, read-only Neon migration ledger, health/CD observations and outstanding GitHub dispatch/VPS/backup access. No commerce/receipt/entitlement write, guard change or payment activation. Fixture results were not rerun or relabelled as integrated E2E. Prior PR24/main CI verified and merged branch cleaned.
+
+## PAYW-01B live UI acceptance / browser-only continuation — 2026-10-30
+
+[Live UI acceptance report](LIVE-UI-ACCEPTANCE-20261030.md) supersedes the old missing-Frontend-deployment and missing-route blockers. Baseline f101097 CI/CD PASS; current Chrome loaded index-D_ZKvDE8.js using EduAI's existing Cập nhật button. Read-only live API confirms payos/vnpay methods and receipt list HTTP503 BANK_RECEIPT_DISABLED. 29 live screenshots retained across earlier R2 and current-Chrome observations; no fixture substituted for E2E.
+
+One actual UI error-copy defect reproduced, fixed on pushed Frontend branch fix/payw-receipt-disabled-message at 1fdc9366ffcb99fdb79103d789f57978a3101e51. Full 100-file/396-test unit run, typecheck/build and high-level audit PASS; PR/CI/CD/live-after-retest pending an authenticated GitHub channel. Current browser scope forbids Windows control, unrelated tabs or alternate browser/profile; only existing EduAI tab used after the update. No commerce/access mutation; financial NO-GO and SPR25-007 preserved. Not DONE.

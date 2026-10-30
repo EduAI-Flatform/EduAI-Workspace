@@ -1,0 +1,230 @@
+{
+  "kind": "LIVE_READ_ONLY",
+  "fixture": false,
+  "startedAt": "2026-10-30T09:31:20.500Z",
+  "sessions": {
+    "learner": "PASS",
+    "admin": "PASS"
+  },
+  "surfaces": [
+    {
+      "name": "course-detail",
+      "route": "/courses/00000020-0000-4000-8000-000000000001",
+      "checks": [
+        {
+          "width": 320,
+          "client": 320,
+          "scroll": 320,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 375,
+          "client": 375,
+          "scroll": 375,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 390,
+          "client": 390,
+          "scroll": 390,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 412,
+          "client": 412,
+          "scroll": 412,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 768,
+          "client": 768,
+          "scroll": 768,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1024,
+          "client": 1024,
+          "scroll": 1024,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1440,
+          "client": 1440,
+          "scroll": 1440,
+          "alert": null,
+          "noHorizontalOverflow": true
+        }
+      ]
+    },
+    {
+      "name": "membership",
+      "route": "/membership",
+      "checks": [
+        {
+          "width": 320,
+          "client": 320,
+          "scroll": 320,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 375,
+          "client": 375,
+          "scroll": 375,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 390,
+          "client": 390,
+          "scroll": 390,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 412,
+          "client": 412,
+          "scroll": 412,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 768,
+          "client": 768,
+          "scroll": 768,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1024,
+          "client": 1024,
+          "scroll": 1024,
+          "alert": null,
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1440,
+          "client": 1440,
+          "scroll": 1440,
+          "alert": null,
+          "noHorizontalOverflow": true
+        }
+      ]
+    },
+    {
+      "name": "admin-receipt",
+      "route": "/admin/dashboard/receipt-review",
+      "checks": [
+        {
+          "width": 320,
+          "client": 320,
+          "scroll": 320,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 375,
+          "client": 375,
+          "scroll": 375,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 390,
+          "client": 390,
+          "scroll": 390,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 412,
+          "client": 412,
+          "scroll": 412,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 768,
+          "client": 768,
+          "scroll": 768,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1024,
+          "client": 1024,
+          "scroll": 1024,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        },
+        {
+          "width": 1440,
+          "client": 1440,
+          "scroll": 1440,
+          "alert": "Chưa thể hoàn tất. Vui lòng tải lại trạng thái và thử lại.",
+          "noHorizontalOverflow": true
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "role": "learner",
+      "path": "/api/v1/auth/login",
+      "status": 200
+    },
+    {
+      "role": "learner",
+      "method": "GET",
+      "path": "/api/v1/payments/methods",
+      "status": 200,
+      "result": {
+        "success": true,
+        "data": {
+          "methods": [
+            "payos",
+            "vnpay"
+          ]
+        },
+        "message": "OK"
+      }
+    },
+    {
+      "role": "admin",
+      "path": "/api/v1/auth/login",
+      "status": 200
+    },
+    {
+      "role": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/commerce/receipt-claims",
+      "status": 503,
+      "result": {
+        "code": "SERVICE_UNAVAILABLE",
+        "message": "BANK_RECEIPT_DISABLED"
+      }
+    }
+  ],
+  "blockedWrites": [],
+  "issues": [],
+  "stage": "surface:admin-receipt",
+  "membership": {
+    "checkoutDisabled": true,
+    "uploadInputCount": 0
+  },
+  "admin": {
+    "financialActionCount": 0,
+    "revokeActionCount": 0
+  },
+  "learnerAdminBoundary": {
+    "finalPath": "/dashboard",
+    "receiptHeadingVisible": false
+  },
+  "finishedAt": "2026-10-30T09:31:26.638Z"
+}
