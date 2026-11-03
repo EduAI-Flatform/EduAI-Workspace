@@ -1486,4 +1486,191 @@
     "applicability": {"tests": "OPTIONAL", "deployment": "OPTIONAL", "productionVerification": "OPTIONAL"},
     "extensions": {"sprintId": "SPRINT:28", "source": "EduAI_Docs/docs/tasks_3.0/sprint-28/README.md", "affectedRepositories": ["EduAI-Back-End", "EduAI-Front-End-Web", "EduAI-Workspace"], "securityConsiderations": "Live monetary verification and rollback follow separate approved operational steps.", "agentProfileId": "devops-engineer"}
   }
+,
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-02-001",
+    "title": "Define revenue sharing and configurable fee allocation",
+    "category": "PAYW / Revenue sharing",
+    "priority": "HIGH",
+    "objective": "Define revenue sharing and configurable fee allocation for owner-authorized source implementation; production activation and payouts excluded.",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "Versioned global retail and membership-version fee contracts use basis points and conserve integer VND.",
+      "Additive schema and immutable order allocation foundations preserve legacy commerce records."
+    ],
+    "verification": [
+      "Run focused checks specified in phases/PAYW-02-REVENUE-SHARING/TEST-PLAN.md.",
+      "Record actual outcomes and remaining limitations; no release or financial-write authorization is inferred."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "NOT_APPLICABLE",
+      "productionVerification": "NOT_APPLICABLE"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-02",
+      "source": "phases/PAYW-02-REVENUE-SHARING/TASKS.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "ownerSourceStart": "2026-11-03",
+      "productionActivationAuthorized": false
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-02-002",
+    "title": "Implement seller participation and automatic membership catalogue versions",
+    "category": "PAYW / Revenue sharing",
+    "priority": "HIGH",
+    "objective": "Implement seller participation and automatic membership catalogue versions for owner-authorized source implementation; production activation and payouts excluded.",
+    "dependencies": [
+      "PAYW-02-001"
+    ],
+    "acceptanceCriteria": [
+      "Per-course owned acceptance and exit expose terms and all matching plans.",
+      "Ordered AND rules, positive weight overrides, notices and scheduled immutable versions preserve purchased rights."
+    ],
+    "verification": [
+      "Run focused checks specified in phases/PAYW-02-REVENUE-SHARING/TEST-PLAN.md.",
+      "Record actual outcomes and remaining limitations; no release or financial-write authorization is inferred."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "NOT_APPLICABLE",
+      "productionVerification": "NOT_APPLICABLE"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-02",
+      "source": "phases/PAYW-02-REVENUE-SHARING/TASKS.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "ownerSourceStart": "2026-11-03",
+      "productionActivationAuthorized": false
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-02-003",
+    "title": "Record verified revenue and proportional refund adjustments",
+    "category": "PAYW / Revenue sharing",
+    "priority": "HIGH",
+    "objective": "Record verified revenue and proportional refund adjustments for owner-authorized source implementation; production activation and payouts excluded.",
+    "dependencies": [
+      "PAYW-02-001",
+      "PAYW-02-002"
+    ],
+    "acceptanceCriteria": [
+      "Immutable order snapshots feed independently recoverable retail and subscription-month recognition.",
+      "Append-only idempotent journal conserves canonical payment and cumulative refund allocations."
+    ],
+    "verification": [
+      "Run focused checks specified in phases/PAYW-02-REVENUE-SHARING/TEST-PLAN.md.",
+      "Record actual outcomes and remaining limitations; no release or financial-write authorization is inferred."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "NOT_APPLICABLE",
+      "productionVerification": "NOT_APPLICABLE"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-02",
+      "source": "phases/PAYW-02-REVENUE-SHARING/TASKS.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "ownerSourceStart": "2026-11-03",
+      "productionActivationAuthorized": false
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-02-004",
+    "title": "Deliver admin and seller revenue sharing interfaces",
+    "category": "PAYW / Revenue sharing",
+    "priority": "HIGH",
+    "objective": "Deliver admin and seller revenue sharing interfaces for owner-authorized source implementation; production activation and payouts excluded.",
+    "dependencies": [
+      "PAYW-02-002",
+      "PAYW-02-003"
+    ],
+    "acceptanceCriteria": [
+      "Admin configures immediate or positive-day delayed policies with impact preview and cancellation.",
+      "Seller views own terms, participation and pending/recognised/refund report without payout capability."
+    ],
+    "verification": [
+      "Run focused checks specified in phases/PAYW-02-REVENUE-SHARING/TEST-PLAN.md.",
+      "Record actual outcomes and remaining limitations; no release or financial-write authorization is inferred."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "NOT_APPLICABLE",
+      "productionVerification": "NOT_APPLICABLE"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-02",
+      "source": "phases/PAYW-02-REVENUE-SHARING/TASKS.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "ownerSourceStart": "2026-11-03",
+      "productionActivationAuthorized": false
+    }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-02-005",
+    "title": "Verify revenue sharing financial and ownership invariants",
+    "category": "PAYW / Revenue sharing",
+    "priority": "HIGH",
+    "objective": "Verify revenue sharing financial and ownership invariants for owner-authorized source implementation; production activation and payouts excluded.",
+    "dependencies": [
+      "PAYW-02-003",
+      "PAYW-02-004"
+    ],
+    "acceptanceCriteria": [
+      "Focused allocation, scheduling, refund, concurrency and role tests pass against synthetic fixtures.",
+      "Existing payment/access regressions and applicable browser/build gates have observed evidence."
+    ],
+    "verification": [
+      "Run focused checks specified in phases/PAYW-02-REVENUE-SHARING/TEST-PLAN.md.",
+      "Record actual outcomes and remaining limitations; no release or financial-write authorization is inferred."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "NOT_APPLICABLE",
+      "productionVerification": "NOT_APPLICABLE"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-02",
+      "source": "phases/PAYW-02-REVENUE-SHARING/TASKS.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "ownerSourceStart": "2026-11-03",
+      "productionActivationAuthorized": false
+    }
+  }
 ]

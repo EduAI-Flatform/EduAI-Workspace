@@ -103,3 +103,7 @@ This is an explicitly owner-started **parallel safe source phase**, not completi
 ## Direct environment UAT owner decision - 2026-10-30
 
 The owner now explicitly authorizes PAYW-01B-UAT on the existing EduAI website/API and Neon project muddy-term-45367509 / branch br-late-flower-aoj42wzx / neondb, plus deployment of tested Frontend main through existing CD if stale. No new staging resource is required or permitted for this continuation. This supersedes only the earlier separate-staging prerequisite. Before any test write, verify snapshot/recovery, exact DB and bounded test identity/data scope. Payment guards, production NODE_ENV, existing financial records, public NO-GO and SPR25-007 remain protected. Current observations and remaining access are in phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/DIRECT-UAT-20261030.md; no E2E completion is asserted.
+
+## PAYW-02 source start - 2026-11-03
+
+The owner explicitly requests implementation of [PAYW-02 revenue sharing](../phases/PAYW-02-REVENUE-SHARING/README.md): configurable fees, seller participation, rule-based membership versions, monthly recognition/refund journal and reports. This is source/synthetic-test authorization despite unresolved upstream live gates; it does not assert those gates passed. PAYW-03 payouts, production deployment/migration, provider activation and real financial writes remain outside scope. Existing SPR25-007 state and completed-task evidence remain unchanged. PAYW-02 source state is IN_PROGRESS; no new DONE claim is made.

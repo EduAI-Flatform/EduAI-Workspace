@@ -65,3 +65,7 @@ Owner authorizes safe source/sandbox implementation before PAYW-00 DONE. PAYW-00
 `PAYW-01 sandbox source DONE → PAYW-01B receipt-claim/official-statement verification source preparation → production acceptance gate (separately blocked) → PAYW-02 only after new owner phase start`.
 
 PAYW-01B is a scoped, parallel technical preparation exception, not fulfillment of PAYW-01 live prerequisites or a redefinition of `SPR25-007`. Its screenshot OCR input has no authority over financial settlement; any experimentally granted full access must be separately tagged as unverified, and public use demands a new explicit risk/signoff decision. Read [PAYW-01B dossier](../phases/PAYW-01B-RECEIPT-STATEMENT-VERIFICATION/README.md).
+
+## PAYW-02 source start - 2026-11-03
+
+The owner explicitly requests implementation of [PAYW-02 revenue sharing](../phases/PAYW-02-REVENUE-SHARING/README.md): configurable fees, seller participation, rule-based membership versions, monthly recognition/refund journal and reports. This is source/synthetic-test authorization despite unresolved upstream live gates; it does not assert those gates passed. PAYW-03 payouts, production deployment/migration, provider activation and real financial writes remain outside scope. Existing SPR25-007 state and completed-task evidence remain unchanged. PAYW-02 source state is IN_PROGRESS; no new DONE claim is made.

@@ -10511,4 +10511,237 @@
       "realProductionFinancialData": "UNPROVEN"
     }
   }
+,
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-001:SOURCE-TESTS-20261103",
+    "taskId": "PAYW-02-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Additive migration and immutable financial history on isolated PostgreSQL",
+        "command": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config prisma/jest.config.cjs --runInBand prisma/revenue-sharing-postgres.spec.ts",
+        "reference": "Observed PASS: 1 suite /8 tests, including every historical migration, fee/notice/weight bounds, immutable history, policy uniqueness, idempotent source keys and actual runtime privilege denial.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Existing database role separation regressions",
+        "command": "node ./node_modules/jest/bin/jest.js --runInBand src/config/database-role-separation.spec.ts src/config/production-runtime-role.spec.ts",
+        "reference": "Observed PASS: 2 suites /29 tests. Runtime helper/verifier extend only bounded new revenue-table privileges; no live grants were executed.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:05:15.190Z",
+    "notes": "Scoped synthetic/local test evidence only. Source review is still in progress. These checks do not establish production activation, real PostgreSQL multi-client concurrency, complete backend runtime UAT, release approval, commit/CI/merge, or task completion. Existing financial gates/evidence remain unchanged.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-002:SOURCE-TESTS-20261103",
+    "taskId": "PAYW-02-002",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Membership rule, service and checkout integration behavior",
+        "command": "node ./node_modules/jest/bin/jest.js --runInBand src/modules/revenue-sharing",
+        "reference": "Observed PASS: 5 revenue-sharing suites /35 tests as a combined run. Includes ordered matching, effective notices, membership lifecycle and checkout integration. Isolated migration tests independently exercise persisted uniqueness/immutability; no real multi-client race claim.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:05:15.190Z",
+    "notes": "Scoped synthetic/local test evidence only. Source review is still in progress. These checks do not establish production activation, real PostgreSQL multi-client concurrency, complete backend runtime UAT, release approval, commit/CI/merge, or task completion. Existing financial gates/evidence remain unchanged.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-003:SOURCE-TESTS-20261103",
+    "taskId": "PAYW-02-003",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Financial allocation, monthly recognition and refund behavior",
+        "command": "node ./node_modules/jest/bin/jest.js --runInBand src/modules/revenue-sharing",
+        "reference": "Observed PASS: combined 5 suites /35 tests. Finance includes deterministic allocation/refund behavior and the corrected monthly gross/component matrix. No external payment provider or real financial operation was called.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:05:15.190Z",
+    "notes": "Scoped synthetic/local test evidence only. Source review is still in progress. These checks do not establish production activation, real PostgreSQL multi-client concurrency, complete backend runtime UAT, release approval, commit/CI/merge, or task completion. Existing financial gates/evidence remain unchanged.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-004:SOURCE-TESTS-20261103",
+    "taskId": "PAYW-02-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Admin/seller revenue-sharing UI, service and navigation tests",
+        "command": "npm.cmd test -- src/features/revenue-sharing/RevenueSharing.test.tsx src/services/revenue-sharing.service.test.ts src/features/dashboard/dashboard-navigation.test.tsx",
+        "reference": "Frontend agent observed final focused PASS16 after date/terms UX changes. Earlier full npm.cmd test passed103 files/431 tests; earlier build/tsc passed. Latest full build/browser recheck remains pending and is not claimed here.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Responsive admin/seller browser scenarios before latest minor UI edits",
+        "command": "$env:PLAYWRIGHT_SKIP_BACKEND='1'; npx.cmd playwright test playwright/revenue-sharing.spec.ts --project=chromium --no-deps --workers=1",
+        "reference": "Frontend agent observed PASS14: admin/seller at320/375/390/412/768/1024/1440px using synthetic local sessions and intercepted APIs, no backend/money mutation. Earlier screenshot artifacts in ignored test-results/revenue-{role}-{width}.png. Final recheck after latest minor edits remains pending.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:05:15.190Z",
+    "notes": "Scoped synthetic/local test evidence only. Source review is still in progress. These checks do not establish production activation, real PostgreSQL multi-client concurrency, complete backend runtime UAT, release approval, commit/CI/merge, or task completion. Existing financial gates/evidence remain unchanged.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-005:SOURCE-TESTS-20261103",
+    "taskId": "PAYW-02-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Scoped financial, migration and role regression checkpoint",
+        "command": "node ./node_modules/jest/bin/jest.js --runInBand src/modules/revenue-sharing; node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config prisma/jest.config.cjs --runInBand prisma/revenue-sharing-postgres.spec.ts; node ./node_modules/jest/bin/jest.js --runInBand src/config/database-role-separation.spec.ts src/config/production-runtime-role.spec.ts",
+        "reference": "Independently observed PASS35 revenue-sharing tests, PASS8 isolated PostgreSQL migration tests and PASS29 database-role tests. This is a checkpoint, not full end-to-end/concurrency/release acceptance.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:05:15.190Z",
+    "notes": "Scoped synthetic/local test evidence only. Source review is still in progress. These checks do not establish production activation, real PostgreSQL multi-client concurrency, complete backend runtime UAT, release approval, commit/CI/merge, or task completion. Existing financial gates/evidence remain unchanged.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  }
+,
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-003:REFUND-PROVENANCE",
+    "taskId": "PAYW-02-003",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Isolated PostgreSQL canonical refund provenance",
+        "command": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config prisma/jest.config.cjs --runInBand prisma/revenue-sharing-postgres.spec.ts",
+        "reference": "Independently observed PASS1 suite/9 tests after nullable sourceRefundId field and restrictive FK/trigger. Real synthetic payment/refund fixtures reject absent, missing, unrecorded and noncanonical duplicate-collection refund sources; canonical allocated recorded refund is accepted and linked.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Prisma fragment merge and generated client",
+        "command": "npm.cmd run prisma:generate",
+        "reference": "Observed PASS: merged43 fragments; Prisma Client7.10.1 generated. No migration was applied to an external database.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Backend targeted regression and controller authorization checkpoint",
+        "reference": "Coordinator reports PASS19 suites/132 tests and new API authorization/controller6 tests. Backend build passed before the latest provenance changes; final backend rebuild is pending and not claimed.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:10:14.863Z",
+    "notes": "Observed source-only verification checkpoint; no task completion, production operation, external database write, payout, CI or merge is claimed. Earlier records retain their original narrower checkpoint scope.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-004:FINAL-UI-CHECKPOINT",
+    "taskId": "PAYW-02-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Final frontend revenue forms, service and navigation",
+        "command": "npm.cmd test -- src/features/revenue-sharing/RevenueSharing.test.tsx src/services/revenue-sharing.service.test.ts src/features/dashboard/dashboard-navigation.test.tsx",
+        "reference": "Frontend agent observed final PASS16 after accepted terms, effective dates, seller attribution and previous/new allocation impact changes.",
+        "status": "PASS"
+      },
+      {
+        "kind": "BUILD",
+        "name": "Final frontend build",
+        "command": "npm.cmd run build",
+        "reference": "Frontend agent observed final build PASS after latest preview refinements.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Final responsive admin/seller browser scenarios",
+        "command": "$env:PLAYWRIGHT_SKIP_BACKEND='1'; npx.cmd playwright test playwright/revenue-sharing.spec.ts --project=chromium --no-deps --workers=1",
+        "reference": "Frontend agent observed final PASS14: admin/seller at320/375/390/412/768/1024/1440px, including populated admin preview, removed-course share0 and editing invalidating saved preview. API fixtures and synthetic local sessions only; no real backend runtime integration.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:10:14.864Z",
+    "notes": "Observed source-only verification checkpoint; no task completion, production operation, external database write, payout, CI or merge is claimed. Earlier records retain their original narrower checkpoint scope.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-02-005:PROVENANCE-CHECKPOINT",
+    "taskId": "PAYW-02-005",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Isolated PostgreSQL canonical refund provenance",
+        "command": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config prisma/jest.config.cjs --runInBand prisma/revenue-sharing-postgres.spec.ts",
+        "reference": "Independently observed PASS1 suite/9 tests after nullable sourceRefundId field and restrictive FK/trigger. Real synthetic payment/refund fixtures reject absent, missing, unrecorded and noncanonical duplicate-collection refund sources; canonical allocated recorded refund is accepted and linked.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Backend targeted regression and controller authorization checkpoint",
+        "reference": "Coordinator reports PASS19 suites/132 tests and new API authorization/controller6 tests. Backend build passed before the latest provenance changes; final backend rebuild is pending and not claimed.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-03T04:10:14.864Z",
+    "notes": "Observed source-only verification checkpoint; no task completion, production operation, external database write, payout, CI or merge is claimed. Earlier records retain their original narrower checkpoint scope.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_TEST_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
+  }
 ]
