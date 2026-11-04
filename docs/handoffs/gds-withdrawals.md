@@ -1,6 +1,6 @@
 # GDS withdrawals — dev implementation
 
-Date: 2026-11-04. State: VERIFYING (AI-DOS: IN_PROGRESS). Owner requires dev validation before main,
+Date: 2026-11-04. State: WAITING_MANUAL. Owner requires dev validation before main,
 then validation of the exact merged main revision. Production is not activated.
 
 ## Contract
@@ -74,8 +74,14 @@ pending holds. Do not drop schema with unresolved funds.
   real multi-session withdrawal races passed in CI run 41794237614. This covers
   competing withdrawals, idempotent replay, checkout reserve competition,
   cancel/approve race, transfer claim/paid race and restricted runtime.
-- Backend quality CI and final timezone-fix frontend CI remain pending at this
-  checkpoint. No post-merge-main or production result is claimed.
+- Backend quality CI run 41794237568 and migration/concurrency run 41794237614
+  both passed on `906051c97e18b3c8f08dc9a3560be9592947d284`.
+- Frontend CI run 41794496709 passed all three jobs (unit/build, payment/withdrawal
+  browser scenarios and PWA browser) on `502aa958941844d49c862de440f370df898786e2`.
+- Workspace conformance run 41794698990 passed on the initial documentary commit;
+  the final evidence update receives its own conformance check.
+- Remote main remains unchanged. Schema-first production release approval and
+  subsequent exact-main/post-merge checks are pending; neither is claimed complete.
 
 ## Release review references
 

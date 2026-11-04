@@ -10780,5 +10780,41 @@
       "taskComplete": false,
       "productionAuthorized": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-03-001:DEV-CI-VERIFIED",
+    "taskId": "PAYW-03-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Backend dev quality and real PostgreSQL replay/concurrency",
+        "reference": "https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41794237568 ; https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41794237614 . Both observed success on906051c97e18b3c8f08dc9a3560be9592947d284.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Frontend dev unit/build and all browser jobs",
+        "reference": "https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/41794496709 . All3jobs observed success on502aa958941844d49c862de440f370df898786e2. Full local UTC suite490tests passed after deterministic timestamp fixture fix.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Workspace conformance and preserved financial gates",
+        "reference": "https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/41794698990 . Contract conformance and workspace layout observed success; SPR25-007 state preserved.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-04T07:49:46.851Z",
+    "notes": "Dev source and CI verified. Main is not merged: frontend main automatically deploys and backend requires the separately approved new migration. Await MANUAL:PAYW_03_SCHEMA_FIRST_RELEASE; do not infer production approval or post-merge verification.",
+    "extensions": {
+      "scope": "DEV_SOURCE_CI_VERIFIED",
+      "taskComplete": false,
+      "productionAuthorized": false,
+      "backendSha": "906051c97e18b3c8f08dc9a3560be9592947d284",
+      "frontendSha": "502aa958941844d49c862de440f370df898786e2"
+    }
   }
 ]
