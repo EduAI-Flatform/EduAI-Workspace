@@ -1,6 +1,6 @@
 # GDS withdrawals — dev implementation
 
-Date: 2026-11-04. State: WAITING_MANUAL. Owner requires dev validation before main,
+Date: 2026-11-04. State: VERIFYING. Owner requires dev validation before main,
 then validation of the exact merged main revision. Production is not activated.
 
 ## Contract
@@ -51,6 +51,24 @@ authorizing and applying the reviewed migration. Frontend main pushes currently
 trigger production CD, so merging main must respect the production approval gate.
 Roll back admission by switching it off, retaining schema/history and resolving
 pending holds. Do not drop schema with unresolved funds.
+
+### Owner release approval — 2026-11-04
+
+The owner explicitly approved production migration/deployment, then requested
+withdrawals enabled for owner testing with minimum **10,000 VND** and maximum
+**10,000,000 VND**. This supersedes the earlier pending-release statements in
+this checkpoint. No agent-created request or external bank transfer is authorized.
+
+The release runner now pins the exact previously reviewed withdrawal migration.
+The manual backend deployment exposes a preserve/enable/disable withdrawal action.
+Activation follows migration, runtime grants, build, process restart and readiness;
+it checks exact deployed SHA, production classification, non-owner runtime role,
+and the applied migration checksum. A SYSTEM audit records the approved limits.
+Disable stops new requests and preserves pending processing. First activation
+retains historical-earnings review; it does not mark old revenue paid or approved.
+
+Local SSH keys were rejected by the server; use the existing production GitHub
+Actions environment and its SSH secrets. Credentials must never be logged.
 
 ## Observed verification
 
