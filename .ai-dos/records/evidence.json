@@ -1,5 +1,13 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:LOCAL-SOURCE",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Dev source, protected QR and additive schema checks","status":"PASS","reference":"Backend61 targeted wallet/bank/domain/privacy cases PASS, account verification service25 PASS, provider/config116 PASS. New migration24 PGlite cases and restricted grant5 PASS. Endpoint audit309 routes implicit0; backend build and exact dev CI/replay PASS. Frontend505tests/111files, build/typecheck and14Chromiumflows across7widths PASS. Frontend remote CI pending; see handoff."}],
+    "result":"PASS", "recordedAt":"2026-11-04T11:55:51.000Z",
+    "notes":"Partial observed local source evidence only. No live lookup, production migration or activation. Owner has no provider API entitlement.",
+    "extensions":{"taskComplete":false,"scope":"DEV_SOURCE_PARTIAL","productionAuthorized":false,"providerEntitled":false,"backendSha":"2e1e2bc67970bbe36da7ff0af46167023f6a3bb2","backendCiRun":41824623549,"backendCiResult":"PASS","postgresReplayRun":41824623541,"postgresReplayResult":"PASS"}
+  },
+  {
     "kind": "evidence",
     "schemaVersion": "1.0",
     "id": "EVIDENCE:SPR15-003:PRODUCTION-UAT-DEPLOYMENT-BLOCKER",

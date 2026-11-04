@@ -6,6 +6,11 @@
 
 ## Context
 
+> Bank selection/beneficiary lookup/QR extension: see
+> [GDS verification handoff](../handoffs/gds-bank-verification.md). Source work is
+> authorized; production lookup remains OFF because the owner has no VietQR
+> lookup entitlement. Beneficiary lookup does not establish user identity/KYC.
+
 > Update 2026-11-04: [ADR-007](ADR-007-gds-withdrawals-and-revenue-credit.md)
 > supersedes decisions 3 and 6 for the owner-approved source/dev implementation:
 > learner/instructor withdrawals, revenue credited to GDS, one manual payout admin.

@@ -1,5 +1,9 @@
 # Version Roadmap
 
+GDS enhancement `PAYW-03-002`: full searchable bank catalogue, beneficiary proof
+and protected payout QR on dev. Provider rights/UAT and a new schema-first release
+gate precede mandatory lookup. See [handoff](../docs/handoffs/gds-bank-verification.md).
+
 Project-owned compatibility overlay. Canonical Phase 3 commerce/payment source: `.ai-dos/records/roadmap.json`.
 
 - Target version: 3.0.0
