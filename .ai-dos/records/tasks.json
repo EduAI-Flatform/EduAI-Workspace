@@ -1672,5 +1672,46 @@
       "ownerSourceStart": "2026-11-03",
       "productionActivationAuthorized": false
     }
+  },
+  {
+    "kind": "task",
+    "schemaVersion": "1.0",
+    "id": "PAYW-03-001",
+    "title": "Implement GDS withdrawals and revenue credit on dev",
+    "category": "PAYW / GDS withdrawal",
+    "priority": "HIGH",
+    "objective": "Owner-approved learner/instructor manual withdrawals, configurable limits, recognized revenue credit and historical reconciliation; verify dev then exact merged main revision.",
+    "dependencies": [],
+    "acceptanceCriteria": [
+      "Immutable held-fund withdrawal lifecycle and owner/admin authorization pass synthetic and concurrent PostgreSQL tests.",
+      "Historical payouts/refunds create correct debt without duplicate credit.",
+      "Frontend, backend, responsive browser tests and dev CI pass before main; post-merge main checks are observed."
+    ],
+    "verification": [
+      "Run backend wallet/revenue/API/PostgreSQL tests and build.",
+      "Run frontend withdrawal/wallet tests, browser matrix and build.",
+      "Run disposable PostgreSQL race script in CI and verify exact merged main revision."
+    ],
+    "applicability": {
+      "tests": "REQUIRED",
+      "deployment": "REQUIRED",
+      "productionVerification": "REQUIRED"
+    },
+    "extensions": {
+      "programId": "PAYW",
+      "phaseId": "PAYW-03",
+      "ownerSourceStart": "2026-11-04",
+      "source": "docs/handoffs/gds-withdrawals.md",
+      "affectedRepositories": [
+        "EduAI-Back-End",
+        "EduAI-Front-End-Web",
+        "EduAI-Workspace"
+      ],
+      "productionActivationAuthorized": true,
+      "branchStrategy": "persistent dev then verified main",
+      "ownerProductionApproval": "2026-11-04",
+      "activeMinimumMinor": "10000",
+      "activeMaximumMinor": "10000000"
+    }
   }
 ]

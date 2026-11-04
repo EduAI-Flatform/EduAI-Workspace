@@ -1420,5 +1420,39 @@
     "newPaymentCreatedInCurrentPhase": false,
     "payosRollbackBoundary": "BLOCKED_HTTP_400_EXPECTED_DISABLED_503"
     }
+  },
+  {
+    "kind": "manual_action",
+    "schemaVersion": "1.0",
+    "id": "MANUAL:PAYW_03_SCHEMA_FIRST_RELEASE",
+    "title": "Authorize schema-first GDS withdrawal production release before main CD",
+    "status": "VERIFIED",
+    "priority": "HIGH",
+    "requiredAction": [
+      "Review backend/frontend dev PRs27 and their CI results.",
+      "Explicitly authorize the exact reviewed additive withdrawal migration, runtime grants and production source rollout before merging main, because frontend main pushes auto-deploy.",
+      "Keep withdrawal admission/processing disabled until a separate live activation decision; main merge alone does not authorize real transfers."
+    ],
+    "reason": "Owner explicitly approved production migration/deployment on2026-11-04, then requested activation for testing with minimum10000VND and maximum10000000VND. Production execution and exact-main checks remain pending; no external payout is authorized.",
+    "retestSteps": [
+      "Apply reviewed schema with separate owner-approved release procedure, retaining defaults off.",
+      "Merge reviewed source only after passing dev checks.",
+      "Verify exact remote main revisions and required post-merge CI/build, then read-only runtime behavior."
+    ],
+    "expectedResult": "Schema and source remain compatible, post-merge main checks pass, and no financial activation occurs without approval.",
+    "relatedTaskIds": [
+      "PAYW-03-001"
+    ],
+    "blocks": [],
+    "extensions": {
+      "source": "docs/handoffs/gds-withdrawals.md",
+      "migration": "20261104100000_add_gds_withdrawals",
+      "sha256": "8015F0029726ECFEA645158CF76299FF8BDFEC4E9A4908E3F2FAE6E411CEBF56",
+      "productionAuthorized": true,
+      "withdrawalActivationAuthorized": true,
+      "minimumMinor": "10000",
+      "maximumMinor": "10000000",
+      "externalTransferAuthorized": false
+    }
   }
 ]
