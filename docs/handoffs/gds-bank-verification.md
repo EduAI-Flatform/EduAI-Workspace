@@ -100,4 +100,13 @@ immutable history on rollback. No automatic bank transfer is introduced.
   five existing moderate issues. No lint script exists. Chrome DevTools connection
   timed out; actual browser evidence came from Chromium Playwright/screenshots.
   Draft [frontend PR28](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/28);
-  frontend remote CI pending at this checkpoint.
+  [frontend dev CI41825409163](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/41825409163)
+  PASS for `c5c44cf70b13ec1c893550e1110299742513044d`.
+- Workspace [CI41825638347](https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/41825638347)
+  PASS for `bf47267e0ff2218253fc9010d2628a640097f888`; local conformance,
+  record schemas and layout checks PASS. Draft [workspace PR27](https://github.com/EduAI-Flatform/EduAI-Workspace/pull/27).
+
+Source/dev verification is ready for review; overall task remains WAITING_MANUAL on
+new production schema authorization and provider rights/UAT. No main merge,
+post-merge check or live integration is claimed. All three `dev` branches are
+intentional persistent integration branches; no temporary branch was merged.

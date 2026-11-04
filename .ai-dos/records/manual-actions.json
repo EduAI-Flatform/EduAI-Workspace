@@ -7,7 +7,7 @@
     "reason":"Owner confirmed no provider account/API access on 2026-11-04. Earlier withdrawal migration approval does not include this new schema; retain current live manual flow.",
     "retestSteps":["Verify current provider endpoint and synthetic test cases without customer data.","Check exact main revision after approved schema-first rollout with flags OFF; enable mandatory policy only after UAT."],
     "expectedResult":"No live withdrawal interruption and no fake verified recipient; release has schema compatibility and observed checks.",
-    "relatedTaskIds":["PAYW-03-002"], "blocks":[],
+    "relatedTaskIds":["PAYW-03-002"], "blocks":["PAYW-03-002"],
     "extensions":{"source":"docs/handoffs/gds-bank-verification.md","migration":"20261104120000_add_gds_account_verifications","sha256":"BA7DB8420F48CAB21F67BC0D2B11965E4B647B5A8C684DD03F2B9FCE3DE29327","blocksProductionOnly":true,"providerEntitled":false,"productionAuthorized":false}
   },
   {
