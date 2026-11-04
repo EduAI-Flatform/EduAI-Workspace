@@ -1,3 +1,5 @@
+> Update 2026-11-04: ADR-007 supersedes learner cash-out prohibition, separate seller cash balance and dual approval for the approved GDS withdrawal source implementation. Defaults 50,000?10,000,000 VND are admin-configurable. Production gates remain unchanged. See ../decisions/ADR-007-gds-withdrawals-and-revenue-credit.md.
+
 # EduAI — Kiến trúc thanh toán, Ví GDS và chia doanh thu
 
 **Bản thiết kế và roadmap đề xuất — 22/10/2026**  

@@ -6,6 +6,11 @@
 
 ## Context
 
+> Update 2026-11-04: [ADR-007](ADR-007-gds-withdrawals-and-revenue-credit.md)
+> supersedes decisions 3 and 6 for the owner-approved source/dev implementation:
+> learner/instructor withdrawals, revenue credited to GDS, one manual payout admin.
+> Existing production and financial activation gates remain in force.
+
 EduAI has an authoritative Commerce payment/settlement path with PayOS and
 VNPay, a separate TMI **points** ledger, and seller identity on order lines.
 The owner requests temporary MB VietQR collection and both a learner Ví GDS

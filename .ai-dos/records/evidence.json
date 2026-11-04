@@ -10743,5 +10743,42 @@
       "taskComplete": false,
       "productionAuthorized": false
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-03-001:DEV-CHECKPOINT",
+    "taskId": "PAYW-03-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "GDS withdrawal domain and API/retry boundaries",
+        "command": "npm test -- --runInBand gds-withdrawal.domain.spec.ts gds-withdrawal.service.spec.ts gds-transaction-retry.spec.ts",
+        "reference": "Observed domain11 and API/retry19 passing local cases on dev.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Synthetic PostgreSQL withdrawal and revenue invariants",
+        "command": "npm run test:demo-data -- --runInBand gds-withdrawals-migration.spec.ts",
+        "reference": "Observed18 passing cases, including source verification, historical debt and first-activation cutoff. Runtime-role extension and real CI race tests are pending.",
+        "status": "PASS"
+      },
+      {
+        "kind": "TEST",
+        "name": "Responsive synthetic browser flows",
+        "command": "PLAYWRIGHT_SKIP_BACKEND=1 npx playwright test playwright/gds-withdrawals.spec.ts --project=chromium --no-deps",
+        "reference": "Observed14 passing instructor/admin cases across seven specified widths; synthetic HTTP fixtures, no real payout.",
+        "status": "PASS"
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-04T07:33:57.206Z",
+    "notes": "Partial source/dev checkpoint only; full suites, CI and merge/main verification pending. No production deployment, migration, activation or real transfer performed.",
+    "extensions": {
+      "scope": "SOURCE_SYNTHETIC_DEV_CHECKPOINT",
+      "taskComplete": false,
+      "productionAuthorized": false
+    }
   }
 ]
