@@ -1694,8 +1694,8 @@
     ],
     "applicability": {
       "tests": "REQUIRED",
-      "deployment": "NOT_APPLICABLE",
-      "productionVerification": "NOT_APPLICABLE"
+      "deployment": "REQUIRED",
+      "productionVerification": "REQUIRED"
     },
     "extensions": {
       "programId": "PAYW",
@@ -1707,8 +1707,11 @@
         "EduAI-Front-End-Web",
         "EduAI-Workspace"
       ],
-      "productionActivationAuthorized": false,
-      "branchStrategy": "persistent dev then verified main"
+      "productionActivationAuthorized": true,
+      "branchStrategy": "persistent dev then verified main",
+      "ownerProductionApproval": "2026-11-04",
+      "activeMinimumMinor": "10000",
+      "activeMaximumMinor": "10000000"
     }
   }
 ]

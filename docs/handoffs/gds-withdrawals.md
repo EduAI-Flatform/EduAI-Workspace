@@ -1,7 +1,7 @@
 # GDS withdrawals — dev implementation
 
-Date: 2026-11-04. State: VERIFYING. Owner requires dev validation before main,
-then validation of the exact merged main revision. Production is not activated.
+Date: 2026-11-04. Source, main verification, production deployment and activation verified.
+Withdrawals enabled for owner testing: **10,000–10,000,000 VND** per request.
 
 ## Contract
 
@@ -102,6 +102,30 @@ Actions environment and its SSH secrets. Credentials must never be logged.
   subsequent exact-main/post-merge checks are pending; neither is claimed complete.
 
 ## Release review references
+
+### Production checkpoint — 2026-11-04
+
+- Backend PR27 merged as `dd3378e743f67cea023d682c8b96d9b6298f213e`.
+  Main CI41808073901 and migration replay41808073612 passed. Automatic
+  production deploy41808073699 passed: exact deployed SHA confirmed,
+  migration postflight PASS, financialRowsChanged=0, runtime-role checks PASS.
+- Frontend PR27 merged as `cbfbe9c65f49f030360b90fd7c23e369bcfea65c`.
+  Main CI41808759596 passed all three jobs and deploy41808759494 passed;
+  exact deployed SHA confirmed in deployment logs. Local main490tests/build PASS.
+- Backend local main build and34targeted tests PASS; helper/release gates19PASS.
+- Read-only production health200, wallet page200, configuration API401
+  without authentication; Swagger advertises12withdrawal routes.
+- Activation run41808135768 initially stopped before activation with
+  MIGRATION_FINANCIAL_STATE_CHANGED between preflight snapshots. The same
+  failed job was retried once without weakening checks. Attempt2 passed all
+  jobs: deploy job126522815875 confirms exact backend SHA, migrationPostflight
+  PASS, financialRowsChanged=0 and both runtime-role checks true.
+- Activation output: changed=true, minimumMinor=10000, maximumMinor=10000000,
+  admissionEnabled=true, processingEnabled=true, version=2. The SYSTEM audit
+  and settings update committed atomically. No withdrawal request, historical
+  revenue approval or external bank transfer was created by the agent.
+- Public production health and wallet route200; settings API401 without auth.
+  Owner should sign in at `/wallet/gds` and create their own test request.
 
 - Backend: https://github.com/EduAI-Flatform/EduAI-Back-End/pull/27
 - Frontend: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/27

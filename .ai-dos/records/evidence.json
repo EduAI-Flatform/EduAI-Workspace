@@ -10816,5 +10816,43 @@
       "backendSha": "906051c97e18b3c8f08dc9a3560be9592947d284",
       "frontendSha": "502aa958941844d49c862de440f370df898786e2"
     }
+  },
+  {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-03-001:MAIN-PRODUCTION-ACTIVE",
+    "taskId": "PAYW-03-001",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Exact merged main backend and frontend checks",
+        "status": "PASS",
+        "reference": "Backend main dd3378e743f67cea023d682c8b96d9b6298f213e CI41808073901 and replay41808073612 PASS. Frontend main cbfbe9c65f49f030360b90fd7c23e369bcfea65c CI41808759596 all3jobs PASS. Local main backend34targeted cases/build and frontend490cases/build PASS."
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Owner-approved exact SHA production deployments",
+        "status": "PASS",
+        "reference": "Backend deploy41808073699 and activation deploy41808135768 attempt2 PASS; deployed SHA dd3378e743f67cea023d682c8b96d9b6298f213e. Frontend deploy41808759494 PASS; deployed SHA cbfbe9c65f49f030360b90fd7c23e369bcfea65c."
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Migration invariants and active withdrawal settings",
+        "status": "PASS",
+        "reference": "Backend job126522815875: migrationPostflight PASS; financialRowsChanged0; gdsRuntimeLeastPrivilegeReady and runtimeRoleLeastPrivilegeReady true. Settings output committed: minimumMinor10000, maximumMinor10000000, admissionEnabled=true, processingEnabled=true, version2. Health200, wallet route200, unauthenticated settings401; Swagger12withdrawal routes."
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-04T10:35:00.246Z",
+    "notes": "Owner approved schema/deployment, activation for testing, and10000VND minimum. Initial activation stopped on transient financial snapshot change; one same-job retry preserved all checks and passed. No agent-created withdrawal or external bank transfer. dev branches intentionally persistent.",
+    "extensions": {
+      "productionAuthorized": true,
+      "activationAuthorized": true,
+      "backendMainSha": "dd3378e743f67cea023d682c8b96d9b6298f213e",
+      "frontendMainSha": "cbfbe9c65f49f030360b90fd7c23e369bcfea65c",
+      "minimumMinor": "10000",
+      "maximumMinor": "10000000",
+      "externalBankTransferPerformed": false
+    }
   }
 ]

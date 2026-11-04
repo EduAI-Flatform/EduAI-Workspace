@@ -8,7 +8,7 @@
   "currentSprintId": "SPRINT:25",
   "currentTaskId": null,
   "taskStatuses": {
-    "PAYW-03-001": "IN_PROGRESS",
+    "PAYW-03-001": "DONE",
     "PAYW-02-001": "IN_PROGRESS",
     "PAYW-02-002": "TODO",
     "PAYW-02-003": "TODO",
