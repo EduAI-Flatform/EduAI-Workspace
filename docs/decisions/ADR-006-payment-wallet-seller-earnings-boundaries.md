@@ -1,5 +1,17 @@
 # ADR-006: Bank QR, Ví GDS and seller earnings boundaries
 
+## Wallet overview reporting addendum — 2026-11-05
+
+Owner-approved PAYW-03-003 adds read-only lifetime wallet metrics. Payment holds,
+pending withdrawal holds, paid withdrawals and instructor net earnings remain
+distinct; deposits/payouts never stand in for earned revenue. Existing source
+ledgers and refund semantics remain authoritative, including historical reviews.
+Use one RepeatableRead snapshot for balance and totals, with a savepoint isolating
+optional income failures. Extend the API without migration or new money writes.
+Product copy can omit internal/provider explanations while preserving actual
+pending/confirmed states and all payment-evidence checks. See
+[handoff](../handoffs/gds-wallet-redesign.md) and [design](../design/gds-wallet/DESIGN.md).
+
 **Status:** PROPOSED — PAYW-00 design gate, not approved for real money movement  
 **Date:** 2026-10-22  
 **Scope:** Payment-Wallet program `PAYW`, cross-repository
