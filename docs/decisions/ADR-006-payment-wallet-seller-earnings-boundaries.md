@@ -16,6 +16,13 @@
 > learner/instructor withdrawals, revenue credited to GDS, one manual payout admin.
 > Existing production and financial activation gates remain in force.
 
+> Update 2026-11-05: the owner authorized admin bank-app recipient checks while
+> lookup remains unavailable. See [the operator flow and evidence](../handoffs/gds-bank-verification.md#admin-manual-review-update---2026-11-05).
+> Manual TRANSFER evidence is distinct from API lookup, expires after15minutes,
+> and binds the operator before claim/QR. It cannot replace mandatory lookup or
+> a provider-verified request. Source/test scope does not authorize production
+> schema changes, provider activation, automatic payout or KYC claims.
+
 EduAI has an authoritative Commerce payment/settlement path with PayOS and
 VNPay, a separate TMI **points** ledger, and seller identity on order lines.
 The owner requests temporary MB VietQR collection and both a learner Ví GDS

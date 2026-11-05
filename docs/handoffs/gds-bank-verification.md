@@ -2,6 +2,72 @@
 
 Task `PAYW-03-002`; source starts on persistent `dev`, then review/CI.
 
+## Admin manual-review update - 2026-11-05
+
+Owner requested a usable bank-app check while lookup entitlement is absent.
+Backend dev `fb4c385bb73b52b44ee3041d2cc0d2cde1034ef5`; frontend dev
+`4f9d8b60ea585428b061b9f64c356c1f6452c9fa`. The earlier provider-only QR rule
+is superseded only when mandatory lookup is OFF and the original request has
+no provider verification snapshot. Manual checks are not API verification or KYC.
+
+Operator flow:
+
+1. Compare the saved bank, full account and holder with the bank application's
+   beneficiary. Enter the bank-returned name, explicit confirmation and note.
+   Protected/rate-limited `POST /admin/wallet/gds/withdrawals/:id/confirm-recipient`
+   records immutable `admin_manual` TRANSFER evidence and audit actor/time/reason;
+   a matching PENDING request becomes APPROVED atomically. A mismatch changes no
+   status or funds. Reject incorrect requests with a reason instead.
+2. **Nhận chuyển khoản & mở QR** claims exclusive processing after wallet/debt
+   checks. Evidence expires after15minutes and binds the current admin, request,
+   bank, account and name. Another admin must perform their own check. QR loads
+   automatically only in the claimant's PROCESSING view.
+3. Transfer in the bank app, then confirm PAID with transaction reference, actual
+   time and reconciliation note. Unknown outcomes remain PROCESSING; FAILED
+   requires established non-payment and releases the hold once. Scanning QR is
+   never proof of payment. Expired manual evidence can be refreshed by the
+   claimant without rewriting the recipient snapshot or changing funds.
+
+Policy ON or provider-verified original requests still require live lookup at
+claim and provider TRANSFER evidence. Manual evidence cannot authorize CREATE or
+bypass that policy; SQL guards enforce both. Provider outages never release
+funds or block terminal reconciliation of an already-processing transfer.
+
+Dashboard: queue first, request-scoped counts, status filters, masked lists and
+collapsed limits. Details: one amount/status header, three steps, bank/logo/copy,
+manual/provider labels, matched-name feedback, claimant QR and collapsed audit.
+Prior owner-name change accepts A-Z/spaces, uppercases/removes Vietnamese accents
+and strips digits/symbols/emoji; backend rejects malformed manual input.
+
+Stitch project `15052930607971141891`: reviewed dashboard
+`a7fe9cf2c595483490b4fa41d4727c38` and mobile detail
+`f70f9e61ba2c4ef7a1a35efa1c458e7e`. Adopt hierarchy/settings/manual check/claim;
+reject invented university affiliation, banking schedules, KYC and export rails.
+
+Migration `20261105040000_add_gds_manual_recipient_checks`, SHA256
+`6d46022b0b753701a32856ef050081c6dd77541da788cc94013fac54d83b71b4`, applied
+once to owner-confirmed TEST DB in `.env` before source rollout. Fingerprints of
+all wallet/journal/withdrawal/status-event rows unchanged. TEST remains
+10000..10000000 VND, admission/processing ON, mandatory lookup OFF. No production
+migration, activation or payout. New migration remains outside production allowlist.
+
+Local checks: frontend528tests/116files, build/typecheck,14Chromiumscenarios at
+320/375/390/412/768/1024/1440 PASS; reviewed desktop/mobile screenshots. Manual
+mismatch, explicit notes, manual-to-QR without lookup, provider flow and terminal
+QR removal covered. Backend114unit tests,48PGlite cases, build, endpoint audit
+(310routes/0implicit) and24release/runtime script checks PASS. Real PostgreSQL
+baseline-to-head replay and claim/payment races PASS in
+[run41964757149](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41964757149).
+Frontend audit: no high/critical,5preexisting moderate. Backend audit FAIL:
+2high transitive tooling findings (`picomatch`,`tmp`),8low/35moderate. No package
+or lockfile changed; track before main/production release, never claim audit PASS.
+
+Provider onboarding: [My VietQR](https://my.vietqr.io/),
+[current lookup docs](https://www.vietqr.io/tra-cuu-stk),
+[Casso contact](https://casso.vn/lien-he/). Docs announce migration to CAS Pay Out.
+Confirm endpoint/auth, eligibility, supported banks, pricing/quotas and sandbox
+acceptance first. Keys alone do not prove entitlement; keep lookup OFF.
+
 ## Integration gate — 2026-11-04
 
 Owner confirmed **no VietQR account/API lookup entitlement**. No real lookup,

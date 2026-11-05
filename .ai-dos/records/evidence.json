@@ -1,5 +1,25 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:ADMIN-MANUAL-REVIEW-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"Manual recipient review and protected QR","status":"PASS","reference":"Backend114unit tests,48PGlite invariants,24release/runtime checks,build and endpoint audit310/0implicit PASS. Frontend528tests/116files,build/typecheck and14Chromiumscenarios at7widths PASS. Manual mismatch, actor-bound claim, mandatory-provider policy, manual-to-QR without lookup and terminal recovery covered; actual desktop/mobile screenshots reviewed."},
+      {"kind":"TEST","name":"PostgreSQL baseline upgrade and races","status":"PASS","reference":"Backend exact fb4c385 replay41964757149 and CI41964757105 PASS; real Prisma/PostgreSQL synthetic claim/payment races and manual QR checks passed."},
+      {"kind":"DEPLOY","name":"Schema-first TEST deployment","status":"PASS","reference":"Applied only20261105040000_add_gds_manual_recipient_checks once to owner-confirmed TEST DB; wallet/journal/withdrawal/event fingerprints unchanged. Settings10000..10000000,admission/processingON,lookupOFF. Vercel exact4f9d8b6 success; public admin asset index-G_KGG7mo.js and confirm-recipient service observed. Renderhealth200,new protectedconfirm-recipient route401."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T04:01:54.000Z",
+    "notes":"Source/test functional evidence. Separate backend dependency audit failure is recorded below; no production schema/main promotion/provider activation/payout or newly authenticated customer UAT. Overall task remains WAITING_MANUAL.",
+    "extensions":{"taskComplete":false,"scope":"DEV_TEST_ADMIN_MANUAL_REVIEW","productionAuthorized":false,"providerEntitled":false,"backendSha":"fb4c385bb73b52b44ee3041d2cc0d2cde1034ef5","frontendSha":"4f9d8b60ea585428b061b9f64c356c1f6452c9fa","backendCiRun":41964757105,"postgresReplayRun":41964757149,"frontendCiRun":41964762202,"frontendCiResult":"PASS","vercelDeployment":"PASS","testFinancialRowsUnchanged":true,"testMigrationSha256":"6d46022b0b753701a32856ef050081c6dd77541da788cc94013fac54d83b71b4","authenticatedCustomerUat":false}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:DEPENDENCY-AUDIT-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"OTHER","name":"Backend dependency vulnerability audit","command":"npm audit --audit-level=high","status":"FAIL","reference":"2high transitive tooling dependencies: picomatch,tmp;8low/35moderate. No package.json or lockfile change in this feature. Frontend audit passes high threshold with5moderate. No forced dependency upgrade or CI bypass."}],
+    "result":"FAIL", "recordedAt":"2026-11-05T04:01:54.000Z",
+    "notes":"Record separately from functional/test success; assess and remediate through dependency maintenance before main/production promotion. No new vulnerability is attributed to the recipient-check implementation.",
+    "extensions":{"taskComplete":false,"scope":"EXISTING_BACKEND_TOOLING_DEPENDENCIES","productionAuthorized":false,"backendHighCount":2,"frontendHighCount":0}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:UNIFIED-HISTORY-20261105",
     "taskId":"PAYW-03-002",
     "checks":[{"kind":"TEST","name":"Unified wallet and withdrawal history","status":"PASS","reference":"Backend b8cb923 wallet/withdrawal25tests/build and CI41952146393/41952146243 PASS. Frontend85df0c8 local515tests/113files, build/typecheck,14Chromiumflows at7widths and CI41954617459 all3jobs PASS. Actualdesktop/mobile screenshots reviewed; stale terminal journal facts, dedup, legacy rows, failed pagination, filter/cancel and unavailable-wallet regressions covered. Vercel exactSHA deploymentPASS and publicwalletchunk contains unifiedhistory."}],

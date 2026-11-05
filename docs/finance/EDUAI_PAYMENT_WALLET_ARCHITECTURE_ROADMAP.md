@@ -1,3 +1,5 @@
+> Update 2026-11-05: GDS current limit is 10,000?10,000,000 VND (admin configurable). On dev/test, explicit bank-app recipient checks now authorize an actor-bound transfer claim and protected QR while mandatory lookup is OFF. Provider-verified requests and policy ON still require lookup. See [current workflow, migration and release evidence](../handoffs/gds-bank-verification.md#admin-manual-review-update---2026-11-05). Production migration/provider gates remain unchanged.
+
 > Update 2026-11-04: ADR-007 supersedes learner cash-out prohibition, separate seller cash balance and dual approval for the approved GDS withdrawal source implementation. Defaults 50,000?10,000,000 VND are admin-configurable. Production gates remain unchanged. See ../decisions/ADR-007-gds-withdrawals-and-revenue-credit.md.
 
 # EduAI — Kiến trúc thanh toán, Ví GDS và chia doanh thu
