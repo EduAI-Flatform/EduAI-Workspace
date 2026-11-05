@@ -1,5 +1,16 @@
 [
   {
+    "kind": "task", "schemaVersion": "1.0", "id": "PAYW-03-002",
+    "title": "GDS bank catalogue, beneficiary verification and payout QR",
+    "category": "PAYW / GDS withdrawal", "priority": "HIGH",
+    "objective": "Implement on dev without enabling live verification until provider entitlement and UAT; preserve active manual withdrawals.",
+    "dependencies": ["PAYW-03-001"],
+    "acceptanceCriteria": ["Complete searchable bank catalogue with safe logos and accessible responsive UI.", "Immutable expiring beneficiary proofs, protected exact-facts QR and financial regressions pass.", "Dev CI and review pass; source deployment and mandatory production activation remain separately gated."],
+    "verification": ["Backend/frontend focused and regression tests, builds and endpoint audit.", "PostgreSQL proof/migration/runtime races and seven-width browser verification.", "Observe dev CI and exact main checks only after schema-first release authorization."],
+    "applicability": {"tests":"REQUIRED","deployment":"NOT_APPLICABLE","productionVerification":"NOT_APPLICABLE"},
+    "extensions": {"programId":"PAYW","phaseId":"PAYW-03","source":"docs/handoffs/gds-bank-verification.md","affectedRepositories":["EduAI-Back-End","EduAI-Front-End-Web","EduAI-Workspace"],"providerEntitled":false,"productionActivationAuthorized":false,"productionSourceReleaseAuthorized":true,"ownerReportedManualFlowUatPassed":true,"branchStrategy":"persistent dev then gated verified main"}
+  },
+  {
     "kind": "task",
     "schemaVersion": "1.0",
     "id": "SPR13-001",

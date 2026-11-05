@@ -8,6 +8,7 @@
   "currentSprintId": "SPRINT:25",
   "currentTaskId": null,
   "taskStatuses": {
+    "PAYW-03-002": "WAITING_MANUAL",
     "PAYW-03-001": "DONE",
     "PAYW-02-001": "IN_PROGRESS",
     "PAYW-02-002": "TODO",
@@ -113,6 +114,7 @@
     "SPR28-004": "TODO"
   },
   "waitingManualActionIds": [
+    "MANUAL:PAYW_03_BANK_PROVIDER_RELEASE",
     "MANUAL:SPR20_003_NGINX_COMPRESSION",
     "MANUAL:SPR25_007_LIVE_PAYMENT_UAT"
   ],

@@ -1,5 +1,74 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:PRODUCTION-MANUAL-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"Exact merged main validation","status":"PASS","reference":"Backend main69db2c7659bbd956b10bc12ee81292c6cfd4c492: CI41970888520, PostgreSQL replay41970888511, local85wallet/verification cases and build PASS. Frontend main86e415457e24226750eae08535d80e3c6629ca35: CI41971381007 all3jobs, local530tests/build and14Chromium flows across7widths PASS."},
+      {"kind":"DEPLOY","name":"Schema-first production release","status":"PASS","reference":"Backend production41970888522 exact deployed SHA and migration postflight PASS; financialRowsChanged0, runtimeFinancialGuardPrivilegesBlocked=true, runtimeMembershipPrivilegesGranted=true. Frontend production41971381047 expected-SHA equality gate PASS; echoed SHA partially masked by GitHub. Both PR28 merged after owner authorization."},
+      {"kind":"PRODUCTION","name":"Public serving checks","status":"PASS","reference":"API health200, TPB logo200 image/png, protected admin settings401. Production wallet200; index-CTn3K3EB.js contains Ghi chu chuyen khoan (khong bat buoc) label, decoded and checked against actual Vietnamese text. No authenticated financial mutation or external bank transfer performed."},
+      {"kind":"TEST","name":"Resolved high dependency audit findings","status":"PASS","reference":"Backend tooling picomatch4.0.7/tmp0.2.7 overrides and reproducible lockfile pass build/tests; audit0high/0critical (6low/35moderate; runtime13moderate). Frontend0high/0critical,5moderate. Earlier recorded findings remain historical evidence."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T05:09:26.000Z",
+    "notes":"Owner reported manual-flow UAT passed and authorized main/production after optional-note fix. Paid note is optional; reference/time and other action reasons remain required. Preserve production limits/admission/processing and keep mandatory lookup OFF. Provider entitlement/UAT still pending; task is not complete. Persistent dev branches retained intentionally.",
+    "extensions":{"taskComplete":false,"scope":"PROD_SOURCE_MANUAL_WITHDRAWALS","productionAuthorized":true,"sourceDeployed":true,"providerEntitled":false,"providerActivationAuthorized":false,"externalBankTransferPerformed":false,"backendMainSha":"69db2c7659bbd956b10bc12ee81292c6cfd4c492","frontendMainSha":"86e415457e24226750eae08535d80e3c6629ca35"}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:SIMPLIFIED-APPROVAL-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"One-button approval and grouped waiting state","status":"PASS","reference":"Frontend530tests/116files,build/typecheck and14Chromiumscenarios across7widths PASS. Additional375/1440legacy approvals and grouped filter checks, final375label wrap PASS. Backend118regressions plus2additional API/provider cases PASS; focused service30PASS. No name/checkbox/note fields in approval; explicit confirmation, actor claim and final payment evidence preserved."},
+      {"kind":"TEST","name":"Exact-dev PostgreSQL replay and backend CI","status":"PASS","reference":"Backend0efec2be7625efc095a9023a270aeecee873c51d: CI41967973857 and real PostgreSQL replay41967973853 PASS. Concurrent one-button approval admits one operator; same-admin repeat adds no claim event; bank QR and paid-once races pass."},
+      {"kind":"DEPLOY","name":"Exact frontend test deployment","status":"PASS","reference":"Vercel reports success for c06f6fd3cd11c9f2ccc89a1228431cbc2d671098; public assets index-B_Yn8NPa.js contain one confirmation, Withdrawals-qboD-hIj.js contains AWAITING_TRANSFER. New approval form has no holder input. No new migration or existing DB mutation in this simplification."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T04:31:58.000Z",
+    "notes":"Latest owner instruction supersedes the earlier multi-field manual form and separate claim button. Preserve internal immutable APPROVED/PROCESSING events, expose one waiting-for-transfer state/filter. Final payment proof remains required. Existing dependency-audit findings remain separately open; no main/production promotion, provider activation, real payout or authenticated customer UAT.",
+    "extensions":{"taskComplete":false,"scope":"DEV_TEST_SIMPLIFIED_APPROVAL","productionAuthorized":false,"providerEntitled":false,"backendSha":"0efec2be7625efc095a9023a270aeecee873c51d","frontendSha":"c06f6fd3cd11c9f2ccc89a1228431cbc2d671098","backendCiRun":41967973857,"postgresReplayRun":41967973853,"frontendCiRun":41968125316,"frontendCiResult":"PASS","frontendCiJobsPassed":3,"vercelDeployment":"PASS","newMigration":false,"authenticatedCustomerUat":false}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:ADMIN-MANUAL-REVIEW-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"Manual recipient review and protected QR","status":"PASS","reference":"Backend114unit tests,48PGlite invariants,24release/runtime checks,build and endpoint audit310/0implicit PASS. Frontend528tests/116files,build/typecheck and14Chromiumscenarios at7widths PASS. Manual mismatch, actor-bound claim, mandatory-provider policy, manual-to-QR without lookup and terminal recovery covered; actual desktop/mobile screenshots reviewed."},
+      {"kind":"TEST","name":"PostgreSQL baseline upgrade and races","status":"PASS","reference":"Backend exact fb4c385 replay41964757149 and CI41964757105 PASS; real Prisma/PostgreSQL synthetic claim/payment races and manual QR checks passed."},
+      {"kind":"DEPLOY","name":"Schema-first TEST deployment","status":"PASS","reference":"Applied only20261105040000_add_gds_manual_recipient_checks once to owner-confirmed TEST DB; wallet/journal/withdrawal/event fingerprints unchanged. Settings10000..10000000,admission/processingON,lookupOFF. Vercel exact4f9d8b6 success; public admin asset index-G_KGG7mo.js and confirm-recipient service observed. Renderhealth200,new protectedconfirm-recipient route401."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T04:01:54.000Z",
+    "notes":"Source/test functional evidence. Separate backend dependency audit failure is recorded below; no production schema/main promotion/provider activation/payout or newly authenticated customer UAT. Overall task remains WAITING_MANUAL.",
+    "extensions":{"taskComplete":false,"scope":"DEV_TEST_ADMIN_MANUAL_REVIEW","productionAuthorized":false,"providerEntitled":false,"backendSha":"fb4c385bb73b52b44ee3041d2cc0d2cde1034ef5","frontendSha":"4f9d8b60ea585428b061b9f64c356c1f6452c9fa","backendCiRun":41964757105,"postgresReplayRun":41964757149,"frontendCiRun":41964762202,"frontendCiResult":"PASS","vercelDeployment":"PASS","testFinancialRowsUnchanged":true,"testMigrationSha256":"6d46022b0b753701a32856ef050081c6dd77541da788cc94013fac54d83b71b4","authenticatedCustomerUat":false}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:DEPENDENCY-AUDIT-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"OTHER","name":"Backend dependency vulnerability audit","command":"npm audit --audit-level=high","status":"FAIL","reference":"2high transitive tooling dependencies: picomatch,tmp;8low/35moderate. No package.json or lockfile change in this feature. Frontend audit passes high threshold with5moderate. No forced dependency upgrade or CI bypass."}],
+    "result":"FAIL", "recordedAt":"2026-11-05T04:01:54.000Z",
+    "notes":"Record separately from functional/test success; assess and remediate through dependency maintenance before main/production promotion. No new vulnerability is attributed to the recipient-check implementation.",
+    "extensions":{"taskComplete":false,"scope":"EXISTING_BACKEND_TOOLING_DEPENDENCIES","productionAuthorized":false,"backendHighCount":2,"frontendHighCount":0}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:UNIFIED-HISTORY-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Unified wallet and withdrawal history","status":"PASS","reference":"Backend b8cb923 wallet/withdrawal25tests/build and CI41952146393/41952146243 PASS. Frontend85df0c8 local515tests/113files, build/typecheck,14Chromiumflows at7widths and CI41954617459 all3jobs PASS. Actualdesktop/mobile screenshots reviewed; stale terminal journal facts, dedup, legacy rows, failed pagination, filter/cancel and unavailable-wallet regressions covered. Vercel exactSHA deploymentPASS and publicwalletchunk contains unifiedhistory."}],
+    "result":"PASS", "recordedAt":"2026-11-05T02:24:00.000Z",
+    "notes":"Owner confirmed previous TEST schema repair restored wallet and withdrawal controls, then requested unified history and improved design. This is source/dev UI verification; no production schema, activation or financial changes.",
+    "extensions":{"taskComplete":false,"scope":"DEV_UNIFIED_HISTORY","productionAuthorized":false,"providerEntitled":false,"backendSha":"b8cb9232b7248d51e2809634a4831c1f2902701b","frontendSha":"85df0c84ec64a6f793b2c4c861e08f48bdcd217b","frontendCiRun":41954617459,"frontendCiResult":"PASS","vercelDeployment":"PASS","ownerReportedTestWalletWorking":true,"newAuthenticatedCustomerUat":false}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:TEST-SCHEMA-REPAIR-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Confirmed TEST schema repair and read verification","status":"PASS","reference":"Prisma settings read reproduced P2021. Applied only3pending migrations to owner-confirmed TEST DB; wallet/journal fingerprints unchanged. Settings10000..10000000, admission/processingON, verificationOFF, SYSTEMaudit. Existing-wallet Prisma summary/settings readPASS under explicitUATconfig. Privacy/wallet/withdrawal30tests and buildPASS; Renderhealth200 and protectedAPIs401. Authenticated browser confirmation and new devCI pending; see handoff."}],
+    "result":"PASS", "recordedAt":"2026-11-05T01:44:03.000Z",
+    "notes":"Bounded TEST repair only; no production mutation, payment, payout or live recipient lookup. Owner's latest clarification identified TEST DB in .env; no credential values recorded.",
+    "extensions":{"taskComplete":false,"scope":"TEST_SCHEMA_REPAIR","productionAuthorized":false,"providerEntitled":false,"backendSha":"ecce03aa52a7dba04a969d771ff3da432802d947","backendCiRun":41950486094,"backendCiResult":"PASS","postgresReplayRun":41950486120,"postgresReplayResult":"PASS","financialRowsUnchanged":true,"authenticatedBrowserVerified":false}
+  },
+  {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:LOCAL-SOURCE",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Dev source, protected QR and additive schema checks","status":"PASS","reference":"Backend61 targeted wallet/bank/domain/privacy cases PASS, account verification service25 PASS, provider/config116 PASS. New migration24 PGlite cases and restricted grant5 PASS. Endpoint audit309 routes implicit0; backend build and exact dev CI/replay PASS. Frontend505tests/111files, build/typecheck and14Chromiumflows across7widths PASS. Frontend dev CI41825409163 and workspace CI41825638347 PASS; see handoff."}],
+    "result":"PASS", "recordedAt":"2026-11-04T12:02:53.000Z",
+    "notes":"Observed dev source evidence only. Source/dev checks pass; overall task awaits separate production schema approval and provider rights/UAT. No main merge, live lookup, production migration or activation.",
+    "extensions":{"taskComplete":false,"sourceDevVerified":true,"scope":"DEV_SOURCE_CI_VERIFIED","productionAuthorized":false,"providerEntitled":false,"backendSha":"2e1e2bc67970bbe36da7ff0af46167023f6a3bb2","backendCiRun":41824623549,"backendCiResult":"PASS","postgresReplayRun":41824623541,"postgresReplayResult":"PASS","frontendSha":"c5c44cf70b13ec1c893550e1110299742513044d","frontendCiRun":41825409163,"frontendCiResult":"PASS","workspaceCiRun":41825638347}
+  },
+  {
     "kind": "evidence",
     "schemaVersion": "1.0",
     "id": "EVIDENCE:SPR15-003:PRODUCTION-UAT-DEPLOYMENT-BLOCKER",

@@ -6,10 +6,29 @@
 
 ## Context
 
+> Bank selection/beneficiary lookup/QR extension: see
+> [GDS verification handoff](../handoffs/gds-bank-verification.md). Source work is
+> authorized; production lookup remains OFF because the owner has no VietQR
+> lookup entitlement. Beneficiary lookup does not establish user identity/KYC.
+
 > Update 2026-11-04: [ADR-007](ADR-007-gds-withdrawals-and-revenue-credit.md)
 > supersedes decisions 3 and 6 for the owner-approved source/dev implementation:
 > learner/instructor withdrawals, revenue credited to GDS, one manual payout admin.
 > Existing production and financial activation gates remain in force.
+
+> Update 2026-11-05: the owner authorized admin bank-app recipient checks while
+> lookup remains unavailable. See [the operator flow and evidence](../handoffs/gds-bank-verification.md#admin-manual-review-update---2026-11-05).
+> Manual TRANSFER evidence is distinct from API lookup, expires after15minutes,
+> and binds the operator before claim/QR. It cannot replace mandatory lookup or
+> a provider-verified request. Source/test scope does not authorize production
+> schema changes, provider activation, automatic payout or KYC claims.
+
+> Later owner update 2026-11-05 simplifies this to one explicit approval button.
+> The backend records an admin attestation against the saved recipient and
+> atomically approves/claims the request; no re-entered name or pre-approval note.
+> APPROVED/PROCESSING remain immutable internal history, shown as one waiting-for-
+> transfer state. Final bank payment evidence and exclusive operator checks stay
+> required. See the latest [simplified flow](../handoffs/gds-bank-verification.md#simplified-approval-update---2026-11-05).
 
 EduAI has an authoritative Commerce payment/settlement path with PayOS and
 VNPay, a separate TMI **points** ledger, and seller identity on order lines.
