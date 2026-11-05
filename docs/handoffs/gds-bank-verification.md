@@ -2,6 +2,40 @@
 
 Task `PAYW-03-002`; source starts on persistent `dev`, then review/CI.
 
+## Owner-authorized production release - 2026-11-05
+
+Owner reported the withdrawal flow passed their UAT and authorized merge/main
+and production deployment after the note fix. This supersedes earlier source
+release deferrals; provider entitlement/activation and real agent payouts are
+not authorized. Mandatory lookup stays OFF; preserve the current 10000..10000000
+limits, admission and processing settings.
+
+Final fix: **Ghi chú chuyển khoản (không bắt buộc)** is optional only for PAID.
+Bank transaction reference/time remain mandatory. The backend writes a fixed,
+truthful confirmation reason when the note is omitted/blank, preserving immutable
+event constraints. Reject/fail/cancel still require a reason through strict DTOs
+and service validation. A separate pay DTO prevents weakening other actions.
+
+Backend release head `bfe43c3c68b5ddcce8c2daadfc305161e0002385` includes notes,
+reviewed migration allowlist and tooling fixes; frontend
+`a0ebc5d37299144350adf7187d52e80bda5e5dec`. `picomatch@4` is overridden to4.0.7
+and `tmp` to0.2.7 with a reproducible lockfile. All high/critical audit findings
+are cleared (backend6low/35moderate; production-only13moderate); application
+dependencies and Nest major version remain unchanged. This resolves the earlier
+recorded high tooling findings without rewriting historical audit evidence.
+
+Pin only migrations20261104120000 and20261105040000 with their reviewed hashes
+below. Deploy backend/schema first using the existing guarded release workflow,
+verify exact main/health/runtime grants, then merge/deploy frontend and verify
+its exact main. Keep additive schema on rollback; preserve pending holds and
+terminal reconciliation, never reset data or synthesize payment evidence.
+
+Local validation: frontend530tests/build PASS,14browser scenarios pass except a
+Chromium00-second datetime fixture formatting failure at375px. Canonicalizing
+zero seconds fixed the fixture;375/1440recheck PASS. Backend221wallet/config/
+privacy tests,release/runtime scripts,build and high-threshold audit PASS.
+Post-merge CI/deployment receipts are recorded below after observation.
+
 ## Simplified approval update - 2026-11-05
 
 Latest owner direction supersedes the manual form and separate claim button below.
