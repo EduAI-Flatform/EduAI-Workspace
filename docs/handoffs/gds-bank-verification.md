@@ -143,3 +143,51 @@ environment or `.env` value was changed.
   PASS for `ecce03aa52a7dba04a969d771ff3da432802d947`. Workspace
   [CI41950625754](https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/41950625754)
   PASS for the repair receipt. Main/production release gate is unchanged.
+
+## Unified wallet history — 2026-11-05
+
+Owner confirmed that the TEST wallet and withdrawal form are visible after the
+schema repair, then requested a cleaner design with withdrawals inside the
+existing transaction history rather than a separate withdrawal-history card.
+
+The source change keeps one transaction-history surface with a withdrawal
+filter, status/detail access and existing pending-cancellation behavior. A compact
+withdrawal action replaces the large duplicate panel. Financial state transitions,
+holds, amounts, limits and beneficiary verification gates are unchanged.
+
+Summary entries add optional `withdrawalId` for the three withdrawal journal
+kinds only. The query remains wallet-owner scoped and bounded to20entries;
+unrelated order references and bank data are not exposed. Frontend groups linked
+reserve/release/paid postings under the request, while preserving legacy entries
+without a link and linked requests outside the first loaded page. All request
+history remains reachable through withdrawal pagination. No schema migration.
+
+Backend dev `b8cb9232b7248d51e2809634a4831c1f2902701b`: wallet/withdrawal25tests
+and build PASS. [CI41952146393](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41952146393)
+and [CI41952146243](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41952146243)
+PASS. Stitch refinement `77366d65d6004d85b6f31abac3a4bdae` in the same project
+was reviewed: adopt compact action/single feed/mobile row alignment; reject its
+invented NAPAS timing, university branding, saved-account and new-navigation
+claims. Frontend `85df0c84ec64a6f793b2c4c861e08f48bdcd217b` now replaces the
+duplicate panel with a compact action and one shared history component. The feed
+shows recent activity with All/Withdrawals filters, paginates all requests, keeps
+detail/cancel actions and masks accounts. Pending amounts are held, paid amounts
+are debits, cancelled/rejected/failed amounts are neutral with money returned.
+Explicit status tones distinguish pending/processing/paid/terminal outcomes.
+
+Review regressions cover stale pending requests superseded by terminal journal
+facts, equal-timestamp terminal priority, legacy links, out-of-page request IDs,
+failed-page stale-row suppression and cancellation after switching filters.
+Ordinary topup/payment history and bank forms remain intact. Final local515tests
+in113files, build/typecheck and14Chromiumflows across320/375/390/412/768/1024/1440
+PASS. Root reviewed actual375/1440screenshots. Audit gate PASS with zero
+high/critical and five preexisting moderate findings; no dependency change.
+The unavailable-wallet regression preserves one original balance error, an
+unavailable-history message, no invented zero and disabled topup; its existing
+browser test and a new unit regression PASS. Final
+[frontend CI41954617459](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/41954617459)
+passes all3jobs including checkout/PWA browsers. Vercel reports success for the
+exact final frontend SHA. Public test `/wallet/gds` returns200 and serves
+`index-BTHkMhI2.js` / `GdsWalletPage-DlxjvJd8.js` containing the unified history.
+This confirms deployment assets, not a new authenticated customer UAT session.
+No new DB migration or production change. Main release remains separately gated.

@@ -1,5 +1,13 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:UNIFIED-HISTORY-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Unified wallet and withdrawal history","status":"PASS","reference":"Backend b8cb923 wallet/withdrawal25tests/build and CI41952146393/41952146243 PASS. Frontend85df0c8 local515tests/113files, build/typecheck,14Chromiumflows at7widths and CI41954617459 all3jobs PASS. Actualdesktop/mobile screenshots reviewed; stale terminal journal facts, dedup, legacy rows, failed pagination, filter/cancel and unavailable-wallet regressions covered. Vercel exactSHA deploymentPASS and publicwalletchunk contains unifiedhistory."}],
+    "result":"PASS", "recordedAt":"2026-11-05T02:24:00.000Z",
+    "notes":"Owner confirmed previous TEST schema repair restored wallet and withdrawal controls, then requested unified history and improved design. This is source/dev UI verification; no production schema, activation or financial changes.",
+    "extensions":{"taskComplete":false,"scope":"DEV_UNIFIED_HISTORY","productionAuthorized":false,"providerEntitled":false,"backendSha":"b8cb9232b7248d51e2809634a4831c1f2902701b","frontendSha":"85df0c84ec64a6f793b2c4c861e08f48bdcd217b","frontendCiRun":41954617459,"frontendCiResult":"PASS","vercelDeployment":"PASS","ownerReportedTestWalletWorking":true,"newAuthenticatedCustomerUat":false}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:TEST-SCHEMA-REPAIR-20261105",
     "taskId":"PAYW-03-002",
     "checks":[{"kind":"TEST","name":"Confirmed TEST schema repair and read verification","status":"PASS","reference":"Prisma settings read reproduced P2021. Applied only3pending migrations to owner-confirmed TEST DB; wallet/journal fingerprints unchanged. Settings10000..10000000, admission/processingON, verificationOFF, SYSTEMaudit. Existing-wallet Prisma summary/settings readPASS under explicitUATconfig. Privacy/wallet/withdrawal30tests and buildPASS; Renderhealth200 and protectedAPIs401. Authenticated browser confirmation and new devCI pending; see handoff."}],
