@@ -39,6 +39,7 @@
   ],
   "status": "DRAFT",
   "extensions": {
+    "gdsWalletHistory":{"taskId":"PAYW-03-004","source":"docs/handoffs/gds-wallet-history.md","productionSourceReleaseAuthorized":true,"newFinancialWrites":false},
     "gdsWalletOverview":{"taskId":"PAYW-03-003","source":"docs/handoffs/gds-wallet-redesign.md","productionSourceReleaseAuthorized":true,"newFinancialWrites":false,"migrationRequired":false},
     "gdsBankVerification": {"taskId":"PAYW-03-002","source":"docs/handoffs/gds-bank-verification.md","providerEntitled":false,"mandatoryProductionEnabled":false,"schemaFirstApprovalRequired":true},
     "gdsWithdrawalSourceProgram": {"taskId":"PAYW-03-001","ownerStart":"2026-11-04","decision":"docs/decisions/ADR-007-gds-withdrawals-and-revenue-credit.md","productionAuthorized":false,"note":"Separate owner-approved PAYW source extension; Phase 3 financial release state is preserved."},

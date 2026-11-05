@@ -1,5 +1,15 @@
 [
   {
+    "kind":"task","schemaVersion":"1.0","id":"PAYW-03-004",
+    "title":"Compact wallet totals and complete paginated activity","category":"PAYW / Wallet UX","priority":"HIGH",
+    "objective":"Remove redundant balance/history controls and enable all activity filters beyond the recent20 window, with correct lifetime totals.",
+    "dependencies":["PAYW-03-003"],
+    "acceptanceCriteria":["Only available balance and positive holds shown; deposit/payment/withdrawal totals are distinct and authoritative.","Every filter pages through owner-scoped activity without duplicate withdrawal effects or account disclosure.","Dev CI, exact-main tests and backend-first production verification pass."],
+    "verification":["PostgreSQL keyset/tie/owner/masking and totals regressions; frontend error/race and seven-width browser tests.","Builds, endpoint audit, dev/main CI and production receipts."],
+    "applicability":{"tests":"REQUIRED","deployment":"REQUIRED","productionVerification":"REQUIRED"},
+    "extensions":{"source":"docs/handoffs/gds-wallet-history.md","productionSourceReleaseAuthorized":true,"providerActivationAuthorized":false,"migrationRequired":false}
+  },
+  {
     "kind":"task", "schemaVersion":"1.0", "id":"PAYW-03-003",
     "title":"GDS wallet overview, income metrics and product copy",
     "category":"PAYW / Wallet UX", "priority":"HIGH",

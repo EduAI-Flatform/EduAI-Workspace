@@ -1,5 +1,14 @@
 # EduAI wallet design — 2026-11-05
 
+## Approved compact refinement (PAYW-03-004)
+Supersedes the original overview's3actions and total-balance display below:
+only Nạp tiền/Rút tiền actions, no Tổng số dư. Show each hold only when positive;
+no empty metric divider. Available balance remains the primary number. A full-width
+strip shows total credited deposits, captured GDS payments and paid withdrawals.
+All activity filters use the same incremental Show more control. Remove the
+first20 cap/instruction and separate withdrawal-only pagination. TMI/income/debt
+remain distinct. Preserve the reviewed palette/type/spacing and seven-width QA.
+
 Daily-use wallet with restrained digital-art details. Follow the approved mobile
 reference, existing typography and blue/navy/white theme; no new navigation.
 
