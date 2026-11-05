@@ -5,7 +5,7 @@
     "checks":[{"kind":"TEST","name":"Confirmed TEST schema repair and read verification","status":"PASS","reference":"Prisma settings read reproduced P2021. Applied only3pending migrations to owner-confirmed TEST DB; wallet/journal fingerprints unchanged. Settings10000..10000000, admission/processingON, verificationOFF, SYSTEMaudit. Existing-wallet Prisma summary/settings readPASS under explicitUATconfig. Privacy/wallet/withdrawal30tests and buildPASS; Renderhealth200 and protectedAPIs401. Authenticated browser confirmation and new devCI pending; see handoff."}],
     "result":"PASS", "recordedAt":"2026-11-05T01:44:03.000Z",
     "notes":"Bounded TEST repair only; no production mutation, payment, payout or live recipient lookup. Owner's latest clarification identified TEST DB in .env; no credential values recorded.",
-    "extensions":{"taskComplete":false,"scope":"TEST_SCHEMA_REPAIR","productionAuthorized":false,"providerEntitled":false,"backendSha":"ecce03a","financialRowsUnchanged":true,"authenticatedBrowserVerified":false}
+    "extensions":{"taskComplete":false,"scope":"TEST_SCHEMA_REPAIR","productionAuthorized":false,"providerEntitled":false,"backendSha":"ecce03aa52a7dba04a969d771ff3da432802d947","backendCiRun":41950486094,"backendCiResult":"PASS","postgresReplayRun":41950486120,"postgresReplayResult":"PASS","financialRowsUnchanged":true,"authenticatedBrowserVerified":false}
   },
   {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:LOCAL-SOURCE",

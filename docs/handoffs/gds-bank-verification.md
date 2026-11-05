@@ -138,4 +138,8 @@ environment or `.env` value was changed.
 - Backend dev `ecce03a` adds safe `DATABASE_SCHEMA_OUTDATED` classification for
   Prisma P2021/P2022 and a schema-first Render runbook. Regression first failed
   before the change; final privacy/wallet/withdrawal30tests and build PASS.
-  Remote CI pending at this checkpoint. Main/production release gate is unchanged.
+  Backend [CI41950486094](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41950486094)
+  and [PostgreSQL replay41950486120](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41950486120)
+  PASS for `ecce03aa52a7dba04a969d771ff3da432802d947`. Workspace
+  [CI41950625754](https://github.com/EduAI-Flatform/EduAI-Workspace/actions/runs/41950625754)
+  PASS for the repair receipt. Main/production release gate is unchanged.
