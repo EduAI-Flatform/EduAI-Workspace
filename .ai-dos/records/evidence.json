@@ -1,5 +1,13 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:TEST-SCHEMA-REPAIR-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[{"kind":"TEST","name":"Confirmed TEST schema repair and read verification","status":"PASS","reference":"Prisma settings read reproduced P2021. Applied only3pending migrations to owner-confirmed TEST DB; wallet/journal fingerprints unchanged. Settings10000..10000000, admission/processingON, verificationOFF, SYSTEMaudit. Existing-wallet Prisma summary/settings readPASS under explicitUATconfig. Privacy/wallet/withdrawal30tests and buildPASS; Renderhealth200 and protectedAPIs401. Authenticated browser confirmation and new devCI pending; see handoff."}],
+    "result":"PASS", "recordedAt":"2026-11-05T01:44:03.000Z",
+    "notes":"Bounded TEST repair only; no production mutation, payment, payout or live recipient lookup. Owner's latest clarification identified TEST DB in .env; no credential values recorded.",
+    "extensions":{"taskComplete":false,"scope":"TEST_SCHEMA_REPAIR","productionAuthorized":false,"providerEntitled":false,"backendSha":"ecce03a","financialRowsUnchanged":true,"authenticatedBrowserVerified":false}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:LOCAL-SOURCE",
     "taskId":"PAYW-03-002",
     "checks":[{"kind":"TEST","name":"Dev source, protected QR and additive schema checks","status":"PASS","reference":"Backend61 targeted wallet/bank/domain/privacy cases PASS, account verification service25 PASS, provider/config116 PASS. New migration24 PGlite cases and restricted grant5 PASS. Endpoint audit309 routes implicit0; backend build and exact dev CI/replay PASS. Frontend505tests/111files, build/typecheck and14Chromiumflows across7widths PASS. Frontend dev CI41825409163 and workspace CI41825638347 PASS; see handoff."}],

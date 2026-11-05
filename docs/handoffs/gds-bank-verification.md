@@ -110,3 +110,32 @@ Source/dev verification is ready for review; overall task remains WAITING_MANUAL
 new production schema authorization and provider rights/UAT. No main merge,
 post-merge check or live integration is claimed. All three `dev` branches are
 intentional persistent integration branches; no temporary branch was merged.
+
+## TEST schema repair — 2026-11-05
+
+Owner reported Vercel/Render wallet500 and no withdrawal form; after initially
+saying Render used another database, owner clarified that the TEST DB is in the
+backend `.env`. Operations used that confirmed TEST connection only; no production
+environment or `.env` value was changed.
+
+- Read-only reproduction: Prisma settings read failed `P2021`. TEST had exactly
+  three pending migrations: runtime projection hardening, withdrawals and account
+  verifications. Missing settings/debt schema blocks wallet summary; frontend
+  consequently hides the withdrawal panel. Build success had not migrated TEST.
+- Applied those three reviewed migrations. Before/after fingerprints of existing
+  wallet balances/status and the complete journal were equal. No reset, seed,
+  topup, withdrawal request, historical revenue approval or payout was performed.
+- TEST settings now version2: minimum10000, maximum10000000, admission/processing
+  true, mandatory verification false. Atomic SYSTEM audit records this scoped
+  repair/enablement. Provider entitlement remains absent and lookup stays OFF.
+- Exact Prisma wallet/settings reads now PASS on the confirmed DB using explicit
+  UAT capability configuration: READY_SANDBOX, readable balance and
+  withdrawalEnabled=true. Used an existing wallet; no wallet was initialized.
+- Public Vercel bundle points at `eduai-back-end.onrender.com`; Render `/health`
+  returns200 and unauthenticated wallet/settings return401. Browser access host
+  is unavailable, so authenticated Render/Vercel UI confirmation was requested
+  from the owner and is not claimed from these checks alone.
+- Backend dev `ecce03a` adds safe `DATABASE_SCHEMA_OUTDATED` classification for
+  Prisma P2021/P2022 and a schema-first Render runbook. Regression first failed
+  before the change; final privacy/wallet/withdrawal30tests and build PASS.
+  Remote CI pending at this checkpoint. Main/production release gate is unchanged.
