@@ -36,6 +36,27 @@ zero seconds fixed the fixture;375/1440recheck PASS. Backend221wallet/config/
 privacy tests,release/runtime scripts,build and high-threshold audit PASS.
 Post-merge CI/deployment receipts are recorded below after observation.
 
+### Production backend receipt
+
+- Backend PR28 merged as `69db2c7659bbd956b10bc12ee81292c6cfd4c492`.
+  Main CI41970888520 and PostgreSQL replay41970888511 PASS. Production workflow
+  [41970888522](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/41970888522)
+  PASS; deployedBackendSha exactly matches main. Reviewed migration postflight
+  PASS, financialRowsChanged=0, runtimeFinancialGuardPrivilegesBlocked=true and
+  runtimeMembershipPrivilegesGranted=true. No admission/limit/lookup activation
+  command was requested; deployment used preserve settings.
+- Public production health200, bank-logo endpoint200(image/png), protected
+  admin settings401. No authenticated production financial mutation performed.
+- Local checkout of the exact backend main passed85wallet/verification tests
+  and build after merge. Source branch dev is intentionally persistent.
+- Frontend PR28 merged as `86e415457e24226750eae08535d80e3c6629ca35` only after
+  backend rollout/health. Exact local main530tests/build and14Chromium scenarios
+  at all7widths PASS, including empty paid notes. Production workflow41971381047
+  PASS, as did main CI41971381007 (all3jobs). The deployment's expected-SHA
+  equality gate passed; the echoed SHA is partially masked by GitHub. Public
+  production wallet returns200 and serves index-CTn3K3EB.js with the optional
+  transfer-note label. No authenticated production payout was submitted.
+
 ## Simplified approval update - 2026-11-05
 
 Latest owner direction supersedes the manual form and separate claim button below.

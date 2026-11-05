@@ -1,5 +1,18 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:PRODUCTION-MANUAL-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"Exact merged main validation","status":"PASS","reference":"Backend main69db2c7659bbd956b10bc12ee81292c6cfd4c492: CI41970888520, PostgreSQL replay41970888511, local85wallet/verification cases and build PASS. Frontend main86e415457e24226750eae08535d80e3c6629ca35: CI41971381007 all3jobs, local530tests/build and14Chromium flows across7widths PASS."},
+      {"kind":"DEPLOY","name":"Schema-first production release","status":"PASS","reference":"Backend production41970888522 exact deployed SHA and migration postflight PASS; financialRowsChanged0, runtimeFinancialGuardPrivilegesBlocked=true, runtimeMembershipPrivilegesGranted=true. Frontend production41971381047 expected-SHA equality gate PASS; echoed SHA partially masked by GitHub. Both PR28 merged after owner authorization."},
+      {"kind":"PRODUCTION","name":"Public serving checks","status":"PASS","reference":"API health200, TPB logo200 image/png, protected admin settings401. Production wallet200; index-CTn3K3EB.js contains Ghi chu chuyen khoan (khong bat buoc) label, decoded and checked against actual Vietnamese text. No authenticated financial mutation or external bank transfer performed."},
+      {"kind":"TEST","name":"Resolved high dependency audit findings","status":"PASS","reference":"Backend tooling picomatch4.0.7/tmp0.2.7 overrides and reproducible lockfile pass build/tests; audit0high/0critical (6low/35moderate; runtime13moderate). Frontend0high/0critical,5moderate. Earlier recorded findings remain historical evidence."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T05:09:26.000Z",
+    "notes":"Owner reported manual-flow UAT passed and authorized main/production after optional-note fix. Paid note is optional; reference/time and other action reasons remain required. Preserve production limits/admission/processing and keep mandatory lookup OFF. Provider entitlement/UAT still pending; task is not complete. Persistent dev branches retained intentionally.",
+    "extensions":{"taskComplete":false,"scope":"PROD_SOURCE_MANUAL_WITHDRAWALS","productionAuthorized":true,"sourceDeployed":true,"providerEntitled":false,"providerActivationAuthorized":false,"externalBankTransferPerformed":false,"backendMainSha":"69db2c7659bbd956b10bc12ee81292c6cfd4c492","frontendMainSha":"86e415457e24226750eae08535d80e3c6629ca35"}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:SIMPLIFIED-APPROVAL-20261105",
     "taskId":"PAYW-03-002",
     "checks":[
