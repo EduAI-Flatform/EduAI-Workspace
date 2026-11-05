@@ -2,6 +2,50 @@
 
 Task `PAYW-03-002`; source starts on persistent `dev`, then review/CI.
 
+## Simplified approval update - 2026-11-05
+
+Latest owner direction supersedes the manual form and separate claim button below.
+Backend dev `0efec2be7625efc095a9023a270aeecee873c51d`; frontend dev
+`c06f6fd3cd11c9f2ccc89a1228431cbc2d671098` (includes functional change38d9838).
+
+- One explicit **Xác nhận đúng & duyệt** button posts `{confirmed:true}`.
+  No repeated beneficiary-name entry, checkbox or pre-approval reconciliation note.
+  Server records the admin's attestation against the saved recipient snapshot,
+  actor/time and a fixed audit reason. This is manual attestation, not an
+  independently looked-up name. Old optional name/note fields remain compatible.
+- In one financial transaction, refresh revenue/refunds, check wallet/debt,
+  record appropriate evidence, approve and claim exclusive processing. QR opens
+  immediately on success. A failed check rolls back all steps. Repeating the
+  same admin's request never repeats approval/claim events or journal effects;
+  another operator is blocked. Provider-mandatory policy remains enforced and
+  requires a real lookup outside the financial lock before the transaction.
+- User-facing states are **Chờ duyệt / Chờ chuyển khoản / Đã chuyển khoản**,
+  plus cancellation/rejection/failure outcomes. Preserve immutable stored
+  APPROVED/PROCESSING events and old requests; both display the same waiting
+  state and color. Consecutive same-admin approval/claim timeline entries are
+  presented once. No schema or existing DB update needed.
+- A single status selector replaces duplicated filter controls. Query
+  `status=AWAITING_TRANSFER` includes APPROVED and PROCESSING with matching
+  pagination/count; legacy raw status filters remain compatible. Legacy APPROVED
+  requests use **Xác nhận đúng & mở QR**; fresh PROCESSING requests resume QR.
+- **Đã chuyển khoản** opens final bank reference/time/reconciliation evidence.
+  Those payment facts and failure/unknown-outcome handling remain required;
+  only the earlier recipient-check inputs were removed.
+
+Local verification: frontend530tests/116files and build PASS; backend118regression
+cases plus2additional API/provider cases PASS (focused service30PASS), build PASS.
+14Chromiumscenarios across7widths PASS; added375/1440legacy-approval and grouped
+filter scenarios PASS, final375mobile step wrapping reviewed/PASS. No dependencies
+changed; the separate existing backend audit findings below remain open.
+
+Exact backend CI41967973857 and PostgreSQL replay41967973853 PASS. Final frontend
+CI41968125316 passes all3jobs, including PWA and embedded-checkout regressions.
+Vercel exact c06f6fd deployment PASS; public `index-B_Yn8NPa.js` contains the
+single confirmation and `Withdrawals-qboD-hIj.js` the grouped filter. Render
+OpenAPI/read health remain available; no new authenticated customer UAT claimed.
+Source stays on persistent dev. No main/production promotion, live lookup or
+real payout; no new migration. Existing dependency audit findings remain open.
+
 ## Admin manual-review update - 2026-11-05
 
 Owner requested a usable bank-app check while lookup entitlement is absent.

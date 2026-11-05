@@ -1,5 +1,17 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:SIMPLIFIED-APPROVAL-20261105",
+    "taskId":"PAYW-03-002",
+    "checks":[
+      {"kind":"TEST","name":"One-button approval and grouped waiting state","status":"PASS","reference":"Frontend530tests/116files,build/typecheck and14Chromiumscenarios across7widths PASS. Additional375/1440legacy approvals and grouped filter checks, final375label wrap PASS. Backend118regressions plus2additional API/provider cases PASS; focused service30PASS. No name/checkbox/note fields in approval; explicit confirmation, actor claim and final payment evidence preserved."},
+      {"kind":"TEST","name":"Exact-dev PostgreSQL replay and backend CI","status":"PASS","reference":"Backend0efec2be7625efc095a9023a270aeecee873c51d: CI41967973857 and real PostgreSQL replay41967973853 PASS. Concurrent one-button approval admits one operator; same-admin repeat adds no claim event; bank QR and paid-once races pass."},
+      {"kind":"DEPLOY","name":"Exact frontend test deployment","status":"PASS","reference":"Vercel reports success for c06f6fd3cd11c9f2ccc89a1228431cbc2d671098; public assets index-B_Yn8NPa.js contain one confirmation, Withdrawals-qboD-hIj.js contains AWAITING_TRANSFER. New approval form has no holder input. No new migration or existing DB mutation in this simplification."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T04:31:58.000Z",
+    "notes":"Latest owner instruction supersedes the earlier multi-field manual form and separate claim button. Preserve internal immutable APPROVED/PROCESSING events, expose one waiting-for-transfer state/filter. Final payment proof remains required. Existing dependency-audit findings remain separately open; no main/production promotion, provider activation, real payout or authenticated customer UAT.",
+    "extensions":{"taskComplete":false,"scope":"DEV_TEST_SIMPLIFIED_APPROVAL","productionAuthorized":false,"providerEntitled":false,"backendSha":"0efec2be7625efc095a9023a270aeecee873c51d","frontendSha":"c06f6fd3cd11c9f2ccc89a1228431cbc2d671098","backendCiRun":41967973857,"postgresReplayRun":41967973853,"frontendCiRun":41968125316,"frontendCiResult":"PASS","frontendCiJobsPassed":3,"vercelDeployment":"PASS","newMigration":false,"authenticatedCustomerUat":false}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:ADMIN-MANUAL-REVIEW-20261105",
     "taskId":"PAYW-03-002",
     "checks":[

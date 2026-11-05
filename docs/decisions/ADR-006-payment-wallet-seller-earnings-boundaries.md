@@ -23,6 +23,13 @@
 > a provider-verified request. Source/test scope does not authorize production
 > schema changes, provider activation, automatic payout or KYC claims.
 
+> Later owner update 2026-11-05 simplifies this to one explicit approval button.
+> The backend records an admin attestation against the saved recipient and
+> atomically approves/claims the request; no re-entered name or pre-approval note.
+> APPROVED/PROCESSING remain immutable internal history, shown as one waiting-for-
+> transfer state. Final bank payment evidence and exclusive operator checks stay
+> required. See the latest [simplified flow](../handoffs/gds-bank-verification.md#simplified-approval-update---2026-11-05).
+
 EduAI has an authoritative Commerce payment/settlement path with PayOS and
 VNPay, a separate TMI **points** ledger, and seller identity on order lines.
 The owner requests temporary MB VietQR collection and both a learner Ví GDS
