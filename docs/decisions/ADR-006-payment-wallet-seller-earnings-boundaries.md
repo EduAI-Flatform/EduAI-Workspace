@@ -1,5 +1,14 @@
 # ADR-006: Bank QR, Ví GDS and seller earnings boundaries
 
+## Complete history addendum — 2026-11-05
+PAYW-03-004 adds owner-scoped, read-only keyset activity and gross lifetime
+deposit/payment totals. A withdrawal lifecycle has one request row, not separate
+spending rows for hold/release/paid postings. Requests sort by immutable creation
+time; cursors retain microsecond precision and bind owner/filter/version. New
+activity is visible on refresh. Existing summary fields remain compatible even
+though the UI removes total balance and the redundant history-scroll action.
+No schema or financial-write change; see [handoff](../handoffs/gds-wallet-history.md).
+
 ## Wallet overview reporting addendum — 2026-11-05
 
 Owner-approved PAYW-03-003 adds read-only lifetime wallet metrics. Payment holds,

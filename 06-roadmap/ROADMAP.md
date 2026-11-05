@@ -1,5 +1,9 @@
 # Version Roadmap
 
+GDS refinement `PAYW-03-004` released2026-11-05: compact balance, lifetime
+deposit/payment/withdrawal totals and full filtered activity pagination.
+See [handoff](../docs/handoffs/gds-wallet-history.md).
+
 GDS overview `PAYW-03-003` released2026-11-05: mobile/desktop redesign, snapshot
 lifetime metrics and copy cleanup; main/production checks PASS. See
 [handoff](../docs/handoffs/gds-wallet-redesign.md).

@@ -1,5 +1,44 @@
 [
   {
+    "kind": "evidence",
+    "schemaVersion": "1.0",
+    "id": "EVIDENCE:PAYW-03-004:PRODUCTION-20261105",
+    "taskId": "PAYW-03-004",
+    "checks": [
+      {
+        "kind": "TEST",
+        "name": "Dev and exact-main history/financial regressions",
+        "status": "PASS",
+        "reference": "Backend dev eefe3fa CI42011270280/replay42011270229 and main21906fd CI42012059796/replay42012059833 PASS; local107tests/12SQL cases/build/311-route authorization audit PASS. Frontend dev dcc716f CI42012611862/42012621929 PASS; exact main b3c6c04 local542tests/118files/build and39Chromium scenarios across seven widths PASS. Source/test review verified owner/cursor/masking, exact microsecond ties, filters, retry, late responses and refresh after balance changes. Audits have zero high/critical. Frontend exact-main CI42013424399 all3jobs observed success."
+      },
+      {
+        "kind": "DEPLOY",
+        "name": "Backend-first exact revision deployments",
+        "status": "PASS",
+        "reference": "Backend PR30 main21906fdce2b09950251c258582aae70c4e35ec5c deploy42012060030 PASS. Frontend PR30 mainb3c6c04585ace31b3e38dfcd70a47f1f5f7b653c deploy42013424409 PASS; deployedFrontendSha exact. No new migration or policy activation."
+      },
+      {
+        "kind": "PRODUCTION",
+        "name": "Public serving and data invariants",
+        "status": "PASS",
+        "reference": "Backend migrationPostflight PASS,financialRowsChanged0,runtimeFinancialGuardPrivilegesBlocked=true,runtimeMembershipPrivilegesGranted=true. Health200; protected transactions401. Wallet200; index-CvT8ZPxk.js and10linked chunks expose all four new totals/history labels, obsolete total-balance label absent. No authenticated customer financial mutation or real payout performed."
+      }
+    ],
+    "result": "PASS",
+    "recordedAt": "2026-11-05T10:50:23.594Z",
+    "notes": "Owner authorized dev/main/recheck and source production rollout. Provider entitlement/activation remains pending under PAYW-03-002. Existing release gates preserved; persistent dev branches retained. Exact-main frontend CI42013424399 all3jobs PASS.",
+    "extensions": {
+      "taskComplete": true,
+      "scope": "PRODUCTION_COMPACT_WALLET_FULL_HISTORY",
+      "productionSourceReleaseAuthorized": true,
+      "providerActivationAuthorized": false,
+      "financialRowsChanged": 0,
+      "externalBankTransferPerformed": false,
+      "backendMainSha": "21906fdce2b09950251c258582aae70c4e35ec5c",
+      "frontendMainSha": "b3c6c04585ace31b3e38dfcd70a47f1f5f7b653c"
+    }
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-003:PRODUCTION-20261105",
     "taskId":"PAYW-03-003",
     "checks":[
