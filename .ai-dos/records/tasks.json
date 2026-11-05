@@ -1,5 +1,16 @@
 [
   {
+    "kind":"task", "schemaVersion":"1.0", "id":"PAYW-03-003",
+    "title":"GDS wallet overview, income metrics and product copy",
+    "category":"PAYW / Wallet UX", "priority":"HIGH",
+    "objective":"Implement approved wallet redesign and lifetime read-only metrics on dev, verify main and release backend before frontend.",
+    "dependencies":["PAYW-03-001"],
+    "acceptanceCriteria":["Blue/navy/white wallet and modal topup work at seven widths with accessible states.","Owner-scoped snapshot metrics distinguish holds, debt, net earnings and lifetime paid withdrawals without financial writes.","User/admin copy removes internals; regressions, review, CI and exact production source checks pass."],
+    "verification":["Wallet/revenue PostgreSQL invariants, unit/browser regressions and builds.","Exact dev/main CI and backend-first receipts; workspace conformance."],
+    "applicability":{"tests":"REQUIRED","deployment":"REQUIRED","productionVerification":"REQUIRED"},
+    "extensions":{"source":"docs/handoffs/gds-wallet-redesign.md","productionSourceReleaseAuthorized":true,"providerActivationAuthorized":false,"branchStrategy":"persistent dev then verified main"}
+  },
+  {
     "kind": "task", "schemaVersion": "1.0", "id": "PAYW-03-002",
     "title": "GDS bank catalogue, beneficiary verification and payout QR",
     "category": "PAYW / GDS withdrawal", "priority": "HIGH",

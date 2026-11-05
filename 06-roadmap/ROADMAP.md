@@ -1,5 +1,9 @@
 # Version Roadmap
 
+GDS overview `PAYW-03-003` released2026-11-05: mobile/desktop redesign, snapshot
+lifetime metrics and copy cleanup; main/production checks PASS. See
+[handoff](../docs/handoffs/gds-wallet-redesign.md).
+
 GDS enhancement `PAYW-03-002`: full searchable bank catalogue, beneficiary proof
 and protected payout QR on dev. Provider rights/UAT and a new schema-first release
 gate precede mandatory lookup. See [handoff](../docs/handoffs/gds-bank-verification.md).

@@ -1,5 +1,17 @@
 [
   {
+    "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-003:PRODUCTION-20261105",
+    "taskId":"PAYW-03-003",
+    "checks":[
+      {"kind":"TEST","name":"Reviewed dev and exact-main regressions","status":"PASS","reference":"Backend dev d23cd7fd6fe9fa3b364e8ad3d0b98ca2e4760d0a CI41999575122/replay41999575105 PASS; main78e70a2b263aa5b1f9fc3227dcbde919a82dd51a CI42000060072/replay42000060130 PASS, local83tests/build. Frontend dev943764231b0d2c0199edc39298d66706ec3c1500 CI42001701998 all3jobs PASS; main4cc188e5787adf49e799404b846900716b919af4 CI42002410486 all3jobs PASS, local540tests/117files/build and38Chromium wallet scenarios at seven widths PASS.25receipt/2embedded/18return-membership cases also verified. Independent reviews addressed; bundle budget and zero-high/critical audit gates PASS."},
+      {"kind":"DEPLOY","name":"Authorized backend-first source deployments","status":"PASS","reference":"Backend https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/42000060078 PASS; expected SHA equality matches main (echo partially masked), migrationPostflight PASS, financialRowsChanged0, runtimeFinancialGuardPrivilegesBlocked=true/runtimeMembershipPrivilegesGranted=true. Frontend https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/42002410504 PASS; deployedFrontendSha4cc188e5787adf49e799404b846900716b919af4. Both PR29 merged after dev CI; no migration or flags change."},
+      {"kind":"PRODUCTION","name":"Public revision and serving checks","status":"PASS","reference":"API health200, protected wallet401, TPB logo200 image/png. Production /wallet/gds200, entry index-UOWAXZQ6.js;10linked JS assets checked, all6required wallet labels found, none of3obsolete internal-copy labels. Exact merged revisions verified through production workflow equality guards. No authenticated production payout or financial mutation performed."}
+    ],
+    "result":"PASS", "recordedAt":"2026-11-05T09:29:59.000Z",
+    "notes":"Owner explicitly approved this plan including dev/main/recheck and backend-first production rollout. Separate provider entitlement/activation remains pending under PAYW-03-002. No financial policy, lookup flags, migration, historical revenue credit or external transfer. Persistent dev branches intentionally retained.",
+    "extensions":{"taskComplete":true,"scope":"PROD_SOURCE_WALLET_OVERVIEW","productionSourceReleaseAuthorized":true,"providerActivationAuthorized":false,"financialRowsChanged":0,"externalBankTransferPerformed":false,"backendMainSha":"78e70a2b263aa5b1f9fc3227dcbde919a82dd51a","frontendMainSha":"4cc188e5787adf49e799404b846900716b919af4"}
+  },
+  {
     "kind":"evidence", "schemaVersion":"1.0", "id":"EVIDENCE:PAYW-03-002:PRODUCTION-MANUAL-20261105",
     "taskId":"PAYW-03-002",
     "checks":[
