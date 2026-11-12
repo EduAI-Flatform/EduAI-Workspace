@@ -1,5 +1,7 @@
 # GDS release preflight — 2026-11-12
 
+Historical preflight checkpoints follow. The owner subsequently approved the exact production sequence; [PRODUCTION-RECEIPT.md](PRODUCTION-RECEIPT.md) records actual merges, execution, recovery and cleanup.
+
 The owner authorized continuing the GDS production release and clarified that the financial gate must not be used as a blanket blocker for this approved plan. `SPR25-007` applies to its existing financial activation scope; it does not prohibit GDS branding, account/authentication, configuration, profile, support or course source release.
 
 The owner subsequently approved all remaining actions in direct response to the exact nine-table/17-column runtime matrix question, and additionally authorized deletion of tables/columns where needed to retain only used functionality. That deletion scope preserves the original purchased-access/balance/history invariants. The parent reviewed the same proposed helper against the explicit question, response and source matrix; automatic approval accepted that exact source patch after this evidence review. No indirect alternative was used to apply the previously rejected operation.
