@@ -1,6 +1,6 @@
 # GDS production rollout — 2026-11-12
 
-Status: DONE for the scoped GDS source/production release. This receipt supersedes earlier execution-boundary statements in the preflight and implementation history. Canonical financial records are unchanged. Approval/contract-dependent business activation remains separate as required by the original plan.
+Overall plan: VERIFYING. The scoped base source/production release and certificate-cache fix are delivered; this is not acceptance of every original phase. This receipt supersedes earlier execution-boundary statements in the preflight and implementation history. Canonical financial records are unchanged. Approval/contract-dependent business activation remains separate as required by the original plan.
 
 The owner replied “cho phép” to the explicit sequence: temporarily pause backend auto-CD, merge backend #31, create a private backup, apply the seven reviewed migrations and bounded runtime grants, initialize MFA safely, restore the previous auto-CD setting, then merge/deploy frontend #31. Automatic review accepted the scoped command after that direct approval. No alternative tool was used to bypass the earlier rejection.
 
@@ -53,3 +53,17 @@ All wallet top-up, checkout and withdrawal workflow inputs remain `preserve`. No
 Admin configuration is available at `/admin/dashboard/platform-settings` through existing Admin permissions. Branding/navigation can be managed there; business policies retain drafts, validation, impact preview, approval, versions and effective dates. Activity-point/school adapters, top-up qualification and sub-affiliate remain unavailable until their actual contracts and supported policies exist. Invoice requests remain an intake workflow, not automatic invoice issuance.
 
 The canonical non-cash TMI ledger is presented as GDS Point without changing internal API names/routes, balances, history, redemption rules or enabling the prospective activity-point policy. Eleven dead legacy sales/source files and the unused large PNG were removed earlier; all eleven remaining historical membership/entitlement tables have live consumers, so they were retained. No destructive schema/data operation was justified or performed.
+
+## Certificate cache incident — 2026-11-12
+
+The owner reported dev displaying GDS while production still showed EduAI inside the certificate illustration. Production origin already returned the GDS SVG, but `/demo-assets/certificate-preview.svg` retained its public URL and was served with `Cache-Control: max-age=2592000, public, no-transform` (30 days). A fresh application bundle could therefore render an old independently cached image. Earlier clean-browser smoke did not exercise this returning-visitor state.
+
+Frontend [PR #33](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/33), candidate `69e7044bd45d2c1a00ab880d55a8034ecc1e1883`, imports the SVG through Vite's asset graph in all three consumers. The production build embeds this small SVG, so its URL/content changes with the build; larger assets would receive a content-hashed URL. The previous public URL remains available for older open clients. Authentication, user storage, cache strategy, APIs and database are unchanged.
+
+The regression seeds the service worker's image cache with the old EduAI SVG, reloads the production build and checks the actual displayed image contents. Before the fix it failed because the rendered response contained `EDUAI LEARNING PLATFORM`; after the fix it passed on Chromium and WebKit. Build/typecheck and three HomePage tests also passed. A separate anonymous production reproduction with synthetic local cache failed with `LEGACY_CERTIFICATE_CACHE_STILL_VISIBLE` before deployment. PR CI/release verification remains pending at this checkpoint.
+
+This incident does not change the overall-plan boundary: the base production release is deployed, while authenticated production UAT and original plan stages 5/6 integration/conversion work remain pending. State now distinguishes the overall plan from the delivered base release.
+
+All six PR checks subsequently passed. The cache fix merged at frontend main `f6ae9928ce8c0b9a4c1cf131b100537f33784156`; [production deploy](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/43183677205) and [post-merge CI](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/43183677201) succeeded. The same anonymous production cache reproduction now passed with `gdsCertificate=true`, `legacyCachePreserved=true` and `delivery=build_embedded_svg`. No cache/storage clearing was used. The actual certificate screenshot was visually inspected and displays GDS in both the platform line and seal. Sanitized artifacts: `D:/Work/Edu-AI/.codex-artifacts/gds-production/certificate-cache-receipt.json` and `certificate-cache-fixed.png`.
+
+Local/remote frontend main match that merge SHA and the tree is clean. `fix/gds-certificate-cache` was deleted remotely/locally after deployment, warm-cache verification, post-merge CI and ancestry checks, then refs were pruned. The certificate cache incident is resolved; overall plan status remains VERIFYING.
