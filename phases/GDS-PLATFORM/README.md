@@ -6,6 +6,8 @@ Status: IN_PROGRESS. This is not a production deployment authorization.
 
 Latest integration: source verification passed; delivery remains VERIFYING pending authenticated PR/CI workflow. See [implementation receipt](IMPLEMENTATION-RECEIPT.md) for coverage, counts and release prerequisites.
 
+Phase dossier: [tasks](TASKS.md), [acceptance](ACCEPTANCE.md), [test plan](TEST-PLAN.md), [Stitch references](UI-STITCH.md). Backend/frontend draft PR #31 are now open after explicit owner authorization of GitHub authentication. Production remains separately gated.
+
 ## Required outcomes
 
 - Independent multi-device sessions with 30-day refresh and coordinated refresh.

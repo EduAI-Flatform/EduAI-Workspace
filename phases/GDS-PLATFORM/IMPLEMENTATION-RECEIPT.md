@@ -83,4 +83,15 @@ Workspace evidence checkpoint `f3994efdd41ac6493abf2074f90c801eca820f32` was als
 
 Unauthenticated public GitHub metadata reports a successful frontend deployment status and successful `Vercel Preview Comments` check. No backend check runs were returned. These are not substitutes for required PR-triggered test/CI gates, which have not been verified.
 
-Source-control delivery remains VERIFYING. Git transport is available, but portable GitHub CLI has no authenticated account and local browser access is disabled. Automatic approval rejected extracting Git's stored credential for API use because that credential access was not specifically authorized. No attempt was made to bypass the rejection. PR/CI/merge verification and eventual merged-branch cleanup require an approved authenticated GitHub interface. No branch has been merged or deleted.
+Source-control delivery remains VERIFYING. The owner explicitly authorized use of the existing GitHub credential on 2026-11-12 after the initial automatic approval rejection. GitHub CLI now authenticates through a process-scoped token without printing it or storing it in source. No persistent credential or environment configuration was changed. Backend and frontend draft PR #31 are open and remote CI is running. No source branch has been merged or deleted.
+
+## Authenticated PR/CI continuation — 2026-11-12
+
+- Backend PR: https://github.com/EduAI-Flatform/EduAI-Back-End/pull/31
+- Frontend PR: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/31
+- Initial backend CI: https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43134543543
+- Initial migration replay: https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43134543451
+- Initial frontend CI: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/43134545108
+- Workspace local conformance and layout checks passed.
+- CI integration is updating the replay pending set from15 to22 while retaining the65-migration baseline and adding GDS-specific regression coverage. Results remain pending.
+- Source merge is held: frontend .github/workflows/deploy-production.yml automatically deploys on main pushes. The current authorization covers source/PR/CI, not that production action.
