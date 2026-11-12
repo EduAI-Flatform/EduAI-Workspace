@@ -15,6 +15,15 @@ The owner authorized continuing the GDS production release and clarified that th
 
 Actual deployment, backup, database migration, repository-variable change and runtime grants have not been performed during this preflight. Frontend code remains at its already-green PR candidate while backend release tooling is extended and tested.
 
+### Observed source/CI evidence
+
+- Backend release-tooling commit: `42a9eaf6c428c2f0726483e40b1eb9da52d736e1`, pushed to the existing backend PR #31.
+- Local targeted release checks: 40 passed, two platform-specific Windows skips; syntax, YAML parsing and diff checks passed. Existing reconciliation/role Jest tests also passed (30 tests).
+- Independent read-only review found no actionable defects in the backup/workflow scope; this review did not approve the rejected runtime grant change.
+- [Real PostgreSQL CI replay](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43141371700) passed, including all schema upgrades, concurrent withdrawals and a real private custom-format backup of the disposable CI database. The archive was 1,647,861 bytes, with SHA256 `72a628371038c8f077e3f658a53c21f5b9e9c192cb712be23f926ac178c1d4d4`; archive listing validation succeeded. This is CI evidence, not a production backup.
+- [Backend CI](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43141371721) passed the full source regression and new schema/backup safeguards; remaining legacy regression/build steps are still running at this receipt.
+- `scripts/membership-runtime-privileges.cjs` remains unchanged from the prior candidate after the automatic grant rejection. No equivalent helper, raw SQL command or indirect privilege operation was executed.
+
 ## Concrete runtime permission decision
 
 Automatic approval review rejected adding persistent grants without approval of their exact scope. The rejected helper patch was not applied, including indirectly. This is a database-permission approval boundary, not an application of `SPR25-007`.
