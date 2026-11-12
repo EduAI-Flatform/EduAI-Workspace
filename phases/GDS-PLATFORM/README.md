@@ -4,7 +4,7 @@ Owner authorized source implementation of the GDS plan on 2026-11-11.
 
 Status: IN_PROGRESS. This is not a production deployment authorization.
 
-Latest integration: all backend/frontend PR CI checks passed; both PRs are ready for review. Delivery remains VERIFYING because source merges trigger production deployment and require separate release authorization. See [implementation receipt](IMPLEMENTATION-RECEIPT.md) for coverage, counts and release prerequisites.
+Latest integration: the original backend/frontend candidates passed PR CI. The owner has now authorized continuing the GDS production release; [release preflight](RELEASE-PREFLIGHT.md) records the narrow migration/backup path and exact runtime database permissions awaiting explicit approval after automatic review rejected that grant step. Release-tooling CI is running on the updated backend head. Delivery remains VERIFYING.
 
 Phase dossier: [tasks](TASKS.md), [acceptance](ACCEPTANCE.md), [test plan](TEST-PLAN.md), [Stitch references](UI-STITCH.md). Backend/frontend PR #31 are open after explicit owner authorization of GitHub authentication. Workspace evidence is tracked in PR #30. Production remains separately gated.
 
