@@ -1,5 +1,7 @@
 # GDS source integration receipt
 
+Current production status and source merges are recorded in [PRODUCTION-RECEIPT.md](PRODUCTION-RECEIPT.md). Execution-boundary statements below reflect their earlier source checkpoints.
+
 Updated: 2026-11-12 (Asia/Saigon). Status: VERIFYING. This receipt does not authorize production changes.
 
 ## Requirement coverage

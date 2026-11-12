@@ -2,11 +2,11 @@
 
 Owner authorized source implementation of the GDS plan on 2026-11-11.
 
-Status: IN_PROGRESS. This is not a production deployment authorization.
+Status: DONE for the scoped GDS source/production release. The owner explicitly authorized the controlled sequence on 2026-11-12. See [production receipt](PRODUCTION-RECEIPT.md) for deployment, verification and cleanup; earlier source/preflight statements are historical checkpoints.
 
-Latest integration: the original backend/frontend candidates passed PR CI. The owner has now authorized continuing the GDS production release; [release preflight](RELEASE-PREFLIGHT.md) records the narrow migration/backup path and exact runtime database permissions awaiting explicit approval after automatic review rejected that grant step. Release-tooling CI is running on the updated backend head. Delivery remains VERIFYING.
+Latest integration: backend #31/#32/#33 and frontend #31/#32 are merged and deployed with green post-merge checks. The controlled release created a verified private backup, applied reviewed migrations/grants, initialized MFA safely and restored auto-CD. Real public-browser smoke passed the official logo, all eight palette colors, GDS Point label/artwork, VI/EN, seven widths, backend health and anonymous profile protection. Merged source branches are cleaned. Policy activation and external integrations retain the original approval/contract conditions; existing balances, history and purchased access are preserved.
 
-Phase dossier: [tasks](TASKS.md), [acceptance](ACCEPTANCE.md), [test plan](TEST-PLAN.md), [Stitch references](UI-STITCH.md). Backend/frontend PR #31 are open after explicit owner authorization of GitHub authentication. Workspace evidence is tracked in PR #30. Production remains separately gated.
+Phase dossier: [tasks](TASKS.md), [acceptance](ACCEPTANCE.md), [test plan](TEST-PLAN.md), [Stitch references](UI-STITCH.md). Current source and production evidence supersedes historical checkpoints in Workspace PRs #30–32.
 
 ## Required outcomes
 
