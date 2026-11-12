@@ -1,6 +1,6 @@
 # Authenticated GDS production acceptance
 
-Status: PARTIAL. These are actual production reads with existing synthetic test identities, separate from fixture-based browser tests. No financial or policy mutation is accepted by this record.
+Status: PARTIAL. These are actual production checks with existing synthetic test identities, separate from fixture-based browser tests. Bounded unchanged-policy lifecycle acceptance is recorded below; no financial activation is included.
 
 Fresh synthetic student, instructor and administrator logins passed all four existing sanitized authentication setup checks on 2026-11-12. Existing navigation/RBAC checks at 320/1440 px passed twelve of fourteen cases initially; two mobile learner console-error assertions failed during rollout. Subsequent bounded diagnostics across fifteen learner routes were clean, and both failed assertions passed unchanged on targeted rerun. The transient root cause remains unproven; initial failures are retained in [point release evidence](POINT-RELEASE.md).
 
@@ -8,6 +8,8 @@ The account-focused read-only pass exercised all three roles on `/profile`, `/bi
 
 Admin point settings returned HTTP 200 using the synthetic Admin identity with `activationReady=true`, supported `course.completed`, and the existing point policy still disabled. The deployed explanation passed VI/EN at all seven widths with no writes/page errors. See `.codex-artifacts/gds-production/admin-point-readonly.json` and [the release receipt](POINT-RELEASE.md).
 
-Still required: bounded reversible non-financial acceptance for drafts/impact/approval/effective-date/cancellation, account edits/uploads, invoice/support creation and Admin handling, MFA/recovery, draft course preview and post-video quiz/learning mutations. Existing synthetic fixture tests cover many of these behaviors but do not establish live integration acceptance. Financial activation remains separate; do not create a real money transaction merely to complete a checklist.
+Still required: bounded reversible non-financial acceptance for account edits/uploads, invoice/support creation and Admin handling, MFA/recovery, draft course preview and post-video quiz/learning mutations. Existing synthetic fixture tests cover many of these behaviors but do not establish live integration acceptance. Financial activation remains separate; do not create a real money transaction merely to complete a checklist.
 
 The deployed legacy reconciliation GET endpoint also passed the live role matrix on 2026-11-12: student/instructor 403, anonymous 401, Admin nonexistent order 404 and malformed UUID 400. The opaque request probe reuses existing authenticated requests without extracting credentials and issues only GETs. Artifact: `.codex-artifacts/gds-production/legacy-report-readonly.json`. This verifies access/validation/runtime-query boundaries, not a production historical-order reconciliation result.
+
+Actual inventory source/API/UI and the unchanged disabled-point draft/preview/approve/future-schedule/cancel lifecycle subsequently passed after the discovered JSONB comparison defect was corrected. Effective point settings/version stayed unchanged; the test revision is cancelled. The initial interrupted draft was separately cancelled. A short-lived synthetic test-token logging error was contained by session logout, verified old-access rejection (401), and sanitized/drained request handling. Full evidence, aggregate legacy-data observations, exact revisions and remaining scope are in [INVENTORY-CONTINUATION.md](INVENTORY-CONTINUATION.md).
