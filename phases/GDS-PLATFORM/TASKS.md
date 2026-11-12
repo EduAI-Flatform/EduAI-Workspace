@@ -2,6 +2,8 @@
 
 Consolidated from the owner-approved plan and observed source evidence on 2026-11-12. This dossier does not claim these files predated implementation.
 
+Overall plan: VERIFYING. Source implementation/release checks below do not replace authenticated production UAT. Original plan stage 5 (partner/activity adapters, task GDS-06) and stage 6 (card/legacy conversion, task GDS-07) remain incomplete; business activation still depends on supported, approved policies. A deployed release must not be reported as completion of all original phases.
+
 | Task | Dependency | Observed state |
 |---|---|---|
 | GDS-00 Requirements, asset inventory and reviewed Stitch families | Owner plan | Source/design evidence recorded |
