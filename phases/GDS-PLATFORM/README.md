@@ -12,6 +12,8 @@ Current continuation: [card qualification, benefit impact and partner onboarding
 
 ## Required outcomes
 
+Latest acceptance continuation: actual fresh-login MFA/recovery passed with the synthetic account restored; restricted real PostgreSQL support/image/partner/invoice processing passed; native Chromium video completion/replay now verifies a single quiz prompt without creating an attempt. Backend PR46 and frontend PR39 are merged, deployed and cleaned after green final-head/post-merge checks. See [authenticated UAT](AUTHENTICATED-UAT.md), [request integration](REQUEST-INTEGRATION.md) and [course authoring](COURSE-AUTHORING.md). Production media/account uploads and learning persistence remain separate unproven cases; the overall plan stays VERIFYING.
+
 Service-limit runtime and native Admin/catalog/learner controls are now deployed through backend PR45 and frontend PR38, with exact-head/post-merge CI and actual read-only production acceptance. Admin can add custom tiers; actual business quotas remain unconfigured/inactive. See [service-limit release evidence](SERVICE-LIMITS.md). This supersedes earlier runtime-not-implemented notes, while the original plan remains VERIFYING for remaining live integration acceptance.
 
 - Independent multi-device sessions with 30-day refresh and coordinated refresh.

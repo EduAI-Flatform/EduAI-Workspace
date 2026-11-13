@@ -10,8 +10,8 @@ Overall plan: VERIFYING. Source implementation/release checks below do not repla
 | GDS-01 Multi-device sessions and coordinated refresh | GDS-00 | Tests/CI passed; backend/frontend source deployed |
 | GDS-02 Admin policy lifecycle and VI/EN foundation | GDS-01 | Tests/CI passed; backend/frontend deployed; public locale/config checks passed |
 | GDS-03 GDS brand, navigation and public shell | GDS-02 | Official logo/palette integrated; frontend PR CI passed |
-| GDS-04 Profile, Billing, settings, MFA and private support | GDS-02/03 | Local checks and responsive fixtures passed |
-| GDS-05 Rich descriptions, draft preview and post-video quiz | GDS-02/03 | Source tests and eight Chromium scenarios passed |
+| GDS-04 Profile, Billing, settings, MFA and private support | GDS-02/03 | Actual account read-only/bio and fresh-login MFA acceptance passed; restricted real PostgreSQL support/image/partner/invoice intake passed; remaining production upload/request acceptance is separate |
+| GDS-05 Rich descriptions, draft preview and post-video quiz | GDS-02/03 | Source tests, actual private author draft acceptance and nine local Chromium scenarios including trusted native video completion/replay passed; production media upload/learning persistence remains separate |
 | GDS-06 Partners, applications and activities | GDS-02/03 | Intake/review, VI/EN onboarding and strict activity schedule validation delivered; actual school adapters follow a future partner contract |
 | GDS-07 Card classification and preservation of legacy access | GDS-02 | Spend/top-up classification, arbitrary Admin tiers, consumed-quota impact, governed service-limit runtime and native Admin/learner/catalog controls deployed with PostgreSQL and production read-only evidence; actual business terms remain inactive, historical dependency cleanup requires continued audit |
 | GDS-08 Affiliate attribution, funded wallet integration and recovery | GDS-02/07 | Local integrity checks and real PostgreSQL CI replay passed |

@@ -51,6 +51,12 @@ implementing the toolbar, preview and post-video quiz controls.
 
 ## Security review and limits
 
+### Native media playback follow-up - 2026-11-13
+
+Frontend PR39 candidate `3e0f4cf2615470190854c28fa633ba779775c51b` adds a real Chromium playback case. The browser records a tiny local WebM, plays it through the native video element to a trusted `ended` event, and plays it again. Exactly one quiz invitation remains visible and no quiz attempt is created. The media duration is finite and positive. All nine authoring browser cases (the existing seven responsive cases and denial case plus this new case) and TypeScript passed locally; the 390px English screenshot was visually inspected. APIs remain intercepted with synthetic fixtures: this proves native media/UI integration, not production upload, storage, quiz submission or learning persistence. The first new case failed because its accessible-name selector used a mistyped Vietnamese label; the snapshot already contained the real prompt and trusted end event. Explicit English locale/label corrected the test without application changes. PR CI and remote-main verification remain separate gates.
+
+Terminal receipt: PR CI `43394662481` and Vercel preview passed before merge. PR39 merged as `f7b985651bd371609729f60ee6fe1f491725e962`; fetched remote main matched the tested candidate tree exactly. Main CI `43395115459` and automatic deployment `43395115648` passed. The merged temporary branch was deleted remotely and locally and stale references pruned. This release changes tests only; application behavior, schema, policies and purchased rights are unchanged.
+
 Author preview uses `findCourseDetailOrThrow` and existing management authority.
 The managed lesson endpoint checks ownership; existing media retrieval checks
 MANAGE/PUBLIC_PREVIEW/FULL_LEARNING before issuing signed media URLs. Other
