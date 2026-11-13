@@ -60,3 +60,5 @@ Browser APIs were intercepted with synthetic data; no real account, production
 course, financial write or production database was used. Video completion was
 simulated using a DOM ended event, not a full real-media playback test. No DB
 migration or legacy table deletion is part of this increment.
+
+Subsequent actual production acceptance on2026-11-13 verified one owned synthetic private draft's creation, formatted author-preview API/UI, inert HTML, anonymous404/401 boundary and all seven responsive widths, followed by archive of that exact owned draft. An earlier probe-contract mistake also created a private synthetic draft, which was recovered by exact owned marker/content and archived before rerunning. No publication/enrollment/progress/provider operation occurred. See [authenticated UAT](AUTHENTICATED-UAT.md) for full failure/recovery accounting and sanitized receipts. Real media/post-video quiz and upload acceptance remain unproven.
