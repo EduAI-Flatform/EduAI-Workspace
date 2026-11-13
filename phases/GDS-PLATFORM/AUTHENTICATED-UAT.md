@@ -8,7 +8,9 @@ The account-focused read-only pass exercised all three roles on `/profile`, `/bi
 
 Admin point settings returned HTTP 200 using the synthetic Admin identity with `activationReady=true`, supported `course.completed`, and the existing point policy still disabled. The deployed explanation passed VI/EN at all seven widths with no writes/page errors. See `.codex-artifacts/gds-production/admin-point-readonly.json` and [the release receipt](POINT-RELEASE.md).
 
-Still required: bounded reversible non-financial acceptance for account edits/uploads, invoice/support creation and Admin handling, MFA/recovery, draft course preview and post-video quiz/learning mutations. Existing synthetic fixture tests cover many of these behaviors but do not establish live integration acceptance. Financial activation remains separate; do not create a real money transaction merely to complete a checklist.
+Still required: bounded reversible non-financial acceptance for remaining account edits/uploads, invoice/support creation and Admin handling, MFA/recovery, draft course preview and post-video quiz/learning mutations. Existing synthetic fixture tests cover many of these behaviors but do not establish live integration acceptance. Financial activation remains separate; do not create a real money transaction merely to complete a checklist.
+
+Synthetic student bio save, reload persistence and exact original restoration subsequently passed with two bounded PUTs, no unexpected writes and unchanged public visibility. This accepts that specific account-edit flow only. See [PACKAGE-RETIREMENT.md](PACKAGE-RETIREMENT.md) for source release and acceptance scope.
 
 The deployed legacy reconciliation GET endpoint also passed the live role matrix on 2026-11-12: student/instructor 403, anonymous 401, Admin nonexistent order 404 and malformed UUID 400. The opaque request probe reuses existing authenticated requests without extracting credentials and issues only GETs. Artifact: `.codex-artifacts/gds-production/legacy-report-readonly.json`. This verifies access/validation/runtime-query boundaries, not a production historical-order reconciliation result.
 
