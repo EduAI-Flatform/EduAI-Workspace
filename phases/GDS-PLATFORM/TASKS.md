@@ -13,7 +13,7 @@ Overall plan: VERIFYING. Source implementation/release checks below do not repla
 | GDS-04 Profile, Billing, settings, MFA and private support | GDS-02/03 | Local checks and responsive fixtures passed |
 | GDS-05 Rich descriptions, draft preview and post-video quiz | GDS-02/03 | Source tests and eight Chromium scenarios passed |
 | GDS-06 Partners, applications and activities | GDS-02/03 | Intake/review, VI/EN onboarding and strict activity schedule validation delivered; actual school adapters follow a future partner contract |
-| GDS-07 Card classification and preservation of legacy access | GDS-02 | Spend/top-up classification and tier/benefit impact delivered with real PostgreSQL verification; historical entitlement migration and benefit fulfillment remain pending |
+| GDS-07 Card classification and preservation of legacy access | GDS-02 | Spend/top-up classification, arbitrary Admin tiers, consumed-quota impact, governed service-limit runtime and native Admin/learner/catalog controls deployed with PostgreSQL and production read-only evidence; actual business terms remain inactive, historical dependency cleanup requires continued audit |
 | GDS-08 Affiliate attribution, funded wallet integration and recovery | GDS-02/07 | Local integrity checks and real PostgreSQL CI replay passed |
 | GDS-09 Remote PR/CI delivery and cross-repository release review | GDS-01 through 08 | DONE; final PR/post-merge checks passed; remote main verified; merged source branches cleaned |
 | GDS-10 Production release and actual migrations | GDS-09 + scoped release approvals | DONE for scoped release; backup, controlled migration/grants/MFA, backend/frontend deploy and final public smoke passed |

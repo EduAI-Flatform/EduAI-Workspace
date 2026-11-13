@@ -12,6 +12,8 @@ Current continuation: [card qualification, benefit impact and partner onboarding
 
 ## Required outcomes
 
+Service-limit runtime and native Admin/catalog/learner controls are now deployed through backend PR45 and frontend PR38, with exact-head/post-merge CI and actual read-only production acceptance. Admin can add custom tiers; actual business quotas remain unconfigured/inactive. See [service-limit release evidence](SERVICE-LIMITS.md). This supersedes earlier runtime-not-implemented notes, while the original plan remains VERIFYING for remaining live integration acceptance.
+
 - Independent multi-device sessions with 30-day refresh and coordinated refresh.
 - Versioned administrator-managed policies, impact preview, approval and effective dates.
 - GDS branding, navigation, system-wide VI/EN, account and support workflows.
