@@ -1,5 +1,7 @@
 # Legacy access and card benefit continuation
 
+Current reading note (2026-11-14): this file records historical dependency checkpoints. Later `SERVICE-LIMITS.md` supersedes the structured service-quota work below; `INVENTORY-CONTINUATION.md` records the actual bounded historical inventory. Necessary fulfillment/refund/access/history consumers remain; no table is proven removable merely by these later feature releases. Use `PLAN-COMPLETION-AUDIT.md` for remaining verification rather than treating every historical next-step note as still unimplemented.
+
 Status: IN_PROGRESS. Source inventory at backend `e05aa95b34daf4f35f74289294cb32788d0d33e3`; this is not a production data reconciliation or a completed migration.
 
 The public membership checkout endpoint already returns `410 MEMBERSHIP_SALES_RETIRED`. Existing membership purchases still have fulfillment, refund, access, service-quota and revenue consumers. Card evaluation currently returns `entitlementMigrationApplied: false`; its localized benefit strings are explanatory metadata, not executable grants.
