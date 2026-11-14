@@ -2,6 +2,8 @@
 
 Status: PARTIAL. These are actual production checks with existing synthetic test identities, separate from fixture-based browser tests. Bounded unchanged-policy lifecycle acceptance is recorded below; no financial activation is included.
 
+Private lesson media acceptance passed on2026-11-14, including native browser file selection, real R2 upload/CORS/finalization, actual owner-preview video playback, anonymous denial, seven widths and verified storage cleanup. Three synthetic private drafts across two passing cases and one interrupted probe are archived; two lessons are soft-deleted and both uploaded objects removed. No publication/enrollment/progress/quiz/financial writes occurred. Full source/request counts, probe-selector failure and scope limits are in [lesson media UAT](LESSON-MEDIA-UAT.md).
+
 ### Real profile project image upload and cleanup - 2026-11-13
 
 Native production acceptance passed at09:06:54Z using the existing synthetic student: create one uniquely marked project with a tiny generated16x16 PNG, reload the profile, decode/display the stored image, check no horizontal overflow at320/375/390/412/768/1024/1440, then delete that exact owned project. A cache-busted read of the media URL returned404 after storage deletion. Fresh profile/project reads matched the original cover/Bio/visibility and original project-ID set. The passing run made two bounded source mutations, no refreshes, no unexpected writes/page errors and no financial request. Sanitized receipt: `.codex-artifacts/gds-production/portfolio-upload.json`; cleanup state: `portfolio-upload-pending.json` is deleted. Existing avatar/cover images were never replaced. This proves the native portfolio/shared image-storage path, not avatar/cover upload or lesson-video storage.
