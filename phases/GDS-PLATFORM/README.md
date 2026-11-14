@@ -12,6 +12,8 @@ Current continuation: [card qualification, benefit impact and partner onboarding
 
 ## Required outcomes
 
+Actual private lesson media acceptance subsequently passed through both API/storage and native browser file-picker/CORS paths, with owner-preview playback, anonymous denial and verified deletion/archive of the synthetic media/lessons/drafts. See [lesson media UAT](LESSON-MEDIA-UAT.md). This supersedes the pending lesson-video upload note below without claiming a full learner/quiz lifecycle.
+
 Latest acceptance continuation: actual fresh-login MFA/recovery and real portfolio image upload/reload/storage cleanup passed. Native video testing exposed precision and checkpoint defects, now fixed through frontend PR40; backend PR47 verifies actual PostgreSQL progress persistence/reload/replay and unchanged purchased grants. Both releases passed final-head/post-merge checks and deployment; temporary branches are cleaned. See [authenticated UAT](AUTHENTICATED-UAT.md), [request integration](REQUEST-INTEGRATION.md), [course authoring](COURSE-AUTHORING.md) and [video progress](VIDEO-PROGRESS.md). Production avatar/cover/lesson-media uploads and a full uploaded-video learner/quiz flow remain separate unproven cases; the overall plan stays VERIFYING.
 
 Service-limit runtime and native Admin/catalog/learner controls are now deployed through backend PR45 and frontend PR38, with exact-head/post-merge CI and actual read-only production acceptance. Admin can add custom tiers; actual business quotas remain unconfigured/inactive. See [service-limit release evidence](SERVICE-LIMITS.md). This supersedes earlier runtime-not-implemented notes, while the original plan remains VERIFYING for remaining live integration acceptance.
