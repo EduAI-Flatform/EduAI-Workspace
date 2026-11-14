@@ -12,6 +12,8 @@ Current continuation: [card qualification, benefit impact and partner onboarding
 
 ## Required outcomes
 
+Governed Admin defaults for new quizzes and backend instructor override restrictions are released, with actual read-only Admin/instructor acceptance in VI/EN at seven widths. The same check exposed and verified a fix for unread-badge overflow at 320 px. See [quiz defaults](QUIZ-DEFAULTS.md). Partner catalog connection-status configuration remains a concrete source gap; approving a partner application does not prove API/SSO connectivity.
+
 Actual private lesson media acceptance subsequently passed through both API/storage and native browser file-picker/CORS paths, with owner-preview playback, anonymous denial and verified deletion/archive of the synthetic media/lessons/drafts. See [lesson media UAT](LESSON-MEDIA-UAT.md). This supersedes the pending lesson-video upload note below without claiming a full learner/quiz lifecycle.
 
 Latest acceptance continuation: actual fresh-login MFA/recovery and real portfolio image upload/reload/storage cleanup passed. Native video testing exposed precision and checkpoint defects, now fixed through frontend PR40; backend PR47 verifies actual PostgreSQL progress persistence/reload/replay and unchanged purchased grants. Both releases passed final-head/post-merge checks and deployment; temporary branches are cleaned. See [authenticated UAT](AUTHENTICATED-UAT.md), [request integration](REQUEST-INTEGRATION.md), [course authoring](COURSE-AUTHORING.md) and [video progress](VIDEO-PROGRESS.md). Production avatar/cover/lesson-media uploads and a full uploaded-video learner/quiz flow remain separate unproven cases; the overall plan stays VERIFYING.
