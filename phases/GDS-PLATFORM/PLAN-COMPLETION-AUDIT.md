@@ -53,7 +53,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P1.2 | Refresh and replay instead of immediately clearing any401 | FE `api-client.refresh.test.ts` renew-once, retry and definitive-rejection boundaries | EVIDENCE |
 | P1.3 | Concurrent and cross-tab rotation coordination | Browser-wide lock/recheck test and BE consumed-token rejection | EVIDENCE |
 | P1.4 | Per-device logout/revocation; one device cannot log out others | OPEN: matching-row unit test is insufficient for concurrent rotation/logout and legacy prefix ambiguity. Fresh-context review requires explicit session-family semantics and database interleavings | OPEN |
-| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately |30-day JWT expiry is tested; soft-deletion denial is in the first corrective slice, while exact legacy-token binding and revoke-all/MFA revision fencing remain to implement | OPEN |
+| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately |30-day expiry/soft-deletion denial, PR51 stale-MFA rejection and PR52 common revoke-all fence are proven with PostgreSQL schedules and production ordinary renewal. Exact legacy-token binding, primary-authentication epoch and atomic MFA proof/issuance remain open | OPEN |
 | P1.6 | Offline keeps session/retry state | FE temporary-refresh failure, new-login/logout race protection | EVIDENCE |
 
 ## Stage 2 — brand, navigation and localization
@@ -141,7 +141,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | R01 | Keep response shape; typed policy/preview/apply and reuse existing feature modules | Existing controllers/DTOs and compatibility helpers; no new envelope or duplicate wallet | EVIDENCE |
 | R02 | API authorization independent of hidden menu/flags | Admin JWT/role controller, owner-scoped request/order/affiliate APIs; inspect complete role matrix receipt | REVIEW |
 | R03 | Additive migration → data/compare → remove consumers → justified drops | Reviewed migration/replay/backup receipts and retained historical dependencies; no unsupported drop | EVIDENCE |
-| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 rows; FE coordination, first-slice PostgreSQL slow-proof/rollback and retained-session recovery pass. Inherited revocation/family/MFA gaps still require database concurrency coverage and implementation | OPEN |
+| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 rows; FE coordination, PostgreSQL slow-proof/rollback and14 PR52 refresh/revoker schedules plus inverse/last-admin concurrency pass. Atomic MFA proof/issuance, primary-authentication epoch, exact-token binding and family logout remain unproven | OPEN |
 | R05 | Invalid config/permission/version/effective date/purchased rights tests | Typed validation, policy lifecycle, actual disabled-policy UAT and real PostgreSQL grant invariants | EVIDENCE |
 | R06 | Rank/point/commission boundaries/duplicate/refund/conversion tests | Evaluator suites and real database concurrency/recovery/inventory receipts | EVIDENCE |
 | R07 | Rich text/draft/quiz/upload/cross-user tests | Course/request/profile tests and scoped browser/storage acceptance; P3/P4 reviews remain | REVIEW |

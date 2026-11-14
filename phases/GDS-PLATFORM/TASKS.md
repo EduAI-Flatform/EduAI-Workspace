@@ -7,7 +7,7 @@ Overall plan: VERIFYING. The original-plan itemized audit is `PLAN-COMPLETION-AU
 | Task | Dependency | Observed state |
 |---|---|---|
 | GDS-00 Requirements, asset inventory and reviewed Stitch families | Owner plan | Source/design evidence recorded |
-| GDS-01 Multi-device sessions and coordinated refresh | GDS-00 | PR50 corrected actual refresh500; PR51 rejects stale MFA revision renewal with PostgreSQL rollback coverage. Both released with retained production session refresh200 and unchanged business data. Full-token binding, session-family logout, concurrent revoke-all and atomic MFA proof/issuance remain open in AUTH-REFRESH-CORRECTNESS.md |
+| GDS-01 Multi-device sessions and coordinated refresh | GDS-00 | PR50 corrected refresh500; PR51 rejects stale MFA revision; PR52 coordinates issuance/revoke-all and recognizes native commit conflicts. PostgreSQL forward/reverse schedules, inverse/last-admin tests, release and retained production refresh200 passed. Atomic MFA proof/issuance, primary-authentication epoch, full-token binding and session-family logout remain open in AUTH-REFRESH-CORRECTNESS.md |
 | GDS-02 Admin policy lifecycle and VI/EN foundation | GDS-01 | Tests/CI passed; backend/frontend deployed; public locale/config checks passed |
 | GDS-03 GDS brand, navigation and public shell | GDS-02 | Official logo/palette integrated; frontend PR CI passed |
 | GDS-04 Profile, Billing, settings, MFA and private support | GDS-02/03 | Actual account read-only/bio, fresh-login MFA and portfolio image upload/reload/storage cleanup passed; restricted real PostgreSQL support/image/partner/invoice intake passed; avatar/cover and remaining production request acceptance are separate |
