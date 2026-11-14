@@ -11,13 +11,13 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
 | D01 | React/Nest architecture and reuse existing Admin, wallet and affiliate | Existing feature modules; `IMPLEMENTATION-RECEIPT.md`, affiliate native wallet controller/adapter | EVIDENCE |
-| D02 | Multiple devices, 30-day remembered sessions, no five-minute idle logout | BE `auth-device-isolation.spec.ts` proves simultaneous distinct tokens and exact 30-day expiry; refresh/logout tests; FE refresh coordination | EVIDENCE |
+| D02 | Multiple devices, 30-day remembered sessions, no five-minute idle logout | JWT/device tests prove lifetime/distinct tokens; retained-session refresh500 recovered through PR50. Adversarial revocation/legacy-binding findings still require correction; see `AUTH-REFRESH-CORRECTNESS.md` | REVIEW |
 | D03 | VI/EN system UI; do not translate user content | FE global static TSX catalog test, `SystemText.test.tsx` UGC/account-name assertions and locale tests; finish dynamic-label coverage review | REVIEW |
 | D04 | Retire package sales, retain accounts/orders/balances/purchased access | `PACKAGE-RETIREMENT.md`, `INVENTORY-CONTINUATION.md`, historical live dependencies | EVIDENCE |
 | D05 | Quiz invitation only after video ends | `VIDEO-PROGRESS.md`, native trusted-ended/replay browser scenario, `LessonPlayer` end handler | EVIDENCE |
 | D06 | Configurable business terms; Admin can add arbitrary card tiers; quotas first | `SERVICE-LIMITS.md`; fourth-tier browser save/impact and evaluator; supported service operation bindings | EVIDENCE |
 | A01 | Branding: logo, hero, mascot, point art, intro and support links | Typed branding defaults/form/URL validation; official asset inventory in integration receipt | EVIDENCE |
-| A02 | Navigation labels VI/EN, ordering, enable switches, safe internal/external URLs | Platform validation rejects unsafe links; policy array-order test; review all consumers honor flags | REVIEW |
+| A02 | Navigation labels VI/EN, ordering, enable switches, safe internal/external URLs | Header consumes the effective navigation array in order and filters disabled entries; header tests assert order, hidden jobs, nested active destinations and mobile More; backend rejects unsafe URLs and preserves meaningful array ordering | EVIDENCE |
 | A03 | Card tiers/thresholds/basis/cycle/benefits/validity/upgrade-downgrade rules | Configurable rank evaluator and service quota windows; verify complete source/consumer mapping against original terms | REVIEW |
 | A04 | Point activities/amounts/limits/expiry/adjustments | `ACTIVITY-POINTS.md`, `POINT-RELEASE.md`; need final adjustment/reversal coverage review | REVIEW |
 | A05 | Partner list/logo/category/connection status | `PARTNER-CONNECTION-STATUS.md`; status metadata separate from review and real connectivity | EVIDENCE |
@@ -42,7 +42,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P0.2 | Check AI-DOS/Admin/Payment-Wallet/Affiliate to avoid duplicate systems | Existing canonical financial lane, native wallet adapter and reused request/order modules | EVIDENCE |
 | P0.3 | Official GDS logo and usable hero/mascot/point assets | Integration receipt records official logo source, generated illustration provenance, optimized files and eight palette tokens | EVIDENCE |
 | P0.4 | Stitch families: shell/home/account/Billing/support/affiliate; desktop/mobile | UI-STITCH and account/course references exist; verify complete family coverage and retained render evidence | REVIEW |
-| P0.5 | Be Vietnam Pro, consistent typography/spacing, exact GDS palette, semantic colors | Local font/license/token inventory and actual public browser smoke; review title/spacing consistency scope | REVIEW |
+| P0.5 | Be Vietnam Pro, consistent typography/spacing, exact GDS palette, semantic colors | OPEN: local fonts/palette are present and most CSS uses the shared font, but InstructorLessonManagementPage.css still overrides it with Plus Jakarta Sans/Inter. Normalize that confirmed exception and finish scoped title/spacing verification | OPEN |
 | P0.6 | Admin configuration inventory before UI | Typed eight-group defaults and existing configuration design; preserve historical checkpoint ordering | EVIDENCE |
 
 ## Stage 1 — sessions
@@ -52,8 +52,8 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P1.1 | Reproduce two-device/expiry/tab/inactivity failures | Distinct-token regression; FE concurrent/late401/lock tests; review full browser two-device evidence | REVIEW |
 | P1.2 | Refresh and replay instead of immediately clearing any401 | FE `api-client.refresh.test.ts` renew-once, retry and definitive-rejection boundaries | EVIDENCE |
 | P1.3 | Concurrent and cross-tab rotation coordination | Browser-wide lock/recheck test and BE consumed-token rejection | EVIDENCE |
-| P1.4 | Per-device logout/revocation; one device cannot log out others | BE logout regression asserts an update only to the matching refresh-token ID; simultaneous logins have distinct IDs/tokens and current-user boundaries remain enforced | EVIDENCE |
-| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately | Exact JWT expiry plus refresh rejection and inactive-account tests | EVIDENCE |
+| P1.4 | Per-device logout/revocation; one device cannot log out others | OPEN: matching-row unit test is insufficient for concurrent rotation/logout and legacy prefix ambiguity. Fresh-context review requires explicit session-family semantics and database interleavings | OPEN |
+| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately |30-day JWT expiry is tested; soft-deletion denial is in the first corrective slice, while exact legacy-token binding and revoke-all/MFA revision fencing remain to implement | OPEN |
 | P1.6 | Offline keeps session/retry state | FE temporary-refresh failure, new-login/logout race protection | EVIDENCE |
 
 ## Stage 2 — brand, navigation and localization
@@ -61,10 +61,10 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
 | P2.1 | Exact GDS English hero headline/description, VI equivalent and illustration | Integration receipt and configurable branding defaults/public smoke | EVIDENCE |
-| P2.2 | Download WebApp → account → language → notifications; PWA browser behavior | Existing header/PWA tests and production header screenshots; review install guide/cross-browser cases | REVIEW |
-| P2.3 | Account popover avatar/name/email-or-ID/Profile/Billing/logout | Inspect shared account menu source and responsive/keyboard tests | REVIEW |
+| P2.2 | Download WebApp → account → language → notifications; PWA browser behavior | Header source composes controls in that order; PWA tests prove Chromium native prompt, explicit Safari iOS steps, installed/unsupported states and keyboard-opened guide | EVIDENCE |
+| P2.3 | Account popover avatar/name/email-or-ID/Profile/Billing/logout | DashboardAccountBar uses authenticated identity fields and existing profile/billing/logout routes; Escape closes and restores focus, outside pointer and route change dismiss the menu; scoped account browser receipts retain runtime coverage | EVIDENCE |
 | P2.4 | Eight ordered menu destinations from original image | Configured navigation defaults; verify actual destinations and flag/order consumers | REVIEW |
-| P2.5 | Revenue/member last; Billing/Settings/Support according to role | Actual instructor screenshots plus role routes; review all sidebar role variants | REVIEW |
+| P2.5 | Revenue/member last; Billing/Settings/Support according to role | Instructor sidebar source places revenue/member last after common account/affiliate destinations; student sidebar exposes common permitted account routes without instructor revenue; existing protected dashboards and role/browser receipts preserve boundaries | EVIDENCE |
 | P2.6 | Global translation keys/catalog, saved locale, date/number/currency formatting without conversion | Global AST catalog test; locale first-render/UGC/money tests; dynamic-label coverage still REVIEW | REVIEW |
 | P2.7 | Brand/menu/assets controlled by Admin | Public effective-settings provider, typed form and policy lifecycle | EVIDENCE |
 | P2.8 | Dev/main consistent branding including certificate and returning caches | Certificate cache fix production receipt and current official logo; no claim from equal Git commits alone | EVIDENCE |
@@ -79,7 +79,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P3.4 | Settings/account locale/provider-aware password/2FA and recovery codes | Auth security tests; actual fresh-login TOTP/recovery/disable receipt | EVIDENCE |
 | P3.5 | Verify account linkage before allowing2FA | MFA issuance/provider binding guards; inspect final failure-path evidence | REVIEW |
 | P3.6 | Support title/content/image/list/status/replies and Admin processing | Real restricted-Prisma request/image integration plus three-role seven-width browser fixtures | EVIDENCE |
-| P3.7 | Real points/credit, distinguish points/wallet/earnings | Inspect shared balance header and native wallet/affiliate source rather than screenshot placeholders | REVIEW |
+| P3.7 | Real points/credit, distinguish points/wallet/earnings | DashboardAccountBar reads permitted TMI wallet and GDS available balance, resets on account change and renders unavailable without trusted runtime state; `hasTrustedGdsBalance` requires matching READY mode/VND. Affiliate accrual and available native wallet balance are separately labeled | EVIDENCE |
 | P3.8 | Owner-only data, upload validation, loading/empty/error states | Request owner-denial/private-image/invalid-upload tests and account browser cases; finish profile/billing boundary review | REVIEW |
 
 ## Stage 4 — course authoring and video quizzes
@@ -89,7 +89,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P4.1 | Bold/italic/underline/lists/limited font sizes | Shared renderer test proves strong/em/u/list/large formatting and inert HTML; editor selection test preserves legacy text and inserts markup; limited classes avoid arbitrary HTML/CSS | EVIDENCE |
 | P4.2 | Legacy descriptions readable, backend normalization, safe common renderer | BE description normalization tests; FE inert-HTML preview and actual private draft receipt | EVIDENCE |
 | P4.3 | Learner-style private draft preview, owner/Admin only | Authorized preview and denial browser case, actual anonymous404/401; inspect teacher-to-teacher denial | REVIEW |
-| P4.4 | Create/select lesson quiz directly in video lesson form | Authoring source/linkage and course browser cases; inspect exact create/select flow | REVIEW |
+| P4.4 | Create/select lesson quiz directly in video lesson form | LessonQuizPicker regression attaches an unassigned quiz to the current saved lesson, excludes quizzes owned by other lessons, prevents attaching before save and provides a create link carrying the exact lesson ID into the quiz form | EVIDENCE |
 | P4.5 | Native video end invitation; retain passing score/attempts/required options | Native video/replay/checkpoint browser test; governed defaults and API override protection | EVIDENCE |
 | P4.6 | Admin defaults and permitted teacher overrides | PostgreSQL85→90 future-only scenario, actual read-only form checks, explicit unlimited/locked update tests | EVIDENCE |
 | P4.7 | No public draft/XSS/duplicate progress or attempts on replay | Actual private preview; native browser no auto-attempt and real PostgreSQL progress persistence/replay; full quiz submission contract remains to review | REVIEW |
@@ -98,7 +98,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P5.1 | Six course groups, school logos and partner information destination | Configured six categories and partner website links; review actual course/category consumers and partner destination semantics | REVIEW |
+| P5.1 | Six course groups, school logos and partner information destination | OPEN: six category labels exist in Admin defaults but no public TSX consumer of courses.categories was found; CoursesPage currently reads only q/level/page. Implement meaningful public category navigation/content or explicit unconnected states without inventing partner courses. Existing partner logo/website links alone do not satisfy this requirement | OPEN |
 | P5.2 | Activities groups Community/Competition/Event, reuse community | `ActivitiesPage` links to existing `/community`, filters enabled items by competition/event and shows a truthful empty state; current test asserts the existing route and empty state | EVIDENCE |
 | P5.3 | Four partner kinds, name/org/phone/email/content contact form | Existing partner form and real PostgreSQL consent/provenance/intake/review | EVIDENCE |
 | P5.4 | Admin manages categories/partners/applications/competitions/events | Typed configuration and requests surfaces; actual connection-status acceptance | EVIDENCE |
@@ -141,7 +141,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | R01 | Keep response shape; typed policy/preview/apply and reuse existing feature modules | Existing controllers/DTOs and compatibility helpers; no new envelope or duplicate wallet | EVIDENCE |
 | R02 | API authorization independent of hidden menu/flags | Admin JWT/role controller, owner-scoped request/order/affiliate APIs; inspect complete role matrix receipt | REVIEW |
 | R03 | Additive migration → data/compare → remove consumers → justified drops | Reviewed migration/replay/backup receipts and retained historical dependencies; no unsupported drop | EVIDENCE |
-| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 rows; current FE refresh tests cover concurrency/races/locks, BE current CI covers auth; direct multi-device logout review remains | REVIEW |
+| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 rows; FE coordination, first-slice PostgreSQL slow-proof/rollback and retained-session recovery pass. Inherited revocation/family/MFA gaps still require database concurrency coverage and implementation | OPEN |
 | R05 | Invalid config/permission/version/effective date/purchased rights tests | Typed validation, policy lifecycle, actual disabled-policy UAT and real PostgreSQL grant invariants | EVIDENCE |
 | R06 | Rank/point/commission boundaries/duplicate/refund/conversion tests | Evaluator suites and real database concurrency/recovery/inventory receipts | EVIDENCE |
 | R07 | Rich text/draft/quiz/upload/cross-user tests | Course/request/profile tests and scoped browser/storage acceptance; P3/P4 reviews remain | REVIEW |
@@ -159,7 +159,9 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 3. Review remaining rows against their actual implementations/tests. Record defects as concrete tasks; do not substitute extra production mutations for adequate disposable integration evidence.
 4. Reconcile stale historical `remaining` notes with later receipts. Never label the full plan DONE until every explicit row has authoritative coverage at the required scope.
 
-Concrete dynamic-label checks from this source pass: `AffiliatePage` renders `row.kind` directly (`general`/`instructor`), and `AdminPlatformSettingsPage` renders `row.status` directly in revision history. These are system enums, not user-authored text. The static Vietnamese-literal catalog test does not cover them; D03/P2.6 remain REVIEW until their VI/EN labels and regression coverage are verified.
+Concrete dynamic-label defects found: `AffiliatePage` rendered `row.kind` directly (`general`/`instructor`), and `AdminPlatformSettingsPage` rendered `row.status` directly in revision history. These system enums bypass the static Vietnamese-literal catalog test. The focused fix is released with deployed-code verification; see `DYNAMIC-SYSTEM-LABELS.md`. D03/P2.6 retain broader REVIEW scope after correcting these two fields. Actual authenticated acceptance exposed the refresh500 tracked separately. P5.1 is a confirmed original-plan implementation gap, not merely a missing production screenshot.
+
+Further concrete checks: `InstructorLessonManagementPage.css` still overrides the shared font token with Plus Jakarta Sans/Inter, so P0.5 is OPEN. Authenticated label acceptance exposed refresh500, now recovered using the same retained session after PR50. `AUTH-REFRESH-CORRECTNESS.md` supersedes any inference that existing unit/CI results completed the whole stage1 contract. Prioritize remaining session correctness before the public category gap.
 
 ## Catalog visibility release receipt
 
