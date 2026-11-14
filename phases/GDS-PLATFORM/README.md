@@ -12,7 +12,7 @@ Current continuation: [card qualification, benefit impact and partner onboarding
 
 ## Required outcomes
 
-Governed Admin defaults for new quizzes and backend instructor override restrictions are released, with actual read-only Admin/instructor acceptance in VI/EN at seven widths. The same check exposed and verified a fix for unread-badge overflow at 320 px. See [quiz defaults](QUIZ-DEFAULTS.md). Partner catalog connection-status configuration remains a concrete source gap; approving a partner application does not prove API/SSO connectivity.
+Governed Admin defaults for new quizzes and backend instructor override restrictions are released, with actual read-only Admin/instructor acceptance in VI/EN at seven widths. The same check exposed and verified a fix for unread-badge overflow at 320 px. See [quiz defaults](QUIZ-DEFAULTS.md). Partner catalog connection-status metadata is now released with PostgreSQL and actual read-only Admin acceptance; approving a partner application or recording its status does not enable API/SSO. See [partner connection status](PARTNER-CONNECTION-STATUS.md). Public catalog visibility and remaining original requirements still require the completion audit.
 
 Actual private lesson media acceptance subsequently passed through both API/storage and native browser file-picker/CORS paths, with owner-preview playback, anonymous denial and verified deletion/archive of the synthetic media/lessons/drafts. See [lesson media UAT](LESSON-MEDIA-UAT.md). This supersedes the pending lesson-video upload note below without claiming a full learner/quiz lifecycle.
 
