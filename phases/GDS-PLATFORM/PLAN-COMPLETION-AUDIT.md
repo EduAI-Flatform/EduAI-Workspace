@@ -18,7 +18,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | D06 | Configurable business terms; Admin can add arbitrary card tiers; quotas first | `SERVICE-LIMITS.md`; fourth-tier browser save/impact and evaluator; supported service operation bindings | EVIDENCE |
 | A01 | Branding: logo, hero, mascot, point art, intro and support links | Typed branding defaults/form/URL validation; official asset inventory in integration receipt | EVIDENCE |
 | A02 | Navigation labels VI/EN, ordering, enable switches, safe internal/external URLs | Header consumes the effective navigation array in order and filters disabled entries; header tests assert order, hidden jobs, nested active destinations and mobile More; backend rejects unsafe URLs and preserves meaningful array ordering | EVIDENCE |
-| A03 | Card tiers/thresholds/basis/cycle/benefits/validity/upgrade-downgrade rules | Configurable rank evaluator and service quota windows; verify complete source/consumer mapping against original terms | REVIEW |
+| A03 | Card tiers/thresholds/basis/cycle/benefits/validity/upgrade-downgrade rules | Independent source review verified arbitrary tiers, spend/top-up basis, rolling-month cycle, threshold transitions and independent service-quota validity; fourth-tier evaluator/browser evidence in SERVICE-LIMITS.md. No invented course benefits or business thresholds | EVIDENCE |
 | A04 | Point activities/amounts/limits/expiry/adjustments | `ACTIVITY-POINTS.md`, `POINT-RELEASE.md`; need final adjustment/reversal coverage review | REVIEW |
 | A05 | Partner list/logo/category/connection status | `PARTNER-CONNECTION-STATUS.md`; status metadata separate from review and real connectivity | EVIDENCE |
 | A06 | Affiliate participation/rates/attribution/withdrawal/support configuration | BE effective policy readiness and identity guards; review participation/support parameter coverage | REVIEW |
@@ -73,14 +73,14 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P3.1 | Profile cover/avatar/ID/card/referral/Bio/own posts | Profile/account source and `ACCOUNT-PAGES.md`; actual Bio restore and portfolio upload; avatar/cover have unit boundaries but direct runtime replacement remains unproven | REVIEW |
+| P3.1 | Profile cover/avatar/ID/card/referral/Bio/own posts | ACCOUNT-PAGES.md PR48:24 source account scenarios,3 shipped-bundle persistence/owner/loading regressions and actual owned canonical avatar read/decode at seven widths. Production cover replacement is not claimed; image mutation boundaries use fixtures/unit evidence | EVIDENCE |
 | P3.2 | Billing owned orders/status/date/detail/invoice request | Account browser fixtures; restricted real PostgreSQL ownership/idempotent invoice workflow | EVIDENCE |
 | P3.3 | Admin invoice intake, no implied external invoice issuance | Shared request handling integration; production intake stays off | EVIDENCE |
 | P3.4 | Settings/account locale/provider-aware password/2FA and recovery codes | Auth security tests; actual fresh-login TOTP/recovery/disable receipt | EVIDENCE |
-| P3.5 | Verify account linkage before allowing2FA | MFA issuance/provider binding guards; inspect final failure-path evidence | REVIEW |
+| P3.5 | Verify account linkage before allowing2FA | Source boundary review plus127 root auth/profile tests passed: verified provider UID/email, revision/family/freshness fencing and conflict rejection. Actual local MFA flow passed; no live external SSO claim. ACCOUNT-PAGES.md and auth receipt | EVIDENCE |
 | P3.6 | Support title/content/image/list/status/replies and Admin processing | Real restricted-Prisma request/image integration plus three-role seven-width browser fixtures | EVIDENCE |
 | P3.7 | Real points/credit, distinguish points/wallet/earnings | DashboardAccountBar reads permitted TMI wallet and GDS available balance, resets on account change and renders unavailable without trusted runtime state; `hasTrustedGdsBalance` requires matching READY mode/VND. Affiliate accrual and available native wallet balance are separately labeled | EVIDENCE |
-| P3.8 | Owner-only data, upload validation, loading/empty/error states | Request owner-denial/private-image/invalid-upload tests and account browser cases; finish profile/billing boundary review | REVIEW |
+| P3.8 | Owner-only data, upload validation, loading/empty/error states | Request ownership/private-image/invalid-upload and invoice PostgreSQL tests; PR48 clears prior-owner state and preserves successful reads after sibling failure, with disabled loading controls. Account browser and actual owned read evidence in ACCOUNT-PAGES.md | EVIDENCE |
 
 ## Stage 4 — course authoring and video quizzes
 
@@ -141,7 +141,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | R01 | Keep response shape; typed policy/preview/apply and reuse existing feature modules | Existing controllers/DTOs and compatibility helpers; no new envelope or duplicate wallet | EVIDENCE |
 | R02 | API authorization independent of hidden menu/flags | Admin JWT/role controller, owner-scoped request/order/affiliate APIs; inspect complete role matrix receipt | REVIEW |
 | R03 | Additive migration → data/compare → remove consumers → justified drops | Reviewed migration/replay/backup receipts and retained historical dependencies; no unsupported drop | EVIDENCE |
-| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 rows; FE coordination, PostgreSQL slow-proof/rollback,14 PR52 schedules, inverse/last-admin concurrency and PR53 MFA rollback/issuance/revoker schedules pass. Actual fresh MFA user flow/restoration also passed. Primary-authentication epoch, exact-token binding and family logout remain unproven | OPEN |
+| R04 | Auth/device/tab/expiry/offline/logout required tests | P1 evidence and AUTH-REFRESH-CORRECTNESS.md supersede the old gap: PR55/56/57 exact-token/epoch/family runtime released; actual independent devices, two-tab simulated401 refresh, predecessor logout and MFA passed.30-day refresh TTL measured; idle360-second retained-session refresh passed after later deploy. Natural15-minute expiry is covered by logic/database tests rather than claimed live wait | EVIDENCE |
 | R05 | Invalid config/permission/version/effective date/purchased rights tests | Typed validation, policy lifecycle, actual disabled-policy UAT and real PostgreSQL grant invariants | EVIDENCE |
 | R06 | Rank/point/commission boundaries/duplicate/refund/conversion tests | Evaluator suites and real database concurrency/recovery/inventory receipts | EVIDENCE |
 | R07 | Rich text/draft/quiz/upload/cross-user tests | Course/request/profile tests and scoped browser/storage acceptance; P3/P4 reviews remain | REVIEW |
