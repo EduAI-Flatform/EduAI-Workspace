@@ -11,7 +11,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
 | D01 | React/Nest architecture and reuse existing Admin, wallet and affiliate | Existing feature modules; `IMPLEMENTATION-RECEIPT.md`, affiliate native wallet controller/adapter | EVIDENCE |
-| D02 | Multiple devices, 30-day remembered sessions, no five-minute idle logout | JWT/device tests prove lifetime/distinct tokens; retained-session refresh500 recovered through PR50. Adversarial revocation/legacy-binding findings still require correction; see `AUTH-REFRESH-CORRECTNESS.md` | REVIEW |
+| D02 | Multiple devices, 30-day remembered sessions, no five-minute idle logout | PR55/56/57 V2 cutover released; actual independent browser families, coordinated refresh, scoped logout and MFA passed. Safe production token inspection measured30-day refresh/15-minute access. Revocation/legacy-binding PostgreSQL evidence and scoped production receipts are in AUTH-REFRESH-CORRECTNESS.md | EVIDENCE |
 | D03 | VI/EN system UI; do not translate user content | FE global static TSX catalog test, `SystemText.test.tsx` UGC/account-name assertions and locale tests; finish dynamic-label coverage review | REVIEW |
 | D04 | Retire package sales, retain accounts/orders/balances/purchased access | `PACKAGE-RETIREMENT.md`, `INVENTORY-CONTINUATION.md`, historical live dependencies | EVIDENCE |
 | D05 | Quiz invitation only after video ends | `VIDEO-PROGRESS.md`, native trusted-ended/replay browser scenario, `LessonPlayer` end handler | EVIDENCE |
@@ -49,11 +49,11 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P1.1 | Reproduce two-device/expiry/tab/inactivity failures | Distinct-token regression; FE concurrent/late401/lock tests; review full browser two-device evidence | REVIEW |
+| P1.1 | Reproduce two-device/expiry/tab/inactivity failures | Distinct-token/TTL and FE concurrent/late401/lock regressions plus actual two-family/two-tab production acceptance after V2 cutover. The browser refresh probe deliberately simulates401; it does not claim natural15-minute expiry | EVIDENCE |
 | P1.2 | Refresh and replay instead of immediately clearing any401 | FE `api-client.refresh.test.ts` renew-once, retry and definitive-rejection boundaries | EVIDENCE |
 | P1.3 | Concurrent and cross-tab rotation coordination | Browser-wide lock/recheck test and BE consumed-token rejection | EVIDENCE |
-| P1.4 | Per-device logout/revocation; one device cannot log out others | OPEN: matching-row unit test is insufficient for concurrent rotation/logout and legacy prefix ambiguity. Fresh-context review requires explicit session-family semantics and database interleavings | OPEN |
-| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately |30-day expiry/soft-deletion denial, PR51 stale-MFA rejection, PR52 common fence and PR53 atomic MFA proof/issuance are proven with PostgreSQL and scoped production acceptance. Exact legacy-token binding and primary-authentication epoch remain open | OPEN |
+| P1.4 | Per-device logout/revocation; one device cannot log out others | Exact V2 row/digest/family binding released through PR55/56/57. Real PostgreSQL two-order lock schedules/purchased-grant preservation and actual rotated-predecessor logout with another device still authenticated passed; AUTH-REFRESH-CORRECTNESS.md | EVIDENCE |
+| P1.5 | 30 days, invalid/expired/revoked refresh clears session appropriately | Deployed V2 epoch/purpose/family/full-token binding; actual legacy/revoked-family rejection, independent-device preservation and30-day JWT lifetime inspection passed. Expiry/failure/revocation PostgreSQL tests passed. One-time legacy reauthentication was deliberate and observed | EVIDENCE |
 | P1.6 | Offline keeps session/retry state | FE temporary-refresh failure, new-login/logout race protection | EVIDENCE |
 
 ## Stage 2 — brand, navigation and localization
@@ -98,7 +98,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P5.1 | Six course groups, school logos and partner information destination | OPEN: six category labels exist in Admin defaults but no public TSX consumer of courses.categories was found; CoursesPage currently reads only q/level/page. Implement meaningful public category navigation/content or explicit unconnected states without inventing partner courses. Existing partner logo/website links alone do not satisfy this requirement | OPEN |
+| P5.1 | Six course groups, school logos and partner information destination | BE PR58/FE PR47 add stable Admin group identities and public navigation, native online catalog versus truthful unconnected partner-program states, preserved URL filters/history and existing partner-onboarding destination. Historical/current configuration, VI/EN and seven-width source acceptance passed; CI/release/deployed checks remain pending in COURSE-GROUPS.md. Existing school logos/info remain governed by the partner catalog; no actual partner program source exists yet | VERIFYING |
 | P5.2 | Activities groups Community/Competition/Event, reuse community | `ActivitiesPage` links to existing `/community`, filters enabled items by competition/event and shows a truthful empty state; current test asserts the existing route and empty state | EVIDENCE |
 | P5.3 | Four partner kinds, name/org/phone/email/content contact form | Existing partner form and real PostgreSQL consent/provenance/intake/review | EVIDENCE |
 | P5.4 | Admin manages categories/partners/applications/competitions/events | Typed configuration and requests surfaces; actual connection-status acceptance | EVIDENCE |

@@ -107,3 +107,77 @@ The next runtime design must check signed auth revision and exact token identity
 The owner subsequently explicitly authorized the full named pause/merge/backup/migration/retained-session/restore sequence. Normal reviewed execution succeeded without bypassing the initial rejection. PR54 merged as `c16db3795290f66b449bdbd578f4a72a2114ec9c`; fetched main matched the tested candidate tree and ancestry. Main [quality43792351592](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43792351592), [replay43792351535](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43792351535) and paused-auto-CD [push validation43792351556](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43792351556) passed. The controlled [manual deployment43792381738](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43792381738) passed at that exact SHA with only auth-schema authorization enabled and wallet/top-up/withdrawal actions preserved.
 
 Actual private `pg_dump_custom` backup was validated (8,263,090 bytes; server-local path redacted). Migration postflight passed at2026-11-16T02:32:44Z. Runtime schema, nonnegative constraint, family index and required column privileges all verified true before restart at02:33:31Z. Health returned200. Actual retained synthetic Admin acceptance passed at02:35:18Z with one ordinary refresh200, actual settings/history read, VI/EN/VI at all seven widths, unchanged creator identifiers and zero page errors/business/financial writes. Sanitized receipt remains `.codex-artifacts/gds-production/policy-labels-readonly.json`; no fresh primary login was required. Auto-CD was restored to its original `true` value and read-verified. The fully merged `feat/auth-session-foundation` branch was deleted remotely/locally after final tree/ancestry/gate checks and refs pruned; backend main is clean. This supersedes the earlier pending release checkpoint, while V2 runtime and the full original GDS plan remain incomplete.
+
+## V2 runtime and staged cutover
+
+Backend [PR55](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/55), current candidate `9ebe5bed39b1bbc2f58d5fc33c76f3210dccc494`, implements signed purpose/version/revision/family, exact row/full-token refresh digest, rotated-predecessor family logout, active-family access guard, credential/Admin epoch changes, all MFA caller fences and captured OAuth/Firebase/local primary-proof revisions. Legacy tokens and revision-less OAuth session tickets fail closed and require a one-time primary login. New primary account resolution after revocation remains valid; no unverified provider hints or new external integration were introduced. Revoked V2 predecessors remain available until expiry for exact logout proof.
+
+Behavior-first tests reproduced the missing contracts before implementation. Local validation passed199 integrated tests/26 suites and32 release/verifier checks, build and actual staged-build isolation. Core [quality43796826346](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43796826346) and [replay43796826360](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43796826360) passed at `49a9a9eabd1ed56a1506e22779aca657076e470a`; cutover-control [replay43799405489](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43799405489) passed at `062b04e7916c8375464b3c34709051cf60198252`. Actual PostgreSQL markers prove full-token tail binding, multiple rotations, idempotent predecessor logout, independent devices, both observed refresh/logout lock orders, five stale-MFA mutations after completed password revocation and unchanged purchased grants. These are disposable database results, not a production token cutover.
+
+Independent core review found no actionable defect. Operational review found in-place build could expose V2 to autorestart before authorization and that interpreter/cwd checks were missing; both were fixed. Deployment now stages compiled output under `.git/auth-session-candidate/dist`, preserves live bytes until durable floor + managed-process drain, and checks one Node fork with matching entry/cwd and watch disabled. Another reviewed correction makes pre-promotion point readiness load staged code explicitly; distinct live/candidate fixtures prove the selection. Final scoped review found no remaining substantive issue. Cross-model CLI review was skipped in this autonomous context.
+
+The supported restart path persists a private fsynced minimum-version2 marker before process mutation, observes old-PID exit before promoting files, requires replacement PID and exact cached build/version health, then saves PM2. Failures retain the floor and never restore legacy execution. Rollback must use V2-compatible artifacts through current protected orchestration; this does not claim preventing arbitrary host-admin execution outside that path. Runtime audit has zero high/critical findings, with existing1 low/13 moderate and no new dependency.
+
+Final-head [quality43799705676](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43799705676), including actual Linux staged-build isolation, and [replay43799705684](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43799705684) passed. The first merge attempt did not execute because the automatic approval service hit a usage limit; this was not an unsafe-action determination. After the owner resumed the goal, normal reviewed read-only recovery at2026-11-16T06:45Z confirmed unchanged exact head, green gates, original remote main and auto-CD true. Audit remained1 low/13 moderate/zero high-critical. No approval path was bypassed.
+
+Auto-CD was then paused and read-verified. PR55 was marked ready and merged as `bd63f105018317f70d11b3824f24a1a400448911` at06:46:43Z; fetched main matched the tested tree and ancestry. Main [quality43819117522](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43819117522) and [replay43819117727](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43819117727) were triggered; replay and paused-auto-CD [push validation43819117621](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43819117621) passed. Controlled [deployment43819198120](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43819198120) is running with only auth-V2 cutover authorization enabled, every schema input false and all financial actions `preserve`. Actual cutover/health/multi-device/MFA acceptance, final main gates, restoring auto-CD and merged-branch cleanup remain pending. The source handoff is `docs/handoffs/auth-session-v2-runtime.md`. The original GDS plan remains VERIFYING.
+
+That controlled deployment subsequently failed at `AUTH_SESSION_PROCESS_LAYOUT_UNSUPPORTED` after successful validation and staged build. The error site precedes floor establishment, stop and artifact promotion. Actual public health remained200 and reported legacy identity, so no V2 production UAT or successful cutover is claimed. Source main and production runtime are deliberately distinct while this fail-closed check is unresolved. Auto-CD remains paused.
+
+Backend [PR56](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/56), current candidate `3f39082f4820e78eab6eb3046e34edf1c2e304e5`, adds bounded predicate/command-kind diagnostics to identify the actual managed process before selecting a compatible transition. It does not relax admitted layouts or print paths, raw arguments or environment values. The missing-diagnostics regression failed first,21 focused release checks passed, and fresh-context review found no privacy/correctness defect. Exact-head checks and actual process diagnosis remain pending; no blind retry or unsupported-layout bypass is authorized by these test results.
+
+PR56 subsequently merged as `95828299b19f6f6f9062b98757140b672cc2787d` after exact-head checks passed. Main quality43821632989, replay43821633053 and paused-auto-CD validation43821632997 passed. Controlled diagnostic deployment43821637722 failed before floor/stop/promotion and established the actual mismatch: one Node fork with matching real cwd and watch disabled runs `NPM`/`NPM_START`, rather than direct main. The floor was absent; public health remained200/legacy. No V2 or MFA production UAT has run.
+
+Backend [PR57](https://github.com/EduAI-Flatform/EduAI-Back-End/pull/57), candidate `dd9d8e7`, preserves this launcher with strict package start/no-hook validation. It snapshots the old PID tree before mutation and requires every captured process gone plus loopback backend port closed before promotion. Snapshot/probe failures stop the release; the durable floor and exact V2/revision health checks remain.21 local native checks passed, including real loopback probing, surviving-child rejection and malformed process snapshots; fresh-context scoped review found no substantive issue. Exact-head CI/replay, controlled release and actual acceptance remain pending. Auto-CD remainsfalse through recovery. Cross-model review is skipped in this autonomous context; no external CLI was invoked.
+
+## Successful V2 cutover and actual acceptance
+
+PR57 merged as `e5a93573f7dea63554b0cc06beb97fca42946dcf` after exact-head
+[quality43823699420](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43823699420)
+and [replay43823699417](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43823699417)
+passed. Main quality43824362099/replay43824362169 and paused-auto-CD validation43824362262
+passed. Controlled [deployment43824393150](https://github.com/EduAI-Flatform/EduAI-Back-End/actions/runs/43824393150)
+passed at07:35:38Z. Its guarded receipt reported V2/exact revision,3 old processes
+drained, NPM_START retained and the minimum-version floor persisted. Schema/runtime
+privileges verified; no schema migration was authorized or applied in this attempt.
+Public health returned200 with the exact candidate V2 identity.
+
+Actual production MFA acceptance passed07:53:47Z using the synthetic student:
+enrollment, protected-route proof, recovery-code login, used-code rejection, fresh
+TOTP and disable/normal-login restoration. Secrets remained in memory; only the
+opaque ignored student auth state was updated. No provider or financial call ran.
+
+Actual clean multi-device/browser acceptance passed08:08:39Z at the same deployed
+revision: legacy Admin refresh401 and one-time login required, two distinct student
+families, two tabs coordinated to one successful refresh after a deliberately
+invalid access token, rotated-predecessor logout removed only its family, and the
+other device still accessed settings. No page errors, unexpected writes or business/
+financial writes occurred. This is a simulated401 path, not a claim of naturally
+waiting15 minutes for access expiry. Safe lifetime inspection at08:11:15Z measured
+refresh2592000 seconds (30 days), access900 seconds, explicit purposes and V2 family.
+
+Two earlier acceptance attempts did not pass their entire harness. One called
+logout on the frontend domain; another injected locale storage into an iframe,
+raising SecurityError in the harness. Correcting the API origin and restricting
+locale injection to the top-level GDS document resolved both. A no-login control
+probe reproduced two SecurityErrors before the injection fix and zero afterward;
+the final full clean run above is authoritative. Login retries respected the
+existing rate window; no limiter was weakened or bypassed.
+
+Sanitized local receipts are `gds-production/auth-v2.json`, `mfa-login.json`,
+`auth-browser-diagnostics.json` and `auth-lifetime.json` under the private workspace
+artifacts directory; no credential/token values are copied into Git. Auto-CD was
+restored to its originaltrue value and read-verified. The three merged temporary
+branches for PR55/56/57 were deleted remotely/locally after main gates and exact
+tree/ancestry checks, with stale refs pruned. This closes the scoped auth cutover,
+not the original GDS plan. The separate course-group PR58 and FE PR47 continue.
+
+The subsequent ordinary auto-CD deployment43829028488 succeeded at backend main
+`243c2265656d1293ea70ea90e895597e6069fe75`, preserving the V2 floor. At08:14:26Z,
+the saved family from08:08 was accepted on that new revision after360 seconds of
+primary-auth age and no intervening browser use. Two tabs refreshed once200,
+retained original family/authTime, reached authenticated settings, and emitted
+zero page errors/unexpected writes, with zero primary logins. This proves a V2
+session survives a compatible subsequent deployment and a greater-than-five-minute
+return interval; the deliberately invalid access-token probe remains labeled as
+simulated401. Updated sanitized `auth-browser-diagnostics.json` records this check.
