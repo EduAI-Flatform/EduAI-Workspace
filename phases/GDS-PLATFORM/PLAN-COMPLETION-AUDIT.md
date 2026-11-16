@@ -19,18 +19,18 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | A01 | Branding: logo, hero, mascot, point art, intro and support links | Typed branding defaults/form/URL validation; official asset inventory in integration receipt | EVIDENCE |
 | A02 | Navigation labels VI/EN, ordering, enable switches, safe internal/external URLs | Header consumes the effective navigation array in order and filters disabled entries; header tests assert order, hidden jobs, nested active destinations and mobile More; backend rejects unsafe URLs and preserves meaningful array ordering | EVIDENCE |
 | A03 | Card tiers/thresholds/basis/cycle/benefits/validity/upgrade-downgrade rules | Independent source review verified arbitrary tiers, spend/top-up basis, rolling-month cycle, threshold transitions and independent service-quota validity; fourth-tier evaluator/browser evidence in SERVICE-LIMITS.md. No invented course benefits or business thresholds | EVIDENCE |
-| A04 | Point activities/amounts/limits/expiry/adjustments | `ACTIVITY-POINTS.md`, `POINT-RELEASE.md`; need final adjustment/reversal coverage review | REVIEW |
+| A04 | Point activities/amounts/limits/expiry/adjustments | Native point policy/expiry/refund evidence reviewed; concrete adjustment-key replay defect silently accepts changed amount/direction/reason. Focused fix and concurrent PostgreSQL regression underway; preserve immutable postings | VERIFYING |
 | A05 | Partner list/logo/category/connection status | `PARTNER-CONNECTION-STATUS.md`; status metadata separate from review and real connectivity | EVIDENCE |
 | A06 | Affiliate participation/rates/attribution/withdrawal/support configuration | BE effective policy readiness and identity guards; review participation/support parameter coverage | REVIEW |
 | A07 | Course categories, quiz options and new-content defaults | Six configured categories; `QUIZ-DEFAULTS.md` effective defaults and locked teacher API behavior | EVIDENCE |
 | A08 | Operations invoice information/support intake/attachment limits/feature flags | `ACCOUNT-PAGES.md`, `REQUEST-INTEGRATION.md`; catalog visibility regression released and checked against actual settings and deployed-code fixtures | EVIDENCE |
 | A09 | Draft → valid → impact → approve → effective date → apply | Platform service tests; actual unchanged disabled-point lifecycle; PostgreSQL quiz/partner lifecycle | EVIDENCE |
 | A10 | Versions/editor/approver/audit history | Immutable revision creation, atomic audit and approval fields; production policy receipt | EVIDENCE |
-| A11 | Impact: rank changes/benefit changes/unconvertible cases | Card source and quota impact with cursors/completeness/issues; inspect final full impact assertions | REVIEW |
+| A11 | Impact: rank changes/benefit changes/unconvertible cases | POLICY-IMPACT-LOCALE.md: PR59/49 now preserve prior-policy provenance and either-side exceptions, page-local comparable/unavailable counts, cursor/scan/quota limits. Both failure directions tested; no global-total claim from bounded pages | EVIDENCE |
 | A12 | Policy provenance on rank/points/commissions | Card provenance migration, immutable point receipts and affiliate accrual revision | EVIDENCE |
 | A13 | Stop/restore configurations; compensate transactions without rewriting history | Active-revision cancellation denial and restoration by new revision; financial recovery tests | EVIDENCE |
 | A14 | Purchased access independent of cards | PostgreSQL purchased-grant invariants, separate quota provenance/pools, actual historical inventory | EVIDENCE |
-| A15 | Ordinary filters save directly; governed publication/business groups use versions | UI local filters vs policy revisions; review route/state handling | REVIEW |
+| A15 | Ordinary filters save directly; governed publication/business groups use versions | Source review confirms local filter state separate from governed revisions. Billing pagination defect fixed/released in PR49 with three filter regressions and seven-width shipped-bundle fixtures; POLICY-IMPACT-LOCALE.md | EVIDENCE |
 | A16 | No SQL/executable config/security or balance bypass; typed group permissions | Strict object keys/URL validation, Admin JWT/role guard independent of menu; no executable fields | EVIDENCE |
 | A17 | Change hero/menu/thresholds via Admin without code/redeploy | Public effective-config reload, configured navigation/branding and arbitrary thresholds; seven-width browser fixtures | EVIDENCE |
 
@@ -38,7 +38,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P0.1 | Requirement/existing-function/change/acceptance matrix for all supplied images | Integration receipt broad matrix plus this itemized audit; remaining REVIEW rows prevent completion | REVIEW |
+| P0.1 | Requirement/existing-function/change/acceptance matrix for all supplied images | Integration receipt broad matrix plus this complete original-plan inventory; outstanding implementation and verification states remain explicit per row and do not invalidate the inventory itself | EVIDENCE |
 | P0.2 | Check AI-DOS/Admin/Payment-Wallet/Affiliate to avoid duplicate systems | Existing canonical financial lane, native wallet adapter and reused request/order modules | EVIDENCE |
 | P0.3 | Official GDS logo and usable hero/mascot/point assets | Integration receipt records official logo source, generated illustration provenance, optimized files and eight palette tokens | EVIDENCE |
 | P0.4 | Stitch families: shell/home/account/Billing/support/affiliate; desktop/mobile | UI-STITCH and account/course references exist; verify complete family coverage and retained render evidence | REVIEW |
@@ -63,7 +63,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P2.1 | Exact GDS English hero headline/description, VI equivalent and illustration | Integration receipt and configurable branding defaults/public smoke | EVIDENCE |
 | P2.2 | Download WebApp → account → language → notifications; PWA browser behavior | Header source composes controls in that order; PWA tests prove Chromium native prompt, explicit Safari iOS steps, installed/unsupported states and keyboard-opened guide | EVIDENCE |
 | P2.3 | Account popover avatar/name/email-or-ID/Profile/Billing/logout | DashboardAccountBar uses authenticated identity fields and existing profile/billing/logout routes; Escape closes and restores focus, outside pointer and route change dismiss the menu; scoped account browser receipts retain runtime coverage | EVIDENCE |
-| P2.4 | Eight ordered menu destinations from original image | Configured navigation defaults; verify actual destinations and flag/order consumers | REVIEW |
+| P2.4 | Eight ordered menu destinations from original image | Independent source review confirmed all eight ordered defaults, effective flag/order consumers, real routes and role-aware Learning destination. Header tests cover destination/order/disabled/nested/mobile behavior; POLICY-IMPACT-LOCALE.md | EVIDENCE |
 | P2.5 | Revenue/member last; Billing/Settings/Support according to role | Instructor sidebar source places revenue/member last after common account/affiliate destinations; student sidebar exposes common permitted account routes without instructor revenue; existing protected dashboards and role/browser receipts preserve boundaries | EVIDENCE |
 | P2.6 | Global translation keys/catalog, saved locale, date/number/currency formatting without conversion | Global AST catalog test; locale first-render/UGC/money tests; dynamic-label coverage still REVIEW | REVIEW |
 | P2.7 | Brand/menu/assets controlled by Admin | Public effective-settings provider, typed form and policy lifecycle | EVIDENCE |
@@ -88,11 +88,11 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 |---|---|---|---|
 | P4.1 | Bold/italic/underline/lists/limited font sizes | Shared renderer test proves strong/em/u/list/large formatting and inert HTML; editor selection test preserves legacy text and inserts markup; limited classes avoid arbitrary HTML/CSS | EVIDENCE |
 | P4.2 | Legacy descriptions readable, backend normalization, safe common renderer | BE description normalization tests; FE inert-HTML preview and actual private draft receipt | EVIDENCE |
-| P4.3 | Learner-style private draft preview, owner/Admin only | Authorized preview and denial browser case, actual anonymous404/401; inspect teacher-to-teacher denial | REVIEW |
+| P4.3 | Learner-style private draft preview, owner/Admin only | Independent review confirmed existing owner/Admin success and peer-instructor/student denial in courses.service.spec.ts:871-878; protected endpoint reuses learner renderer. COURSE-AUTHORING.md/AUTHENTICATED-UAT.md retain actual owned draft and anonymous404/401 evidence | EVIDENCE |
 | P4.4 | Create/select lesson quiz directly in video lesson form | LessonQuizPicker regression attaches an unassigned quiz to the current saved lesson, excludes quizzes owned by other lessons, prevents attaching before save and provides a create link carrying the exact lesson ID into the quiz form | EVIDENCE |
 | P4.5 | Native video end invitation; retain passing score/attempts/required options | Native video/replay/checkpoint browser test; governed defaults and API override protection | EVIDENCE |
 | P4.6 | Admin defaults and permitted teacher overrides | PostgreSQL85→90 future-only scenario, actual read-only form checks, explicit unlimited/locked update tests | EVIDENCE |
-| P4.7 | No public draft/XSS/duplicate progress or attempts on replay | Actual private preview; native browser no auto-attempt and real PostgreSQL progress persistence/replay; full quiz submission contract remains to review | REVIEW |
+| P4.7 | No public draft/XSS/duplicate progress or attempts on replay | VIDEO-PROGRESS.md: trusted native end/replay yields one invitation and zero automatic attempt requests; actual Prisma checkpoints2.35→4.71→2.35 preserve one progress row and purchased rights. Quiz scoring/duplicate answers/limits/ownership and transactional row lock inspected. No production full-quiz recording claim | EVIDENCE |
 
 ## Stage 5 — categories, activities and partners
 
@@ -114,7 +114,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P6.1 | Initial three card types plus Admin-defined additional ranks | Fourth-tier validation/evaluator/browser save; service quota configuration | EVIDENCE |
 | P6.2 | Eligible spending OR proven topups; no double counting | Separate basis evaluators; canonical settlement/refunds/journal checks; exact-boundary/reuse tests | EVIDENCE |
 | P6.3 | Annual rank cycle configurable; independent service-limit reset periods | Rolling-month config and clamped UTC evaluator, independent monthly/fixed/lifetime quota windows | EVIDENCE |
-| P6.4 | Simulate existing data and report exceptions before applying | Bounded Admin impact/inventory; actual three-order historical audit; inspect completeness and retained exception handling | REVIEW |
+| P6.4 | Simulate existing data and report exceptions before applying | Bounded impact/inventory retains malformed/orphan/mismatched/revoked/unsupported exceptions. PR59/49 fixes prior-side failure completeness; POLICY-IMPACT-LOCALE.md. Historical three-order inventory is scoped evidence, not a frozen global conversion approval | EVIDENCE |
 | P6.5 | Stop old sales and preserve accounts/rights/balances/history | Retired catalog/create/publish APIs410; actual historical inventory; native grant pools and unchanged-grant integration | EVIDENCE |
 | P6.6 | Remove old UI/API/jobs/dependencies incrementally | Sales routes retired; retained necessary fulfillment/refund/access/history consumers documented; final dependency audit needed | REVIEW |
 | P6.7 | Delete schema only after archive/transfer/reconciliation/no live consumers | Owner permits justified deletion, not blind deletion. Current legacy tables still have necessary consumers; no verified missing-right repair candidate | EVIDENCE |
@@ -129,7 +129,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P7.2 | History filters/search/pagination/Excel with proper access scope | Owner query in service/controller; actual XLSX format/Unicode/formula-safe text test; bounded current-page export | EVIDENCE |
 | P7.3 | Instructor vs normal referral; gated sub-affiliates | `general`/`instructor` identity types and instructor-only guard test; unsupported sub-affiliate policies rejected | EVIDENCE |
 | P7.4 | Reuse Affiliate/revenue-sharing/native wallet, no parallel money ledger | Existing affiliate-wallet adapter, funded allocation/recovery integration; finish source boundary review | REVIEW |
-| P7.5 | Versioned configurable rates/eligibility/hold/withdrawal; invalid config earns nothing | Effective-policy validation/readiness and provenance tests; exact participation/support settings require A06 review | REVIEW |
+| P7.5 | Versioned configurable rates/eligibility/hold/withdrawal; invalid config earns nothing | Concrete gap: admission and positive business accrual accept unconfigured funding although wallet posting rejects it. Add readiness gate without blocking historical negative adjustments; canonical GDS withdrawal settings remain sole money threshold. A06 consumers also underway | OPEN |
 | P7.6 | Manual request/approval withdrawals; no auto-transfer | Shared existing withdrawal flow; original financial activation remains independent | EVIDENCE |
 | P7.7 | Source-consistent statistics, duplicate/refund/adjustment safety | Canonical settlement source, replay/recovery/concurrent finance tests; inspect dashboard aggregation assertions | REVIEW |
 | P7.8 | Live money/undeclared affiliate/sub-affiliate terms safely disabled | No new activation or real financial transaction in these GDS releases | CONDITIONAL |
