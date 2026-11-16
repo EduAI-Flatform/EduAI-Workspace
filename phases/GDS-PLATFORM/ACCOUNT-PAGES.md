@@ -27,3 +27,33 @@ Source implementation verified on 2026-11-11.
 Root integrates AuthSecurityModule and routes /settings, /billing and /billing/orders/:orderId. Initial request migration includes invoice subtype fields. No migration was applied to the existing database during this work.
 
 The invoice workflow records and processes requests. Issuance by an external tax-invoice provider remains an integration dependency.
+
+## Profile persistence release — 2026-11-16
+
+Frontend PR48 fixes a stale sign-in avatar after upload/reload and prior-owner Bio
+surviving a same-role account switch. Profile state is keyed by authenticated user
+ID, owned reads settle independently, authoritative null clears the avatar, and
+initial loading disables image controls so a late read cannot overwrite an upload.
+No auth-store, API, schema or business-policy change was introduced.
+
+Candidate173c627e911698d000952cc271b1a18a838872d5 passed24 account Chromium
+scenarios and build. Independent review found loading/failure gaps in cycle1;
+regressions and fixes passed, and cycle2 found no further substantive issue.
+Final-head CI43836196858, main CI43837027409 and production deploy43837027516
+passed. Main55783f265631077ad71d1c5df86cbb5a39d4e447 matched the tested tree;
+the merged temporary branch was deleted remotely/locally and references pruned.
+
+Three new scenarios also passed against the shipped bundle using intercepted
+API/image fixtures: upload/reload/null, owner switch, and slow/failed sibling reads.
+Actual read-only student acceptance at2026-11-16T11:53:26.968Z returned owned
+profile/career200, decoded the canonical avatar, preserved Bio and showed no
+overflow at320/375/390/412/768/1024/1440px, page errors or business/financial writes.
+No fresh primary login was needed. The actual account had no cover; no production
+avatar/cover replacement or deletion was performed. Sanitized receipt is
+`D:/Work/Edu-AI/.codex-artifacts/gds-production/profile-readonly.json`.
+
+Provider/MFA boundary review found no concrete bypass: verified provider identity,
+active account/revision, session family and primary-authentication freshness are
+rechecked at issuance/enrollment. Root ran127 tests across12 auth/profile suites,
+all passed. This does not claim live external SSO or a composed real-provider MFA
+exercise; actual local-password/TOTP/recovery evidence is in the auth receipt.
