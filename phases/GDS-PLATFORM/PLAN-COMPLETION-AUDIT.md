@@ -42,7 +42,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P0.2 | Check AI-DOS/Admin/Payment-Wallet/Affiliate to avoid duplicate systems | Existing canonical financial lane, native wallet adapter and reused request/order modules | EVIDENCE |
 | P0.3 | Official GDS logo and usable hero/mascot/point assets | Integration receipt records official logo source, generated illustration provenance, optimized files and eight palette tokens | EVIDENCE |
 | P0.4 | Stitch families: shell/home/account/Billing/support/affiliate; desktop/mobile | UI-STITCH and account/course references exist; verify complete family coverage and retained render evidence | REVIEW |
-| P0.5 | Be Vietnam Pro, consistent typography/spacing, exact GDS palette, semantic colors | OPEN: local fonts/palette are present and most CSS uses the shared font, but InstructorLessonManagementPage.css still overrides it with Plus Jakarta Sans/Inter. Normalize that confirmed exception and finish scoped title/spacing verification | OPEN |
+| P0.5 | Be Vietnam Pro, consistent typography/spacing, exact GDS palette, semantic colors | Confirmed InstructorLessonManagementPage.css font override corrected through PR46; loaded shared Be Vietnam Pro and exact seven-width VI/EN heading checks passed. See LESSON-TYPOGRAPHY.md for release scope. Broader title/alignment/spacing consistency still needs review | REVIEW |
 | P0.6 | Admin configuration inventory before UI | Typed eight-group defaults and existing configuration design; preserve historical checkpoint ordering | EVIDENCE |
 
 ## Stage 1 — sessions
@@ -161,7 +161,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 Concrete dynamic-label defects found: `AffiliatePage` rendered `row.kind` directly (`general`/`instructor`), and `AdminPlatformSettingsPage` rendered `row.status` directly in revision history. These system enums bypass the static Vietnamese-literal catalog test. The focused fix is released with deployed-code verification; see `DYNAMIC-SYSTEM-LABELS.md`. D03/P2.6 retain broader REVIEW scope after correcting these two fields. Actual authenticated acceptance exposed the refresh500 tracked separately. P5.1 is a confirmed original-plan implementation gap, not merely a missing production screenshot.
 
-Further concrete checks: `InstructorLessonManagementPage.css` still overrides the shared font token with Plus Jakarta Sans/Inter, so P0.5 is OPEN. Authenticated label acceptance exposed refresh500, now recovered using the same retained session after PR50. `AUTH-REFRESH-CORRECTNESS.md` supersedes any inference that existing unit/CI results completed the whole stage1 contract. Prioritize remaining session correctness before the public category gap.
+Further concrete checks: the confirmed `InstructorLessonManagementPage.css` font override is corrected in PR46 with scoped browser evidence in `LESSON-TYPOGRAPHY.md`; P0.5 remains REVIEW for broader consistency. Authenticated label acceptance exposed refresh500, now recovered using the same retained session after PR50. `AUTH-REFRESH-CORRECTNESS.md` records the additive PR54 schema release and supersedes any inference that existing unit/CI results completed the whole stage1 contract. Prioritize remaining session correctness before the public category gap.
 
 ## Catalog visibility release receipt
 
