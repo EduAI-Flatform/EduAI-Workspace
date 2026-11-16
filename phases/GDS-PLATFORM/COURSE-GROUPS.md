@@ -1,7 +1,7 @@
 # Public course program groups (release pending)
 
 Original-plan P5.1 is VERIFYING. Backend PR58 (`1a8cf18b8f488ce1babe545f0fa2e99b8da28908`)
-and frontend PR47 (`e909942c384399b1e4060a939792c31362907332`) implement the public
+and frontend PR47 (corrected head `43219ed62eed21504982115d00ef956dbc9ff858`) implement the public
 consumer; exact-head CI/release/deployed acceptance remain pending. Stitch
 desktop/mobile references are recorded in `UI-STITCH.md`.
 
@@ -10,7 +10,7 @@ scholarship category scopes. Do not repurpose or overwrite that taxonomy for the
 six education-program groups. Preserve existing course records and discount
 semantics. The frontend summary type currently omits this API field.
 
-The smallest coherent next slice should expose six configurable program choices
+The implementation exposes six configurable program choices
 with stable identity separate from editable VI/EN labels and array ordering.
 Provide compatibility for existing label-only effective configurations before
 introducing new required fields. Online courses keep the existing native catalog,
@@ -35,3 +35,17 @@ discrete-filter history and premature page clamping defects; both have targeted
 regressions and the second review found no substantive issue. Continuous search
 typing retains the prior replace-history behavior; group/level/page changes push.
 No production configuration has been changed for this feature.
+
+Backend PR58 merged as `243c2265656d1293ea70ea90e895597e6069fe75`; main
+quality43829028477/replay43829028472 and auto-CD deployment43829028488 passed,
+with exact V2 health and preserved existing sessions. Its temporary source branch
+was deleted remotely/locally after ancestry/main-gate verification and refs pruned.
+
+Frontend initial-head CI43828275836 found an omitted-settings response regression:
+the new course reader dereferenced `response.settings.courses`, crashing views
+whose API fixtures omitted the settings object. A focused unit reproduced the
+TypeError, and optional settings access restores last-known presentation without
+changing payment behavior. The regression unit, all3 order-payment widths and the
+first failed production-wallet fixture passed locally after the fix. Corrected
+head CI and frontend deployment remain pending; do not count the failed initial
+head as a successful full release.
