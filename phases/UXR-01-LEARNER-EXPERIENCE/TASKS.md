@@ -7,23 +7,23 @@
 - [x] Student sidebar sections and duplicate removal staged
 - [x] Embed student account pages inside dashboard shell staged
 - [x] Back/forward scroll manager staged
-- [ ] Verify React/TypeScript/unit/build/CI
-- [ ] Browser route, accessibility and responsive UAT
+- [x] Verify React/TypeScript/unit/build/CI on exact head `f067a8c5`
+- [x] Synthetic Chromium browser route and responsive regression at CI widths; manual Chrome UAT pending
 - [ ] Stitch-based design review (unavailable in this execution environment)
 - [ ] PR review, gate and merge
 
 ## 01B — Shared menus
-- [ ] Shared account menu, avatar, mobile behaviour
-- [ ] Accessible shared locale dropdown, language persistence
+- [x] Shared account menu, avatar, mobile behaviour — implemented and CI-tested
+- [x] Accessible shared locale dropdown, language persistence — implemented and CI-tested
 
 ## 01C — Dashboard/Profile
-- [ ] Lean dashboard cards and purposeful actions
-- [ ] Profile summary cards, accessible modal/drawer forms
-- [ ] Remove duplicate progress, certificates and financial blocks
+- [x] Lean dashboard cards and purposeful actions — implemented
+- [x] Profile summary cards and modal forms — implemented and CI-tested
+- [x] Remove duplicate progress, certificates and financial blocks — implemented
 
 ## 01D — Commerce account UI
-- [ ] Billing localization and cohesive order/invoice UI
-- [ ] Membership cards, responsive and accessibility
+- [x] Billing localization and cohesive order/invoice UI — implemented and CI-tested
+- [x] Membership cards — GDS styles and responsive automated regressions PASS
 - [ ] End-to-end regression and rollout evidence
 
 
@@ -34,3 +34,11 @@
 - 01C staged: simplified dashboard, profile summary cards and editable modals, duplicate panels removed.
 - 01D staged: GDS billing/membership styling, billing filter reset, synthetic browser regression.
 - Exact-head tests, visual UAT, accessibility review, Stitch design review, PR merge and release remain pending. No phase can be marked DONE yet.
+
+## Final automated verification snapshot (2026-11-18)
+- [x] Frontend CI #44258089080 (exact SHA `f067a8c59721c73e2b5717b2a305869c35820cda`): all 4 jobs successful.
+- [x] Screenshot artifact #14407600811: role-specific account pages at 320–1440px (includes student Profile and Billing), archived 7 days.
+- [x] Reviewed representative student Billing/Profile screenshots at 375px and 1440px.
+- [ ] Stitch design review (required; no Stitch MCP in this session)
+- [ ] Interactive authenticated Chrome UAT on existing browser (tool access read-only)
+- [ ] PR review, merge, production owner approval and deployment

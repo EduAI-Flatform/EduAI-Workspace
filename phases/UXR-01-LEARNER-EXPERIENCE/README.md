@@ -28,4 +28,4 @@ At phase preflight, Frontend main was 49 commits ahead of dev (dev behind=49, ah
 
 Existing current phase and financial records remain authoritative; do not edit them. Preserve role-based restrictions. Public /certificates must never expose user-specific data without auth. Existing deep links must remain valid. Use verified CI and browser evidence as quality gates. Follow Workspace Stitch-first UI policy; Stitch integration is not available in the current connector environment and this must not be marked as completed.
 
-Status: IN_PROGRESS for UXR-01A; verification gates pending.
+Status: VERIFYING for UXR-01A–D implementation; exact-head CI and Chromium browser regression PASS, but mandatory Stitch MCP design review and interactive existing-browser UAT not completed. PRs are unmerged; production untouched.
