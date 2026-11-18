@@ -2,6 +2,11 @@
 
 Reviewed Stitch project: `7305056649090413856`.
 
+The reconciled six-family desktop/mobile inventory, exact resource IDs, sixteen
+visual inspections, corrective refinements and explicit rejected generated details
+are in [STITCH-FAMILY-INVENTORY.md](STITCH-FAMILY-INVENTORY.md). New references are
+postimplementation baselines and do not rewrite historical before-UI chronology.
+
 | Family | Screen reference |
 |---|---|
 | Admin platform configuration | `6eb089863c41422894a8a70a2e5e6f96` |
