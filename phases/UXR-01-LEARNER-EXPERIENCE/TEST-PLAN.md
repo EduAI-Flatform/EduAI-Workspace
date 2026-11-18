@@ -17,4 +17,14 @@ Runtime:
 - Screenshot before/after, keyboard accessibility, contrast WCAG AA, no horizontal overflow.
 - CI status and exact SHA required before merge.
 
-State at initial implementation: tests NOT RUN, browser UAT NOT RUN, visual Stitch review NOT RUN.
+## Observed evidence — 2026-11-18
+
+- Frontend implementation draft: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/54
+- Workspace dossier draft: https://github.com/EduAI-Flatform/EduAI-Workspace/pull/65
+- Initial Frontend CI run 44240830519: 680/682 unit tests passed; 2 failed (undefined user.roles in mocked session, and font-weight 750 violating mobile token guard). Build skipped in that job.
+- Both identified failures were patched on the feature branch; latest observed SHA `9b93aa360887e5a433fc8620fd63b2ffb37167b7`, re-run 44241371504 **IN_PROGRESS**, not PASS.
+- Browser UAT using existing Chrome: NOT RUN. Connected browser tool is read-only and cannot perform interactive UAT.
+- Stitch design review: NOT RUN; Stitch MCP unavailable in this environment.
+- Merge/deploy: NOT DONE. Both PRs remain DRAFT pending mandatory gates.
+
+Never infer successful checks from a prior, different commit.
