@@ -28,3 +28,12 @@ Runtime:
 - Merge/deploy: NOT DONE. Both PRs remain DRAFT pending mandatory gates.
 
 Never infer successful checks from a prior, different commit.
+
+
+## Further observed evidence
+- Repaired earlier source scanner errors for unlocalized literals in new dropdowns and header.
+- Legacy synthetic browser tests updated for account-profile modals and locale dropdown.
+- Added `playwright/uxr-navigation.spec.ts` for public routes, student account shell, locale, profile dialog, responsive widths (including 1920px), and scroll restoration. Registered in GDS CI test list.
+- An earlier SHA (`2391d4802`) passed unit/build and embedded checkout but failed GDS browser due old language select tests. Later UI changes require new complete run.
+- Current integration head latest observed: `c522fd19615553374b05f7a0e1b16ea558425b4f`. Latest CI **QUEUED** at last check; no latest-head PASS assertion.
+- All code remains only on a draft Frontend PR. Stitch review and interactive existing-Chrome UAT remain unavailable.
