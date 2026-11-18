@@ -37,3 +37,10 @@ Never infer successful checks from a prior, different commit.
 - An earlier SHA (`2391d4802`) passed unit/build and embedded checkout but failed GDS browser due old language select tests. Later UI changes require new complete run.
 - Current integration head latest observed: `c522fd19615553374b05f7a0e1b16ea558425b4f`. Latest CI **QUEUED** at last check; no latest-head PASS assertion.
 - All code remains only on a draft Frontend PR. Stitch review and interactive existing-Chrome UAT remain unavailable.
+
+## Integration checkpoint
+
+- Frontend PR #54 latest observed head `b9f32e0d2c1ff777cae3a44791dea241d535bb8f` (profile cancel regression included).
+- Latest-head GitHub Actions run: [#44246845713](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44246845713), state **QUEUED** when observed. No conclusion or release claim.
+- Unit/build and checkout had earlier green results on older SHAs; these are not substitutes for exact-head gates.
+- Frontend PR and Workspace PR remain DRAFT; no main/prod changes after dev fast-forward baseline.
