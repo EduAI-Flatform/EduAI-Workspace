@@ -4,6 +4,17 @@ Owner authorized source implementation of the GDS plan on 2026-11-11.
 
 Overall plan status: VERIFYING. The base and continuation releases are deployed, including native activity-point processing, proven-top-up classification and service quota controls. Deployment alone does not prove the entire original plan complete. Resolve the itemized audit's remaining source/verification requirements, retain necessary historical consumers and keep real school/undeclared business capabilities conditional on their original prerequisites. See [production receipt](PRODUCTION-RECEIPT.md) and the later continuation receipts; earlier source/preflight statements are historical checkpoints.
 
+Latest checkpoint,2026-11-18: [final verification continuation](FINAL-RELEASE-CONTINUATION.md)
+records released keyboard/label corrections and pending final locale release gates.
+[Affiliate dashboard acceptance](AFFILIATE-DASHBOARD-ACCEPTANCE.md) now proves
+nonzero signed owner-scoped statistics with actual disposable Prisma and shipped
+browser fixtures. [Retired source cleanup](RETIRED-SOURCE-CLEANUP.md) removes dead
+authoring/checkout helpers while retaining justified historical consumers.
+The [manual accessibility disposition](ACCESSIBILITY-FINAL-AUDIT.md) distinguishes
+seven-width measurements and shared-component evidence from unsampled states.
+Earlier remaining notes below keep their chronology; the itemized audit and these
+later receipts determine current scope, rather than reopening superseded defects.
+
 Base release: backend #31/#32/#33 and frontend #31/#32 are merged and deployed with green post-merge checks. The controlled release created a verified private backup, applied reviewed migrations/grants, initialized MFA safely and restored auto-CD. Real public-browser smoke passed the official logo, all eight palette colors, GDS Point label/artwork, VI/EN, seven widths, backend health and anonymous profile protection. Merged source branches are cleaned. Policy activation and external integrations retain the original approval/contract conditions; existing balances, history and purchased access are preserved.
 
 Phase dossier: [tasks](TASKS.md), [acceptance](ACCEPTANCE.md), [test plan](TEST-PLAN.md), [Stitch references](UI-STITCH.md). Current source and production evidence supersedes historical checkpoints in Workspace PRs #30–32.
