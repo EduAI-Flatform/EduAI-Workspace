@@ -25,3 +25,12 @@
 - [ ] Billing localization and cohesive order/invoice UI
 - [ ] Membership cards, responsive and accessibility
 - [ ] End-to-end regression and rollout evidence
+
+
+## Integrated implementation progress — 2026-11-18
+**Frontend draft PR #54** contains source changes for all four subphases:
+- 01A staged: independent public learning/certificates, grouped student/instructor navigation, embedded account pages, route scroll.
+- 01B staged: shared account and locale menus; keyboard and language test updates.
+- 01C staged: simplified dashboard, profile summary cards and editable modals, duplicate panels removed.
+- 01D staged: GDS billing/membership styling, billing filter reset, synthetic browser regression.
+- Exact-head tests, visual UAT, accessibility review, Stitch design review, PR merge and release remain pending. No phase can be marked DONE yet.
