@@ -42,3 +42,15 @@
 - [ ] Stitch design review (required; no Stitch MCP in this session)
 - [ ] Interactive authenticated Chrome UAT on existing browser (tool access read-only)
 - [ ] PR review, merge, production owner approval and deployment
+
+## 2026-11-19 — Branch integration and phase status
+- [x] Frontend dev and Workspace dev fast-forwarded to the latest main (no force push).
+- [x] UXR Frontend branch merged updated dev, preserving the latest GDS defaults/tests and UXR navigation paths; head `494970eee1`.
+- [x] UXR Workspace dossier branch merged updated dev; CI #44483040739 PASS on evidence commit `51c3dec0fc`.
+- [x] Post-integration unit/build, PWA and embedded checkout checks passed on Frontend run #44482565155.
+- [ ] Post-integration GDS responsive job completion and full exact-head CI PASS.
+- [ ] Required Stitch design review (or explicitly approved alternative), authenticated interactive UAT, PR review and release gates.
+- [ ] Merge Frontend PR #54 only after mandatory gates. Production approval and deployment are separate.
+- [ ] Update UXR task state to DONE only after all required gates, not merely source implementation.
+
+The Workspace dossier may be merged into dev as a **VERIFYING** project record without implying acceptance or deployment of UXR UI changes.
