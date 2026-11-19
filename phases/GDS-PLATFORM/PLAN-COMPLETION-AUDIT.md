@@ -1,6 +1,6 @@
 # Original-plan completion audit
 
-Checkpoint: 2026-11-14. Overall result: **not proven complete**. This inventory derives from the owner's original numbered GDS plan and subsequent decisions, rather than from the features already implemented. It supplements the earlier broad requirement matrix.
+Checkpoint: 2026-11-19. Overall result: **declared implementation and scoped release verification evidenced; explicit conditional activations remain off**. This inventory derives from the owner's original numbered GDS plan and subsequent decisions, rather than from the features already implemented. It supplements the earlier broad requirement matrix. Final Workspace merge/conformance/branch cleanup must also pass before the completion report.
 
 `EVIDENCE` identifies inspected source/tests or an observed scoped receipt; it is not a blanket claim that every production path has been exercised. `REVIEW` requires further source/behavior verification. `OPEN` is a concrete missing deliverable. `VERIFYING` has a change undergoing release. `CONDITIONAL` retains an explicit original-plan business/provider prerequisite; it must remain safely off without inventing terms or endpoints.
 
@@ -12,7 +12,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 |---|---|---|---|
 | D01 | React/Nest architecture and reuse existing Admin, wallet and affiliate | Existing feature modules; `IMPLEMENTATION-RECEIPT.md`, affiliate native wallet controller/adapter | EVIDENCE |
 | D02 | Multiple devices, 30-day remembered sessions, no five-minute idle logout | PR55/56/57 V2 cutover released; actual independent browser families, coordinated refresh, scoped logout and MFA passed. Safe production token inspection measured30-day refresh/15-minute access. Revocation/legacy-binding PostgreSQL evidence and scoped production receipts are in AUTH-REFRESH-CORRECTNESS.md | EVIDENCE |
-| D03 | VI/EN system UI; do not translate user content | FE global static TSX catalog test, `SystemText.test.tsx` UGC/account-name assertions and locale tests; finish dynamic-label coverage review | REVIEW |
+| D03 | VI/EN system UI; do not translate user content | Global static AST catalog plus SystemText/UGC/account-name tests; dynamic-label releases PR56/58 and PR60 Commerce/refund/Mentor/Jobs additions. Full743 tests and35 combined seven-width browser cases passed; independent final sampled source review found no additional system-label gap. Authored text/canonical payloads remain unchanged; production reconciliation stays under R10 | EVIDENCE |
 | D04 | Retire package sales, retain accounts/orders/balances/purchased access | `PACKAGE-RETIREMENT.md`, `INVENTORY-CONTINUATION.md`, historical live dependencies | EVIDENCE |
 | D05 | Quiz invitation only after video ends | `VIDEO-PROGRESS.md`, native trusted-ended/replay browser scenario, `LessonPlayer` end handler | EVIDENCE |
 | D06 | Configurable business terms; Admin can add arbitrary card tiers; quotas first | `SERVICE-LIMITS.md`; fourth-tier browser save/impact and evaluator; supported service operation bindings | EVIDENCE |
@@ -65,7 +65,7 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | P2.3 | Account popover avatar/name/email-or-ID/Profile/Billing/logout | DashboardAccountBar uses authenticated identity fields and existing profile/billing/logout routes; Escape closes and restores focus, outside pointer and route change dismiss the menu; scoped account browser receipts retain runtime coverage | EVIDENCE |
 | P2.4 | Eight ordered menu destinations from original image | Independent source review confirmed all eight ordered defaults, effective flag/order consumers, real routes and role-aware Learning destination. Header tests cover destination/order/disabled/nested/mobile behavior; POLICY-IMPACT-LOCALE.md | EVIDENCE |
 | P2.5 | Revenue/member last; Billing/Settings/Support according to role | Instructor sidebar source places revenue/member last after common account/affiliate destinations; student sidebar exposes common permitted account routes without instructor revenue; existing protected dashboards and role/browser receipts preserve boundaries | EVIDENCE |
-| P2.6 | Global translation keys/catalog, saved locale, date/number/currency formatting without conversion | Global AST catalog test; locale first-render/UGC/money tests; dynamic-label coverage still REVIEW | REVIEW |
+| P2.6 | Global translation keys/catalog, saved locale, date/number/currency formatting without conversion | Global AST catalog and saved-locale/first-render/UGC/money tests, PR56 live call-time date/number formats, PR58 populated wallet and PR60 closed system-enum maps/confirmation labels. VI-EN-VI and second-tab locale checks preserve canonical amounts and authored content; no currency conversion | EVIDENCE |
 | P2.7 | Brand/menu/assets controlled by Admin | Public effective-settings provider, typed form and policy lifecycle | EVIDENCE |
 | P2.8 | Dev/main consistent branding including certificate and returning caches | Certificate cache fix production receipt and current official logo; no claim from equal Git commits alone | EVIDENCE |
 
@@ -125,8 +125,8 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 
 | ID | Explicit requirement | Evidence / next verification | State |
 |---|---|---|---|
-| P7.1 | Dashboard/Withdraw/Performance with statistics/referral links/codes/QR/copy/withdrawable balance | AFFILIATE-DASHBOARD-ACCEPTANCE.md: actual Prisma owner-isolated signed/nonzero/empty aggregates, actual generated QR and unavailable money states;14 shipped-JavaScript VI/EN seven-width fixtures cover all three tabs, links/codes/QR/copy. Final-head/main gates and branch cleanup passed | EVIDENCE |
-| P7.2 | History filters/search/pagination/Excel with proper access scope | Owner query in service/controller; actual XLSX format/Unicode/formula-safe text test; bounded current-page export | EVIDENCE |
+| P7.1 | Dashboard/Withdraw/Performance with statistics/referral links/codes/QR/copy/withdrawable balance | PR66/59 released source-backed net revenue, UTC signed periods and truthful sub-affiliate state. PR67 deployed real versioned ranking/effective-snapshot evaluator/paired Admin impact with native competition ties, zero/negative scores, current-role boundaries, historical sources and immutable-read proof. Actual production disabled-policy metadata passed. PR60 UI controls/self-rank passed seven-width VI/EN fixtures and head CI; its final release remains under R10 | EVIDENCE |
+| P7.2 | History filters/search/pagination/Excel with proper access scope | FINAL-RELEASE-CONTINUATION.md: BE PR66/FE PR59 provide full selected-filter history XLSX through canonical owner-scoped masked/deduplicated history. Caps refuse partial files; text cells are formula/XML-safe. Native restricted-runtime unchanged-read proof, main CI/deployments and42 shipped-JavaScript cases passed; temporary branches cleaned | EVIDENCE |
 | P7.3 | Instructor vs normal referral; gated sub-affiliates | `general`/`instructor` identity types and instructor-only guard test; unsupported sub-affiliate policies rejected | EVIDENCE |
 | P7.4 | Reuse Affiliate/revenue-sharing/native wallet, no parallel money ledger | Independent source review and native-journal migration tests show business accrual effects post once into existing GDS wallet with canonical settlement proof, hold, seller-first platform capacity and signed refund/debt recovery. PR61 composed ordering regression preserves held funds; no second spendable ledger | EVIDENCE |
 | P7.5 | Versioned configurable rates/eligibility/hold/withdrawal; invalid config earns nothing | POINT-AFFILIATE-CONTINUATION.md: PR61 current/frozen admission and both positive-value writers require configured funding and effective matching visit/policy; historical negative correction/recovery remains. Enabled unfunded policy cannot schedule; canonical withdrawal threshold and support consumers released. Final head/main CI/replay/deploy passed | EVIDENCE |
@@ -145,14 +145,19 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | R05 | Invalid config/permission/version/effective date/purchased rights tests | Typed validation, policy lifecycle, actual disabled-policy UAT and real PostgreSQL grant invariants | EVIDENCE |
 | R06 | Rank/point/commission boundaries/duplicate/refund/conversion tests | Evaluator suites and real database concurrency/recovery/inventory receipts | EVIDENCE |
 | R07 | Rich text/draft/quiz/upload/cross-user tests | AUTHORIZATION-CONTENT-AUDIT.md reconciles P3/P4: escaped fixed rich-text renderer, owner/Admin draft guards, native replay/no-auto-attempt, real Prisma progress, owned uploads and private media; retained actual versus intercepted/mock scope remains explicit | EVIDENCE |
-| R08 | VI/EN/keyboard/focus/contrast/responsive seven sizes | Relevant browser suites and palette/locale tests; final cross-surface focus/contrast scope needs review | REVIEW |
+| R08 | VI/EN/keyboard/focus/contrast/responsive seven sizes | ACCESSIBILITY-FINAL-AUDIT.md records196 axe cases and manual disposition of incomplete findings, conservative text contrast/raster measurements and named-group AX checks at seven widths. Released modal containment/restoration/visible-name/target checks combine with PR60 ranking/Commerce responsive fixtures. Existing feature-specific keyboard tests remain applicable; this is scoped evidence, not a blanket WCAG or all-screen-reader certification | EVIDENCE |
 | R09 | Vitest/build/Playwright; Jest/build/data integration for finance/conversion | Final-head/main CI plus disposable PostgreSQL replay; individual receipts retain exact SHAs/runs | EVIDENCE |
-| R10 | Delivery order, per-stage evidence and Workspace plan updates | Base and continuation receipts; check all PRs/remote-main CI/temporary-branch cleanup before final claim | REVIEW |
+| R10 | Delivery order, per-stage evidence and Workspace plan updates | Backend PR67 and frontend PR60/61 exact tested-tree merges, main CI/deploy and merged remote/local branch cleanup passed. Production fixture evidence is49 unchanged cases plus7 corrected Commerce cases; actual backend read-only acceptance preserved the original auth family. Final receipts/contracts/state are reconciled through Workspace PR67 and local conformance/layout passed. Its own final merge/main CI/cleanup is a completion-report gate; canonical financial records unchanged | EVIDENCE |
 | R11 | No guessed policy defaults; incomplete integrations off; no fake metrics | Conservative effective policy readiness, public disabled flags, unconfigured affiliate/card terms | EVIDENCE |
 | R12 | Feature flags/rollback before removing structures; preserve SPR25-007 | Non-financial GDS release and rollback receipts; canonical financial records unchanged | EVIDENCE |
 | R13 | Production/risky migration/real money follow existing approval gates | Owner scoped authorizations and controlled backup/migration evidence; GDS completion cannot imply provider activation | EVIDENCE |
 
-## Immediate next work
+## Historical checkpoint and next work recorded on 2026-11-14
+
+The following notes retain their original timing. Their REVIEW priorities,
+P5.1 implementation gap and refresh failures were subsequently resolved by the
+later releases documented above and in FINAL-RELEASE-CONTINUATION.md. They are
+not current open tasks; the final table and project state are authoritative.
 
 1. FE PR44 release and public catalog/intake checks are complete; preserve the distinction between actual settings and intercepted fixture scenarios.
 2. Review the new P5.5 design with the first real school contract before any provider-specific implementation or synchronization activation.
