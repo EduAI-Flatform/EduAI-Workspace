@@ -125,3 +125,92 @@ constraint was weakened. Native replay on the corrected head remains required.
 Frontend PR59 heade4a4ab4973fc31fa5098da563dd4296be6d2770c awaits that backend
 dependency. Corrected shared workbook tests/build passed after the XML regression;
 fresh review found no further issue. Neither PR is merged or deployed at this checkpoint.
+
+## Released summary/export checkpoint - 2026-11-19
+
+The pending statements above retain their original timing. Corrected backend
+headb1d68bfd0fdfade102f055954b37fcc5c4a3a197 passed CI44304664902 and native
+PostgreSQL replay44304665056, including the exact paid/partial-refund immutable-read
+and restricted-runtime export markers. Merge41c8cea3327bfd9c8a043c8402b1348082b7439d
+matches the tested tree; main CI44305926352, replay44305926291 and deployment
+44305926493 passed. Its temporary branch was deleted remotely/locally after
+ancestry/main gates and references were pruned.
+
+Frontend initial CI44304255302 exposed an ambiguous old locator: the new unavailable
+summary slots made a global unavailable-text match non-unique. Test-only correction
+c15358dee67d722e77bc1d17bc48e336b12a1487 checks the exact wallet metric and all
+five absent-source slots separately; seven local cases passed. Final CI44305881183
+passed all four jobs and preview. Merge113f23323aabb247351df8c0c009d8a4b6acb818
+matches that tree; main CI44434798565 and deployment44434798648 passed after the
+backend release.42 browser cases against shipped JavaScript passed summary,
+fallback/card/referral states and download/focus behavior at all seven widths in
+VI/EN using synthetic read-only fixtures. The source branch was deleted remotely/
+locally and pruned. Earlier PR58 main CI44300371531 also completed successfully;
+its temporary branch is cleaned.
+
+Actual production read acceptance at2026-11-19T01:14:00.077Z passed against backend
+41c8cea: summary currency/UTC windows, legacy/lifetime alias and policy/null states
+matched the contract. The saved access token was naturally expired (no substitution);
+one refresh200 retained its original family/authTime after229973 seconds (about64
+hours), with no primary login, business write or page error. The real account's
+wallet read capability was enabled, so the disabled-export403 probe was expressly
+skipped; no personal workbook was downloaded. Sanitized receipt:
+`.codex-artifacts/gds-production/summary-read.json` under the shared parent.
+
+P7.2 is now evidenced. P7.1 remains open for real versioned Admin ranking:
+unconfigured/null is truthful presentation but not an implemented evaluator.
+AFFILIATE-RANKING-CONTRACT.md defines explicit basis/period/tie selection, bounded
+self-only ranks, old-revision compatibility and paired impact, now in development.
+Final locale sampling also found known commerce/refund enums, confirmations and
+historical membership copy that are being corrected separately. No full-plan
+completion or financial activation follows from this release.
+
+## Ranking and remaining locale candidate - 2026-11-19
+
+Backend PR67 head4db0c64390db84e11785741f76725c34813f7f33 implements the
+ranking contract. Admin explicitly chooses basis, UTC period and tie policy through
+the existing version/impact/approval/effective-date workflow. Read-only bounded
+population/source scans produce only the caller's rank; old immutable policies
+normalize to disabled without being rewritten. General JWT identities and current
+instructor-role boundaries are preserved. Reporting cannot activate funding,
+credit wallets, grant quotas or alter purchased access.126 tests across8 focused
+Jest suites, build and6 native-fixture guard tests passed. Independent source
+review found no actionable defect. Native replay44471126151 passed with the
+versioned_ranking/competition_ties/historical_sources/role_boundaries/future_policy
+and immutable_reads marker. Head CI44471126300 and deployment remain required.
+
+Frontend PR60 head3ef7ac4 adds the Admin controls, paired impact and self-ranking
+states/provenance, plus remaining Commerce/refund/historical-order/Mentor/Jobs
+VI/EN labels. Authored content and financial payloads are unchanged; card navigation
+uses /membership-cards. A fresh review found an inherited-key crash in the impact
+fallback; constructor/__proto__/toString regressions failed first, then passed
+after an own-property check. Follow-up review closed the finding. The full163-file
+Vitest suite passed743 tests, TypeScript and build passed.35 combined browser
+cases passed in VI/EN across320/375/390/412/768/1024/1440px, including new ranking
+save/preview and declined Commerce confirmations; no real API or financial write.
+Both new suites are registered in shared responsive CI. Independent sampled
+original-plan review identified no additional product gap beyond release/audit
+reconciliation and the existing explicit provider/business prerequisites.
+
+These are candidate receipts. Neither PR is described as deployed at this point;
+the backend must deploy first, then frontend main checks, shipped-code acceptance
+and merged temporary-branch cleanup must pass before final reconciliation.
+
+Backend PR67 deployed as5e76fb87b26dbb20b3ab5fb757e1195d27c8b19c after its
+head CI passed. Main replay44472083792 and deployment44472083448 passed; main
+CI44472083621 is still running. Actual read-only production acceptance at
+2026-11-19T06:29:57.766Z verified the extended unconfigured ranking metadata,
+UTC/asOf consistency and absence of participant/score fields. Naturally expired
+access refreshed200 in the same original family after248931 seconds (about69
+hours), with no primary login, page error or business write. No personal export
+was downloaded. Sanitized receipt: `.codex-artifacts/gds-production/ranking-read.json`.
+
+A sibling legacy wallet browser assertion also expected the retired package link.
+Test-only frontend heade9e308e0d3f34b7535d55d33aee2e5550df01bb6 updates that
+one expectation to the card label/direct destination. All18 wallet browser cases
+passed, including both fixture modes at seven widths and unavailable/loading/
+large-amount states. Two existing unavailable-wallet cases emitted local Vite
+proxy-refusal diagnostics for an unmocked /tmi/wallet read with no backend running;
+their expected unavailable UI assertions passed. This is isolated fixture evidence,
+not a claim of zero proxy diagnostics or a real provider/financial test. Final-head
+CI and subsequent frontend deployment/shipped-code acceptance remain required.
