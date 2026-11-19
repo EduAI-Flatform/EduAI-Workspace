@@ -214,3 +214,35 @@ proxy-refusal diagnostics for an unmocked /tmi/wallet read with no backend runni
 their expected unavailable UI assertions passed. This is isolated fixture evidence,
 not a claim of zero proxy diagnostics or a real provider/financial test. Final-head
 CI and subsequent frontend deployment/shipped-code acceptance remain required.
+
+Backend main CI44472083621 subsequently passed. With native main replay,
+deployment, production read acceptance and tested-tree equality established, the
+merged feat/affiliate-ranking-policy branch was deleted remotely/locally and
+references pruned. No unique unmerged commits or worktree changes were discarded.
+
+## Frontend release and isolated production fixture correction
+
+PR60 final heade9e308e0d3f34b7535d55d33aee2e5550df01bb6 passed all four
+CI44472655090 jobs and preview. Initial CI44471550734 failed the obsolete wallet
+link assertion; the correction changed only that assertion. Merge
+2295295c6f5135a0850a3eeda8f1d1d430e3de97 matches the tested tree. Main
+CI44473316256 and deployment44473316233 passed. The merged
+fix/commerce-system-locale branch was deleted remotely/locally after ancestry and
+main gates, and references were pruned.
+
+Production shipped-code acceptance passed49 cases, including all new ranking
+Admin/self-only states, but7 Commerce cases failed before data load: the strict
+fixture allowed only page-origin APIs while the production bundle uses the exact
+separate API origin. This is retained as a failed receipt, not counted as success.
+Test-only PR61 heade79c82e2fb64dc95321d5f0afebfecf046dc1b2f permits only
+https://api.eduai.giaoducso.org.vn under /api/v1/ to enter existing synthetic
+handlers; unknown endpoints/origins and non-GET requests still abort, never reach
+the real API. Independent source review found no escape. The corrected7 cases
+passed locally and against shipped JavaScript at all seven widths, including
+VI-EN-VI, unchanged authored values and dismissed confirmations. Combined scoped
+production fixture evidence is49 unchanged passes plus7 corrected passes, rather
+than a claim that the initial56-case run passed. Logs are frontend ignored
+`.git/gds-final-shipped.log` and `.git/gds-commerce-origin-shipped.log`.
+
+No runtime product source changes in PR61. Its CI/merge/main gates and temporary
+branch cleanup remain pending before final Workspace reconciliation.
