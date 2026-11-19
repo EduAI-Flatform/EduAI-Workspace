@@ -1,6 +1,6 @@
 # Original-plan completion audit
 
-Checkpoint: 2026-11-19. Overall result: **implementation evidenced; final release reconciliation pending**. This inventory derives from the owner's original numbered GDS plan and subsequent decisions, rather than from the features already implemented. It supplements the earlier broad requirement matrix.
+Checkpoint: 2026-11-19. Overall result: **declared implementation and scoped release verification evidenced; explicit conditional activations remain off**. This inventory derives from the owner's original numbered GDS plan and subsequent decisions, rather than from the features already implemented. It supplements the earlier broad requirement matrix. Final Workspace merge/conformance/branch cleanup must also pass before the completion report.
 
 `EVIDENCE` identifies inspected source/tests or an observed scoped receipt; it is not a blanket claim that every production path has been exercised. `REVIEW` requires further source/behavior verification. `OPEN` is a concrete missing deliverable. `VERIFYING` has a change undergoing release. `CONDITIONAL` retains an explicit original-plan business/provider prerequisite; it must remain safely off without inventing terms or endpoints.
 
@@ -147,12 +147,17 @@ Source references use `FE` = EduAI-Front-End-Web and `BE` = EduAI-Back-End. Thei
 | R07 | Rich text/draft/quiz/upload/cross-user tests | AUTHORIZATION-CONTENT-AUDIT.md reconciles P3/P4: escaped fixed rich-text renderer, owner/Admin draft guards, native replay/no-auto-attempt, real Prisma progress, owned uploads and private media; retained actual versus intercepted/mock scope remains explicit | EVIDENCE |
 | R08 | VI/EN/keyboard/focus/contrast/responsive seven sizes | ACCESSIBILITY-FINAL-AUDIT.md records196 axe cases and manual disposition of incomplete findings, conservative text contrast/raster measurements and named-group AX checks at seven widths. Released modal containment/restoration/visible-name/target checks combine with PR60 ranking/Commerce responsive fixtures. Existing feature-specific keyboard tests remain applicable; this is scoped evidence, not a blanket WCAG or all-screen-reader certification | EVIDENCE |
 | R09 | Vitest/build/Playwright; Jest/build/data integration for finance/conversion | Final-head/main CI plus disposable PostgreSQL replay; individual receipts retain exact SHAs/runs | EVIDENCE |
-| R10 | Delivery order, per-stage evidence and Workspace plan updates | Backend PR67 and frontend PR60 main CI/deploy/scoped production acceptance and merged branch cleanup passed. Production fixture evidence is49 unchanged cases plus7 corrected Commerce cases; test-only PR61 remains in CI before merge/main/cleanup. Workspace PR67 remains draft for final reconciliation; canonical financial records unchanged | VERIFYING |
+| R10 | Delivery order, per-stage evidence and Workspace plan updates | Backend PR67 and frontend PR60/61 exact tested-tree merges, main CI/deploy and merged remote/local branch cleanup passed. Production fixture evidence is49 unchanged cases plus7 corrected Commerce cases; actual backend read-only acceptance preserved the original auth family. Final receipts/contracts/state are reconciled through Workspace PR67 and local conformance/layout passed. Its own final merge/main CI/cleanup is a completion-report gate; canonical financial records unchanged | EVIDENCE |
 | R11 | No guessed policy defaults; incomplete integrations off; no fake metrics | Conservative effective policy readiness, public disabled flags, unconfigured affiliate/card terms | EVIDENCE |
 | R12 | Feature flags/rollback before removing structures; preserve SPR25-007 | Non-financial GDS release and rollback receipts; canonical financial records unchanged | EVIDENCE |
 | R13 | Production/risky migration/real money follow existing approval gates | Owner scoped authorizations and controlled backup/migration evidence; GDS completion cannot imply provider activation | EVIDENCE |
 
-## Immediate next work
+## Historical checkpoint and next work recorded on 2026-11-14
+
+The following notes retain their original timing. Their REVIEW priorities,
+P5.1 implementation gap and refresh failures were subsequently resolved by the
+later releases documented above and in FINAL-RELEASE-CONTINUATION.md. They are
+not current open tasks; the final table and project state are authoritative.
 
 1. FE PR44 release and public catalog/intake checks are complete; preserve the distinction between actual settings and intercepted fixture scenarios.
 2. Review the new P5.5 design with the first real school contract before any provider-specific implementation or synchronization activation.
