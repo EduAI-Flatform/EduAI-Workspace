@@ -69,3 +69,14 @@ Never infer successful checks from a prior, different commit.
 - Previous CI run #44259328586 failed 2 new mobile assertions solely because computed `display` was `block` instead of `inline`; assertion corrected to verify actual visibility and label text. Latest run passed.
 - No real authenticated Chrome UAT or mandatory Stitch review took place in this connector session, despite synthetic browser CI success.
 - Both PRs remain Draft; no merge/deployment or production environment changes.
+
+
+## 2026-11-19 — main/dev synchronization and UXR integration
+
+- User-authorized fast-forward synchronized Frontend `main = dev = 28d62e5c8d332524b4b6e26a044463a1e9a80467`, Backend `main = dev = 5e76fb87b26dbb20b3ab5fb757e1195d27c8b19c`, and Workspace `main = dev = 7732f350027e10bf28c98f7cfcc293fa1e551a61`.
+- Frontend UXR branch merged the latest dev baseline into its HEAD `494970eee1f24fd2cd369a639e52fd7ce1785c84`. The 2 overlapping paths were reconciled: latest ranking/defaults and all GDS CI cases retained alongside independent study/certificate routes and UXR test suite.
+- Workspace UXR branch similarly merged the latest dev baseline into HEAD `5b199127af354699ddb8ff5c6ccc0580f2d77d94`. No documentation paths overlap.
+- Frontend `dev...feature`: ahead 66 / behind 0; Workspace ahead 12 / behind 0. Both PRs remain **DRAFT**.
+- Workspace CI #44482625138: **SUCCESS**.
+- Frontend integration CI #44482565155: **RUNNING** at this evidence checkpoint (Frontend test/build job SUCCESS; remaining browser jobs not finalized). Prior 4/4 PASS applied to previous SHA and does not certify merged source.
+- Stitch design review, interactive authenticated existing-Chrome UAT and required PR design approval are still pending. Do not mark DONE or deploy production on this evidence.
