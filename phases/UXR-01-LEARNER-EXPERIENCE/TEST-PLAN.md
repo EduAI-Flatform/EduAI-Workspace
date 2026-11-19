@@ -1,0 +1,82 @@
+# UXR-01 validation plan
+
+Unit/regression:
+- Header labels and destinations under default and API-supplied old navigation.
+- StudentSidebar grouping and absence of redundant destinations.
+- Route mapping for /billing, order details, /profile, /wallet/gds, /membership-cards, /settings, /support.
+- Public guest /certificates: sign-in/verification only; authenticated certificate view.
+- Student/instructor/admin role-based routing unchanged.
+- Scroll: PUSH, REPLACE, POP, hashes, repeated navigation and nested containers.
+- Shared dropdown keyboard/outside interactions, locale persistence (UXR-01B).
+- Modal create/edit/cancel/validation/focus (UXR-01C).
+- Billing, Wallet and Membership regressions (UXR-01D).
+
+Runtime:
+- Existing Chrome session only; do not start another browser/profile.
+- Desktop/mobile widths: 320, 375, 768, 1024, 1440 and 1920 px.
+- Screenshot before/after, keyboard accessibility, contrast WCAG AA, no horizontal overflow.
+- CI status and exact SHA required before merge.
+
+## Observed evidence — 2026-11-18
+
+- Frontend implementation draft: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/pull/54
+- Workspace dossier draft: https://github.com/EduAI-Flatform/EduAI-Workspace/pull/65
+- Initial Frontend CI run 44240830519: 680/682 unit tests passed; 2 failed (undefined user.roles in mocked session, and font-weight 750 violating mobile token guard). Build skipped in that job.
+- Both identified failures were patched on the feature branch; latest observed SHA `9b93aa360887e5a433fc8620fd63b2ffb37167b7`, re-run 44241371504 **IN_PROGRESS**, not PASS.
+- Browser UAT using existing Chrome: NOT RUN. Connected browser tool is read-only and cannot perform interactive UAT.
+- Stitch design review: NOT RUN; Stitch MCP unavailable in this environment.
+- Merge/deploy: NOT DONE. Both PRs remain DRAFT pending mandatory gates.
+
+Never infer successful checks from a prior, different commit.
+
+
+## Further observed evidence
+- Repaired earlier source scanner errors for unlocalized literals in new dropdowns and header.
+- Legacy synthetic browser tests updated for account-profile modals and locale dropdown.
+- Added `playwright/uxr-navigation.spec.ts` for public routes, student account shell, locale, profile dialog, responsive widths (including 1920px), and scroll restoration. Registered in GDS CI test list.
+- An earlier SHA (`2391d4802`) passed unit/build and embedded checkout but failed GDS browser due old language select tests. Later UI changes require new complete run.
+- Current integration head latest observed: `c522fd19615553374b05f7a0e1b16ea558425b4f`. Latest CI **QUEUED** at last check; no latest-head PASS assertion.
+- All code remains only on a draft Frontend PR. Stitch review and interactive existing-Chrome UAT remain unavailable.
+
+## Integration checkpoint
+
+- Frontend PR #54 latest observed head `b9f32e0d2c1ff777cae3a44791dea241d535bb8f` (profile cancel regression included).
+- Latest-head GitHub Actions run: [#44246845713](https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44246845713), state **QUEUED** when observed. No conclusion or release claim.
+- Unit/build and checkout had earlier green results on older SHAs; these are not substitutes for exact-head gates.
+- Frontend PR and Workspace PR remain DRAFT; no main/prod changes after dev fast-forward baseline.
+
+## Verified exact-head CI PASS — 2026-11-18
+- Frontend commit: `f067a8c59721c73e2b5717b2a305869c35820cda`.
+- GitHub Actions run: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44258089080
+- Test/build frontend: **SUCCESS**.
+- PWA Chromium/WebKit browser smoke: **SUCCESS**.
+- Embedded checkout and wallet browser regression: **SUCCESS**.
+- GDS responsive browser scenarios: **SUCCESS**.
+- Screenshot evidence: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44258089080/artifacts/14407600811
+- Reviewed screenshot samples: student Billing and Profile, 375px and 1440px. Existing user data in screenshots synthetic.
+- Financial API contracts/payment logic untouched; code only in Draft PR #54.
+- Interactive existing-Chrome UAT: **NOT RUN**. Stitch MCP review: **NOT RUN**. Thus phase remains **VERIFYING**, not DONE, and merges remain blocked pending required review.
+
+
+## Latest verified integration gate — 2026-11-18
+
+- Final Frontend PR #54 head: `c256e8df9232c5b67ef6cea2177bb578c782731b`.
+- Exact-head workflow run: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44260012917
+- Result: **4/4 jobs SUCCESS** (unit/build, PWA, embedded checkout/receipt, GDS responsive).
+- GDS screenshot artifact: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44260012917/artifacts/14407213340
+- Payment browser artifact: https://github.com/EduAI-Flatform/EduAI-Front-End-Web/actions/runs/44260012917/artifacts/14408240253
+- Source code includes labeled mobile sidebar links; screenshots reviewed at 375px for student Billing.
+- Previous CI run #44259328586 failed 2 new mobile assertions solely because computed `display` was `block` instead of `inline`; assertion corrected to verify actual visibility and label text. Latest run passed.
+- No real authenticated Chrome UAT or mandatory Stitch review took place in this connector session, despite synthetic browser CI success.
+- Both PRs remain Draft; no merge/deployment or production environment changes.
+
+
+## 2026-11-19 — main/dev synchronization and UXR integration
+
+- User-authorized fast-forward synchronized Frontend `main = dev = 28d62e5c8d332524b4b6e26a044463a1e9a80467`, Backend `main = dev = 5e76fb87b26dbb20b3ab5fb757e1195d27c8b19c`, and Workspace `main = dev = 7732f350027e10bf28c98f7cfcc293fa1e551a61`.
+- Frontend UXR branch merged the latest dev baseline into its HEAD `494970eee1f24fd2cd369a639e52fd7ce1785c84`. The 2 overlapping paths were reconciled: latest ranking/defaults and all GDS CI cases retained alongside independent study/certificate routes and UXR test suite.
+- Workspace UXR branch similarly merged the latest dev baseline into HEAD `5b199127af354699ddb8ff5c6ccc0580f2d77d94`. No documentation paths overlap.
+- Frontend `dev...feature`: ahead 66 / behind 0; Workspace ahead 12 / behind 0. Both PRs remain **DRAFT**.
+- Workspace CI #44482625138: **SUCCESS**.
+- Frontend integration CI #44482565155: **RUNNING** at this evidence checkpoint (Frontend test/build job SUCCESS; remaining browser jobs not finalized). Prior 4/4 PASS applied to previous SHA and does not certify merged source.
+- Stitch design review, interactive authenticated existing-Chrome UAT and required PR design approval are still pending. Do not mark DONE or deploy production on this evidence.
