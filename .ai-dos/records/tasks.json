@@ -1,5 +1,42 @@
 [
-  {
+{
+  "kind": "task",
+  "schemaVersion": "1.0",
+  "id": "PAYW-03-005",
+  "title": "Billing and wallet Excel exports, inline MFA verification and learning status filters",
+  "category": "PAYW / Account UX",
+  "priority": "HIGH",
+  "objective": "Implement the owner-approved billing, invoice-request, wallet export, MFA and learning-status plan without changing settlement semantics.",
+  "dependencies": [
+    "PAYW-03-004"
+  ],
+  "acceptanceCriteria": [
+    "Owner-scoped complete Excel exports and truthful order/invoice status UI work with Vietnam calendar filters.",
+    "Inline same-account verification preserves the five-minute boundary and original session on cancellation/failure.",
+    "Focused regressions, responsive browser checks and builds pass; source release and production verification remain separately gated."
+  ],
+  "verification": [
+    "Frontend/backend focused tests, builds, endpoint audit and ZIP/XML workbook validation.",
+    "Synthetic browser scenarios at 320, 768, 1024 and 1440px; backend-first authorized release and exact production verification."
+  ],
+  "applicability": {
+    "tests": "REQUIRED",
+    "deployment": "REQUIRED",
+    "productionVerification": "REQUIRED"
+  },
+  "extensions": {
+    "source": "docs/handoffs/billing-wallet-auth-ux.md",
+    "affectedRepositories": [
+      "EduAI-Back-End",
+      "EduAI-Front-End-Web",
+      "EduAI-Workspace"
+    ],
+    "migrationRequired": false,
+    "productionSourceReleaseAuthorized": false,
+    "providerActivationAuthorized": false
+  }
+},
+{
     "kind":"task","schemaVersion":"1.0","id":"PAYW-03-004",
     "title":"Compact wallet totals and complete paginated activity","category":"PAYW / Wallet UX","priority":"HIGH",
     "objective":"Remove redundant balance/history controls and enable all activity filters beyond the recent20 window, with correct lifetime totals.",

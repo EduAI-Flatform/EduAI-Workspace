@@ -1,5 +1,39 @@
 [
-  {
+{
+  "kind": "evidence",
+  "schemaVersion": "1.0",
+  "id": "EVIDENCE:PAYW-03-005:LOCAL-20261120",
+  "taskId": "PAYW-03-005",
+  "checks": [
+    {
+      "kind": "TEST",
+      "name": "Focused regressions and synthetic browser scenarios",
+      "status": "PASS",
+      "reference": "Frontend99tests/16files; backend37export-history-request +28MFA tests. Four browser scenarios traverse four surfaces at320/768/1024/1440. See handoff for commands and limitations."
+    },
+    {
+      "kind": "BUILD",
+      "name": "Frontend and backend production builds",
+      "status": "PASS",
+      "reference": "Frontend tsc+Vite build and backend nest build+auth metadata passed."
+    },
+    {
+      "kind": "OTHER",
+      "name": "Workbook and authorization review",
+      "status": "PASS",
+      "reference": "Actual XLSX ZIP/XML parsing passed for orders, invoices and wallet; exact identifiers/money and no formulas. Endpoint audit359routes/0implicit."
+    }
+  ],
+  "result": "PASS",
+  "recordedAt": "2026-11-20T02:28:18.871Z",
+  "notes": "Local implementation evidence only. No remote-source or production claims; rollout and production verification remain required.",
+  "extensions": {
+    "taskComplete": false,
+    "sourceCommits": {"backend": ["5a6d565", "4c4db62"], "frontend": ["bd492dc", "989a153"]},
+    "scope": "LOCAL_IMPLEMENTATION_AND_VERIFICATION"
+  }
+},
+{
     "kind": "evidence",
     "schemaVersion": "1.0",
     "id": "EVIDENCE:PAYW-03-004:PRODUCTION-20261105",
