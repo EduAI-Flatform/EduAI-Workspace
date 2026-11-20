@@ -2,6 +2,50 @@
 {
   "kind": "evidence",
   "schemaVersion": "1.0",
+  "id": "EVIDENCE:PAYW-03-005:RELEASE-20261120",
+  "taskId": "PAYW-03-005",
+  "checks": [
+    {
+      "kind": "TEST",
+      "name": "Integrated source regressions and PR CI",
+      "status": "PASS",
+      "reference": "Backend2165tests/255suites, PR68 CI44669419963/replay44669420010 and PR69 CI44670070965/replay44670070919 PASS. Frontend774tests/168files, feature CI44695729670 all4jobs PASS including193GDS browser cases; promotion PR64 CI44696784918 all4jobs PASS.14wallet safety cases passed after correcting obsolete global textbox assumption."
+    },
+    {
+      "kind": "DEPLOY",
+      "name": "Observed backend-first automatic exact-source deployments",
+      "status": "PASS",
+      "reference": "Backend deploy44695456125 PASS with deployedBackendSha9f03f4e16fe23ac92cfaefe7d8f3fe889d60562f. Frontend deploy44697803240 VPS job136159243795 PASS with deployedFrontendSha47c1b98b5aca86caaa5200567a6c75aec85c19f5. Existing main-push workflows observed; no manual deployment/provider activation or authorization-control changes."
+    },
+    {
+      "kind": "PRODUCTION",
+      "name": "Bounded public and synthetic production-bundle verification",
+      "status": "PASS",
+      "reference": "Public backend health200/ok; unauthenticated order/invoice/wallet export endpoints401. Deployed frontend bundle passed four billing/wallet/learning/inline-MFA scenarios at320/768/1024/1440 using fully intercepted synthetic API fixtures. Screenshots inspected; no horizontal overflow or uncaught page errors. No real account login, customer records or financial writes."
+    }
+  ],
+  "result": "PASS",
+  "recordedAt": "2026-11-20T07:56:12.636Z",
+  "notes": "Backend and frontend integrations, required post-merge CI, automatic exact-source deployments and bounded production checks passed. Both source feature branches were removed locally/remotely after ancestry verification. Production authorization controls remain unchanged.",
+  "extensions": {
+    "taskComplete": true,
+    "sourceMainShas": {
+      "backend": "9f03f4e16fe23ac92cfaefe7d8f3fe889d60562f",
+      "frontend": "47c1b98b5aca86caaa5200567a6c75aec85c19f5"
+    },
+    "sourceDevShas": {
+      "backend": "9f03f4e16fe23ac92cfaefe7d8f3fe889d60562f",
+      "frontend": "13b88e0f7af05334af099be15f9dbe0dbc0bd1f9"
+    },
+    "postMergeCi": {"backendMain": 44695456132, "backendDev": 44695637452, "backendMainReplay": 44695456046, "backendDevReplay": 44695637681, "frontendMain": 44697803255, "frontendDev": 44696771192},
+    "sourceFeatureBranchesDeleted": true,
+    "realFinancialWrites": false,
+    "providerActivationAuthorized": false
+  }
+},
+{
+  "kind": "evidence",
+  "schemaVersion": "1.0",
   "id": "EVIDENCE:PAYW-03-005:LOCAL-20261120",
   "taskId": "PAYW-03-005",
   "checks": [

@@ -2,7 +2,7 @@
 
 Date: 2026-11-20 (Asia/Saigon)
 Task: PAYW-03-005
-State: implementation locally verified; release gates remain open.
+State: source main/dev integrations, post-merge CI, automatic deployments and bounded production checks verified.
 
 ## Behavior
 
@@ -37,7 +37,26 @@ Reproduce browser checks in Frontend:
 
     npx playwright test --config playwright/billing-wallet-ux.config.ts
 
-## Release handoff
+## Integration receipt
 
-Source committed on feature/billing-wallet-auth-ux: Backend 5a6d565 (MFA) and 4c4db62 (exports); Frontend bd492dc (MFA) and 989a153 (account UX). No push, PR, merge or production deployment was performed. New task remains IN_PROGRESS; existing financial/release gates are preserved. Backend must deploy before frontend so export metadata, date filters and the explicit MFA error contract exist first. Obtain applicable owner release authorization, run required CI/exact-revision checks, then production read-only verification. Follow repository branch strategy and merged temporary-branch cleanup when a merge workflow is authorized.
-Workspace validation: layout passed. AI-DOS contract validation reports MISSING_REQUIRED_EVIDENCE only for this new task's DEPLOY and PRODUCTION checks. This is an open release gate, not a local test failure; no fabricated evidence or gate exemption was added.
+The owner requested integration into main and dev after merging newer brand-consistency changes. Frontend includes ce101cd without rewriting history. Existing Workspace dev-only UI/UX documentation stays on dev and will be preserved.
+
+Backend:
+
+- Dev PR68 and main PR69 merged; local and remote main/dev both 9f03f4e16fe23ac92cfaefe7d8f3fe889d60562f.
+- PR CI, exact-main/dev CI and migration replays passed. Production workflow44695456125 succeeded; its log confirms the exact deployedBackendSha.
+- Public health200/ok; unauthenticated order, invoice and wallet export requests401. No credentials, customer records, financial writes or provider activation used for these checks.
+- Merged feature branch removed locally/remotely after ancestry checks; Backend left on clean dev.
+
+Frontend:
+
+- Dev PR63 and main PR64 merged after all4 CI groups and Vercel passed. Main47c1b98b5aca86caaa5200567a6c75aec85c19f5 and dev13b88e0f7af05334af099be15f9dbe0dbc0bd1f9 have identical source trees.
+- Main-push deployment44697803240 VPS job136159243795 passed; log confirms exact deployedFrontendSha. Backend deployed first.
+- Deployed frontend bundle passed all4 synthetic API-intercepted scenarios at320/768/1024/1440; screenshots inspected. These are production-bundle UI checks, not real customer or financial UAT.
+- Initial wallet sandbox failures were obsolete global textbox-count assertions after adding date filters. Corrected assertions preserve the no-inline-topup-input safety check and require visible date filters; all14 affected local cases passed.
+- Exact-main CI44697803255 and dev CI44696771192 passed all4 groups (unit/build, PWA, checkout and193GDS scenarios). Feature/promotion checks also passed; no CI bypass or history rewrite.
+- Merged feature branch removed locally/remotely after both remote branches and CI were verified. Frontend left on clean dev; local main/dev match their remotes and have identical source trees.
+
+Workspace dev-only UI/UX documentation stays on dev; only this feature/evidence is integrated into main. Existing financial/manual activation gates remain unchanged. Production authorization controls, including productionSourceReleaseAuthorized=false, are unchanged; this receipt records observed existing automation and does not authorize manual deployment or activation.
+
+Workspace contracts and layout passed locally with the observed release evidence; canonical task PAYW-03-005 is closed without changing production authorization or existing financial/manual activation gates.

@@ -6,9 +6,9 @@
   "aiDosVersion": "1.2.0",
   "status": "IN_PROGRESS",
   "currentSprintId": "SPRINT:25",
-  "currentTaskId": "PAYW-03-005",
+  "currentTaskId": null,
   "taskStatuses": {
-    "PAYW-03-005": "IN_PROGRESS",
+    "PAYW-03-005": "DONE",
     "PAYW-03-004":"DONE",
     "PAYW-03-003": "DONE",
     "PAYW-03-002": "WAITING_MANUAL",
